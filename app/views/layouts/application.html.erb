@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Lvfp</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+  <header class="cf header2">
+    <nav>
+      <ul>
+      <nav class="navbar navbar-expand-lg navbar-light" style="background-color:#F5F5F5; border: 2px solid black; padding-">
+    <div class="container">
+    <a class="navbar-brand js-scroll-trigger" href="#page-top">
+    <img class="logo-navbar" src="/assets/favicon-32x32.png">
+</a>
+        <a class="navbar-brand" href="#">Launch Voice First portal</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <% unless user_signed_in? %>
+                <li class="nav-item" >
+                  <li><%= link_to "Login ", '/auth/login' %></li>
+                </li>
+                <li style="padding-right:40px !important"></li>
+                <li class="nav-item">
+                    <li><%= link_to " Register", '/auth/register/signup' %></li>
+                </li>
+                <% else %>
+                <li class="nav-item">
+                <li><%= link_to "Text To Speech ", '/speeches' %></li>
+              </li>
+              <li style="padding-right:40px !important"></li>
+                <li class="nav-item">
+                <li><%= link_to "Logout ", '/auth/logout' %></li>
+              </li>
+                <% end %>
+            </ul>
+
+        </div>
+    </div>
+</nav>
+
+      </ul>
+    </nav>
+  </header>
+    <div class="container">
+      <%= flash[:alert] %>
+      <%= flash[:notice] %>
+      <%= yield %>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,17 @@
+// Place all the styles related to the speeches controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.column {
+    float: left;
+    width: 50%;
+    padding: 45px;
+  }
+  
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }

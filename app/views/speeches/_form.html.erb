@@ -1,0 +1,57 @@
+<%= form_with(model: speech, local: true) do |form| %>
+  <% if speech.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(speech.errors.count, "error") %> prohibited this speech from being saved:</h2>
+
+      <ul>
+      <% speech.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%#= form.label :code %>
+    <%#= form.text_field :code, id: :speech_code %>
+  </div>
+
+  <div class="field">
+    <%#= form.label :email_address %>
+    <%#= form.text_field :email_address, id: :speech_email_address %>
+  </div>
+
+  
+
+  
+
+
+<div class="row">
+<div class="column">
+<div class="field">
+<%= form.label "Content" %>
+</div>
+<div class="field">
+<%= form.text_area :content, id: :speech_content, size: "60x5" %>
+</div>
+<div class="actions">
+    <%= form.submit 'Submit', class:"btn btn-primary" %>
+  </div>
+</div>
+<div class="column">
+<div class="field">
+<%= form.label "Speak" %>
+</div>
+<div class="field">
+<%= form.text_area :content, id: :speech_content, size: "60x5", disabled:true %>
+</div>
+<div class="actions">
+    <%= form.submit 'Speak', class:"btn btn-primary", disabled:true %>
+  </div>
+</div>
+</div>
+</div> 
+
+<% end %>
+
+<div class="row"><br/></div>
