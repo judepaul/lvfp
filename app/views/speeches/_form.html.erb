@@ -32,7 +32,7 @@
 <%= form.label "Content" %>
 </div>
 <div class="field">
-<%= form.text_area :content, id: :speech_content, size: "60x5" %>
+<%= form.text_area :content, id: :add_speech_content, size: "60x5" %>
 </div>
 <div class="actions">
     <%= form.submit 'Submit', class:"btn btn-primary" %>
@@ -43,11 +43,20 @@
 <%= form.label "Speak" %>
 </div>
 <div class="field">
-<%= form.text_area :content, id: :speech_content, size: "60x5", disabled:true %>
+<%= form.text_area :content, id: :display_speech_content, size: "60x5", disabled:true %>
 </div>
 <div class="actions">
-    <%= form.submit 'Speak', class:"btn btn-primary", disabled:true %>
+    <button type="button" class="btn btn-primary speak" onclick="recognition.start()" disabled>Speak</button>
+</div> 
+
+<div id="modal1" class="modal">
+  <h4>Speech Synthesis not supported</h4>
+  <p>Your browser does not support speech synthesis.</p>
+  <p>We recommend you use Google Chrome.</p>
+  <div class="action-bar">
+    <a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Close</a>
   </div>
+</div>
 </div>
 </div>
 </div> 

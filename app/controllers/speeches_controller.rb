@@ -4,7 +4,7 @@ class SpeechesController < ApplicationController
   # GET /speeches
   # GET /speeches.json
   def index
-    @speeches = Speech.all
+    @speeches = Speech.order('id DESC').paginate(page: params[:page])
     @speech = Speech.new
   end
 

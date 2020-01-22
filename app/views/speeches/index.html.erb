@@ -5,32 +5,53 @@
 
 <!-- <p id="notice"><%= notice %></p> -->
 
-<h1>Speeches</h1>
 
-<table>
+<div class="container">
+
+<div class="row justify-content-end" style="text-align: right !important;">
+<%= will_paginate @speeches, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+</div>
+
+<table width=100% border=1px>
   <thead>
-    <tr>
+    <tr align="center">
       <th>Code</th>
-      <th>Email address</th>
       <th>Content</th>
-      <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @speeches.each do |speech| %>
       <tr>
-        <td><%= speech.code %></td>
-        <td><%= speech.email_address %></td>
-        <td><%= speech.content %></td>
-        <td><%= link_to 'Show', speech %></td>
-        <td><%= link_to 'Edit', edit_speech_path(speech) %></td>
-        <td><%= link_to 'Destroy', speech, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td class="email_code" style="text-decoration: underline; cursor:pointer; "><%= speech.code %></td>
+        <td class="email_content_<%=speech.code%>"><%= speech.content %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
+<br/>
 
+<div class="row justify-content-end" style="text-align: right !important;">
+<%= will_paginate @speeches, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+</div>
+
+<br/>
+</div>
 <%= link_to 'New Speech', new_speech_path %>
+
+
+
+<script type="text/javascript">
+  var recognition = new SpeechRecognition();
+  recognition.onresult = function(event) {
+    if (event.results.length > 0) {
+      display_speech_content.value = event.results[0][0].transcript;
+      display_speech_content.form.submit();
+    }
+  }
+</script>
+
+
+
+
