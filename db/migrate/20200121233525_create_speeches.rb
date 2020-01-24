@@ -3,7 +3,7 @@ class CreateSpeeches < ActiveRecord::Migration[5.1]
     create_table :speeches do |t|
       t.string :code
       t.string :email_address
-      t.string :content
+      t.text :content
 
       t.timestamps
     end
