@@ -1,4 +1,5 @@
 class SpeechesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_speech, only: [:show, :edit, :update, :destroy]
 
   # GET /speeches
