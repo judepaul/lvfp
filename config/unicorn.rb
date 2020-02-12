@@ -1,19 +1,19 @@
-# set path to the application
-app_dir = File.expand_path("../..", __FILE__)
-shared_dir = "#{app_dir}/shared"
-working_directory app_dir
+app_name = "lvfp"
+# Set the working application directory. This should be your rails app root dir, not the public dir
+app_root = File.expand_path(File.dirname(__FILE__) + '/..')
+working_directory app_root
 
-# Set unicorn options
-worker_processes 2
-preload_app true
+# Number of processes
+worker_processes number_of_app_instances
+# Time-out
 timeout 30
 
 # Path for the Unicorn socket
-listen "#{shared_dir}/sockets/unicorn.sock", :backlog => 64
+listen "/tmp/unicorn.#{app_name}.sock"
 
 # Set path for logging
-stderr_path "#{shared_dir}/log/unicorn.stderr.log"
-stdout_path "#{shared_dir}/log/unicorn.stdout.log"
+stderr_path "#{app_root}/log/unicorn.log"
+stdout_path "#{app_root}/log/unicorn.log"
 
 # Set proccess id path
-pid "#{shared_dir}/pids/unicorn.pid"
+pid "#{app_root}/tmp/pids/unicorn.pid"
