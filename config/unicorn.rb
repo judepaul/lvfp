@@ -1,4 +1,5 @@
 app_name = "lvfp"
+number_of_app_instances = 2
 # Set the working application directory. This should be your rails app root dir, not the public dir
 app_root = File.expand_path(File.dirname(__FILE__) + '/..')
 working_directory app_root
