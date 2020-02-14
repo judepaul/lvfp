@@ -23,7 +23,8 @@ class SkillsController < ApplicationController
         when 'AccessCode'   
           access_code = input.slots["access_code"]["value"]       
           # message = "You said, #{given}."
-          if access_code == '9964'
+          if User.select('access_code').include? access_code
+          # if access_code == '9964'
             vc_admin_id = User.user_by_code(access_code)[0].id
             Audiance.create(voice_user_id: voice_user_id, device_id: device_id, user_id:vc_admin_id)
             content = UserContentMap.where(user_id: vc_admin_id).last.speech.content
