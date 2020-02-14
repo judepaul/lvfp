@@ -6,6 +6,6 @@ class Speech < ApplicationRecord
 
     protected
     def set_code_for_email
-        self.code = SecureRandom.random_number(1000)
+        self.email_code = SecureRandom.random_number(1000)
     end
 end
