@@ -16,6 +16,7 @@
   <thead>
     <tr align="center">
       <th>Code</th>
+      <th>Access Code</th>
       <th>Content</th>
     </tr>
   </thead>
@@ -23,7 +24,8 @@
   <tbody>
     <% @speeches.each do |speech| %>
       <tr>
-        <td class="email_code" style="text-decoration: underline; cursor:pointer; "><%= speech.code %></td>
+        <td class="email_code" style="text-decoration: underline; cursor:pointer; text-align:center;"><%= speech.code %></td>
+        <td style="text-align:center;"><%= speech.user_content_map.user.access_code %></td>
         <td class="email_content_<%=speech.code%>"><%= speech.content %></td>
       </tr>
     <% end %>

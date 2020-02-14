@@ -30,6 +30,7 @@ class SpeechesController < ApplicationController
 
     respond_to do |format|
       if @speech.save
+        UserContentMap.create(user_id: current_user.id, speech_id: @speech.id)
         format.html { redirect_to '/speeches', notice: 'Speech was successfully created.' }
         format.json { render :new, status: :created, location: @speech }
       else
