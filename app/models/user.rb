@@ -1,6 +1,7 @@
 class User < ApplicationRecord
 
   has_many :audiances
+  has_many :user_content_map
 
   scope :user_by_code, -> (access_code) { where access_code: access_code}
   # Assign role to new user
