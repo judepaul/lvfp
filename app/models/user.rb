@@ -5,7 +5,7 @@ class User < ApplicationRecord
 
   scope :user_by_code, -> (access_code) { where access_code: access_code}
   # Assign role to new user
-  after_initialize :set_default_role, :if => :new_record?
+  after_save :set_default_role, :if => :new_record?
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
