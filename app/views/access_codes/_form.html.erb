@@ -1,0 +1,45 @@
+<div class="row" style="height:60px"></div>  
+<div class="container">
+<div class="row justify-content-center">
+<div class="col-md-10">
+<div class="card" style="width:900px;">
+                    <div class="card-header text-white">Generate Access Code</div>
+                    <div class="card-body" style="height:360px;">
+<%= form_with(model: access_code, local: true) do |form| %>
+  <% if access_code.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(access_code.errors.count, "error") %> prohibited this access_code from being saved:</h2>
+
+      <ul>
+      <% access_code.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<div class="form-group row"></div>
+<div class="form-group row">
+                                <label for="email_address" class="col-md-4 col-form-label text-md-right">Access Code</label>
+                                <div class="col-md-6">
+                                    <%= form.number_field :code, id: :access_code_code, class: "form-control" %>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="password" class="col-md-4 col-form-label text-md-right">Title</label>
+                                <div class="col-md-6">
+                                    <%= form.text_field :title, id: :access_code_title, class: "form-control" %>
+                                </div>
+                            </div>
+
+                            <div class="actions text-right" style="padding:0 40px 30px 0; position: absolute; bottom: 0; right: 0;">
+    <%= link_to 'List Access Code', access_codes_path, class: "btn btn-primary" %>
+    <%= form.submit "Generate", class: "btn btn-primary" %>
+
+  </div>
+</div>
+</div>  
+<% end %>
+</div>
+</div>
+</div>

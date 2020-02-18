@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200214103017) do
+ActiveRecord::Schema.define(version: 20200218083701) do
+
+  create_table "access_codes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "code"
+    t.string "title"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_access_codes_on_user_id"
+  end
 
   create_table "audiances", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "voice_user_id"
@@ -58,6 +67,7 @@ ActiveRecord::Schema.define(version: 20200214103017) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "access_codes", "users"
   add_foreign_key "audiances", "users"
   add_foreign_key "user_content_maps", "speeches"
   add_foreign_key "user_content_maps", "users"

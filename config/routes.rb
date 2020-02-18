@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  resources :access_codes
   resources :speeches
   resources :skills
   get 'dashboard/index'

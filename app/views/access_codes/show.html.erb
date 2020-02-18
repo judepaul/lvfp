@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Code:</strong>
+  <%= @access_code.code %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @access_code.title %>
+</p>
+
+<%= link_to 'Edit', edit_access_code_path(@access_code) %> |
+<%= link_to 'Back', access_codes_path %>
