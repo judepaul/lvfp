@@ -21,54 +21,37 @@
     <%#= form.text_field :email_address, id: :speech_email_address %>
   </div>
 
-  
 
   
-
-
-<div class="row">
-<div class="column">
-<div class="field">
-<%= form.label "Content" %>
-</div>
-<div class="field">
-<%= form.text_area :content, id: :add_speech_content, size: "60x5" %>
-</div>
-<div class="actions">
-    <%= form.submit 'Submit', class:"btn btn-primary" %>
-  </div>
-</div>
-<div class="column">
-<div class="field">
-<%= form.label "Speak" %>
-</div>
-<div class="field">
-<%= form.text_area :content, id: :display_speech_content, size: "60x5", disabled:true %>
-</div>
-<div class="actions" id="textToSynth">
-    <table>
-        <!-- <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr> -->
-        <tr>
-        <!-- <td>
-              <button type="button" class="btn btn-primary speak" onClick="speakText()" disabled><span class="glyphicon glyphicon-volume-up"></span>Speak</button> 
-          </td>
-          <td style="width:30px;"></td> -->
-          <td>
-              <audio id="audioPlayback" controls>
-                  <source id="audioSource" type="audio/mp3" src="">
-              </audio>
-              <p id="result">
-          </td>
-        </tr>
-    </table>
-    
-</div> 
-</div>
-</div>
+<div class="container">
+    <div class="container-fluid px-0">
+        <div class="row no-gutters">
+            <div class="col-sm-12 col-md mr-md-3">
+                <p><h4>Enter the text to convert speech</h4></p>
+                <p><%= form.text_area :content, id: :add_speech_content, size: "1x5", class: 'form-control' %></p>
+                <p class="text-right"><%= form.submit 'Submit', class:"btn btn-primary" %></p>
+            </div>
+            <div class="col-sm-12 col-md ml-md-3">
+                <p><h4>Let's Listen</h4></p>
+                <p><%= form.text_area :content, id: :display_speech_content, size: "40x5", class: 'form-control', disabled:true %></p>
+                <p>
+                  <div class="actions" id="textToSynth">
+                    <table>
+                      <tr>
+                        <td style="width:300px;"></td>
+                        <td>
+                          <audio id="audioPlayback" controls>
+                            <source id="audioSource" type="audio/mp3" src="">
+                          </audio>
+                          <p id="result">
+                        </td>
+                      </tr>
+                    </table>
+                  </div> 
+                </p>
+            </div>
+        </div>
+    </div> 
 </div> 
 
 <% end %>
