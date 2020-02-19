@@ -26,8 +26,6 @@ class AccessCodesController < ApplicationController
   # POST /access_codes.json
   def create
     @access_code = AccessCode.new(access_code_params)
-    p "!!!!!!!!!!!!"
-    p AccessCode.check_code access_code_params[:code]
     if AccessCode.check_code(access_code_params[:code]).blank?
       @access_code.user_id = current_user.id
       respond_to do |format|

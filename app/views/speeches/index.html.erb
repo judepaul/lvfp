@@ -4,15 +4,18 @@
 
 
 <!-- <p id="notice"><%= notice %></p> -->
-
-
-<div class="container">
+<div class="row" style="height:440px"></div>  
+<div class="container" style="width:100%;">
+<div class="row justify-content-left">
+<div class="card" style="width:100%;">
+                    <div class="card-header text-white">List</div>
+                    <div class="card-body" style="height:auto;">
 
 <div class="row justify-content-end" style="text-align: right !important;">
 <%= will_paginate @speeches, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
 </div>
 
-<table width=100% border=1px>
+<table width=100% border=1>
   <thead>
     <tr align="center">
       <th>Code </th>
@@ -24,9 +27,9 @@
   <tbody>
     <% @speeches.each do |speech| %>
       <tr>
-        <td class="email_code" style="text-decoration: underline; cursor:pointer; text-align:center;"><%= speech.email_code %></td>
-        <td style="text-align:center;"><%= speech.user_content_map.user.access_code %></td>
-        <td class="email_content_<%=speech.email_code%>"><%= speech.content %></td>
+        <td class="email_code" style="text-decoration: underline; cursor:pointer; text-align:center; width: 10%"><%= speech.email_code %></td>
+        <td style="text-align:center; width: 20%"><%= speech.access_code_speech_map.nil? ? '-' : speech.access_code_speech_map.access_code.title %></td>
+        <td style="width: 70%" class="email_content_<%=speech.email_code%>"><%= speech.content %></td>
       </tr>
     <% end %>
   </tbody>
@@ -38,13 +41,32 @@
 <%= will_paginate @speeches, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
 </div>
 
-<br/>
+</div>
+</div>
 </div>
 <%#= link_to 'New Speech', new_speech_path %>
 
 
 
 <script type="text/javascript">
+$(document).ready(function() {
+$('#add_speech_content').mouseout(function () {
+if ($.trim($('#add_speech_content').val()).length > 0)
+{
+  $("#acc_code_id").prop("disabled", false);
+}
+});
+
+$("#acc_code_id").change(function(){
+  if($(this).val() == ""){
+    $("#save_content").prop("disabled", true);
+  }
+  else {
+    $("#save_content").prop("disabled", false);
+  }
+});
+});
+
   var recognition = new SpeechRecognition();
   recognition.onresult = function(event) {
     if (event.results.length > 0) {
@@ -52,6 +74,8 @@
       display_speech_content.form.submit();
     }
   }
+
+
 </script>
 
 

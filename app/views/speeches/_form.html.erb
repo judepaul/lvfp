@@ -27,14 +27,34 @@
     <div class="container-fluid px-0">
         <div class="row no-gutters">
             <div class="col-sm-12 col-md mr-md-3">
-                <p><h4>Enter the text to convert speech</h4></p>
-                <p><%= form.text_area :content, id: :add_speech_content, size: "1x5", class: 'form-control' %></p>
-                <p class="text-right"><%= form.submit 'Submit', class:"btn btn-primary" %></p>
+              <div class="card">
+                    <div class="card-header text-white"><strong>Add Content</strong></div>
+                    <div class="card-body">
+                        <div class="form-group row">
+                                <div class="mt-2 col-md-12">
+                                    <%= form.text_area :content, id: :add_speech_content, size: "30x5", class: 'form-control', placeholder: 'Enter the text to convert speech' %>
+                                </div>
+                                <div class="mt-4 col-md-12">
+                                  <%= select_tag 'acc_code_id', options_for_select(@access_codes.collect{ |c| ["#{c.code} - #{c.title}", c.id]}), prompt: "Select Access Code", class: "form-control", disabled:true %>
+                                </div>
+                                <div class="mt-4 col-md-12"></div>
+                                <div class="mt-4 col-md-6 offset-md-10">
+                                  <%= form.submit 'Submit', id: 'save_content', class:"btn btn-primary", disabled: true %>
+                                </div>
+                            </div>
+                    </div>
+              </div>
             </div>
             <div class="col-sm-12 col-md ml-md-3">
-                <p><h4>Let's Listen</h4></p>
-                <p><%= form.text_area :content, id: :display_speech_content, size: "40x5", class: 'form-control', disabled:true %></p>
-                <p>
+                <div class="card">
+                    <div class="card-header text-white"><strong>Let's Listen</strong></div>
+                    <div class="card-body">
+                      <div class="form-group row">
+                        <div class="mt-2 col-md-12">
+                          <%= form.text_area :content, id: :display_speech_content, size: "40x5", class: 'form-control', disabled:true %>
+                        </div>
+                        <div class="mt-4 col-md-12"></div>
+                        <div class="mt-4 col-md-12">
                   <div class="actions" id="textToSynth">
                     <table>
                       <tr>
@@ -48,7 +68,8 @@
                       </tr>
                     </table>
                   </div> 
-                </p>
+                  <div class="mt-4 col-md-6 offset-md-10"></div>
+                  </div>
             </div>
         </div>
     </div> 

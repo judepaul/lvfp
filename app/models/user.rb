@@ -1,7 +1,6 @@
 class User < ApplicationRecord
 
   has_many :audiances
-  has_many :user_content_map
   has_many :access_code
 
 

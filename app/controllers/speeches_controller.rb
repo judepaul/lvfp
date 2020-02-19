@@ -7,6 +7,7 @@ class SpeechesController < ApplicationController
   def index
     @speeches = Speech.order('id DESC').paginate(page: params[:page])
     @speech = Speech.new
+    @access_codes = AccessCode.order('id DESC')
   end
 
   # GET /speeches/1
@@ -30,7 +31,12 @@ class SpeechesController < ApplicationController
 
     respond_to do |format|
       if @speech.save
-        UserContentMap.create(user_id: current_user.id, speech_id: @speech.id)
+        # commented by Jude on 02/19/2020. There will access_code_speech_map association instead
+        # UserContentMap.create(user_id: current_user.id, speech_id: @speech.id)
+        p "speech_params[:acc_code_id], speech_id: @speech.id"
+        p params[:acc_code_id]
+        p @speech.id
+        AccessCodeSpeechMap.create(access_code_id: params[:acc_code_id], speech_id: @speech.id)
         format.html { redirect_to '/speeches', notice: 'Speech was successfully created.' }
         format.json { render :new, status: :created, location: @speech }
       else
