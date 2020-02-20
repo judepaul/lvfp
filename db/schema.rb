@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 20200219114637) do
   end
 
   create_table "speeches", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer "email_code"
+    t.integer "email_code", default: 1000
     t.string "email_address"
     t.text "content"
     t.datetime "created_at", null: false

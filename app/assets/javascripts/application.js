@@ -19,9 +19,16 @@ $(document).ready(function () {
     $('.email_code').click(function () {
         var code = $(this).text();
         var content = $('.email_content_'+code).text();
+        var access_code = $('.client_access_code_'+code).text();
+        var speech_id = $('.speech_'+code).val();
+        $('.delete_speech').show();
+        $(".delete_speech").attr("href", "/speeches/"+speech_id);
+        $('#client_access_code').text(access_code);
         $('#display_speech_content').value = "";
         $('#display_speech_content').text(content);
         $('.speak').removeAttr('disabled');
+        $('.audioPlayback').removeAttr('disabled');
+        
         speakText();
     });
 

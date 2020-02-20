@@ -4,7 +4,7 @@
 
 
 <!-- <p id="notice"><%= notice %></p> -->
-<div class="row" style="height:440px"></div>  
+<div class="row" style="height:480px"></div>  
 <div class="container" style="width:100%;">
 <div class="row justify-content-left">
 <div class="card" style="width:100%;">
@@ -19,7 +19,7 @@
   <thead>
     <tr align="center">
       <th>Code </th>
-      <th>Access Code</th>
+      <th>Client Access Code</th>
       <th>Content</th>
     </tr>
   </thead>
@@ -28,8 +28,9 @@
     <% @speeches.each do |speech| %>
       <tr>
         <td class="email_code" style="text-decoration: underline; cursor:pointer; text-align:center; width: 10%"><%= speech.email_code %></td>
-        <td style="text-align:center; width: 20%"><%= speech.access_code_speech_map.nil? ? '-' : speech.access_code_speech_map.access_code.title %></td>
+        <td style="text-align:center; width: 20%" class="client_access_code_<%=speech.email_code%>"><%= speech.access_code_speech_map.nil? ? '-' : "#{speech.access_code_speech_map.access_code.code} - #{ speech.access_code_speech_map.access_code.title } " %></td>
         <td style="width: 70%" class="email_content_<%=speech.email_code%>"><%= speech.content %></td>
+        <input type="hidden" class="speech_<%=speech.email_code%>" value="<%= speech.id %>" />
       </tr>
     <% end %>
   </tbody>

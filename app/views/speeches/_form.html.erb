@@ -51,6 +51,11 @@
                     <div class="card-body">
                       <div class="form-group row">
                         <div class="mt-2 col-md-12">
+                          <strong>Client Access Code - </strong> <span id="client_access_code"></span>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="mt-2 col-md-12">
                           <%= form.text_area :content, id: :display_speech_content, size: "40x5", class: 'form-control', disabled:true %>
                         </div>
                         <div class="mt-4 col-md-12"></div>
@@ -58,12 +63,15 @@
                   <div class="actions" id="textToSynth">
                     <table>
                       <tr>
-                        <td style="width:300px;"></td>
-                        <td>
-                          <audio id="audioPlayback" controls>
+                        <td><a href="" class="btn btn-danger delete_speech" data-confirm="Are you sure?" data-method="delete" style="display:none;" rel="nofollow">Delete</a></td>
+                        <td style="width:200px;"></td>
+                        <td> 
+                          <!-- <audio id="audioPlayback" controls> -->
+                          <audio id="audioPlayback">
                             <source id="audioSource" type="audio/mp3" src="">
                           </audio>
-                          <p id="result">
+                          <button type="button" class="btn btn-primary audioPlayback"  onclick="aud_play_pause()" disabled>Play/Pause</button>
+                          <%# <p id="result"></p> %>
                         </td>
                       </tr>
                     </table>
@@ -113,4 +121,14 @@
       }
     });
   }
+
+    function aud_play_pause() {
+  var myAudio = document.getElementById("audioPlayback");
+  if (myAudio.paused) {
+    myAudio.play();
+  } else {
+    myAudio.pause();
+  }
+}
+
 </script>

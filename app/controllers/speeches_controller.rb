@@ -36,6 +36,7 @@ class SpeechesController < ApplicationController
         p "speech_params[:acc_code_id], speech_id: @speech.id"
         p params[:acc_code_id]
         p @speech.id
+        @speech.update_attribute("email_code", @speech.email_code += @speech.id)
         AccessCodeSpeechMap.create(access_code_id: params[:acc_code_id], speech_id: @speech.id)
         format.html { redirect_to '/speeches', notice: 'Speech was successfully created.' }
         format.json { render :new, status: :created, location: @speech }
