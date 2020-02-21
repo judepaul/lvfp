@@ -15,7 +15,8 @@ class SkillsController < ApplicationController
           session_end = false
         else
           vc_id = Audiance.check_device_exists(device_id).last.user_id
-          content = UserContentMap.where(user_id: vc_id).last.speech.content
+          access_code_id = AccessCode.where(user_id: vc_id).last.id
+          content = AccessCodeSpeechMap.where(access_code_id: access_code_id).last.speech.content
           message = "Hello! welcome to voice chimp. Here is your latest email. #{content}"; 
         end  
       when "INTENT_REQUEST"
@@ -23,11 +24,12 @@ class SkillsController < ApplicationController
         when 'AccessCode'   
           access_code = input.slots["access_code"]["value"]       
           # message = "You said, #{given}."
-          if User.pluck(:access_code).include?access_code.to_i
+          if AccessCode.pluck(:code).include?access_code.to_i
           # if access_code == '9964'
-            vc_admin_id = User.user_by_code(access_code)[0].id
+            access_code_id = AccessCode.where(code: access_code).last.id
+            vc_admin_id = AccessCode.where(code: access_code).last.user_id
             Audiance.create(voice_user_id: voice_user_id, device_id: device_id, user_id:vc_admin_id)
-            content = UserContentMap.where(user_id: vc_admin_id).last.speech.content
+            content = AccessCodeSpeechMap.where(access_code_id: access_code_id).last.speech.content
             if content.blank?
               message = 'Sorry! I couldn\'t find any content avaiable for the code that you are asking'
             else
