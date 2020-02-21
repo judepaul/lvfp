@@ -16,6 +16,9 @@ class SkillsController < ApplicationController
         else
           vc_id = Audiance.check_device_exists(device_id).last.user_id
           access_code_id = AccessCode.where(user_id: vc_id).last.id
+          p "!!!!!!!!!"
+          p access_code_id
+          p AccessCodeSpeechMap.where(access_code_id: access_code_id).last
           content = AccessCodeSpeechMap.where(access_code_id: access_code_id).last.speech.content
           message = "Hello! welcome to voice chimp. Here is your latest email. #{content}"; 
         end  
