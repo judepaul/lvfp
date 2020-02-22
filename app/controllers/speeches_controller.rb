@@ -7,7 +7,8 @@ class SpeechesController < ApplicationController
   def index
     @speeches = Speech.order('id DESC').paginate(page: params[:page])
     @speech = Speech.new
-    @access_codes = AccessCode.order('id DESC')
+    # @access_codes = AccessCode.order('id DESC')
+    @access_codes = AccessCode.where(user_id: current_user.id).order('id DESC')
   end
 
   # GET /speeches/1

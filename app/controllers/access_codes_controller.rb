@@ -5,7 +5,7 @@ class AccessCodesController < ApplicationController
   # GET /access_codes.json
   def index
     # @access_codes = AccessCode.all
-    @access_codes = AccessCode.order('id DESC').paginate(page: params[:page])
+    @access_codes = AccessCode.where(user_id: current_user.id).order('id DESC').paginate(page: params[:page])
   end
 
   # GET /access_codes/1
@@ -61,10 +61,22 @@ class AccessCodesController < ApplicationController
   # DELETE /access_codes/1
   # DELETE /access_codes/1.json
   def destroy
-    @access_code.destroy
-    respond_to do |format|
-      format.html { redirect_to access_codes_url, notice: 'Access code was successfully destroyed.' }
-      format.json { head :no_content }
+    # commented on 02/22/2020 by Jude for checking dependent records for the access code before deleting
+    p "!!!!!!!!!!"
+    active_message_arr = Array.new
+    AccessCodeSpeechMap.where(access_code: params[:id]).map {|acm| acm.speech.is_deleted.nil? ? active_message_arr << acm.speech.id : ''}
+    p active_message_arr
+    if active_message_arr.blank?
+      @access_code.destroy
+      respond_to do |format|
+        format.html { redirect_to access_codes_url, notice: 'Access code was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to access_codes_url, notice: 'Access code has associated with some active messages. Please deactivate those before deleting access code' }
+        format.json { head :no_content }
+      end
     end
   end
 

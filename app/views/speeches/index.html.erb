@@ -29,7 +29,7 @@
       <% if speech.is_deleted? %>
       <tr >
         <td class="speech-disabled" style="text-align:center; width: 10%;"><%= speech.email_code %></td>
-        <td class="speech-disabled" style="text-align:center; width: 20%;" class="client_access_code_<%=speech.email_code%>"><%= speech.access_code_speech_map.nil? ? '-' : "#{speech.access_code_speech_map.last.access_code.code} - #{ speech.access_code_speech_map.last.access_code.title } " %></td>
+        <td class="speech-disabled" style="text-align:center; width: 20%;" class="client_access_code_<%=speech.email_code%>"><%= speech.access_code_speech_map.nil? ? '-' : speech.access_code_speech_map.last.nil? ? '-' : "#{speech.access_code_speech_map.last.access_code.code} - #{ speech.access_code_speech_map.last.access_code.title } " %></td>
         <td style="width: 70%;" class="speech-disabled email_content_<%=speech.email_code%>"><%= speech.content %></td>
         <input type="hidden" class="speech_<%=speech.email_code%>" value="<%= speech.id %>" />
       </tr>

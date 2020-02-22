@@ -14,11 +14,7 @@ class SkillsController < ApplicationController
           message = "Hello! welcome to voice chimp; Please say your access code to get started."
           session_end = false
         else
-          vc_id = Audiance.check_device_exists(device_id).last.user_id
-          access_code_id = AccessCode.where(user_id: vc_id).last.id
-          p "!!!!!!!!!"
-          p access_code_id
-          p AccessCodeSpeechMap.where(access_code_id: access_code_id).last
+          access_code_id = Audiance.check_device_exists(device_id).last.access_code_id
           content = AccessCodeSpeechMap.where(access_code_id: access_code_id).last.speech.content
           message = "Hello! welcome to voice chimp. Here is your latest email. #{content}"; 
         end  
