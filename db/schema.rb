@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200221142344) do
+ActiveRecord::Schema.define(version: 20200222124644) do
 
   create_table "access_code_speech_maps", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "access_code_id"
@@ -48,6 +48,10 @@ ActiveRecord::Schema.define(version: 20200221142344) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "is_deleted"
+    t.bigint "user_id_id"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_speeches_on_user_id"
+    t.index ["user_id_id"], name: "index_speeches_on_user_id_id"
   end
 
   create_table "user_content_maps", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -84,6 +88,7 @@ ActiveRecord::Schema.define(version: 20200221142344) do
   add_foreign_key "access_codes", "users"
   add_foreign_key "audiances", "access_codes"
   add_foreign_key "audiances", "users"
+  add_foreign_key "speeches", "users"
   add_foreign_key "user_content_maps", "speeches"
   add_foreign_key "user_content_maps", "users"
 end
