@@ -16,8 +16,16 @@
     <%= render 'layouts/shared/navbar' %>
   </header>
     <div class="container">
-      <%= flash[:alert] %>
-      <%= flash[:notice] %>
+      <%#= flash[:alert] %>
+      <%#= flash[:notice] %>
+      <div class="container">
+  <% flash.each do |type, msg| %>
+    <div class="alert <%= bootstrap_class_for_flash(type) %> alert-dismissable fade show">
+      <%= msg %>
+      <button class="close" data-dismiss="alert">x</button>
+    </div>
+  <% end %> 
+</div>
       <%= yield %>
     </div>
     </div>

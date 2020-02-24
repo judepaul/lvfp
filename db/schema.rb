@@ -48,10 +48,8 @@ ActiveRecord::Schema.define(version: 20200222124644) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "is_deleted"
-    t.bigint "user_id_id"
     t.bigint "user_id"
     t.index ["user_id"], name: "index_speeches_on_user_id"
-    t.index ["user_id_id"], name: "index_speeches_on_user_id_id"
   end
 
   create_table "user_content_maps", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

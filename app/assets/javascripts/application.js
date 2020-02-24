@@ -14,8 +14,29 @@
 //= require jquery_ujs
 //= require popper
 //= require bootstrap-sprockets
+//= require toastr
+
 
 $(document).ready(function () {
+
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": true,
+        "positionClass": "toast-top-full-width",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "3000",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+      }
+
     $('.email_code').click(function () {
         var code = $(this).text();
         var content = $('.email_content_'+code).text();

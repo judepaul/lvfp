@@ -29,15 +29,11 @@ class SpeechesController < ApplicationController
   # POST /speeches.json
   def create
     @speech = Speech.new(speech_params)
-
     respond_to do |format|
       if @speech.save
         # commented by Jude on 02/19/2020. There will access_code_speech_map association instead
         # UserContentMap.create(user_id: current_user.id, speech_id: @speech.id)
-        p "speech_params[:acc_code_id], speech_id: @speech.id"
-        p params[:acc_code_id]
-        p @speech.id
-        @speech.update_attribute("email_code", @speech.email_code += @speech.id)
+        @speech.update_attributes(email_code: @speech.email_code += @speech.id, user_id: current_user.id)
         AccessCodeSpeechMap.create(access_code_id: params[:acc_code_id], speech_id: @speech.id)
         format.html { redirect_to '/speeches', notice: 'Speech was successfully created.' }
         format.json { render :new, status: :created, location: @speech }
