@@ -53,6 +53,20 @@ $(document).ready(function () {
         speakText();
     });
 
+
+    //Speech content Modal Window
+        $('#orderModal').modal({
+            keyboard: true,
+            backdrop: "static",
+            show:false,
+    
+        }).on('show', function(){ //subscribe to show method
+              var getContentFromRow = $(event.target).closest('tr').data('content'); //get the content from tr
+              alert(getContentFromRow);
+              //make your ajax call populate items or what even you need
+            $(this).find('#orderDetails').html($(getContentFromRow))
+        });
+
   });
 
 

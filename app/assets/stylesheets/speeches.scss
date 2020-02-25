@@ -23,3 +23,18 @@
 .speech-disabled {
   background-color: #e9ecef;
 }
+
+
+//Added by Jude on 25/02/2020 - styles to hide long text after 2nd line
+.content {
+  display: block;
+  display: -webkit-box;
+  max-width: 100%;
+  margin: 0 auto;
+  -webkit-line-clamp: 2;
+  /* autoprefixer: off */
+  -webkit-box-orient: vertical;
+  /* autoprefixer: on */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

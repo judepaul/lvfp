@@ -22,7 +22,7 @@
   </div>
 
 
-  
+<div class="row" style="height:30px;"></div>
 <div class="container">
     <div class="container-fluid px-0">
         <div class="row no-gutters">
@@ -31,61 +31,35 @@
                     <div class="card-header text-white"><strong>Add Content</strong></div>
                     <div class="card-body">
                         <div class="form-group row">
-                                <div class="mt-2 col-md-12">
-                                    <%= form.text_area :content, id: :add_speech_content, size: "30x5", class: 'form-control', placeholder: 'Enter the text to convert speech' %>
+                                <div class="mt-2 col-md-3 text-right" style="padding-top:60px;">
+                                    <strong>Content</strong>
                                 </div>
-                                <div class="mt-4 col-md-12">
+                                <div class="mt-4 col-md-8 offset-md-1">
+                                  <%= form.text_area :content, id: :add_speech_content, size: "30x5", class: 'form-control', placeholder: 'Enter the text to convert speech' %>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="mt-2 col-md-3 text-right" style="padding-top:10px;">
+                                    <strong>Select Group</strong>
+                                </div>
+                                <div class="mt-4 col-md-6 offset-md-1">
                                   <%= select_tag 'acc_code_id', options_for_select(@access_codes.collect{ |c| ["#{c.code} - #{c.title}", c.id]}), prompt: "Select Access Code", class: "form-control", disabled:true %>
                                 </div>
                                 <div class="mt-4 col-md-12"></div>
-                                <div class="mt-4 col-md-6 offset-md-10">
-                                  <%= form.submit 'Submit', id: 'save_content', class:"btn btn-primary", disabled: true %>
+                                <div class="mt-4 col-md-12 offset-md-11">
                                 </div>
-                            </div>
+                                <div class="actions text-right" style="padding:0 40px 30px 0; position: absolute; bottom: 0; right: 0;">
+                                  <%= form.submit 'Publish', id: 'save_content', class:"btn btn-primary", disabled: true %>
+                                </div>
                     </div>
               </div>
-            </div>
-            <div class="col-sm-12 col-md ml-md-3">
-                <div class="card">
-                    <div class="card-header text-white"><strong>Let's Listen</strong></div>
-                    <div class="card-body">
-                      <div class="form-group row">
-                        <div class="mt-2 col-md-12">
-                          <strong>Client Access Code - </strong> <span id="client_access_code"></span>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <div class="mt-2 col-md-12">
-                          <%= form.text_area :content, id: :display_speech_content, size: "40x5", class: 'form-control', disabled:true %>
-                        </div>
-                        <div class="mt-4 col-md-12"></div>
-                        <div class="mt-4 col-md-12">
-                  <div class="actions" id="textToSynth">
-                    <table>
-                      <tr>
-                        <td><a href="" class="btn btn-danger delete_speech" data-confirm="Are you sure?" data-method="delete" style="display:none;" rel="nofollow">Delete</a></td>
-                        <td style="width:200px;"></td>
-                        <td> 
-                          <!-- <audio id="audioPlayback" controls> -->
-                          <audio id="audioPlayback">
-                            <source id="audioSource" type="audio/mp3" src="">
-                          </audio>
-                          <button type="button" class="btn btn-primary audioPlayback"  onclick="aud_play_pause()" disabled>Play/Pause</button>
-                          <%# <p id="result"></p> %>
-                        </td>
-                      </tr>
-                    </table>
-                  </div> 
-                  <div class="mt-4 col-md-6 offset-md-10"></div>
-                  </div>
             </div>
         </div>
     </div> 
 </div> 
 
 <% end %>
-
-<div class="row"><br/></div>
 
 
 <script type="text/javascript">
@@ -130,5 +104,35 @@
     myAudio.pause();
   }
 }
+
+</script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+$('#add_speech_content').mouseout(function () {
+if ($.trim($('#add_speech_content').val()).length > 0)
+{
+  $("#acc_code_id").prop("disabled", false);
+}
+});
+
+$("#acc_code_id").change(function(){
+  if($(this).val() == ""){
+    $("#save_content").prop("disabled", true);
+  }
+  else {
+    $("#save_content").prop("disabled", false);
+  }
+});
+});
+
+  var recognition = new SpeechRecognition();
+  recognition.onresult = function(event) {
+    if (event.results.length > 0) {
+      display_speech_content.value = event.results[0][0].transcript;
+      display_speech_content.form.submit();
+    }
+  }
+
 
 </script>

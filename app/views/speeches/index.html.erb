@@ -1,92 +1,76 @@
 <div class="row" style="height:60px;"></div>
 
-<%= render 'form', speech: @speech %>
+<%#= render 'form', speech: @speech %>
 
 
 <!-- <p id="notice"><%= notice %></p> -->
-<div class="row" style="height:480px"></div>  
-<div class="container" style="width:100%;">
-<div class="row justify-content-left">
-<div class="card" style="width:100%;">
-                    <div class="card-header text-white">List</div>
-                    <div class="card-body" style="height:auto;">
-
-<div class="row justify-content-end" style="text-align: right !important;">
-<%= will_paginate @speeches, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
-</div>
-
-<table width=100% border=1>
-  <thead>
-    <tr align="center">
-      <th># </th>
-      <th>Group</th>
-      <th>Content</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @speeches.each do |speech| %>
-      <% if speech.is_deleted? %>
-      <tr >
-        <td class="speech-disabled" style="text-align:center; width: 10%;"><%= speech.id %></td>
-        <td class="speech-disabled" style="text-align:center; width: 20%;" class="client_access_code_<%=speech.email_code%>"><%= speech.access_code_speech_map.nil? ? '-' : speech.access_code_speech_map.last.nil? ? '-' : "#{speech.access_code_speech_map.last.access_code.code} - #{ speech.access_code_speech_map.last.access_code.title } " %></td>
-        <td style="width: 70%;" class="speech-disabled email_content_<%=speech.email_code%>"><%= speech.content %></td>
-        <input type="hidden" class="speech_<%=speech.email_code%>" value="<%= speech.id %>" />
-      </tr>
-      <% else %>
-      <tr>
-        <td class="email_code" style="text-decoration: underline; cursor:pointer; text-align:center; width: 10%"><%= speech.email_code %></td>
-        <td style="text-align:center; width: 20%" class="client_access_code_<%=speech.email_code%>"><%= speech.access_code_speech_map.nil? ? '-' : "#{speech.access_code_speech_map.last.access_code.code} - #{ speech.access_code_speech_map.last.access_code.title } " %></td>
-        <td style="width: 70%" class="email_content_<%=speech.email_code%>"><%= speech.content %></td>
-        <input type="hidden" class="speech_<%=speech.email_code%>" value="<%= speech.id %>" />
-      </tr>
-      <% end %>
+<div id="accordion">
+  <% unless @access_codes.blank?
+        @access_codes.each_with_index do |ac,indx|
+  %>
+  <div class="card">
+    <div class="card-header" id="heading<%=indx+1%>" class="btn btn-link" data-toggle="collapse" data-target="#collapse<%=indx+1%>" aria-expanded="true" aria-controls="collapse<%=indx+1%>" style="color: #FFF !important; text-decoration: none !important; padding: 10px; !important;">
+      <h6>Group Name - <%= ac.title.titlecase %> | Group Code - <%= ac.code %></h6>
+    </div>
+    <% if indx==0 %>
+        <div id="collapse<%=indx+1%>" class="collapse show" aria-labelledby="heading<%=indx+1%>" data-parent="#accordion">
+    <% else %>
+        <div id="collapse<%=indx+1%>" class="collapse" aria-labelledby="heading<%=indx+1%>" data-parent="#accordion">
     <% end %>
-  </tbody>
-</table>
+      <div class="card-body table-responsive">
+        <table class="table table-bordered">
+          <thead class="">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Content</th>
+            </tr>
+          </thead>
+        <% ac.access_code_speech_map.each_with_index do |acsm,indx| %>
+          <tbody>
+            <tr data-toggle="modal" data-target="#contentModal" data-content="Hello">
+              <th scope="row"><%= acsm.speech.id %></th>
+              <td><p class="content"><%= acsm.speech.content %></p></td>
+            </tr>
+          </tbody>
+        <% end %>
+        </table>
+      </div>
+    </div>
 
-<br/>
-
-<div class="row justify-content-end" style="text-align: right !important;">
-<%= will_paginate @speeches, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
-</div>
-
-</div>
-</div>
+  </div>
+  <br/>
+  <% end
+    end
+  %>
 </div>
 <%#= link_to 'New Speech', new_speech_path %>
+<br/>
+
+<div class="actions text-right" style="padding:0 40px 30px 0; position: absolute; bottom: 0; right: 0;">
+<%= link_to 'Add Content', new_speech_path, class: 'btn btn-primary' %>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="contentModal" tabindex="-1" role="dialog" aria-labelledby="contentModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Listen/Delete content</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div id="contentDetails" class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
-
-<script type="text/javascript">
-$(document).ready(function() {
-$('#add_speech_content').mouseout(function () {
-if ($.trim($('#add_speech_content').val()).length > 0)
-{
-  $("#acc_code_id").prop("disabled", false);
-}
-});
-
-$("#acc_code_id").change(function(){
-  if($(this).val() == ""){
-    $("#save_content").prop("disabled", true);
-  }
-  else {
-    $("#save_content").prop("disabled", false);
-  }
-});
-});
-
-  var recognition = new SpeechRecognition();
-  recognition.onresult = function(event) {
-    if (event.results.length > 0) {
-      display_speech_content.value = event.results[0][0].transcript;
-      display_speech_content.form.submit();
-    }
-  }
-
-
-</script>
 
 
 
