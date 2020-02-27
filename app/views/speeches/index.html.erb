@@ -27,7 +27,7 @@
           </thead>
         <% ac.access_code_speech_map.each_with_index do |acsm,indx| %>
           <tbody>
-            <tr data-toggle="modal" data-target="#contentModal" data-content="Hello">
+            <tr data-toggle="modal" data-target="#contentModal" data-content="<%= acsm.speech.content %>" style="cursor: pointer;">
               <th scope="row"><%= acsm.speech.id %></th>
               <td><p class="content"><%= acsm.speech.content %></p></td>
             </tr>
@@ -60,17 +60,70 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+      <input type="hidden" id="speech_content" />
       <div id="contentDetails" class="modal-body">
+        
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger">Delete</button>
+        <!-- <audio id="audioPlayback" controls> -->
+<audio id="audioPlayback">
+<source id="audioSource" type="audio/mp3" src="">
+</audio>
+<button type="button" class="btn btn-primary audioPlayback" onclick="aud_play_pause()">Play/Pause</button>
+
       </div>
     </div>
   </div>
 </div>
 
+<script type="text/javascript">
 
+  // Initialize the Amazon Cognito credentials provider
+  AWS.config.region = 'us-east-1'; 
+  AWS.config.credentials = new AWS.CognitoIdentityCredentials({IdentityPoolId: 'us-east-1:4ab148dd-0ed5-4a4e-a211-58fa42678b45'});
+  
+  // Function invoked by button click
+  function speakText() {
+      // Create the JSON parameters for getSynthesizeSpeechUrl
+      var speechParams = {
+          OutputFormat: "mp3",
+          SampleRate: "16000",
+          Text: "",
+          TextType: "text",
+          VoiceId: "Joanna"
+      };
+      speechParams.Text = document.getElementById("speech_content").value;
+      //speechParams.Text = $("#contentModal").find('speech_content').val();
+      
+      // Create the Polly service object and presigner object
+      var polly = new AWS.Polly({apiVersion: '2016-06-10'});
+      var signer = new AWS.Polly.Presigner(speechParams, polly)
+  
+      // Create presigned URL of synthesized speech file
+      console.log("signer --" +signer.getSynthesizeSpeechUrl);
+      signer.getSynthesizeSpeechUrl(speechParams, function(error, url) {
+      if (error) {
+          //document.getElementById('result').innerHTML = error;
+      } else {
+          document.getElementById('audioSource').src = url;
+          document.getElementById('audioPlayback').load();
+          //document.getElementById('result').innerHTML = "Speech ready to play.";
+      }
+    });
+  }
+
+    function aud_play_pause() {
+  var myAudio = document.getElementById("audioPlayback");
+  if (myAudio.paused) {
+    myAudio.play();
+  } else {
+    myAudio.pause();
+  }
+}
+
+</script>
 
 
 

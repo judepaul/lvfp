@@ -61,52 +61,6 @@
 
 <% end %>
 
-
-<script type="text/javascript">
-
-  // Initialize the Amazon Cognito credentials provider
-  AWS.config.region = 'us-east-1'; 
-  AWS.config.credentials = new AWS.CognitoIdentityCredentials({IdentityPoolId: 'us-east-1:4ab148dd-0ed5-4a4e-a211-58fa42678b45'});
-  
-  // Function invoked by button click
-  function speakText() {
-      // Create the JSON parameters for getSynthesizeSpeechUrl
-      var speechParams = {
-          OutputFormat: "mp3",
-          SampleRate: "16000",
-          Text: "",
-          TextType: "text",
-          VoiceId: "Joanna"
-      };
-      speechParams.Text = document.getElementById("display_speech_content").value;
-      // Create the Polly service object and presigner object
-      var polly = new AWS.Polly({apiVersion: '2016-06-10'});
-      var signer = new AWS.Polly.Presigner(speechParams, polly)
-  
-      // Create presigned URL of synthesized speech file
-      console.log("signer --" +signer.getSynthesizeSpeechUrl);
-      signer.getSynthesizeSpeechUrl(speechParams, function(error, url) {
-      if (error) {
-          document.getElementById('result').innerHTML = error;
-      } else {
-          document.getElementById('audioSource').src = url;
-          document.getElementById('audioPlayback').load();
-          document.getElementById('result').innerHTML = "Speech ready to play.";
-      }
-    });
-  }
-
-    function aud_play_pause() {
-  var myAudio = document.getElementById("audioPlayback");
-  if (myAudio.paused) {
-    myAudio.play();
-  } else {
-    myAudio.pause();
-  }
-}
-
-</script>
-
 <script type="text/javascript">
 $(document).ready(function() {
 $('#add_speech_content').mouseout(function () {
