@@ -10,7 +10,11 @@
   %>
   <div class="card">
     <div class="card-header" id="heading<%=indx+1%>" class="btn btn-link" data-toggle="collapse" data-target="#collapse<%=indx+1%>" aria-expanded="true" aria-controls="collapse<%=indx+1%>" style="color: #FFF !important; text-decoration: none !important; padding: 10px; !important;">
-      <h6>Group Name - <%= ac.title.titlecase %> | Group Code - <%= ac.code %></h6>
+      <div class="row">
+      <div class="col-md-6"><h6>Group Name - <%= ac.title.titlecase %> | Group Code - <%= ac.code %></h6></div>
+      <div class="col-md-5 text-right"><h6>Published Articles - <%= articlel_count ac.id %></h6></div>
+        <div class="col-md-1" style="padding:3px 40px 0 0;"><i class="fas fa-plus float-right "></i></div>
+      </div>
     </div>
     <% if indx==0 %>
         <div id="collapse<%=indx+1%>" class="collapse show" aria-labelledby="heading<%=indx+1%>" data-parent="#accordion">
