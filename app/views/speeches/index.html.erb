@@ -31,7 +31,7 @@
           </thead>
         <% ac.access_code_speech_map.each_with_index do |acsm,indx| %>
           <tbody>
-            <tr data-toggle="modal" data-target="#contentModal" data-content="<%= acsm.speech.content %>" style="cursor: pointer;">
+            <tr data-toggle="modal" data-target="#contentModal" data-id=<%= acsm.speech.id %> data-content="<%= acsm.speech.content %>" style="cursor: pointer;">
               <th scope="row"><%= acsm.speech.id %></th>
               <td><p class="content"><%= acsm.speech.content %></p></td>
             </tr>
@@ -51,7 +51,7 @@
 <br/>
 
 <div class="actions text-right" style="padding:0 40px 30px 0; position: absolute; bottom: 0; right: 0;">
-<%= link_to 'Add Content', new_speech_path, class: 'btn btn-primary' %>
+<%= link_to 'Add Content', new_speech_path, class: 'btn btn-outline-primary' %>
 </div>
 
 <!-- Modal -->
@@ -69,13 +69,15 @@
         
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-danger">Delete</button>
+        <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-outline-danger delete_speech" data-confirm="Are you sure?" data-method="delete">Delete</button> -->
+        <%= link_to 'Delete', '', method: :delete, confirm: "Are you sure?", :class => 'btn btn-outline-danger delete-speech' %>
+        
         <!-- <audio id="audioPlayback" controls> -->
 <audio id="audioPlayback">
 <source id="audioSource" type="audio/mp3" src="">
 </audio>
-<button type="button" class="btn btn-primary audioPlayback" onclick="aud_play_pause()">Play/Pause</button>
+<button type="button" class="btn btn-outline-primary audioPlayback" onclick="aud_play_pause()">Play/Pause</button>
 
       </div>
     </div>

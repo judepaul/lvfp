@@ -60,9 +60,9 @@ class SpeechesController < ApplicationController
   # DELETE /speeches/1
   # DELETE /speeches/1.json
   def destroy
-    #@speech.destroy
+    @speech.destroy
     # speech_id = params[:id]
-    @speech.update_attribute("is_deleted", true)
+    # @speech.update_attribute("is_deleted", true)
     respond_to do |format|
       format.html { redirect_to speeches_url, notice: 'Speech was successfully destroyed.' }
       format.json { head :no_content }

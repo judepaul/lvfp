@@ -57,6 +57,8 @@ $(document).ready(function () {
     //Speech content Modal Window
         $('#contentModal').on('show.bs.modal', function(e) { //subscribe to show method
             var getContentFromRow = $(event.target).closest('tr').data('content'); 
+            var getIdFromRow = $(event.target).closest('tr').data('id');
+            $('.delete-speech').attr('href', '/speeches/' + getIdFromRow);
             //Set the value into modal div
             $(this).find('#contentDetails').text(getContentFromRow);
             //Set the value to fetch the content for Audio
