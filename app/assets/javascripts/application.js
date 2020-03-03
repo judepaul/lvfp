@@ -78,6 +78,12 @@ $(document).ready(function () {
         	$(this).prev(".card-header").find("i").removeClass("fa-minus").addClass("fa-plus");
         });
 
+        //Stop Audio transcription while close the modal window
+        $('.close-modal').click(function(){
+            var myAudio = document.getElementById("audioPlayback");
+            myAudio.pause();
+        });
+
   });
 
 
