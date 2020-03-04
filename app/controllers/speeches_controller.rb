@@ -7,6 +7,7 @@ class SpeechesController < ApplicationController
   def index
     @speeches = Speech.where(user_id: current_user.id).order('id DESC').paginate(page: params[:page])
     @access_codes = AccessCode.where(user_id: current_user.id).order('id DESC')
+    @group_code = params[:group_code] unless params[:group_code].blank?
   end
 
   # GET /speeches/1
@@ -60,11 +61,13 @@ class SpeechesController < ApplicationController
   # DELETE /speeches/1
   # DELETE /speeches/1.json
   def destroy
+    # Get Group Id to show the accordion after delete
+    access_code_id = AccessCodeSpeechMap.where(speech_id: params[:id]).last.access_code_id unless params[:id].blank?
     @speech.destroy
     # speech_id = params[:id]
     # @speech.update_attribute("is_deleted", true)
     respond_to do |format|
-      format.html { redirect_to speeches_url, notice: 'Speech was successfully destroyed.' }
+      format.html { redirect_to speeches_url(group_code: access_code_id), notice: 'Speech was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

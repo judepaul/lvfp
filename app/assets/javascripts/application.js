@@ -66,17 +66,17 @@ $(document).ready(function () {
             speakText();
         });
 
-        // Add minus icon for collapse element which is open by default
-        $(".collapse.show").each(function(){
-        	$(this).prev(".card-header").find("i").addClass("fa-minus").removeClass("fa-plus");
-        });
+        // // Add minus icon for collapse element which is open by default
+        // $(".collapse.show").each(function(){
+        // 	$(this).prev(".card-header").find("i").addClass("fa-minus").removeClass("fa-plus");
+        // });
         
-        // Toggle plus minus icon on show hide of collapse element
-        $(".collapse").on('show.bs.collapse', function(){
-        	$(this).prev(".card-header").find("i").removeClass("fa-plus").addClass("fa-minus");
-        }).on('hide.bs.collapse', function(){
-        	$(this).prev(".card-header").find("i").removeClass("fa-minus").addClass("fa-plus");
-        });
+        // // Toggle plus minus icon on show hide of collapse element
+        // $(".collapse").on('show.bs.collapse', function(){
+        // 	$(this).prev(".card-header").find("i").removeClass("fa-plus").addClass("fa-minus");
+        // }).on('hide.bs.collapse', function(){
+        // 	$(this).prev(".card-header").find("i").removeClass("fa-minus").addClass("fa-plus");
+        // });
 
         //Stop Audio transcription while close the modal window
         $('.close-modal').click(function(){

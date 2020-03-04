@@ -35,7 +35,8 @@
                                     <strong>Content</strong>
                                 </div>
                                 <div class="mt-4 col-md-8 offset-md-1">
-                                  <%= form.text_area :content, id: :add_speech_content, size: "30x5", class: 'form-control', placeholder: 'Enter the text to convert speech' %>
+                                  <%= form.text_area :content, id: :add_speech_content, size: "30x9", class: 'form-control', placeholder: 'Enter the text to convert speech' %>
+                                  <div class="mt-4 col-md-8" id="textarea_feedback"></div>
                                 </div>
                             </div>
 
@@ -78,6 +79,14 @@ $("#acc_code_id").change(function(){
     $("#save_content").prop("disabled", false);
   }
 });
+
+var text_max = 7999;
+$('#textarea_feedback').html(text_max + ' characters remaining');
+$('#add_speech_content').keyup(function() {
+        var text_length = $('#add_speech_content').val().length;
+        var text_remaining = text_max - text_length;
+        $('#textarea_feedback').html(text_remaining + ' characters remaining');
+    });
 });
 
   var recognition = new SpeechRecognition();
