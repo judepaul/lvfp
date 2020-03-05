@@ -13,4 +13,6 @@ Rails.application.routes.draw do
   # Amazon comes in with a post request
   post '/skill/handler' => 'skills#root', :as => :skill_handler
 
+  get "users/check_username", :controller => "registrations", :action => "check_username"
+
 end

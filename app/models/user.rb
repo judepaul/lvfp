@@ -15,8 +15,32 @@ class User < ApplicationRecord
 
   enum role: [:user, :system_admin, :vc_admin]
 
+validates :email, uniqueness: false
+validates :username, uniqueness: true
+
+# Only allow letter, number, underscore and punctuation.
+validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true
+
   def set_default_role
     self.role ||= :vc_admin
+  end
+
+  def email_required?
+    false
+  end
+  def email_changed?
+    false
+  end
+  def will_save_change_to_email?
+    false
+  end
+
+  protected
+
+  def self.find_for_database_authentication(warden_conditions)
+    conditions = warden_conditions.dup
+    login = conditions.delete(:username)
+    where(conditions).where(["lower(username) = :value", { :value => login.downcase }]).first
   end
 
 

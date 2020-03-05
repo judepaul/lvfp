@@ -8,24 +8,16 @@
 
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <script src="https://sdk.amazonaws.com/js/aws-sdk-2.410.0.min.js"></script>
-  
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
   </head>
 
   <body>
   <header class="cf header2">
     <%= render 'layouts/shared/navbar' %>
   </header>
-    <div class="container">
-      <%#= flash[:alert] %>
-      <%#= flash[:notice] %>
-      <div class="container">
-  <% flash.each do |type, msg| %>
-    <div class="alert <%= bootstrap_class_for_flash(type) %> alert-dismissable fade show">
-      <%= msg %>
-      <button class="close" data-dismiss="alert">x</button>
-    </div>
-  <% end %> 
-</div>
+
       <%= yield %>
     </div>
     </div>
