@@ -28,7 +28,7 @@
         <div class="row no-gutters">
             <div class="col-sm-12 col-md mr-md-3">
               <div class="card">
-                    <div class="card-header text-white"><strong>Add Content</strong></div>
+                    <div class="card-header text-white"><strong>Add Article</strong></div>
                     <div class="card-body">
                         <div class="form-group row">
                                 <div class="mt-2 col-md-3 text-right" style="padding-top:60px;">
@@ -42,7 +42,7 @@
 
                             <div class="form-group row">
                                 <div class="mt-2 col-md-3 text-right" style="padding-top:10px;">
-                                    <strong>Select Group</strong>
+                                    <strong>Select Listener Group</strong>
                                 </div>
                                 <div class="mt-4 col-md-6 offset-md-1">
                                   <%= select_tag 'acc_code_id', options_for_select(@access_codes.collect{ |c| ["#{c.code} - #{c.title}", c.id]}), prompt: "Select Access Code", class: "form-control", disabled:true %>

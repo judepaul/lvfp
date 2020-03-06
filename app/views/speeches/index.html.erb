@@ -2,7 +2,7 @@
 
 <%#= render 'form', speech: @speech %>
 
-
+<div class="container">
 <!-- <p id="notice"><%= notice %></p> -->
 <div id="accordion">
   <% unless @access_codes.blank?
@@ -11,8 +11,8 @@
   <div class="card">
     <div class="card-header" id="heading<%=indx+1%>" class="btn btn-link" data-toggle="collapse" data-target="#collapse<%=indx+1%>" aria-expanded="true" aria-controls="collapse<%=indx+1%>" style="color: #FFF !important; text-decoration: none !important; padding: 10px; !important;">
       <div class="row">
-      <div class="col-md-6"><h6>Group Name - <%= ac.title.titlecase %> | Group Code - <%= ac.code %></h6></div>
-      <div class="col-md-5 text-right"><h6>Published Articles - <%= articlel_count ac.id %></h6></div>
+      <div class="col-md-12" style="padding-left:20px;"><h6>Campaign Name: <%= ac.title.titlecase %> | Listener Group  Access Code: <%= ac.code %></h6></div>
+      <!-- <div class="col-md-6 text-right" style="padding-right:20px;"><h6>Published Articles - <%#= articlel_count ac.id %></h6></div> -->
         <%# <div class="col-md-1" style="padding:3px 40px 0 0;"><i class="fas fa-plus float-right "></i></div> %>
       </div>
     </div>
@@ -38,7 +38,7 @@
           <thead class="">
             <tr>
               <th scope="col">#</th>
-              <th scope="col">Content</th>
+              <th scope="col">Articles</th>
             </tr>
           </thead>
         <% ac.access_code_speech_map.each_with_index do |acsm,indx| %>
@@ -58,28 +58,38 @@
   <% end
     end
   %>
+
+	<div class="row">
+  		<div class="actions text-right col-md-12" style="padding:30px 10px 0 30px; bottom: 0; right: 0;">
+  			<%= link_to 'Add Article', new_speech_path, class: 'btn btn-outline-primary' %>
+
+		</div>
+	</div>
+
+</div>
+
 </div>
 <%#= link_to 'New Speech', new_speech_path %>
 <br/>
 
-<div class="actions text-right" style="padding:0 40px 30px 0; position: absolute; bottom: 0; right: 0;">
-<%= link_to 'Add Content', new_speech_path, class: 'btn btn-outline-primary' %>
-</div>
+
 
 <!-- Modal -->
 <div class="modal fade" id="contentModal" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="contentModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
+        <div class="row">
+        <div class="">
         <h5 class="modal-title" id="exampleModalLabel">Content</h5>
-        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button> -->
         <!-- <audio id="audioPlayback" controls> -->
         <audio id="audioPlayback">
           <source id="audioSource" type="audio/mp3" src="">
         </audio>
-        <button type="button" class="btn btn-outline-primary audioPlayback" onclick="aud_play_pause()">Play/Pause</button>
+        <button type="button" class="audioPlayback" onclick="aud_play_pause()"><i class="fa fa-play" aria-hidden="true"></i></button>
+                <button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close">
+          <i class="far fa-window-close"></i> 
+        </button>
       </div>
       <input type="hidden" id="speech_content" />
       <div id="contentDetails" class="modal-body">

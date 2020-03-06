@@ -3,8 +3,8 @@
 <div class="row justify-content-center">
 <div class="col-md-10">
 <div class="card" style="width:900px;">
-                    <div class="card-header text-white text-bold">Manage Groups</div>
-                    <div class="card-body" style="height:360px;">
+                    <div class="card-header text-white text-bold">Manage Campaign</div>
+                    <div class="card-body" style="height:auto;">
 <%= form_with(model: access_code, local: true) do |form| %>
   <% if access_code.errors.any? %>
     <div id="error_explanation">
@@ -32,8 +32,14 @@
                                     <%= form.text_field :title, id: :access_code_title, class: "form-control" %>
                                 </div>
                             </div>
-
-                            <div class="actions text-right" style="padding:0 40px 30px 0; position: absolute; bottom: 0; right: 0;">
+                            <div class="form-group row">
+                                <label for="password" class="col-md-4 col-form-label text-md-right text-bold">Listener Group Name</label>
+                                <div class="col-md-6">
+                                    <%#= form.text_field :title, id: :access_code_title, class: "form-control" %>
+                                    <input type="text" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="actions text-right" style="padding:30px 40px 30px 0; bottom: 0; right: 0;">
     <%= link_to 'Back', access_codes_path, class: "btn btn-outline-primary" %>
     <%= form.submit "Submit", class: "btn btn-outline-primary" %>
 
