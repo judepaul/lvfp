@@ -19,6 +19,9 @@
 
 $(document).ready(function () {
 
+    //Tooltip in the Articles modal popup icons
+    $('[data-toggle="tooltip"]').tooltip();
+
     toastr.options = {
         "closeButton": false,
         "debug": false,
@@ -64,19 +67,21 @@ $(document).ready(function () {
             //Set the value to fetch the content for Audio
             $(this).find('#speech_content').val(getContentFromRow);
             speakText();
+            // Reset the toggle to show the play icon while loading the modal window
+            $(".play span").html("").html('<i class="fa fa-play-circle fa-lg" aria-hidden="true"></i>');
         });
 
-        // // Add minus icon for collapse element which is open by default
-        // $(".collapse.show").each(function(){
-        // 	$(this).prev(".card-header").find("i").addClass("fa-minus").removeClass("fa-plus");
-        // });
+        // Add minus icon for collapse element which is open by default
+        $(".collapse.show").each(function(){
+        	$(this).prev(".card-header").find("i").addClass("fa-minus").removeClass("fa-plus");
+        });
         
-        // // Toggle plus minus icon on show hide of collapse element
-        // $(".collapse").on('show.bs.collapse', function(){
-        // 	$(this).prev(".card-header").find("i").removeClass("fa-plus").addClass("fa-minus");
-        // }).on('hide.bs.collapse', function(){
-        // 	$(this).prev(".card-header").find("i").removeClass("fa-minus").addClass("fa-plus");
-        // });
+        // Toggle plus minus icon on show hide of collapse element
+        $(".collapse").on('show.bs.collapse', function(){
+        	$(this).prev(".card-header").find("i").removeClass("fa-plus").addClass("fa-minus");
+        }).on('hide.bs.collapse', function(){
+        	$(this).prev(".card-header").find("i").removeClass("fa-minus").addClass("fa-plus");
+        });
 
         //Stop Audio transcription while close the modal window
         $('.close-modal').click(function(){
@@ -84,6 +89,12 @@ $(document).ready(function () {
             myAudio.pause();
         });
 
+        $("#delete-btn").click(function(){
+		    $("#delete-confirm-pane").show(600);
+		});
+		$("#delete-confirm-cancel").click(function(){
+            $("#delete-confirm-pane").hide(600);
+		});
   });
 
 

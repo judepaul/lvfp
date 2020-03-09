@@ -5,6 +5,7 @@
                 <div class="card">
                     <div class="card-header text-white">Login</div>
                     <div class="card-body">
+                        <%= render "layouts/shared/flash_message" %>
                         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
                             <div class="form-group row">
                                 <label for="email_address" class="col-md-4 col-form-label text-md-right">Username</label>
