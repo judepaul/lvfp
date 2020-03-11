@@ -33,7 +33,11 @@ class SkillsController < ApplicationController
             if content.blank?
               message = 'Sorry! I couldn\'t find any content avaiable for the code that you are asking'
             else
-              message = article_title+'<audio src="soundbank://soundlibrary/computers/typing/typing_09"/><break strength="strong" />'+content+'Thats all for the day. Stay tuned<break strength="strong" /> <audio src="soundbank://soundlibrary/musical/amzn_sfx_drum_comedy_03"/>';
+              if article_title.nil?
+                message = '<audio src="soundbank://soundlibrary/computers/typing/typing_09"/><break strength="strong" />'+content+'Thats all for the day. Stay tuned<break strength="strong" /> <audio src="soundbank://soundlibrary/musical/amzn_sfx_drum_comedy_03"/>';
+              else
+                message = article_title+'<audio src="soundbank://soundlibrary/computers/typing/typing_09"/><break strength="strong" />'+content+'Thats all for the day. Stay tuned<break strength="strong" /> <audio src="soundbank://soundlibrary/musical/amzn_sfx_drum_comedy_03"/>';
+              end
             end
           else
             message = 'Sorry i can\'t recognize the access code.';
