@@ -29,6 +29,7 @@ class SpeechesController < ApplicationController
   # POST /speeches.json
   def create
     @speech = Speech.new(speech_params)
+    p speech_params
     acc_code_id = params[:acc_code_id] unless params[:acc_code_id].blank?
     respond_to do |format|
       if @speech.save
@@ -81,6 +82,6 @@ class SpeechesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def speech_params
-      params.require(:speech).permit(:code, :email_address, :content)
+      params.require(:speech).permit(:code, :email_address, :content, :title)
     end
 end

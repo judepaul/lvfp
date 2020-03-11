@@ -11,7 +11,7 @@ class SkillsController < ApplicationController
       case input.type
       when "LAUNCH_REQUEST"
         if Audiance.check_device_exists(device_id).blank?
-          message = "Hello! welcome to voice chimp; Please say your access code to get started."
+          message = '<audio src="https://s3-us-west-1.amazonaws.com/sayspring-prod/media/celtic-open-chime.mp3" /> Hello! welcome to voice chimp <break strength="strong" /> <audio src="soundbank://soundlibrary/musical/amzn_sfx_drum_comedy_01"/> Please say your access code to get started'
           session_end = false
         else
           access_code_id = Audiance.check_device_exists(device_id).last.access_code_id
@@ -28,11 +28,12 @@ class SkillsController < ApplicationController
             access_code_id = AccessCode.where(code: access_code).last.id
             vc_admin_id = AccessCode.where(code: access_code).last.user_id
             Audiance.create(voice_user_id: voice_user_id, device_id: device_id, user_id:vc_admin_id)
+            article_title = AccessCodeSpeechMap.where(access_code_id: access_code_id).last.speech.title
             content = AccessCodeSpeechMap.where(access_code_id: access_code_id).last.speech.content
             if content.blank?
               message = 'Sorry! I couldn\'t find any content avaiable for the code that you are asking'
             else
-              message = content;
+              message = article_title+'<audio src="soundbank://soundlibrary/computers/typing/typing_09"/><break strength="strong" />'+content+'Thats all for the day. Stay tuned<break strength="strong" /> <audio src="soundbank://soundlibrary/musical/amzn_sfx_drum_comedy_03"/>';
             end
           else
             message = 'Sorry i can\'t recognize the access code.';
@@ -61,7 +62,7 @@ class SkillsController < ApplicationController
         message = nil
       end
   
-      output.add_speech(message) unless message.blank?
+      output.add_speech(message,true) unless message.blank?
       render json: output.build_response(session_end)
     end
 

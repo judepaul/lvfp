@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200305065018) do
+ActiveRecord::Schema.define(version: 20200311074639) do
 
   create_table "access_code_speech_maps", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "access_code_id"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 20200305065018) do
     t.datetime "updated_at", null: false
     t.boolean "is_deleted"
     t.bigint "user_id"
+    t.text "title"
     t.index ["user_id"], name: "index_speeches_on_user_id"
   end
 

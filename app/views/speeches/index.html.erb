@@ -45,7 +45,7 @@
           <tbody>
             <tr data-toggle="modal" data-target="#contentModal" data-id=<%= acsm.speech.id %> data-content="<%= acsm.speech.content %>" style="cursor: pointer;">
               <th scope="row"><%= acsm.speech.id %></th>
-              <td><p class="content"><%= acsm.speech.content %></p></td>
+              <td><p class="content"><strong>Title:- <%= !acsm.speech.title.blank? ? acsm.speech.title : '' %></strong></p><p class="content"><%= acsm.speech.content %></p></td>
             </tr>
           </tbody>
         <% end %>
