@@ -1,0 +1,37 @@
+<div class="row" style="height:60px"></div>  
+
+<div class="container">
+<div class="row">
+
+<div class="col-md-6">
+<div class="card">
+  <div class="card-header" style="color:#FFF; font-weight:bold;">Total Campaigns - <%= @campaigns_count %></div>
+  <div class="card-body">
+    <% unless @campaigns.blank?
+        @campaigns.each_with_index do |campaign, indx|
+    %>
+        <p><%= indx+1 %>) <%= campaign.title %>
+    <%
+        end
+        end
+    %>
+  </div>
+</div>
+</div>
+<div class="col-md-6">
+<div class="card">
+  <div class="card-header" style="color:#FFF; font-weight:bold;">Total Articles - <%= @articles_count %></div>
+  <div class="card-body">
+    <% unless @articles.blank?
+        @articles.each_with_index do |article, indx|
+    %>
+        <p><%= indx+1 %>) <%= article.title.nil? ? "N/A" : article.title %>
+    <%
+        end
+        end
+    %>
+  </div>
+</div>
+</div>
+</div>
+</div>

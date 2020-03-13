@@ -42,7 +42,11 @@
 <br/>
 
 <div class="actions text-right" style="padding:30px 40px 30px 0; bottom: 0; right: 0;">
-<%= link_to 'Create Campaign', new_access_code_path, class: 'btn btn-outline-primary' %>
+<% if current_user.super_vc_admin? %>
+  <%= link_to 'Create Campaign', new_access_code_path, class: 'btn btn-outline-primary' %>
+<% else %>
+  <button disabled class="btn btn-outline-primary"> Create Campaign </button>
+<% end %>
 </div>
 
 </div>

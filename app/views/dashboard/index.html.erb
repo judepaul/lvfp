@@ -1,1 +1,5 @@
-<h1>Dashboard</h1>
+<% if current_user.super_vc_admin? %>
+    <%= render "dashboard/super_vc_admin" %>
+<% elsif current_user.vc_admin?%>
+    <%= render  "dashboard/vc_admin" %>
+<% end %>

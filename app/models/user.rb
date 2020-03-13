@@ -6,14 +6,14 @@ class User < ApplicationRecord
 
   scope :user_by_code, -> (access_code) { where access_code: access_code}
   # Assign role to new user
-  after_save :set_default_role, :if => :new_record?
+  after_save :set_default_role
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :trackable
 
-  enum role: [:user, :system_admin, :vc_admin]
+  enum role: [:user, :system_admin, :vc_admin, :super_vc_admin]
 
 validates :email, uniqueness: false
 validates :username, uniqueness: true
@@ -22,6 +22,7 @@ validates :username, uniqueness: true
 validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true
 
   def set_default_role
+    p "set_default_role...."
     self.role ||= :vc_admin
   end
 
@@ -34,6 +35,15 @@ validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true
   def will_save_change_to_email?
     false
   end
+  
+  ['system_admin', 'vc_admin', 'super_vc_admin'].each do |user_role|
+    p "role ==> #{user_role}"
+    define_method "#{user_role}?" do
+      p role
+      p user_role
+        role == user_role
+    end
+end
 
   protected
 

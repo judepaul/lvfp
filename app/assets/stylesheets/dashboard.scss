@@ -2,7 +2,21 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-img.logo-navbar {
-    width: 2rem !important;
-    height: 2rem !important;
+// img.logo-navbar {
+//     width: 2rem !important;
+//     height: 2rem !important;
+// }
+
+.row-dashboard{
+    margin-top:40px;
+    padding: 0 10px;
+}
+
+.clickable{
+    cursor: pointer;   
+}
+
+.panel-heading span {
+	margin-top: -20px;
+	font-size: 15px;
 }

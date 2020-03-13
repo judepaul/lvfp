@@ -61,7 +61,12 @@
 
 	<div class="row">
   		<div class="actions text-right col-md-12" style="padding:30px 10px 0 30px; bottom: 0; right: 0;">
-  			<%= link_to 'Add Article', new_speech_path, class: 'btn btn-outline-primary' %>
+  			
+        <% if current_user.super_vc_admin? %>
+          <%= link_to 'Add Article', new_speech_path, class: 'btn btn-outline-primary' %>
+        <% else %>
+          <button disabled class="btn btn-outline-primary"> Create Campaign </button>
+        <% end %>
 
 		</div>
 	</div>
