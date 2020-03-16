@@ -82,20 +82,31 @@ if ($.trim($('#add_speech_content').val()).length > 0)
 });
 
 $("#acc_code_id").change(function(){
+  var text_length = $('#add_speech_content').val().length;
+
   if($(this).val() == ""){
     $("#save_content").prop("disabled", true);
   }
   else {
-    $("#save_content").prop("disabled", false);
+    if (text_length > 2999) {
+      $("#save_content").prop("disabled", true);
+    } else { 
+      $("#save_content").prop("disabled", false);
+    }
   }
 });
 
-var text_max = 7999;
+var text_max = 2999;
 $('#textarea_feedback').html(text_max + ' characters remaining');
 $('#add_speech_content').keyup(function() {
         var text_length = $('#add_speech_content').val().length;
         var text_remaining = text_max - text_length;
         $('#textarea_feedback').html(text_remaining + ' characters remaining');
+        if (text_length > 2999) {
+          $("#save_content").prop("disabled", true);
+        } else {
+          $("#save_content").prop("disabled", false);
+        }
     });
 });
 

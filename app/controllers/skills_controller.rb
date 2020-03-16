@@ -22,7 +22,9 @@ class SkillsController < ApplicationController
       when "INTENT_REQUEST"
         case input.name
         when 'AccessCode'   
-          access_code = input.slots["access_code"]["value"]       
+          access_code = input.slots["access_code"]["value"]   
+          p "!!!!!!!!!!!!!!!!"
+          p access_code    
           # message = "You said, #{given}."
           if AccessCode.pluck(:code).include?access_code.to_i
           # if access_code == '9964'
@@ -34,10 +36,15 @@ class SkillsController < ApplicationController
             if content.blank?
               message = 'Sorry! I couldn\'t find any content avaiable for the code that you are asking'
             else
-              if article_title.nil?
-                message = "<audio src='https://fish-world.s3.amazonaws.com/news_opening.mp3' /> #{content} <break strength='strong' /> Thats all for the day. Stay tuned<break strength='strong' /> <audio src='soundbank://soundlibrary/musical/amzn_sfx_drum_comedy_03'/>";
+
+              p "$$$$$$$$$$$"
+              p article_title
+              if article_title.blank?
+                message = "#{content.gsub!(/[^0-9A-Za-z.'"]/, " ")} <break strength='strong' /> Thats all for the day. Stay tuned<break strength='strong' /> <audio src='soundbank://soundlibrary/musical/amzn_sfx_drum_comedy_03'/>";
+                p "@@@@@@@@@@@@@@@@@@@@@"
+                p message
               else
-                message = "#{article_title} <audio src='https://fish-world.s3.amazonaws.com/news_opening.mp3'/> #{content} Thats all for the day. Stay tuned<break strength='strong' /> <audio src='soundbank://soundlibrary/musical/amzn_sfx_drum_comedy_03'/>";
+                message = "#{article_title} <break strength='strong' /> #{content.gsub!(/[^0-9A-Za-z.'"]/, " ")} <break strength='strong' /> Thats all for the day. Stay tuned<break strength='strong' /> <audio src='soundbank://soundlibrary/musical/amzn_sfx_drum_comedy_03'/>";
               end
             end
           else
