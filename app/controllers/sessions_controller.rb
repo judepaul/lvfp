@@ -9,7 +9,7 @@ class SessionsController < Devise::SessionsController
           end
         end
         sign_in(resource_name, resource)
-        redirect_to root_path
+        redirect_to access_codes_path
     end
 
     def destroy
