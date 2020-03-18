@@ -5,8 +5,13 @@ class SpeechesController < ApplicationController
   # GET /speeches
   # GET /speeches.json
   def index
-    @speeches = Speech.where(user_id: current_user.id).order('id DESC').paginate(page: params[:page])
-    @access_codes = AccessCode.where(user_id: current_user.id).order('id DESC')
+    if current_user.role == "super_vc_admin"
+      @speeches = Speech.all.paginate(page: params[:page])
+      @access_codes = AccessCode.all.order('id DESC')
+    else
+      @speeches = Speech.where(user_id: current_user.id).order('id DESC').paginate(page: params[:page])
+      @access_codes = AccessCode.where(user_id: current_user.id).order('id DESC')
+    end
     @group_code = params[:group_code] unless params[:group_code].blank?
   end
 
@@ -23,6 +28,8 @@ class SpeechesController < ApplicationController
 
   # GET /speeches/1/edit
   def edit
+    @speeches = Speech.find(params[:id])
+    @access_codes = AccessCode.where(user_id: current_user.id).order('id DESC')
   end
 
   # POST /speeches
@@ -50,9 +57,19 @@ class SpeechesController < ApplicationController
   # PATCH/PUT /speeches/1.json
   def update
     respond_to do |format|
+        if params[:commit] == "Save"
+          @speech.draft = true
+        elsif(params[:commit] == "Publish")
+          @speech.published = true
+        end
       if @speech.update(speech_params)
-        format.html { redirect_to @speech, notice: 'Speech was successfully updated.' }
-        format.json { render :show, status: :ok, location: @speech }
+        if params[:commit] == "Save"
+          format.html { redirect_to edit_speech_path(@speech), notice: "Hurry! Article were successfully updated. Still one more step need to be done to make this available to your users. Click the Publish button to get published.".html_safe }
+          format.json { render :show, status: :ok, location: @speech }
+        elsif(params[:commit] == "Publish")
+          format.html { redirect_to published_details_path(@speech) }
+          format.json { render :show, status: :ok, location: @speech }
+        end
       else
         format.html { render :edit }
         format.json { render json: @speech.errors, status: :unprocessable_entity }
@@ -72,6 +89,11 @@ class SpeechesController < ApplicationController
       format.html { redirect_to speeches_url(group_code: access_code_id), notice: 'Speech was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def published_details
+    speech_id = params[:speech_id]
+    @speech = Speech.find(speech_id)
   end
 
   private

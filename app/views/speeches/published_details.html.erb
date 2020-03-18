@@ -1,0 +1,33 @@
+<div style="height: 60px;"></div>
+<div class="container">
+<div class="card" style="width:100%;">
+    <div class="card-header text-white text-bold">
+        <div class="row">
+            <div class="col-md-6">Published Details</div>
+            </div>
+    </div>
+    <div class="card-body" style="height:auto;">
+        <div style=""><h4 style="padding: 2px 5px 2px 5px;color:green;text-align:center;">Congratulation!!! Article were published successfully.</h4></div>
+        <div class="row"></div>
+        <div class="row">
+            <div class="col-md-4 text-right"><strong>Campaign Name: </strong></div>
+            <div class="col-md-6"><%= @speech.access_code_speech_map.last.access_code.title %></div>
+        </div>
+        <div class="row"></div>
+        <div class="row">
+            <div class="col-md-4 text-right"><strong>Listener Access Code: </strong></div>
+            <div class="col-md-6"><%= @speech.access_code_speech_map.last.access_code.code %></div>
+        </div>
+        <div class="row"></div>
+        <div class="row">
+            <div class="col-md-4 text-right"><strong>Article Title: </strong></div>
+            <div class="col-md-6"><%= @speech.title %></div>
+        </div> 
+        <div class="row"></div>
+        <div class="row">
+            <div class="col-md-4 text-right"><strong>Instructions: </strong></div>
+            <div class="col-md-6">Share this access code to your audiance/subscribers to access the content from skill</div>
+        </div>        
+    </div>
+</div>
+</div>

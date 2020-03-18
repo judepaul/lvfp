@@ -9,7 +9,11 @@ class SessionsController < Devise::SessionsController
           end
         end
         sign_in(resource_name, resource)
-        redirect_to access_codes_path
+        if resource.super_vc_admin?
+          redirect_to dashboard_index_path
+        else
+          redirect_to access_codes_path
+        end
     end
 
     def destroy

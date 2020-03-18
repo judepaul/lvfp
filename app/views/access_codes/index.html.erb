@@ -7,7 +7,7 @@
                       <div class="row">
                         <div class="col-md-6">Manage Campaigns</div>
                         <div class="col-md-6 text-right">
-                          <span style="cursor: pointer;" data-toggle="modal" data-target="#FAQcontentModal"><i class="fa fa-question-circle fa-lg" aria-hidden="true"></i></span>
+                          <span style="cursor: pointer;" data-toggle="modal" data-target="#FAQcontentModal" aria-hidden="true"><i class="fas fa-info-circle fa-lg"></i></span>
                         </div>
                       </div>
                     </div>
@@ -18,10 +18,10 @@
 <%= will_paginate @access_codes, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
 </div>
 
-<table width=100% border="1">
+<table width=100% class="table table-bordered table-sm table-hover">
   <thead>
     <tr align="center">
-      <th>Listener Group Access Code</th>
+      <th class="thead-dark">Listener Group Access Code</th>
       <th>Campaign Name</th>
       <th>Action</th>
     </tr>

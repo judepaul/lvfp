@@ -15,4 +15,6 @@ Rails.application.routes.draw do
 
   get "users/check_username", :controller => "registrations", :action => "check_username"
 
+  get "speeches/published_details/:speech_id" => "speeches#published_details", as: "published_details"
+
 end

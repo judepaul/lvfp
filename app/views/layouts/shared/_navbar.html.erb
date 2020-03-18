@@ -1,8 +1,14 @@
 <nav class="navbar navbar-expand-lg navbar-light navbar-laravel">
     <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="/auth/login">
-            <!-- <img class="logo-navbar" src="/assets/vcs.png"> --> <span class='text-white'> Voice Chimp Studio </span> 
-        </a>
+        <% unless user_signed_in? %>
+            <a class="navbar-brand js-scroll-trigger" href="/auth/login">
+                <!-- <img class="logo-navbar" src="/assets/vcs.png"> --> <span class='text-white'> Voice Chimp Studio </span> 
+            </a>
+        <% else %>
+            <a class="navbar-brand js-scroll-trigger" href="/access_codes">
+                <!-- <img class="logo-navbar" src="/assets/vcs.png"> --> <span class='text-white font-weight-bold'> Voice Chimp Studio </span> 
+            </a>
+        <% end %>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -11,20 +17,23 @@
             <ul class="navbar-nav ml-auto">
                 <% unless user_signed_in? %>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="/auth/login">Login</a>
+                    <a class="nav-link text-white font-weight-bold" href="/auth/login">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="/auth/register/signup">Register</a>
+                    <a class="nav-link text-white font-weight-bold" href="/auth/register/signup">Register</a>
                 </li>
                 <% else %>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="/access_codes">Dashboard</a>
+                        <span class="nav-link text-white font-weight-bold"> Welcome <%= current_user.username %> (<%= current_user.role %>) </span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="/speeches">Articles</a>
+                        <a class="nav-link text-white font-weight-bold" href="/access_codes">Campaigns</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="/auth/logout">Logout</a>
+                        <a class="nav-link text-white font-weight-bold" href="/speeches">Articles</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white font-weight-bold" href="/auth/logout">Logout</a>
                     </li>
                 <% end %>
             </ul>

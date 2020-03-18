@@ -4,8 +4,11 @@ class AccessCodesController < ApplicationController
   # GET /access_codes
   # GET /access_codes.json
   def index
-    # @access_codes = AccessCode.all
-    @access_codes = AccessCode.where(user_id: current_user.id).order('id DESC').paginate(page: params[:page])
+    if current_user.role == "super_vc_admin"
+      @access_codes = AccessCode.all.paginate(page: params[:page])
+    else
+      @access_codes = AccessCode.where(user_id: current_user.id).order('id DESC').paginate(page: params[:page])
+    end
   end
 
   # GET /access_codes/1

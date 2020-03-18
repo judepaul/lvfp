@@ -23,6 +23,7 @@
 
 
 <div class="row" style="height:30px;"></div>
+<%= render "layouts/shared/flash_message" %>
 <div class="container">
     <div class="container-fluid px-0">
         <div class="row no-gutters">
@@ -30,12 +31,22 @@
               <div class="card">
                     <div class="card-header text-white"><strong>Add Article</strong></div>
                     <div class="card-body">
+                        <% unless @speech.new_record? %>
+                          <div class="form-group row">
+                                <div class="mt-2 col-md-3 text-right" style="padding-top:20px;">
+                                    <strong>Status</strong>
+                                </div>
+                                <div class="mt-4 col-md-8 offset-md-1">
+                                  <span style="padding: 2px 5px 2px 5px; color:#FFF; background-color: <%= @speech.published? ? 'green' : !@speech.published? ? 'orange' : "" %>;"><strong><%= @speech.published? ? 'Published' : !@speech.published? ? 'Draft' : "" %></strong></span>
+                                </div>
+                          </div>
+                        <% end %>
                         <div class="form-group row">
                                 <div class="mt-2 col-md-3 text-right" style="padding-top:20px;">
                                     <strong>Title</strong>
                                 </div>
                                 <div class="mt-4 col-md-8 offset-md-1">
-                                  <%= form.text_field :title, id: :article_title, class: 'form-control' %>
+                                  <%= form.text_field :title, id: :article_title, class: 'form-control', value: "#{!@speech.blank? ? @speech.title : ""}" %>
                                 </div>
                             </div>
 
@@ -54,14 +65,27 @@
                                     <strong>Select Listener Group</strong>
                                 </div>
                                 <div class="mt-4 col-md-6 offset-md-1">
-                                  <%= select_tag 'acc_code_id', options_for_select(@access_codes.collect{ |c| ["#{c.code} - #{c.title}", c.id]}), prompt: "Select Listener Group Access Code", class: "form-control", disabled:true %>
+                                  <% if @speech.new_record? %>
+                                    <%= select_tag 'acc_code_id', options_for_select(@access_codes.collect{ |c| ["#{c.code} - #{c.title}", c.id]}), prompt: "Select Listener Group Access Code", class: "form-control", disabled:true %>
+                                  <% else %>
+                                    <span style="font-size:16px;"><%= @speech.access_code_speech_map.last.access_code.code %> - <%= @speech.access_code_speech_map.last.access_code.title %></span>
+                                  <% end %>
                                 </div>
                                 <div class="mt-4 col-md-12"></div>
-                                <div class="mt-4 col-md-12 offset-md-11">
-                                </div>
                                 <div class="actions text-right" style="padding:0 40px 30px 0; position: absolute; bottom: 0; right: 0;">
                                   <%= link_to 'Cancel', speeches_path, class: "btn btn-outline-primary" %>
-                                  <%= form.submit 'Publish', id: 'save_content', class:"btn btn-outline-primary", disabled: true %>
+                                  <% if @speech.new_record? %>
+                                    <%= form.submit 'Save', id: 'save_content', class:"btn btn-outline-primary", disabled: true %>
+                                    <%= form.submit 'Publish', id: 'publish_content', class:"btn btn-outline-primary", disabled: true %>
+                                  <% else %>
+                                    <%= link_to 'Delete', @speeches, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-outline-danger delete-speech', id: "delete-btn" %>
+                                    <%= form.submit 'Save', id: 'save_content', class:"btn btn-outline-primary" %>
+                                    <% if @speech.draft? %>
+                                      <%= form.submit 'Publish', id: 'publish_content', class:"btn btn-outline-primary", disabled: @speech.published? ? true : false %>
+                                    <% else %>
+                                      <%= form.submit 'Publish', id: 'publish_content', class:"btn btn-outline-primary", disabled: true %>
+                                    <% end %>
+                                  <% end %>
                                 </div>
                     </div>
               </div>
@@ -97,18 +121,36 @@ $("#acc_code_id").change(function(){
 });
 
 var text_max = 2999;
-$('#textarea_feedback').html(text_max + ' characters remaining');
+$('#textarea_feedback').html(text_max + ' characters remaining (Appx. 500 words)');
 $('#add_speech_content').keyup(function() {
-        var text_length = $('#add_speech_content').val().length;
-        var text_remaining = text_max - text_length;
-        $('#textarea_feedback').html(text_remaining + ' characters remaining');
-        if (text_length > 2999) {
-          $("#save_content").prop("disabled", true);
-        } else {
-          $("#save_content").prop("disabled", false);
-        }
-    });
+  var text_length = $('#add_speech_content').val().length;
+  var text_remaining = text_max - text_length;
+  $('#textarea_feedback').html(text_remaining + ' characters remaining  (Appx. 500 words)');
+    if (text_length > 2999) {
+      $('#add_speech_content').css('border-color','red');
+      $("#save_content").prop("disabled", true);
+    } else {
+      $("#save_content").prop("disabled", false);
+    }
+    var regex = /(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/g;
+    if(!$('#add_speech_content').val().match(regex)){
+    $('#add_speech_content').css('border-color', '');
+  }
+
+  });
+
+
+$('#save_content').click(function(){
+  var regex = /(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/g;
+  if($('#add_speech_content').val().match(regex)){
+    $('#add_speech_content').css('border-color', 'red');
+    alert("Uh-Oh! Sorry, the content has one or more links which will not be accepted by the studio.Please add a label instead of them.");
+    return false;
+  }
 });
+
+});
+
 
   var recognition = new SpeechRecognition();
   recognition.onresult = function(event) {

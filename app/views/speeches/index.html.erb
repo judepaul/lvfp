@@ -34,8 +34,8 @@
       <% end %>
     <% end %>
       <div class="card-body table-responsive">
-        <table class="table table-bordered">
-          <thead class="">
+        <table class="table table-bordered table-sm table-hover">
+          <thead class="thead-light">
             <tr>
               <th scope="col">#</th>
               <th scope="col">Articles</th>
@@ -43,9 +43,9 @@
           </thead>
         <% ac.access_code_speech_map.each_with_index do |acsm,indx| %>
           <tbody>
-            <tr data-toggle="modal" data-target="#contentModal" data-id=<%= acsm.speech.id %> data-content="<%= acsm.speech.content %>" style="cursor: pointer;">
-              <th scope="row"><%= acsm.speech.id %></th>
-              <td><p class="content"><strong>Title:- <%= !acsm.speech.title.blank? ? acsm.speech.title : '' %></strong></p><p class="content"><%= acsm.speech.content %></p></td>
+            <tr style="cursor: pointer;" onclick="location.href='<%= edit_speech_path(acsm.speech) %>'">
+              <th><%= acsm.speech.id %></th>
+              <td><p class="content"><strong>Title:- <%= !acsm.speech.title.blank? ? acsm.speech.title : '' %></strong> <span style="padding: 1px 5px 1px 5px; color:#FFF; background-color: <%= acsm.speech.published? ? 'green' : !acsm.speech.published? ? 'orange' : "" %>;"><strong><%= acsm.speech.published? ? 'Published' : !acsm.speech.published? ? 'Draft' : "" %></strong></span></p><p class="content"><%= acsm.speech.content %></p></td>
             </tr>
           </tbody>
         <% end %>

@@ -22,7 +22,6 @@ validates :username, uniqueness: true
 validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true
 
   def set_default_role
-    p "set_default_role...."
     self.role ||= :vc_admin
   end
 
@@ -37,10 +36,7 @@ validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true
   end
   
   ['system_admin', 'vc_admin', 'super_vc_admin'].each do |user_role|
-    p "role ==> #{user_role}"
     define_method "#{user_role}?" do
-      p role
-      p user_role
         role == user_role
     end
 end
