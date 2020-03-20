@@ -83,9 +83,12 @@
                                     <audio id="audioPlayback">
                                       <source id="audioSource" type="audio/mp3" src="">
                                     </audio>
-                                    <button type="button" class="close audioPlayback play" onclick="aud_play_pause()" style="outline:none !important; padding-right:15px;"><span><i class="fa fa-play-circle fa-lg" aria-hidden="true"></i></span></button>
+                                    <!-- <button type="button" class="close audioPlayback play" onclick="aud_play_pause()" style="outline:none !important; padding-right:15px;"><span><i class="fa fa-play-circle fa-lg" aria-hidden="true"></i></span></button> -->
+                                    <button type="button" class="btn btn-outline-primary audioPlayback" onclick="aud_play_pause()">
+                                      <span class="play"><i class="fa fa-play-circle fa-lg play" aria-hidden="true"></i></span> Play/Pause
+                                    </button>
                                     <%= link_to 'Delete', @speeches, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-outline-danger delete-speech', id: "delete-btn" %>
-                                    <%= form.submit 'Save', id: 'save_content', class:"btn btn-outline-primary" %>
+                                    <%= form.submit 'Save', id: 'save_content', class:"btn btn-outline-primary", disabled: @speech.published? ? true : false %>
                                     <% if @speech.draft? %>
                                       <%= form.submit 'Publish', id: 'publish_content', class:"btn btn-outline-primary", disabled: @speech.published? ? true : false %>
                                     <% else %>
@@ -105,6 +108,7 @@
 <script type="text/javascript">
 
 $(document).ready(function() {
+  
 $('#add_speech_content').mouseout(function () {
 if ($.trim($('#add_speech_content').val()).length > 0)
 {
@@ -162,13 +166,13 @@ $('#save_content').click(function(){
 
 });
 
-  var recognition = new SpeechRecognition();
-  recognition.onresult = function(event) {
-    if (event.results.length > 0) {
-      display_speech_content.value = event.results[0][0].transcript;
-      display_speech_content.form.submit();
-    }
-  }
+  // var recognition = new SpeechRecognition();
+  // recognition.onresult = function(event) {
+  //   if (event.results.length > 0) {
+  //     display_speech_content.value = event.results[0][0].transcript;
+  //     display_speech_content.form.submit();
+  //   }
+  // }
 
   // Initialize the Amazon Cognito credentials provider
   AWS.config.region = 'us-east-1'; 
@@ -184,7 +188,7 @@ $('#save_content').click(function(){
           TextType: "text",
           VoiceId: "Joanna"
       };
-      alert(document.getElementById("add_speech_content").value);
+      //alert(document.getElementById("add_speech_content").value);
       speechParams.Text = document.getElementById("add_speech_content").value;
       //speechParams.Text = $("#contentModal").find('speech_content').val();
       
@@ -206,7 +210,6 @@ $('#save_content').click(function(){
   }
 
   function aud_play_pause() {
-    speakText();
   var myAudio = document.getElementById("audioPlayback");
   if (myAudio.paused) {
     myAudio.play();
