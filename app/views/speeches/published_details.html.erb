@@ -7,26 +7,40 @@
             </div>
     </div>
     <div class="card-body" style="height:auto;">
-        <div style=""><h4 style="padding: 2px 5px 2px 5px;color:green;text-align:center;">Congratulation!!! Article were published successfully.</h4></div>
-        <div class="row"></div>
-        <div class="row">
+        <div style=""><h4 style="padding: 2px 5px 2px 5px;color:green;text-align:center;">Congratulation!!! Article was published successfully.</h4></div>
+        <div class="row" style="height:30px;"></div>
+        <div class="row" style="font-size:18px; font-weight:bold;">
+            <div class="col-md-4 text-right"><strong>Skill Name: </strong></div>
+            <div class="col-md-6">Voice Chimp <span data-toggle="tooltip" title="This is the name of the skill"><i class="fas fa-info-circle fa-lg"></i></span></div>
+        </div>
+        <div class="row" style="height:20px;"></div>
+        <div class="row" style="font-size:18px; font-weight:bold;">
             <div class="col-md-4 text-right"><strong>Campaign Name: </strong></div>
             <div class="col-md-6"><%= @speech.access_code_speech_map.last.access_code.title %></div>
         </div>
-        <div class="row"></div>
-        <div class="row">
-            <div class="col-md-4 text-right"><strong>Listener Access Code: </strong></div>
-            <div class="col-md-6"><%= @speech.access_code_speech_map.last.access_code.code %></div>
-        </div>
-        <div class="row"></div>
-        <div class="row">
+        <div class="row" style="height:20px;"></div>
+        <div class="row" style="font-size:18px; font-weight:bold;">
             <div class="col-md-4 text-right"><strong>Article Title: </strong></div>
             <div class="col-md-6"><%= @speech.title %></div>
         </div> 
-        <div class="row"></div>
-        <div class="row">
+        <div class="row" style="height:20px;"></div>
+        <div class="row" style="font-size:18px; font-weight:bold;">
+            <div class="col-md-4 text-right"><strong>Published Date: </strong></div>
+            <div class="col-md-6"><%= @speech.updated_at.strftime('%F') %></div>
+        </div> 
+        <div class="row" style="height:20px;"></div>
+        <div class="row" style="font-size:18px; font-weight:bold;">
+            <div class="col-md-4 text-right"><strong>Listener Access Code: </strong></div>
+            <div class="col-md-6"><%= @speech.access_code_speech_map.last.access_code.code %></div>
+        </div>
+        <div class="row" style="height:20px;"></div>
+        <div class="row" style="font-size:18px; font-weight:bold;">
             <div class="col-md-4 text-right"><strong>Instructions: </strong></div>
-            <div class="col-md-6">Share this access code to your audiance/subscribers to access the content from skill</div>
+            <div class="col-md-6">
+            Share this access code to your audiance/subscribers to access the content from skill.<br/>
+            After a user invokes the "Voice Chimp" skill, they will be prompted for the access code - <%= @speech.access_code_speech_map.last.access_code.code %>,
+            and then they will be able to  listen to the campaign article "<%= @speech.title %>".
+            </div>
         </div>        
     </div>
 </div>

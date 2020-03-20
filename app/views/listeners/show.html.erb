@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @listener.user %>
+</p>
+
+<p>
+  <strong>Group name:</strong>
+  <%= @listener.group_name %>
+</p>
+
+<p>
+  <strong>Group code:</strong>
+  <%= @listener.group_code %>
+</p>
+
+<p>
+  <strong>Group title:</strong>
+  <%= @listener.group_title %>
+</p>
+
+<p>
+  <strong>Group description:</strong>
+  <%= @listener.group_description %>
+</p>
+
+<%= link_to 'Edit', edit_listener_path(@listener) %> |
+<%= link_to 'Back', listeners_path %>

@@ -7,7 +7,7 @@
                       <div class="row">
                         <div class="col-md-6">Manage Campaigns</div>
                         <div class="col-md-6 text-right">
-                          <span style="cursor: pointer;" data-toggle="modal" data-target="#FAQcontentModal"><i class="fa fa-question-circle fa-lg" aria-hidden="true"></i></span>
+                          <span style="cursor: pointer;" data-toggle="modal" data-target="#FAQcontentModal"><i class="fas fa-info-circle fa-lg" aria-hidden="true"></i></span>
                         </div>
                       </div>
                     </div>
@@ -43,7 +43,11 @@
                                 <label for="password" class="col-md-4 col-form-label text-md-right text-bold">Listener Group Name</label>
                                 <div class="col-md-6">
                                     <%#= form.text_field :title, id: :access_code_title, class: "form-control" %>
-                                    <input type="text" class="form-control" />
+                                    <% if access_code.new_record? %>
+                                      <%= text_field_tag "listener_group_name", "", class: "form-control" %>
+                                    <% else %>
+                                      <%= text_field_tag "listener_group_name", access_code.listener.group_name, class: "form-control" %>
+                                    <% end %>
                                 </div>
                             </div>
                             <div class="actions text-right" style="padding:30px 40px 30px 0; bottom: 0; right: 0;">

@@ -1,6 +1,7 @@
 class User < ApplicationRecord
 
   has_many :audiances
+  has_many :listeners
   has_many :access_code
 
 

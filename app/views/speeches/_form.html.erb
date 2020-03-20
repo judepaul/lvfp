@@ -57,6 +57,7 @@
                                 <div class="mt-4 col-md-8 offset-md-1">
                                   <%= form.text_area :content, id: :add_speech_content, size: "30x9", class: 'form-control', placeholder: 'Enter the text to convert speech' %>
                                   <div class="mt-4 col-md-8" id="textarea_feedback"></div>
+                                  <div class="mt-4 col-md-12" style="color:red;margin-top:0px !important;"><strong>Note:-</strong> All the links/special characters will be ignored in the audio</div>
                                 </div>
                             </div>
 
@@ -78,6 +79,11 @@
                                     <%= form.submit 'Save', id: 'save_content', class:"btn btn-outline-primary", disabled: true %>
                                     <%= form.submit 'Publish', id: 'publish_content', class:"btn btn-outline-primary", disabled: true %>
                                   <% else %>
+                                    <!-- <audio id="audioPlayback" controls> -->
+                                    <audio id="audioPlayback">
+                                      <source id="audioSource" type="audio/mp3" src="">
+                                    </audio>
+                                    <button type="button" class="close audioPlayback play" onclick="aud_play_pause()" style="outline:none !important; padding-right:15px;"><span><i class="fa fa-play-circle fa-lg" aria-hidden="true"></i></span></button>
                                     <%= link_to 'Delete', @speeches, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-outline-danger delete-speech', id: "delete-btn" %>
                                     <%= form.submit 'Save', id: 'save_content', class:"btn btn-outline-primary" %>
                                     <% if @speech.draft? %>
@@ -97,6 +103,7 @@
 <% end %>
 
 <script type="text/javascript">
+
 $(document).ready(function() {
 $('#add_speech_content').mouseout(function () {
 if ($.trim($('#add_speech_content').val()).length > 0)
@@ -132,25 +139,28 @@ $('#add_speech_content').keyup(function() {
     } else {
       $("#save_content").prop("disabled", false);
     }
-    var regex = /(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/g;
-    if(!$('#add_speech_content').val().match(regex)){
-    $('#add_speech_content').css('border-color', '');
-  }
+    var regex = /[!@#$%ˆ&*()+]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/g;
+    if($('#add_speech_content').val().match(regex)){
+      $('#add_speech_content').css('border-color', 'red');
+    }else{
+      $('#add_speech_content').css('border-color', '');
+    }
 
   });
 
 
 $('#save_content').click(function(){
-  var regex = /(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/g;
-  if($('#add_speech_content').val().match(regex)){
-    $('#add_speech_content').css('border-color', 'red');
-    alert("Uh-Oh! Sorry, the content has one or more links which will not be accepted by the studio.Please add a label instead of them.");
-    return false;
-  }
+  var regex = /[!@#$%ˆ&*()+]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/g;
+  // if($('#add_speech_content').val().match(regex)){
+  //   $('#add_speech_content').css('border-color', 'red');
+  //   alert("Uh-Oh! Sorry, links or special characters are not allowed. Please remove them or replace them with text");
+  //   return false;
+  // }
+  //var content = $('#add_speech_content').val();
+  //$('#add_speech_content').val(content.replace(/[!@#$%ˆ&*()+]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/g, ''));
 });
 
 });
-
 
   var recognition = new SpeechRecognition();
   recognition.onresult = function(event) {
@@ -160,5 +170,51 @@ $('#save_content').click(function(){
     }
   }
 
+  // Initialize the Amazon Cognito credentials provider
+  AWS.config.region = 'us-east-1'; 
+  AWS.config.credentials = new AWS.CognitoIdentityCredentials({IdentityPoolId: 'us-east-1:4ab148dd-0ed5-4a4e-a211-58fa42678b45'});
+  
+  // Function invoked by button click
+  function speakText() {
+      // Create the JSON parameters for getSynthesizeSpeechUrl
+      var speechParams = {
+          OutputFormat: "mp3",
+          SampleRate: "16000",
+          Text: "",
+          TextType: "text",
+          VoiceId: "Joanna"
+      };
+      alert(document.getElementById("add_speech_content").value);
+      speechParams.Text = document.getElementById("add_speech_content").value;
+      //speechParams.Text = $("#contentModal").find('speech_content').val();
+      
+      // Create the Polly service object and presigner object
+      var polly = new AWS.Polly({apiVersion: '2016-06-10'});
+      var signer = new AWS.Polly.Presigner(speechParams, polly)
+  
+      // Create presigned URL of synthesized speech file
+      console.log("signer --" +signer.getSynthesizeSpeechUrl);
+      signer.getSynthesizeSpeechUrl(speechParams, function(error, url) {
+      if (error) {
+          //document.getElementById('result').innerHTML = error;
+      } else {
+          document.getElementById('audioSource').src = url;
+          document.getElementById('audioPlayback').load();
+          //document.getElementById('result').innerHTML = "Speech ready to play.";
+      }
+    });
+  }
+
+  function aud_play_pause() {
+    speakText();
+  var myAudio = document.getElementById("audioPlayback");
+  if (myAudio.paused) {
+    myAudio.play();
+    $(".play").html("").html('<i class="fa fa-pause-circle fa-lg" aria-hidden="true"></i>');
+  } else {
+    myAudio.pause();
+    $(".play").html("").html('<i class="fa fa-play-circle fa-lg" aria-hidden="true"></i>');
+  }
+}
 
 </script>

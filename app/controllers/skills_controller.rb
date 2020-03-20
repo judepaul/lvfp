@@ -40,11 +40,9 @@ class SkillsController < ApplicationController
               p "$$$$$$$$$$$"
               p article_title
               if article_title.blank?
-                message = "#{content.gsub!(/[^0-9A-Za-z.'"]/, " ")} <break strength='strong' /> Thats all for the day. Stay tuned<break strength='strong' /> <audio src='soundbank://soundlibrary/musical/amzn_sfx_drum_comedy_03'/>";
-                p "@@@@@@@@@@@@@@@@@@@@@"
-                p message
+                message = "#{content.gsub!(/[!@#$%ˆ&*()]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ')} <break strength='strong' /> Thats all for the day. Stay tuned<break strength='strong' /> <audio src='soundbank://soundlibrary/musical/amzn_sfx_drum_comedy_03'/>";
               else
-                message = "#{article_title} <break strength='strong' /> #{content.gsub!(/[^0-9A-Za-z.'"]/, " ")} <break strength='strong' /> Thats all for the day. Stay tuned<break strength='strong' /> <audio src='soundbank://soundlibrary/musical/amzn_sfx_drum_comedy_03'/>";
+                message = "#{article_title} <break strength='strong' /> #{content.gsub!(/[!@#$%ˆ&*()]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ')} <break strength='strong' /> Thats all for the day. Stay tuned<break strength='strong' /> <audio src='soundbank://soundlibrary/musical/amzn_sfx_drum_comedy_03'/>";
               end
             end
           else

@@ -23,19 +23,23 @@
     <tr align="center">
       <th class="thead-dark">Listener Group Access Code</th>
       <th>Campaign Name</th>
-      <th>Action</th>
     </tr>
   </thead>
 
   <tbody>
-    <% @access_codes.each do |code| %>
+    <% if @access_codes.blank? %>
       <tr>
+        <td style="text-align:center;color:red;" colspan="2">You have not yet create your first Campaign. Let's Start...</td>
+    <% else %>
+    <% @access_codes.each do |code| %>
+      <tr style="cursor: pointer;" onclick="location.href='<%= edit_access_code_path(code) %>'">
         <td style="text-align:center;"><%= code.code %></td>
         <td style="text-align:center;"><%= code.title %></td>
-        <td style="text-align:center;"><%#= link_to 'Show', code %>
-        <%= link_to 'Edit', edit_access_code_path(code) %>
-        <%#= link_to 'Destroy', code, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <!-- <td style="text-align:center;"><%#= link_to 'Show', code %>
+        <%#= link_to 'Edit', edit_access_code_path(code) %>
+        <%#= link_to 'Destroy', code, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
       </tr>
+    <% end %>
     <% end %>
   </tbody>
 </table>
@@ -52,10 +56,14 @@
 <% if current_user.super_vc_admin? %>
   <%= link_to 'Create Campaign', new_access_code_path, class: 'btn btn-outline-primary' %>
 <% else %>
-  <button disabled class="btn btn-outline-primary"> Create Campaign </button>
+  <% if @access_codes.blank? %>
+    <%= link_to 'Create Campaign', new_access_code_path, class: 'btn btn-outline-primary' %>
+  <% else %>
+    <button disabled class="btn btn-outline-primary"> Create Campaign </button>
+  <% end %>
 <% end %>
 </div>
-
+<div class="row col-md-6" style="margin-left:5px; padding: 1px 5px 1px 5px; color:#FFF; background-color:orange"><strong>Note:</strong> You can have only one Campaign in this version.</div>
 </div>
 </div>
 </div>
