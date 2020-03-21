@@ -42,9 +42,10 @@ class SpeechesController < ApplicationController
       if @speech.save
         # commented by Jude on 02/19/2020. There will access_code_speech_map association instead
         # UserContentMap.create(user_id: current_user.id, speech_id: @speech.id)
-        @speech.update_attributes(email_code: @speech.email_code += @speech.id, user_id: current_user.id)
+        @speech.update_attributes(email_code: @speech.email_code += @speech.id, user_id: current_user.id, draft: true)
         AccessCodeSpeechMap.create(access_code_id: acc_code_id, speech_id: @speech.id)
-        format.html { redirect_to speeches_url(group_code: acc_code_id), notice: 'Speech was successfully created.' }
+        # format.html { redirect_to speeches_url(group_code: acc_code_id), notice: 'Speech was successfully created.' }
+        format.html { redirect_to edit_speech_path(@speech), notice: "Hurry! Article were successfully created. Still one more step need to be done to make this available to your users. Click the Publish button to get published.".html_safe }
         format.json { render :new, status: :created, location: @speech }
       else
         format.html { render :new }
