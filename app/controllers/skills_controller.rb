@@ -23,26 +23,28 @@ class SkillsController < ApplicationController
         case input.name
         when 'AccessCode'   
           access_code = input.slots["access_code"]["value"]   
-          p "!!!!!!!!!!!!!!!!"
-          p access_code    
           # message = "You said, #{given}."
           if AccessCode.pluck(:code).include?access_code.to_i
           # if access_code == '9964'
             access_code_id = AccessCode.where(code: access_code).last.id
             vc_admin_id = AccessCode.where(code: access_code).last.user_id
             Audiance.create(voice_user_id: voice_user_id, device_id: device_id, user_id:vc_admin_id)
-            article_title = AccessCodeSpeechMap.where(access_code_id: access_code_id).last.speech.title
-            content = AccessCodeSpeechMap.where(access_code_id: access_code_id).last.speech.content
+            # article_title = AccessCodeSpeechMap.where(access_code_id: access_code_id).last.speech.title
+            # content = AccessCodeSpeechMap.where(access_code_id: access_code_id).last.speech.content
+            
+            # 21/03/2020 - Added by Jude to fetch the latest published content based on the access code
+            acsm = AccessCodeSpeechMap.where(access_code_id: access_code_id)   
+            speech_ids = acsm.map{|acsm| acsm.speech_id}
+            published_articles = Speech.where(id: speech_ids).order('updated_at').last
+            content = published_articles.content
+            article_title = published_articles.title
             if content.blank?
               message = 'Sorry! I couldn\'t find any content avaiable for the code that you are asking'
             else
-
-              p "$$$$$$$$$$$"
-              p article_title
               if article_title.blank?
-                message = "#{content.gsub!(/[!@#$%ˆ&*()]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ')} <break strength='strong' /> Thats all for the day. Stay tuned<break strength='strong' /> <audio src='soundbank://soundlibrary/musical/amzn_sfx_drum_comedy_03'/>";
+                message = "#{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ')} <break strength='strong' /> Thats all for the day. Stay tuned<break strength='strong' /> <audio src='soundbank://soundlibrary/musical/amzn_sfx_drum_comedy_03'/>";
               else
-                message = "#{article_title} <break strength='strong' /> #{content.gsub!(/[!@#$%ˆ&*()]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ')} <break strength='strong' /> Thats all for the day. Stay tuned<break strength='strong' /> <audio src='soundbank://soundlibrary/musical/amzn_sfx_drum_comedy_03'/>";
+                message = "#{article_title} <break strength='strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ')} <break strength='strong' /> Thats all for the day. Stay tuned<break strength='strong' /> <audio src='soundbank://soundlibrary/musical/amzn_sfx_drum_comedy_03'/>";
               end
             end
           else

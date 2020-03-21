@@ -189,7 +189,8 @@ $('#save_content').click(function(){
           VoiceId: "Joanna"
       };
       //alert(document.getElementById("add_speech_content").value);
-      speechParams.Text = document.getElementById("add_speech_content").value;
+      speech_content = document.getElementById("add_speech_content").value
+      speechParams.Text = speech_content.replace(/[!@#$%ˆ&*()+]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/g, '');
       //speechParams.Text = $("#contentModal").find('speech_content').val();
       
       // Create the Polly service object and presigner object
