@@ -42,7 +42,8 @@ class AccessCodesController < ApplicationController
       respond_to do |format|
       if @access_code.save
         @access_code.update_attributes(user_id: current_user.id, listener_id: @listener.id)
-        format.html { redirect_to new_speech_path, notice: 'Group was successfully created. Now you can add new articles into it' }
+        # format.html { redirect_to new_speech_path, notice: 'Group was successfully created. Now you can add new articles into it' }
+        format.html { redirect_to new_speech_path }
         format.json { render :show, status: :created, location: @access_code }
       else
         format.html { render :new }
@@ -58,38 +59,27 @@ class AccessCodesController < ApplicationController
 
   # PATCH/PUT /access_codes/1
   # PATCH/PUT /access_codes/1.json
-  def update
-    if AccessCode.campaign_exists(access_code_params[:title]).blank?
+def update
+
+  if AccessCode.campaign_exists(access_code_params[:title]).blank?
+    @access_code.listener.update_attribute("group_name", params[:listener_group_name])
+    if @access_code.update(access_code_params)
       respond_to do |format|
-        if @access_code.update(access_code_params)
-          if Listener.group_exists(params[:listener_group_name]).blank?
-            @access_code.listener.update_attribute("group_name", params[:listener_group_name])
-          else
-            respond_to do |format|
-            format.html { redirect_to access_codes_path, notice: 'Group Name already exists. Please enter another one. ' }
-            end
-          end
-          format.html { redirect_to access_codes_path, notice: 'Campaign was successfully updated.' }
-          format.json { render :show, status: :ok, location: @access_code }
-        else
-          format.html { render :edit }
-          format.json { render json: @access_code.errors, status: :unprocessable_entity }
-        end
+        format.html { redirect_to access_codes_path }
+        format.json { render :show, status: :ok, location: @access_code }
       end
     else
-      if Listener.group_exists(params[:listener_group_name]).blank?
-        @access_code.listener.update_attribute("group_name", params[:listener_group_name])
-      else
-        respond_to do |format|
-        format.html { redirect_to access_codes_path, notice: 'Group Name already exists. Please enter another one. ' }
-        end
-      end
       respond_to do |format|
-        format.html { redirect_to access_codes_path, notice: 'Group Name already exists. Please enter another one. ' }
+        format.html { render :edit }
+        format.json { render json: @access_code.errors, status: :unprocessable_entity }
       end
     end
+  else
+    respond_to do |format|
+      format.html { redirect_to edit_access_code_path, notice: 'Campaign Name already exists. Please enter another one. ' }
+    end
   end
-
+end
   # DELETE /access_codes/1
   # DELETE /access_codes/1.json
   def destroy

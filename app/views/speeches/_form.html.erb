@@ -1,15 +1,4 @@
 <%= form_with(model: speech, local: true) do |form| %>
-  <% if speech.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(speech.errors.count, "error") %> prohibited this speech from being saved:</h2>
-
-      <ul>
-      <% speech.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
 
   <div class="field">
     <%#= form.label :code %>
@@ -23,7 +12,8 @@
 
 
 <div class="row" style="height:30px;"></div>
-<%= render "layouts/shared/flash_message" %>
+<%#= render "layouts/shared/flash_message" %>
+<p id="notice"><%= notice %></p>
 <div class="container">
     <div class="container-fluid px-0">
         <div class="row no-gutters">
@@ -43,7 +33,7 @@
                         <% end %>
                         <div class="form-group row">
                                 <div class="mt-2 col-md-3 text-right" style="padding-top:20px;">
-                                    <strong>Title</strong>
+                                    <strong>Title/Subject</strong> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Title that the skill user will hear this first before their content"><i class="fas fa-info-circle fa-lg"></i></span>
                                 </div>
                                 <div class="mt-4 col-md-8 offset-md-1">
                                   <%= form.text_field :title, id: :article_title, class: 'form-control', value: "#{!@speech.blank? ? @speech.title : ""}" %>
@@ -51,13 +41,13 @@
                             </div>
 
                         <div class="form-group row">
-                                <div class="mt-2 col-md-3 text-right" style="padding-top:60px;">
-                                    <strong>Content</strong>
+                                <div class="mt-2 col-md-3 text-right" style="padding-top:18px;">
+                                    <strong>Content</strong> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Main content that the skill users will hear"><i class="fas fa-info-circle fa-lg"></i></span>
                                 </div>
                                 <div class="mt-4 col-md-8 offset-md-1">
-                                  <%= form.text_area :content, id: :add_speech_content, size: "30x9", class: 'form-control', placeholder: 'Enter the text to convert speech' %>
-                                  <div class="mt-4 col-md-8" id="textarea_feedback"></div>
-                                  <div class="mt-4 col-md-12" style="color:red;margin-top:0px !important;"><strong>Note:-</strong> All the links/special characters will be ignored in the audio</div>
+                                  <%= form.text_area :content, id: :add_speech_content, size: "30x9", class: 'form-control show', placeholder: 'Enter the text to convert speech' %>
+                                  <div class="mt-4 col-md-8" id="textarea_feedback" style="margin-top:10px !important; font-size:14px;"></div>
+                                  <div class="mt-4 col-md-12" style="margin-top:2px !important; font-size:14px;"><strong>Note:-</strong> All the links/special characters will be ignored in the audio</div>
                                 </div>
                             </div>
 

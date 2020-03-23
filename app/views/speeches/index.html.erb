@@ -33,7 +33,11 @@
       
       <% end %>
     <% end %>
-      <div class="card-body table-responsive">
+    <div class="card-body table-responsive">
+    <% if ac.access_code_speech_map.blank? %>
+      <div class="row" style="height:60px"></div>
+      <div class="col-md-8 offset-md-4 align-self-center">  <%= link_to 'Create your first Article', new_speech_path, class: 'btn btn-outline-primary' %></div>
+    <% else %>
         <table class="table table-bordered table-sm table-hover">
           <thead class="thead-light">
             <tr>
@@ -51,20 +55,24 @@
         <% end %>
         </table>
       </div>
+    <% end %>
     </div>
 
   </div>
   <br/>
+  <div class="row">
+    <% unless ac.access_code_speech_map.blank? %>
+  		<div class="actions text-right col-md-12" style="padding:30px 10px 0 30px; bottom: 0; right: 0;">
+  			<%= link_to 'Add Article', new_speech_path, class: 'btn btn-outline-primary' %>
+		  </div>
+      <% end %>
+	</div>
   <% end
     end
   %>
-
-	<div class="row">
-  		<div class="actions text-right col-md-12" style="padding:30px 10px 0 30px; bottom: 0; right: 0;">
-  			<%= link_to 'Add Article', new_speech_path, class: 'btn btn-outline-primary' %>
-
-		</div>
-	</div>
+<br/>
+<br/>
+	
 </div>
 </div>
 

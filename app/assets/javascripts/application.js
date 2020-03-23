@@ -68,7 +68,7 @@ $(document).ready(function () {
         $("#FAQcontentModal-campiagn").scrollTop(position.top);
     });
       
-    $('.show').on('click',function(){   
+    $('.campaing-show').on('click',function(){   
         $('#FAQcontentModal-campiagn').modal('show');
     });
 
@@ -109,7 +109,26 @@ $(document).ready(function () {
 		});
 		$("#delete-confirm-cancel").click(function(){
             $("#delete-confirm-pane").hide(600);
-		});
+        });
+        
+        //Campaign Validation
+        $("#campaign-save").click(function(){
+            access_code_title = $("#access_code_title").val();
+            if(access_code_title.length <= 0){
+                alert('Please enter the campaign name');
+                $("#access_code_title").css("border-color","red");
+                return false;
+            }else{
+                $("#access_code_title").css("border","none");
+            }
+        });
+        
+        $("#access_code_title").keyup(function(){
+            access_code_title = $(this).val();
+            if(access_code_title.length > 0){
+                $("#access_code_title").css("border","1px solid #ced4da");
+            }
+        });
   });
 
 

@@ -5,7 +5,7 @@ class SessionsController < Devise::SessionsController
           if resource.sign_in_count == 1
             set_flash_message(:notice, :signed_in_first_time, access_code: resource.access_code)
           else
-            set_flash_message(:notice, :signed_in)
+            #set_flash_message(:notice, :signed_in)
           end
         end
         sign_in(resource_name, resource)
