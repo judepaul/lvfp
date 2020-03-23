@@ -77,6 +77,13 @@ class AccessCodesController < ApplicationController
         end
       end
     else
+      if Listener.group_exists(params[:listener_group_name]).blank?
+        @access_code.listener.update_attribute("group_name", params[:listener_group_name])
+      else
+        respond_to do |format|
+        format.html { redirect_to access_codes_path, notice: 'Group Name already exists. Please enter another one. ' }
+        end
+      end
       respond_to do |format|
         format.html { redirect_to access_codes_path, notice: 'Group Name already exists. Please enter another one. ' }
       end

@@ -1,103 +1,98 @@
 <div class="row" style="height:60px"></div>
-<%= render "layouts/shared/flash_message" %>
+<%#= render "layouts/shared/flash_message" %>
 <div class="container">
 <div class="row justify-content-center">
 <div class="col-md-10">
 <div class="card" style="width:100%;">
-                    <div class="card-header text-white text-bold">
-                      <div class="row">
-                        <div class="col-md-6">Manage Campaigns</div>
-                        <div class="col-md-6 text-right">
-                          <span style="cursor: pointer;" data-toggle="modal" data-target="#FAQcontentModal" aria-hidden="true"><i class="fas fa-info-circle fa-lg"></i></span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card-body" style="height:auto;">
+  <div class="card-header text-white text-bold">
+    <div class="row">
+      <div class="col-md-6">Manage Campaigns</div>
+        <div class="col-md-6 text-right">
+            <span style="cursor: pointer;" class="show"><i class="fas fa-info-circle fa-lg"></i></span>
+        </div>
+    </div>
+  </div>
+  <div class="card-body" style="height:auto;">
 <!-- <p id="notice"><%#= notice %></p> %> -->
+
+<% if @access_codes.blank? %>
+  <div class="row" style="height:60px"></div>
+  <div class="col-md-8 offset-md-4 align-self-center">  <%= link_to 'Create your first campaign', new_access_code_path, class: 'btn btn-outline-primary' %></div>
+<% else %>
 <div class="row justify-content-end" style="text-align: right !important;">
 <%= will_paginate @access_codes, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
 </div>
-
 <table width=100% class="table table-bordered table-sm table-hover">
-  <thead>
-    <tr align="center">
-      <th class="thead-dark">Listener Group Access Code</th>
-      <th>Campaign Name</th>
+<thead>
+  <tr class="thead-light text-center">
+    <th width="30%">Listener Group Name</th>
+    <th width="25%">Listener Group Access Code</th>
+    <th width="45%">Campaign Name (Article Count)</th>
+  </tr>
+</thead>
+
+<tbody>
+  <% @access_codes.each do |code| %>
+    <tr style="cursor: pointer;" onclick="location.href='<%= edit_access_code_path(code) %>'">
+      <td style="text-align:center;"><%= listener_group_name(code.listener_id) %></td>
+      <td style="text-align:center;"><%= code.code %></td>
+      <td style="text-align:center;"><%= code.title %> (<%= article_count code.id %>)</td>
+      <!-- <td style="text-align:center;"><%#= link_to 'Show', code %>
+      <%#= link_to 'Edit', edit_access_code_path(code) %>
+      <%#= link_to 'Destroy', code, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
     </tr>
-  </thead>
-
-  <tbody>
-    <% if @access_codes.blank? %>
-      <tr>
-        <td style="text-align:center;color:red;" colspan="2">You have not yet create your first Campaign. Let's Start...</td>
-    <% else %>
-    <% @access_codes.each do |code| %>
-      <tr style="cursor: pointer;" onclick="location.href='<%= edit_access_code_path(code) %>'">
-        <td style="text-align:center;"><%= code.code %></td>
-        <td style="text-align:center;"><%= code.title %></td>
-        <!-- <td style="text-align:center;"><%#= link_to 'Show', code %>
-        <%#= link_to 'Edit', edit_access_code_path(code) %>
-        <%#= link_to 'Destroy', code, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
-      </tr>
-    <% end %>
-    <% end %>
-  </tbody>
+  <% end %>
+</tbody>
 </table>
-
+<% end %>
 <br/>
-
+<% unless @access_codes.blank? %>
 <div class="row justify-content-end" style="text-align: right !important;">
 <%= will_paginate @access_codes, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
 </div>
-
+<% end %>
 <br/>
 
 <div class="actions text-right" style="padding:30px 40px 30px 0; bottom: 0; right: 0;">
 <% if current_user.super_vc_admin? %>
-  <%= link_to 'Create Campaign', new_access_code_path, class: 'btn btn-outline-primary' %>
+<%= link_to 'Create Campaign', new_access_code_path, class: 'btn btn-outline-primary' %>
 <% else %>
-  <% if @access_codes.blank? %>
-    <%= link_to 'Create Campaign', new_access_code_path, class: 'btn btn-outline-primary' %>
-  <% else %>
-    <button disabled class="btn btn-outline-primary"> Create Campaign </button>
-  <% end %>
+<% if @access_codes.blank? %>
+  <%#= link_to 'Create Campaign', new_access_code_path, class: 'btn btn-outline-primary' %>
+<% else %>
+  <button disabled class="btn btn-outline-primary"> Create Campaign </button>
+<% end %>
 <% end %>
 </div>
-<div class="row col-md-6" style="margin-left:5px; padding: 1px 5px 1px 5px; color:#FFF; background-color:orange"><strong>Note:</strong> You can have only one Campaign in this version.</div>
+<!-- <div class="row col-md-6" style="margin-left:5px; padding: 1px 5px 1px 5px; color:#FFF; background-color:orange"><strong>Note:</strong> You can have only one Campaign in this version.</div> -->
 </div>
 </div>
 </div>
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="FAQcontentModal" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="contentModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-          <div class="col-md-6">
-            <h5 class="modal-title" id="exampleModalLabel">FAQ</h5>
-          </div>
-          <div class="col-md-3 text-right" >
-            <!-- <audio id="audioPlayback" controls> -->
-            <audio id="audioPlayback">
-              <source id="audioSource" type="audio/mp3" src="">
-            </audio>
-            <button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close" data-toggle="tooltip" data-placement="top" title="Close">
-              <i class="fa fa-times-circle fa-lg"></i> 
-            </button>
-            </div>
-      </div>
-      <input type="hidden" id="speech_content" />
-      <div id="contentDetails" class="modal-body">
-        <%= render "layouts/shared/faq" %>
-      </div>
-      <div class="modal-footer">
-        <div class="col-md-6"></div>
-        <div class="col-md-6 offset-md-5 text-right">
-          <button type="button" class="btn btn-outline-primary close-modal" data-dismiss="modal">Close</button>
+<div class="modal fade" id="FAQcontentModal-campiagn" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="contentModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+        <div class="col-md-6">
+          <h5 class="modal-title" id="exampleModalLabel">FAQ</h5>
         </div>
+        <div class="col-md-3 text-right" >
+          <button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close" data-toggle="tooltip" data-placement="top" title="Close">
+            <i class="fa fa-times-circle fa-lg"></i> 
+          </button>
+        </div>
+    </div>
+    <div id="contentDetails" class="modal-body">
+      <%= render "layouts/shared/faq" %>
+    </div>
+    <div class="modal-footer">
+      <div class="col-md-6"></div>
+      <div class="col-md-6 offset-md-5 text-right">
+        <button type="button" class="btn btn-outline-primary close-modal" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
 </div>
-
+</div>

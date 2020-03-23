@@ -57,7 +57,22 @@ $(document).ready(function () {
     });
 
 
-    //Speech content Modal Window
+    //FAQ Modal screenwise
+    $('#FAQcontentModal-campiagn').on('shown.bs.modal', function (event) { 
+        // $('.modal-content .modal-body #section-2').show();
+        // });
+        var section = $('#section-2');
+        section.css('background-color', '').css('background-color', '#e9ecef');
+        // scroll modal to position top
+        var position = section.position();
+        $("#FAQcontentModal-campiagn").scrollTop(position.top);
+    });
+      
+    $('.show').on('click',function(){   
+        $('#FAQcontentModal-campiagn').modal('show');
+    });
+
+        //Speech content Modal Window
         $('#contentModal').on('show.bs.modal', function(e) { //subscribe to show method
             var getContentFromRow = $(event.target).closest('tr').data('content'); 
             var getIdFromRow = $(event.target).closest('tr').data('id');
