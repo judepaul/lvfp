@@ -32,38 +32,38 @@
                           </div>
                         <% end %>
                         <div class="form-group row">
-                                <div class="mt-2 col-md-3 text-right" style="padding-top:20px;">
+                                <div class="mt-2 col-md-3 offset-md-1"" style="padding-top:20px;">
                                     <strong>Title/Subject</strong> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Title that the skill user will hear this first before their content"><i class="fas fa-info-circle fa-lg"></i></span>
                                 </div>
-                                <div class="mt-4 col-md-8 offset-md-1">
+                                <div class="mt-4 col-md-8">
                                   <%= form.text_field :title, id: :article_title, class: 'form-control', value: "#{!@speech.blank? ? @speech.title : ""}" %>
                                 </div>
                             </div>
 
                         <div class="form-group row">
-                                <div class="mt-2 col-md-3 text-right" style="padding-top:18px;">
+                                <div class="mt-2 col-md-3 offset-md-1"" style="padding-top:18px;">
                                     <strong>Content</strong> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Main content that the skill users will hear"><i class="fas fa-info-circle fa-lg"></i></span>
                                 </div>
-                                <div class="mt-4 col-md-8 offset-md-1">
+                                <div class="mt-4 col-md-8">
                                   <%= form.text_area :content, id: :add_speech_content, size: "30x9", class: 'form-control show', placeholder: 'Enter the text to convert speech' %>
                                   <div class="mt-4 col-md-8" id="textarea_feedback" style="margin-top:10px !important; font-size:14px;"></div>
-                                  <div class="mt-4 col-md-12" style="margin-top:2px !important; font-size:14px;"><strong>Note:-</strong> All the links/special characters will be ignored in the audio</div>
+                                  <div class="mt-4 col-md-12" style="margin-top:1px !important; font-size:14px;"><strong>Note:-</strong> All the links/special characters will be ignored in the audio</div>
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <div class="mt-2 col-md-3 text-right" style="padding-top:10px;">
+                                <div class="mt-2 col-md-3 offset-md-1" style="padding-top:10px;">
                                     <strong>Select Listener Group</strong>
                                 </div>
-                                <div class="mt-4 col-md-6 offset-md-1">
+                                <div class="mt-2 col-md-6">
                                   <% if @speech.new_record? %>
                                     <%= select_tag 'acc_code_id', options_for_select(@access_codes.collect{ |c| ["#{c.code} - #{c.title}", c.id]}), prompt: "Select Listener Group Access Code", class: "form-control", disabled:true %>
                                   <% else %>
                                     <span style="font-size:16px;"><%= @speech.access_code_speech_map.last.access_code.code %> - <%= @speech.access_code_speech_map.last.access_code.title %></span>
                                   <% end %>
                                 </div>
-                                <div class="mt-4 col-md-12"></div>
-                                <div class="actions text-right" style="padding:0 40px 30px 0; position: absolute; bottom: 0; right: 0;">
+                                <div class="mt-4 col-md-12" style="height:60px;"></div>
+                                <div class="actions text-right align-" style="padding:0 40px 30px 0; position: absolute; bottom: 0; right: 0;">
                                   <%= link_to 'Cancel', speeches_path, class: "btn btn-outline-primary" %>
                                   <% if @speech.new_record? %>
                                     <%= form.submit 'Save', id: 'save_content', class:"btn btn-outline-primary", disabled: true %>
