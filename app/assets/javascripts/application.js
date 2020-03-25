@@ -71,6 +71,20 @@ $(document).ready(function () {
     $('.campaing-show').on('click',function(){   
         $('#FAQcontentModal-campiagn').modal('show');
     });
+    $('#FAQcontentModal-article').on('shown.bs.modal', function (event) { 
+        // $('.modal-content .modal-body #section-2').show();
+        // });
+        var section = $('#section-3');
+        section.css('background-color', '').css('background-color', '#e9ecef');
+        // scroll modal to position top
+        var position = section.position();
+        $("#FAQcontentModal-article").scrollTop(position.top);
+    });
+      
+    $('.article-show').on('click',function(){   
+        $('#FAQcontentModal-article').modal('show');
+    });
+
 
         //Speech content Modal Window
         $('#contentModal').on('show.bs.modal', function(e) { //subscribe to show method
@@ -127,6 +141,18 @@ $(document).ready(function () {
             access_code_title = $(this).val();
             if(access_code_title.length > 0){
                 $("#access_code_title").css("border","1px solid #ced4da");
+            }
+        });
+
+        //Campaign Validation
+        $("#save_content").click(function(){
+            access_code_title = $("#article_title").val();
+            if(access_code_title.length <= 0){
+                alert('Please enter the article title');
+                $("#article_title").css("border-color","red");
+                return false;
+            }else{
+                $("#article_title").css("border","none");
             }
         });
   });

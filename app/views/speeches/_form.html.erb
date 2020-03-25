@@ -1,25 +1,21 @@
 <%= form_with(model: speech, local: true) do |form| %>
 
-  <div class="field">
-    <%#= form.label :code %>
-    <%#= form.text_field :code, id: :speech_code %>
-  </div>
-
-  <div class="field">
-    <%#= form.label :email_address %>
-    <%#= form.text_field :email_address, id: :speech_email_address %>
-  </div>
-
-
 <div class="row" style="height:30px;"></div>
-<%#= render "layouts/shared/flash_message" %>
-<p id="notice"><%= notice %></p>
+<%= render "layouts/shared/flash_message" %>
+<!-- <p id="notice"><%#= notice %></p> -->
 <div class="container">
     <div class="container-fluid px-0">
         <div class="row no-gutters">
             <div class="col-sm-12 col-md mr-md-3">
               <div class="card">
-                    <div class="card-header text-white"><strong>Add Article</strong></div>
+                    <div class="card-header text-white text-bold">
+                          <div class="row">
+                              <div class="col-md-6">Manage Article</div>
+                              <div class="col-md-6 text-right">
+                                <span style="cursor: pointer;" class="article-show"><i class="fas fa-info-circle fa-lg"></i></span>
+                              </div>
+                            </div>
+                        </div>
                     <div class="card-body">
                         <% unless @speech.new_record? %>
                           <div class="form-group row">
@@ -27,7 +23,7 @@
                                     <strong>Status</strong>
                                 </div>
                                 <div class="mt-4 col-md-8 offset-md-1">
-                                  <span style="padding: 2px 5px 2px 5px; color:#FFF; background-color: <%= @speech.published? ? 'green' : !@speech.published? ? 'orange' : "" %>;"><strong><%= @speech.published? ? 'Published' : !@speech.published? ? 'Draft' : "" %></strong></span>
+                                  <span style="padding: 3px 5px 0px 5px; background-color: <%#= @speech.published? ? 'green' : !@speech.published? ? 'orange' : "" %>;"><strong><%= @speech.published? ? 'Published' : !@speech.published? ? 'Draft' : "" %></strong></span>
                                 </div>
                           </div>
                         <% end %>
@@ -36,7 +32,11 @@
                                     <strong>Title/Subject</strong> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Title that the skill user will hear this first before their content"><i class="fas fa-info-circle fa-lg"></i></span>
                                 </div>
                                 <div class="mt-4 col-md-8">
-                                  <%= form.text_field :title, id: :article_title, class: 'form-control', value: "#{!@speech.blank? ? @speech.title : ""}" %>
+                                  <% if @speech.published? %>
+                                    <p style="padding-top:5px;"><%= @speech.title.blank? ? 'N/A' : @speech.title %>
+                                  <% else %>
+                                    <%= form.text_field :title, id: :article_title, class: 'form-control', value: "#{!@speech.blank? ? @speech.title : ""}", placeholder: 'Enter title' %>
+                                  <% end %>
                                 </div>
                             </div>
 
@@ -45,9 +45,13 @@
                                     <strong>Content</strong> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Main content that the skill users will hear"><i class="fas fa-info-circle fa-lg"></i></span>
                                 </div>
                                 <div class="mt-4 col-md-8">
-                                  <%= form.text_area :content, id: :add_speech_content, size: "30x9", class: 'form-control show', placeholder: 'Enter the text to convert speech' %>
-                                  <div class="mt-4 col-md-8" id="textarea_feedback" style="margin-top:10px !important; font-size:14px;"></div>
-                                  <div class="mt-4 col-md-12" style="margin-top:1px !important; font-size:14px;"><strong>Note:-</strong> All the links/special characters will be ignored in the audio</div>
+                                  <% if @speech.published? %>
+                                    <p style="height: 300px;overflow: scroll;padding-top:3px;"><%= @speech.content %>
+                                  <% else %>
+                                    <%= form.text_area :content, id: :add_speech_content, size: "30x9", class: 'form-control show', placeholder: 'Enter the text to convert speech' %>
+                                    <div class="mt-4 col-md-8" id="textarea_feedback" style="margin-top:10px !important; font-size:14px;"></div>
+                                    <div class="mt-4 col-md-12" style="margin-top:1px !important; font-size:14px;">All the links/special characters will be ignored in the audio</div>
+                                <% end %>
                                 </div>
                             </div>
 
@@ -64,7 +68,7 @@
                                 </div>
                                 <div class="mt-4 col-md-12" style="height:60px;"></div>
                                 <div class="actions text-right align-" style="padding:0 40px 30px 0; position: absolute; bottom: 0; right: 0;">
-                                  <%= link_to 'Cancel', speeches_path, class: "btn btn-outline-primary" %>
+                                  <%= link_to 'Cancel', speeches_path(speech_id: @speech.id), class: "btn btn-outline-primary" %>
                                   <% if @speech.new_record? %>
                                     <%= form.submit 'Save', id: 'save_content', class:"btn btn-outline-primary", disabled: true %>
                                     <%= form.submit 'Publish', id: 'publish_content', class:"btn btn-outline-primary", disabled: true %>
@@ -94,6 +98,40 @@
 </div> 
 
 <% end %>
+
+
+<!-- Modal -->
+<div class="modal fade" id="FAQcontentModal-article" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="contentModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+          <div class="col-md-6">
+            <h5 class="modal-title" id="exampleModalLabel">FAQ</h5>
+          </div>
+          <div class="col-md-3 text-right" >
+            <!-- <audio id="audioPlayback" controls> -->
+            <audio id="audioPlayback">
+              <source id="audioSource" type="audio/mp3" src="">
+            </audio>
+            <button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close" data-toggle="tooltip" data-placement="top" title="Close">
+              <i class="fa fa-times-circle fa-lg"></i> 
+            </button>
+            </div>
+      </div>
+      <input type="hidden" id="speech_content" />
+      <div id="contentDetails" class="modal-body">
+        <%= render "layouts/shared/faq" %>
+      </div>
+      <div class="modal-footer">
+        <div class="col-md-6"></div>
+        <div class="col-md-6 offset-md-5 text-right">
+          <button type="button" class="btn btn-outline-primary close-modal" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <script type="text/javascript">
 

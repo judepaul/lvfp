@@ -61,7 +61,7 @@ class AccessCodesController < ApplicationController
   # PATCH/PUT /access_codes/1.json
 def update
 
-  if AccessCode.campaign_exists(access_code_params[:title]).blank?
+  #if AccessCode.campaign_exists(access_code_params[:title]).blank?
     @access_code.listener.update_attribute("group_name", params[:listener_group_name])
     if @access_code.update(access_code_params)
       respond_to do |format|
@@ -74,11 +74,11 @@ def update
         format.json { render json: @access_code.errors, status: :unprocessable_entity }
       end
     end
-  else
-    respond_to do |format|
-      format.html { redirect_to edit_access_code_path, notice: 'Campaign Name already exists. Please enter another one. ' }
-    end
-  end
+  # else
+  #   respond_to do |format|
+  #     format.html { redirect_to edit_access_code_path, notice: 'Campaign Name already exists. Please enter another one. ' }
+  #   end
+  # end
 end
   # DELETE /access_codes/1
   # DELETE /access_codes/1.json

@@ -3,7 +3,19 @@
 <%#= render 'form', speech: @speech %>
 
 <div class="container">
-<!-- <p id="notice"><%= notice %></p> -->
+    <div class="container-fluid px-0">
+        <div class="row no-gutters">
+            <div class="col-sm-12 col-md mr-md-3">
+              <div class="card">
+                        <div class="card-header text-white text-bold">
+                          <div class="row">
+                              <div class="col-md-6">Manage Article</div>
+                              <div class="col-md-6 text-right">
+                                <span style="cursor: pointer;" class="article-show"><i class="fas fa-info-circle fa-lg"></i></span>
+                              </div>
+                            </div>
+                        </div>
+                    <div class="card-body"><!-- <p id="notice"><%= notice %></p> -->
 <div id="accordion">
   <% unless @access_codes.blank?
         @access_codes.each_with_index do |ac,indx|
@@ -26,12 +38,14 @@
                 <div id="collapse<%=indx+1%>" class="collapse" aria-labelledby="heading<%=indx+1%>" data-parent="#accordion">
         <% end %>
     <% else %>
-            <%if indx==0 %>
+
+    <!-- Commented by Jude on 25/03/2020 to show all tabs as discussed with Gaurav on 24/03/2020(keep the pane all tabs expand) -->
+            <!%if indx==0 %>
         <div id="collapse<%=indx+1%>" class="collapse show" aria-labelledby="heading<%=indx+1%>" data-parent="#accordion"> 
-    <% else %>
-            <div id="collapse<%=indx+1%>" class="collapse" aria-labelledby="heading<%=indx+1%>" data-parent="#accordion">
+    <!% else %>
+            <!-- <div id="collapse<%#=indx+1%>" class="collapse" aria-labelledby="heading<%#=indx+1%>" data-parent="#accordion"> -->
       
-      <% end %>
+      <!% end %>
     <% end %>
     <div class="card-body table-responsive">
     <% if ac.access_code_speech_map.blank? %>
@@ -49,7 +63,18 @@
           <tbody>
             <tr style="cursor: pointer;" onclick="location.href='<%= edit_speech_path(acsm.speech) %>'">
               <th><%= acsm.speech.id %></th>
-              <td><p class="content"><strong>Title:- <%= !acsm.speech.title.blank? ? acsm.speech.title : '' %></strong> <span style="padding: 1px 5px 1px 5px; color:#FFF; background-color: <%= acsm.speech.published? ? 'green' : !acsm.speech.published? ? 'orange' : "" %>;"><strong><%= acsm.speech.published? ? 'Published' : !acsm.speech.published? ? 'Draft' : "" %></strong></span></p><p class="content"><%= acsm.speech.content %></p></td>
+              <td><p class="content"><strong>Title:- <%= !acsm.speech.title.blank? ? acsm.speech.title : '' %></strong> 
+                <!-- <span style="padding: 1px 5px 1px 5px; color:#FFF; background-color: <%#= acsm.speech.published? ? 'green' : !acsm.speech.published? ? 'orange' : "" %>;"><strong><%#= acsm.speech.published? ? 'Published' : !acsm.speech.published? ? 'Draft' : "" %></strong></span> -->
+                <span style="padding: 2px 5px 1px 5px;font-weight:bold;">
+                  <% if acsm.speech.published? %>
+                    <%= link_to("/speeches/published_details/#{acsm.speech.id}",style:"text-decoration:none;") do %>Published <span style="color:#007bff;"><i class="fas fa-external-link-alt"></i></span><% end %>
+                  <% else %> 
+                    Draft
+                  <% end %>
+                </span>
+                </p>
+                <p class="content"><%= acsm.speech.content %></p>
+              </td>
             </tr>
           </tbody>
         <% end %>
@@ -60,22 +85,27 @@
 
   </div>
   <br/>
+  <% end
+    end
+  %>
+  <br/>
   <div class="row">
-    <% unless ac.access_code_speech_map.blank? %>
+    <% unless @speeches.blank? %>
   		<div class="actions text-right col-md-12" style="padding:30px 10px 0 30px; bottom: 0; right: 0;">
   			<%= link_to 'Add Article', new_speech_path, class: 'btn btn-outline-primary' %>
 		  </div>
       <% end %>
 	</div>
-  <% end
-    end
-  %>
-<br/>
 <br/>
 	
 </div>
 </div>
 
+</div>
+</div>
+</div>
+</div>
+</div>
 <%#= link_to 'New Speech', new_speech_path %>
 <br/>
 
@@ -118,6 +148,38 @@
     </div>
 	</div>
         </div>
+        <div class="col-md-6 offset-md-5 text-right">
+          <button type="button" class="btn btn-outline-primary close-modal" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="FAQcontentModal-article" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="contentModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+          <div class="col-md-6">
+            <h5 class="modal-title" id="exampleModalLabel">FAQ</h5>
+          </div>
+          <div class="col-md-3 text-right" >
+            <!-- <audio id="audioPlayback" controls> -->
+            <audio id="audioPlayback">
+              <source id="audioSource" type="audio/mp3" src="">
+            </audio>
+            <button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close" data-toggle="tooltip" data-placement="top" title="Close">
+              <i class="fa fa-times-circle fa-lg"></i> 
+            </button>
+            </div>
+      </div>
+      <input type="hidden" id="speech_content" />
+      <div id="contentDetails" class="modal-body">
+        <%= render "layouts/shared/faq" %>
+      </div>
+      <div class="modal-footer">
+        <div class="col-md-6"></div>
         <div class="col-md-6 offset-md-5 text-right">
           <button type="button" class="btn btn-outline-primary close-modal" data-dismiss="modal">Close</button>
         </div>

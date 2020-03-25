@@ -23,13 +23,16 @@
 <%= will_paginate @access_codes, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
 </div>
 <table width=100% class="table table-bordered table-sm table-hover">
-<thead>
-  <tr class="thead-light text-center">
-    <th width="30%">Listener Group Name</th>
-    <th width="25%">Listener Group Access Code</th>
-    <th width="45%">Campaign Name (Article Count)</th>
-  </tr>
-</thead>
+  <thead>
+    <tr class="thead-light text-center">
+      <th width="50%" colspan="2"class="align-top">Listener Group</th>
+      <th width="50%" rowspan="2" class="align-top">Campaign Name (Article Count)</th>
+    </tr>
+    <tr class="thead-light text-center align-top">
+      <th width="30%" class="align-top">Name</th>
+      <th width="20%" class="align-top">Code</th>
+    </tr>
+  </thead>
 
 <tbody>
   <% @access_codes.each do |code| %>
@@ -60,7 +63,7 @@
 <% if @access_codes.blank? %>
   <%#= link_to 'Create Campaign', new_access_code_path, class: 'btn btn-outline-primary' %>
 <% else %>
-  <button disabled class="btn btn-outline-primary"> Create Campaign </button>
+  <!-- <button disabled class="btn btn-outline-primary"> Create Campaign </button> -->
 <% end %>
 <% end %>
 </div>

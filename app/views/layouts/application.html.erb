@@ -3,23 +3,22 @@
   <head>
     <title>Lvfp</title>
     <%= csrf_meta_tags %>
-
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <script src="https://sdk.amazonaws.com/js/aws-sdk-2.410.0.min.js"></script>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+        <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
-
   <body onload="speakText();">
-  <header class="cf header2">
-    <%= render 'layouts/shared/navbar' %>
-  </header>
-
+    <!-- Header -->
+    <header class="cf header2">
+      <%= render 'layouts/shared/navbar' %>
+    </header>
+    <!-- END Header -->
+    <div class="body">
       <%= yield %>
     </div>
-    </div>
+    <!-- Footer -->
+    <%= render 'layouts/shared/footer' %>
+    <!-- END Footer -->
   </body>
 </html>
