@@ -73,7 +73,7 @@
                   <% end %>
                 </span>
                 </p>
-                <p class="content"><%= acsm.speech.content %></p>
+                <p class="content"><%= !acsm.speech.email_from.blank? ? acsm.speech.email_from.rstrip.concat('.') : '' %> <%= acsm.speech.content %></p>
               </td>
             </tr>
           </tbody>

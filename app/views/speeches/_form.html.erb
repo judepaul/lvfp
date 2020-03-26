@@ -19,14 +19,15 @@
                     <div class="card-body">
                         <% unless @speech.new_record? %>
                           <div class="form-group row">
-                                <div class="mt-2 col-md-3 text-right" style="padding-top:20px;">
+                                <div class="mt-2 col-md-3 offset-md-1" style="padding-top:20px;">
                                     <strong>Status</strong>
                                 </div>
-                                <div class="mt-4 col-md-8 offset-md-1">
+                                <div class="mt-4 col-md-8">
                                   <span style="padding: 3px 5px 0px 5px; background-color: <%#= @speech.published? ? 'green' : !@speech.published? ? 'orange' : "" %>;"><strong><%= @speech.published? ? 'Published' : !@speech.published? ? 'Draft' : "" %></strong></span>
                                 </div>
                           </div>
                         <% end %>
+
                         <div class="form-group row">
                                 <div class="mt-2 col-md-3 offset-md-1"" style="padding-top:20px;">
                                     <strong>Title/Subject</strong> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Title that the skill user will hear this first before their content"><i class="fas fa-info-circle fa-lg"></i></span>
@@ -38,7 +39,33 @@
                                     <%= form.text_field :title, id: :article_title, class: 'form-control', value: "#{!@speech.blank? ? @speech.title : ""}", placeholder: 'Enter title' %>
                                   <% end %>
                                 </div>
+                          </div>
+
+                        <div class="form-group row">
+                                <div class="mt-2 col-md-3 offset-md-1"" style="padding-top:20px;">
+                                    <strong>Email From</strong> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Sender information that the skill user will hear this before their content"><i class="fas fa-info-circle fa-lg"></i></span>
+                                </div>
+                                <div class="mt-4 col-md-8">
+                                  <% if @speech.published? %>
+                                    <p style="padding-top:5px;"><%= @speech.email_from.blank? ? 'N/A' : @speech.email_from %>
+                                  <% else %>
+                                    <%= form.text_field :email_from, id: :article_from, class: 'form-control', value: "#{!@speech.blank? ? @speech.email_from : ""}", placeholder: 'Enter From' %>
+                                  <% end %>
+                                </div>
                             </div>
+
+                        <!--  <div class="form-group row">
+                                <div class="mt-2 col-md-3 offset-md-1"" style="padding-top:20px;">
+                                    <strong>Email Sent On</strong> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Sender information that the skill user will hear this before their content"><i class="fas fa-info-circle fa-lg"></i></span>
+                                </div>
+                                <div class="mt-4 col-md-4">
+                                  <!% if @speech.published? %>
+                                    <p style="padding-top:5px;"><%#= @speech.email_sent_date.blank? ? 'N/A' : @speech.email_sent_date %>
+                                  <!% else %>
+                                    <%#= form.text_field :email_sent_date, id: :email_sent_date, class: 'form-control', value: "#{!@speech.blank? ? @speech.email_sent_date : ""}", placeholder: 'Choose Date' %>
+                                  <!% end %>
+                                </div>
+                            </div> -->
 
                         <div class="form-group row">
                                 <div class="mt-2 col-md-3 offset-md-1"" style="padding-top:18px;">
@@ -46,7 +73,7 @@
                                 </div>
                                 <div class="mt-4 col-md-8">
                                   <% if @speech.published? %>
-                                    <p style="height: 300px;overflow: scroll;padding-top:3px;"><%= @speech.content %>
+                                    <p style="height: auto;overflow: scroll;padding-top:3px;"><%= @speech.content %>
                                   <% else %>
                                     <%= form.text_area :content, id: :add_speech_content, size: "30x9", class: 'form-control show', placeholder: 'Enter the text to convert speech' %>
                                     <div class="mt-4 col-md-8" id="textarea_feedback" style="margin-top:10px !important; font-size:14px;"></div>
