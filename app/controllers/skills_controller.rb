@@ -28,6 +28,9 @@ class SkillsController < ApplicationController
           # if access_code == '9964'
             access_code_id = AccessCode.where(code: access_code).last.id
             vc_admin_id = AccessCode.where(code: access_code).last.user_id
+            p "!!!!!!!!!!!"
+            p access_code_id
+            p vc_admin_id
             Audiance.create(voice_user_id: voice_user_id, device_id: device_id, user_id:vc_admin_id)
             # article_title = AccessCodeSpeechMap.where(access_code_id: access_code_id).last.speech.title
             # content = AccessCodeSpeechMap.where(access_code_id: access_code_id).last.speech.content
