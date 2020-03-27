@@ -89,7 +89,7 @@ end
     if active_message_arr.blank?
       @access_code.destroy
       respond_to do |format|
-        format.html { redirect_to access_codes_url, notice: 'Access code was successfully destroyed.' }
+        format.html { redirect_to access_codes_url, notice: 'Campaign was deleted successfully.' }
         format.json { head :no_content }
       end
     else

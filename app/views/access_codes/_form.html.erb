@@ -3,7 +3,7 @@
 <div class="row justify-content-center">
 <div class="col-md-10">
 <div class="card" style="width:900px;">
-                    <div class="card-header text-white text-bold">
+                    <div class="card-header text-white h5">
                       <div class="row">
                         <div class="col-md-6">Manage Campaigns</div>
                         <div class="col-md-6 text-right">
@@ -34,13 +34,13 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="password" class="col-md-4 col-form-label text-md-right text-bold">Campaign Name <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Campaign name is an identity for list the articles which are belongs to that."><i class="fas fa-info-circle fa-lg"></i></span></label>
+                                <label for="password" class="col-md-4 col-form-label text-md-right text-bold">Campaign Name <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Campaign name is an identity for list the articles which are belongs to that."><%= image_tag("/assets/icon-info.png") %></span></label>
                                 <div class="col-md-6">
                                     <%= form.text_field :title, id: :access_code_title, class: "form-control", placeholder: 'Required' %>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="password" class="col-md-4 col-form-label text-md-right text-bold">Listener Group Name <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="A unique name that must be given to the group when you create a new one. Ex: Access code 9999 is identified as VC-Podcast" ><i class="fas fa-info-circle fa-lg"></i></span></label>
+                                <label for="password" class="col-md-4 col-form-label text-md-right text-bold">Listener Group Name <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="A unique name that must be given to the group when you create a new one. Ex: Access code 9999 is identified as VC-Podcast" ><%= image_tag("/assets/icon-info.png") %></span></label>
                                 <div class="col-md-6">
                                     <%#= form.text_field :title, id: :access_code_title, class: "form-control" %>
                                     <% if access_code.new_record? %>

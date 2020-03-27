@@ -1,10 +1,14 @@
-<div class="row" style="height:60px"></div>
+<div class="row" style="height:40px"></div>
 <%#= render "layouts/shared/flash_message" %>
 <div class="container">
+<!-- <p class="col-md-12 offset-md-1 pb-3" id="notice"><%#= notice %></p> -->
+        <div class="row">
+            <div class="col-md-10 offset-md-1 pb-3 btn-outline-light"><h5 style="padding: 2px 5px 2px 0px;color:#5C5656;text-align:left;font-size:24px !important;letter-spacing:.06rem !important;"><%= notice %></h5></div>
+        </div>
 <div class="row justify-content-center">
 <div class="col-md-10">
 <div class="card" style="width:100%;">
-  <div class="card-header text-white text-bold">
+  <div class="card-header text-white h5">
     <div class="row">
       <div class="col-md-6">Manage Campaigns</div>
         <div class="col-md-6 text-right">
@@ -13,7 +17,6 @@
     </div>
   </div>
   <div class="card-body" style="height:auto;">
-<p id="notice"><%#= notice %></p>
 
 <% if @access_codes.blank? %>
   <div class="row" style="height:60px"></div>
@@ -22,15 +25,18 @@
 <div class="row justify-content-end" style="text-align: right !important;">
 <%= will_paginate @access_codes, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
 </div>
-<table width=100% class="table table-bordered table-sm table-hover">
+<table width=100% class="table table-bordered table-sm table-hover h6 font-weight-normal">
   <thead>
     <tr class="thead-light text-center">
-      <th width="50%" colspan="2"class="align-top">Listener Group</th>
-      <th width="50%" rowspan="2" class="align-top">Campaign Name (Article Count)</th>
+      <th width="45%" colspan="2"class="align-top">Listener Group</th>
+      <th width="40%" rowspan="2" class="align-top">Campaign Name (Article Count)</th>
+      <% if current_user.super_vc_admin? %>
+        <th width="15%" rowspan="2" class="align-top">Action</th>
+      <% end %>
     </tr>
     <tr class="thead-light text-center align-top">
       <th width="30%" class="align-top">Name</th>
-      <th width="20%" class="align-top">Code</th>
+      <th width="15%" class="align-top">Code</th>
     </tr>
   </thead>
 
@@ -40,9 +46,11 @@
       <td style="text-align:center;"><%= listener_group_name(code.listener_id) %></td>
       <td style="text-align:center;"><%= code.code %></td>
       <td style="text-align:center;"><%= code.title %> (<%= article_count code.id %>)</td>
-      <!-- <td style="text-align:center;"><%#= link_to 'Show', code %>
-      <%#= link_to 'Edit', edit_access_code_path(code) %>
-      <%#= link_to 'Destroy', code, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+      <% if current_user.super_vc_admin? %>
+        <td style="text-align:center;"><%#= link_to 'Show', code %>
+        <%#= link_to 'Edit', edit_access_code_path(code) %>
+        <%= link_to 'Delete', code, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <% end %>
     </tr>
   <% end %>
 </tbody>
