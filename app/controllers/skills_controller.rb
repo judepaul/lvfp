@@ -49,9 +49,9 @@ class SkillsController < ApplicationController
                 message = "#{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='strong' /> Thats all for the day. Stay tuned<break strength='strong' /> <audio src='soundbank://soundlibrary/musical/amzn_sfx_drum_comedy_03'/>";
               else
                 if article_from.blank?
-                  message = "#{article_title} <break strength='strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='strong' /> Thats all for the day. Stay tuned<break strength='strong' /> <audio src='soundbank://soundlibrary/musical/amzn_sfx_drum_comedy_03'/>";
+                  message = "#{article_title} <break strength='strong' /><break strength='strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='strong' /><break strength='strong' /> Thats it for now. <break strength='strong' /> <audio src='soundbank://soundlibrary/musical/amzn_sfx_drum_comedy_03'/>";
                 else
-                  message = "#{article_title} <break strength='strong' /> #{article_from} <break strength='strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='strong' /> Thats all for the day. Stay tuned<break strength='strong' /> <audio src='soundbank://soundlibrary/musical/amzn_sfx_drum_comedy_03'/>";
+                  message = "#{article_title} <break strength='strong' /><break strength='strong' /> #{article_from} <break strength='strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='strong' /><break strength='strong' /> Thats it for now. <break strength='strong' /> <audio src='soundbank://soundlibrary/musical/amzn_sfx_drum_comedy_03'/>";
                 end
               end
             end

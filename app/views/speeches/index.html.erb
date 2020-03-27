@@ -7,9 +7,9 @@
         <div class="row no-gutters">
             <div class="col-sm-12 col-md mr-md-3">
               <div class="card">
-                        <div class="card-header text-white text-bold">
+                        <div class="card-header text-white h5">
                           <div class="row">
-                              <div class="col-md-6">Manage Article</div>
+                              <div class="col-md-6">Manage Articles</div>
                               <div class="col-md-6 text-right">
                                 <span style="cursor: pointer;" class="article-show"><i class="fas fa-info-circle fa-lg"></i></span>
                               </div>
@@ -23,7 +23,7 @@
   <div class="card">
     <div class="card-header" id="heading<%=indx+1%>" class="btn btn-link" data-toggle="collapse" data-target="#collapse<%=indx+1%>" aria-expanded="true" aria-controls="collapse<%=indx+1%>" style="color: #FFF !important; text-decoration: none !important; padding: 10px; !important;">
       <div class="row">
-      <div class="col-md-11" style="padding-left:20px;"><h6> Campaign Name: <%= ac.title.titlecase %> | Listener Group  Access Code: <%= ac.code %></h6></div>
+      <div class="col-md-11 pl-4"> Campaign: <%= ac.title.titlecase %> | Listener Group Access Code: <%= ac.code %></div>
       <!-- <div class="col-md-6 text-right" style="padding-right:20px;"><h6>Published Articles - <%#= articlel_count ac.id %></h6></div> -->
         <div class="col-md-1" style="padding:3px 40px 0 0;"><i class="fas fa-plus float-right "></i></div>
       </div>
@@ -53,23 +53,23 @@
       <div class="col-md-8 offset-md-4 align-self-center">  <%= link_to 'Create your first Article', new_speech_path, class: 'btn btn-outline-primary' %></div>
     <% else %>
         <table class="table table-bordered table-sm table-hover">
-          <thead class="thead-light">
+          <thead class="thead-light h6">
             <tr>
               <th scope="col">#</th>
-              <th scope="col">All</th>
+              <th scope="col">Articles</th>
             </tr>
           </thead>
         <% ac.access_code_speech_map.each_with_index do |acsm,indx| %>
-          <tbody>
-            <tr style="cursor: pointer;" onclick="location.href='<%= edit_speech_path(acsm.speech) %>'">
-              <th><%= acsm.speech.id %></th>
-              <td><p class="content"><strong>Title:- <%= !acsm.speech.title.blank? ? acsm.speech.title : '' %></strong> 
+          <tbody class="h6">
+            <tr style="cursor: pointer;font-size:18px;" onclick="location.href='<%= edit_speech_path(acsm.speech) %>'">
+              <td style="vertical-align:middle;text-align:center;"><%= acsm.speech.id %></td>
+              <td><p class="content"><strong>Title:-</strong> <%= !acsm.speech.title.blank? ? acsm.speech.title : 'N/A' %> 
                 <!-- <span style="padding: 1px 5px 1px 5px; color:#FFF; background-color: <%#= acsm.speech.published? ? 'green' : !acsm.speech.published? ? 'orange' : "" %>;"><strong><%#= acsm.speech.published? ? 'Published' : !acsm.speech.published? ? 'Draft' : "" %></strong></span> -->
-                <span style="padding: 2px 5px 1px 5px;font-weight:bold;">
+                <span style="padding: 2px 5px 1px 2px;">
                   <% if acsm.speech.published? %>
-                    <%= link_to("/speeches/published_details/#{acsm.speech.id}",style:"text-decoration:none;") do %>Published <span style="color:#007bff;"><i class="fas fa-external-link-alt"></i></span><% end %>
+                    <%= link_to("/speeches/published_details/#{acsm.speech.id}",style:"text-decoration:none;",class:"btn btn-outline-success px-1 py-0") do %><i class="fas fa-link fa-1x"></i> Published<% end %>
                   <% else %> 
-                    Draft
+                    <span class="btn btn-outline-warning px-1 py-0">Draft</span>
                   <% end %>
                 </span>
                 </p>

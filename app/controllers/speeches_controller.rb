@@ -30,6 +30,7 @@ class SpeechesController < ApplicationController
   def edit
     @speeches = Speech.find(params[:id])
     @access_codes = AccessCode.where(user_id: current_user.id).order('id DESC')
+    @speech_access_code = AccessCodeSpeechMap.where(speech_id: params[:id]).last.access_code
   end
 
   # POST /speeches
@@ -105,6 +106,6 @@ class SpeechesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def speech_params
-      params.require(:speech).permit(:code, :email_address, :content, :title, :email_from, :email_sent_date)
+      params.require(:speech).permit(:code, :email_address, :content, :title, :email_from, :email_sent_date, :intro, :outro)
     end
 end

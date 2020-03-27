@@ -64,4 +64,34 @@
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
 	border-bottom: 4px solid #1a212b;
 	border-radius: 0;
-	} 
+  } 
+  
+
+  .form-control::-webkit-input-placeholder {
+    color: #bbb;
+  }
+
+  .required::-webkit-input-placeholder {
+    color: rgb(255, 158, 158);
+  }
+  //   input[required], select[required] {
+  //     background-image: url('/assets/icon-asterisk.png');
+  //     background-repeat: no-repeat;
+  //     background-position-x: right;
+  //     content: "*";
+  //   color: rgb(248, 104, 104);
+  // }
+
+  .shadow { 
+    color: white; 
+    //font: bold 24px Buffalo;
+    text-shadow: 1px 1px 2px #000;
+
+    // text-shadow: 1px 1px #fe4902, 
+    //              2px 2px #fe4902, 
+    //              3px 3px #fe4902;
+    // -webkit-transition: all 0.12s ease-out;
+    // -moz-transition:    all 0.12s ease-out;
+    // -ms-transition:     all 0.12s ease-out;
+    // -o-transition:      all 0.12s ease-out;
+ }
