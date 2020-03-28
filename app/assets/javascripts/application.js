@@ -155,6 +155,9 @@ $(document).ready(function () {
                 $("#article_title").css("border","none");
             }
         });
+
+        //Article list page to show the corresponding nav-bar when they come from work-screen(cancel)
+        
   });
 
 

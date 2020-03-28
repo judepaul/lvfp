@@ -109,7 +109,11 @@
 
                             <div class="form-group row">
                                 <div class="mt-2 col-md-3 offset-md-1">
-                                    <strong>Select Listener Group</strong>
+                                    <% if @speech.new_record? %>
+                                      <strong>Select Listener Group</strong>
+                                    <% else %>
+                                      <strong>Listener Group</strong>
+                                    <% end %>
                                 </div>
                                 <div class="mt-2 col-md-6">
                                   <% if @speech.new_record? %>
@@ -120,7 +124,12 @@
                                 </div>
                                 <div class="col-md-12" style="height:60px;"></div>
                                 <div class="actions text-right align-" style="padding:0 40px 30px 0; position: absolute; bottom: 0; right: 0;">
-                                  <%= link_to 'Cancel', speeches_path(speech_id: @speech.id), class: "btn btn-outline-primary" %>
+                                  <!-- Edit Form cancel button which has the @speech_access_code obj -->
+                                  <% if @speech_access_code.blank? %>
+                                    <%= link_to 'Cancel', speeches_path, class: "btn btn-outline-primary" %>
+                                  <% else %>
+                                    <%= link_to 'Cancel', speeches_path(group_code: @speech_access_code.id), class: "btn btn-outline-primary" %>
+                                  <% end %>
                                   <% if @speech.new_record? %>
                                     <%= form.submit 'Save', id: 'save_content', class:"btn btn-outline-primary", disabled: true %>
                                     <%= form.submit 'Publish', id: 'publish_content', class:"btn btn-outline-primary", disabled: true %>
