@@ -15,9 +15,39 @@ class SkillsController < ApplicationController
           reprompt_message = 'Please say your access code to get started'
           session_end = false
         else
+          intro_speech = '<audio src="soundbank://soundlibrary/ui/gameshow/amzn_ui_sfx_gameshow_intro_01"/> Hello! welcome back <break strength="strong" />'
+          reprompt_message = ''
+          session_end = false
           access_code_id = Audiance.check_device_exists(device_id).last.access_code_id
-          content = AccessCodeSpeechMap.where(access_code_id: access_code_id).last.speech.content
-          message = "Hello! welcome to voice chimp. Here is your latest email. #{content}"; 
+          # content = AccessCodeSpeechMap.where(access_code_id: access_code_id).last.speech.content
+          # 21/03/2020 - Added by Jude to fetch the latest published content based on the access code
+          acsm = AccessCodeSpeechMap.where(access_code_id: access_code_id)   
+          speech_ids = acsm.map{|acsm| acsm.speech_id}
+          published_article = Speech.where(id: speech_ids, published: true).order('updated_at').last
+          content = published_article.content
+          article_title = published_article.title
+          intro_music = '<audio src="soundbank://soundlibrary/ui/gameshow/amzn_ui_sfx_gameshow_outro_01"/>';
+
+          article_intro = published_article.intro
+          article_outro = published_article.outro
+
+          # message = "Hello! welcome to voice chimp. Here is your latest article. #{content}"; 
+          if content.blank?
+            message = 'Sorry! I couldn\'t find any content avaiable for the code that you are asking'
+          else
+            if article_title.blank?
+              message = intro_speech << "#{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='strong' /> Thats all for the day. Stay tuned<break strength='strong' /> <audio src='soundbank://soundlibrary/musical/amzn_sfx_drum_comedy_03'/>";
+              session_end = false
+            else
+              if article_from.blank?
+                message = intro_speech << "#{article_title} <break strength='strong' /><break strength='strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='strong' /><break strength='strong' /> Thats it for now. <break strength='strong' /> <audio src='soundbank://soundlibrary/musical/amzn_sfx_drum_comedy_03'/>";
+                session_end = false
+              else
+                message = intro_speech << "#{article_title} <break strength='strong' /><break strength='strong' /> #{article_from} <break strength='strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='strong' /><break strength='strong' /> Thats it for now. <break strength='strong' /> <audio src='soundbank://soundlibrary/musical/amzn_sfx_drum_comedy_03'/>";
+                session_end = false
+              end
+            end
+          end
         end  
       when "INTENT_REQUEST"
         case input.name
@@ -41,10 +71,10 @@ class SkillsController < ApplicationController
             # 21/03/2020 - Added by Jude to fetch the latest published content based on the access code
             acsm = AccessCodeSpeechMap.where(access_code_id: access_code_id)   
             speech_ids = acsm.map{|acsm| acsm.speech_id}
-            published_articles = Speech.where(id: speech_ids).order('updated_at').last
-            content = published_articles.content
-            article_title = published_articles.title
-            article_from = published_articles.email_from
+            published_article = Speech.where(id: speech_ids, published: true).order('updated_at').last
+            content = published_article.content
+            article_title = published_article.title
+            article_from = published_article.email_from
             if content.blank?
               message = 'Sorry! I couldn\'t find any content avaiable for the code that you are asking'
             else
