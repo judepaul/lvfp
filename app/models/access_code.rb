@@ -4,7 +4,7 @@ class AccessCode < ApplicationRecord
     scope :check_code, -> (access_code) { where code: access_code}
     scope :campaign_exists, -> (campaign_name) { where title: campaign_name}
     has_many :access_code_speech_map, dependent: :destroy
-    has_one :audiance, dependent: :destroy
+    has_many :audiances, dependent: :destroy
     
     before_save :generate_access_code, :if => :new_record?
     protected

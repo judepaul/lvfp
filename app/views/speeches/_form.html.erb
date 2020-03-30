@@ -9,17 +9,20 @@
               <div class="card">
                     <div class="card-header text-white h5">
                       <div class="row">
-                        <div class="col-md-6">Campaign: <%= !@speech_access_code.blank? ? @speech_access_code.title.capitalize : "Manage Article" %></div>
+                        <div class="col-md-6">Campaign: <%= !@speech_access_code.blank? ? @speech_access_code.title.capitalize : !@access_codes.blank? ? @access_codes.last.title : "" %></div>
                         <div class="col-md-6 text-right">
-                          <% unless @speech.new_record? %>
-                            <span class="col-md-4 shadow" style="font-style:italic; background-color: <%#= @speech.published? ? 'green' : !@speech.published? ? 'orange' : "" %>;"><%= @speech.published? ? 'Published' : !@speech.published? ? 'Draft' : "" %></span>
-                          <% end %>
+                          <span class="col-md-4 text-light">
+                            <% if @speech.published? %>
+                              <%= link_to("/speeches/published_details/#{@speech.id}",style:"text-decoration:none;",class:"btn btn-outline-light px-2 py-0") do %><i class="fas fa-link fa-1x"></i> Published<% end %>
+                            <% else %>
+                              <span class="btn btn-outline-light px-2 py-0">Draft</span>
+                            <% end %>
                             <span class="col-md-2" style="cursor: pointer;" class="article-show"><i class="fas fa-info-circle fa-lg"></i></span>
                         </div>
                       </div>
                     </div>
                     <div class="card-body">
-                        <% unless @speech.published? %>       
+                        <% unless @speech.new_record? %>       
                         <div class="row">
                           <div class="col-md-10 offset-md-1 btn-outline-light"><h3 style="padding: 2px 5px 2px 0px;color:#5C5656;font-weight:bold;text-align:left;font-size:28px !important;letter-spacing:.06rem !important;">Click Publish to make this article available to your users.</h3></div>
                         </div> 
@@ -31,11 +34,7 @@
                                     <strong>Intro</strong> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Welcoming text at the begining of an article. ex. Hi/Hello/Welcome"><%= image_tag("/assets/icon-info.png") %></span>
                                 </div>
                                 <div class="col-md-8">
-                                  <% if @speech.published? %>
-                                    <p style="margin-top:5px;margin-bottom:0px !important;"><%= @speech.intro.blank? ? 'N/A' : @speech.intro %>
-                                  <% else %>
-                                    <%= form.text_field :intro, id: :article_intro, class: 'form-control', value: "#{!@speech.blank? ? @speech.intro : ""}", placeholder: 'Optional - Enter Intro' %>
-                                  <% end %>
+                                  <%= form.text_field :intro, id: :article_intro, class: 'form-control', value: "#{!@speech.blank? ? @speech.intro : ""}", placeholder: 'Optional - Enter Intro', readonly: @speech.published? ? true : false %>
                                 </div>
                           </div>
 
@@ -44,11 +43,7 @@
                                     <strong>Title/Subject</strong> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Title of the article which the skill user will hear before the main content"><%= image_tag("/assets/icon-info.png") %></span>
                                 </div>
                                 <div class="col-md-8">
-                                  <% if @speech.published? %>
-                                    <p style="margin-top:5px;margin-bottom:0px !important;"><%= @speech.title.blank? ? 'N/A' : @speech.title %>
-                                  <% else %>
-                                    <%= form.text_field :title, id: :article_title, class: 'form-control required', value: "#{!@speech.blank? ? @speech.title : ""}", required: true, placeholder: 'Required - Enter title' %>
-                                  <% end %>
+                                    <%= form.text_field :title, id: :article_title, class: 'form-control required', value: "#{!@speech.blank? ? @speech.title : ""}", required: true, placeholder: 'Required - Enter title', readonly: @speech.published? ? true : false %>
                                 </div>
                           </div>
 
@@ -83,14 +78,9 @@
                                     <strong>Content</strong> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Main content that the skill users will hear"><%= image_tag("/assets/icon-info.png") %></span>
                                 </div>
                                 <div class="col-md-8">
-                                  <% if @speech.published? %>
-                                    <!-- <p style="height: auto;overflow: scroll;padding-top:3px;"><%#= @speech.content %></p> -->
-                                    <%= form.text_area :content, id: :add_speech_content, size: "30x6", style: 'height: auto;overflow: scroll;margin-top:5px;margin-bottom:0px !important;border:none;', class: 'form-control show', placeholder: 'Enter the text to convert speech' %>
-                                  <% else %>
-                                    <%= form.text_area :content, id: :add_speech_content, size: "30x9", class: 'form-control show', placeholder: 'Enter the text to convert speech' %>
+                                    <%= form.text_area :content, id: :add_speech_content, size: "30x9", class: 'form-control show', placeholder: 'Enter the text to convert speech', readonly: @speech.published? ? true : false %>
                                     <div class="col-md-8 pl-0" id="textarea_feedback" style="margin-top:10px !important; font-size:16px; letter-spacing:0px;"></div>
                                     <div class="col-md-12 pl-0" style="margin-top:1px !important; font-size:16px; letter-spacing:0px;">All the links/special characters will be ignored in the audio</div>
-                                <% end %>
                                 </div>
                             </div>
 
@@ -99,28 +89,20 @@
                                     <strong>Outro</strong> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Closing text of an article. ex: Bye, See you, Goodbye"><%= image_tag("/assets/icon-info.png") %></span>
                                 </div>
                                 <div class="col-md-8">
-                                  <% if @speech.published? %>
-                                    <p style="margin-top:5px;margin-bottom:0px !important;"><%= @speech.outro.blank? ? 'N/A' : @speech.title %>
-                                  <% else %>
-                                    <%= form.text_field :outro, id: :article_outro, class: 'form-control', value: "#{!@speech.blank? ? @speech.outro : ""}", placeholder: 'Optional - Enter Outro' %>
-                                  <% end %>
+                                  <%= form.text_field :outro, id: :article_outro, class: 'form-control', value: "#{!@speech.blank? ? @speech.outro : ""}", placeholder: 'Optional - Enter Outro', readonly: @speech.published? ? true : false %>
                                 </div>
                             </div>                           
 
                             <div class="form-group row">
                                 <div class="mt-2 col-md-3 offset-md-1">
-                                    <% if @speech.new_record? %>
-                                      <strong>Select Listener Group</strong>
-                                    <% else %>
+                                    <% if @speech.published? %>
                                       <strong>Listener Group</strong>
+                                    <% else %>
+                                      <strong>Select Listener Group</strong>
                                     <% end %>
                                 </div>
                                 <div class="mt-2 col-md-6">
-                                  <% if @speech.new_record? %>
-                                    <%= select_tag 'acc_code_id', options_for_select(@access_codes.collect{ |c| ["#{c.code} - #{c.title}", c.id]}), prompt: "Select Listener Group Access Code", class: "form-control", disabled:true %>
-                                  <% else %>
-                                    <span><%= @speech.access_code_speech_map.last.access_code.code %> - <%= @speech.access_code_speech_map.last.access_code.title %></span>
-                                  <% end %>
+                                  <%= select_tag 'acc_code_id', options_for_select(@access_codes.collect{ |c| ["#{c.code} - #{c.title}", c.id]}, :selected => !@speech_access_code.blank? ? @speech_access_code.id : ''), prompt: "Select Listener Group Access Code", class: "form-control required", disabled: true %>
                                 </div>
                                 <div class="col-md-12" style="height:60px;"></div>
                                 <div class="actions text-right align-" style="padding:0 40px 30px 0; position: absolute; bottom: 0; right: 0;">
@@ -142,7 +124,7 @@
                                     <button type="button" class="btn btn-outline-primary audioPlayback" onclick="aud_play_pause()">
                                       <span class="play"><i class="fa fa-play-circle fa-lg play" aria-hidden="true"></i></span> Play/Pause
                                     </button>
-                                    <%= link_to 'Delete', @speeches, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-outline-danger delete-speech', id: "delete-btn" %>
+                                    <%= link_to 'Delete', @speeches, method: :delete, data: { confirm: @speech.published? ? 'This article is already published. Are you sure want to delete?' : 'Are you sure you want to delete this record?' }, :class => 'btn btn-outline-danger delete-speech', id: "delete-btn" %>
                                     <%= form.submit 'Save', id: 'save_content', class:"btn btn-outline-primary", disabled: @speech.published? ? true : false %>
                                     <% if @speech.draft? %>
                                       <%= form.submit 'Publish', id: 'publish_content', class:"btn btn-outline-primary", disabled: @speech.published? ? true : false %>
@@ -199,22 +181,23 @@
 $(document).ready(function() {
   
 $('#add_speech_content').mouseout(function () {
-if ($.trim($('#add_speech_content').val()).length > 0)
-{
-  $("#acc_code_id").prop("disabled", false);
-}
+  if($(this)[0].hasAttribute("readonly") && $(this).attr("readonly").toLowerCase()=='readonly'){
+    $("#acc_code_id").prop("disabled", true);
+  }else{
+      $("#acc_code_id").prop("disabled", false);
+  }
 });
 
 $("#acc_code_id").change(function(){
   var text_length = $('#add_speech_content').val().length;
-
-  if($(this).val() == ""){
-    $("#save_content").prop("disabled", true);
-  }
-  else {
-    if (text_length > 2999) {
+  if(text_length == 0){
       $("#save_content").prop("disabled", true);
-    } else { 
+  }else if (text_length > 2999) {
+    $("#save_content").prop("disabled", true);
+  } else { 
+    if($(this).val() == ""){
+      $("#save_content").prop("disabled", true);
+    }else{
       $("#save_content").prop("disabled", false);
     }
   }
@@ -226,11 +209,17 @@ $('#add_speech_content').keyup(function() {
   var text_length = $('#add_speech_content').val().length;
   var text_remaining = text_max - text_length;
   $('#textarea_feedback').html(text_remaining + ' characters remaining  (Appx. 500 words)');
-    if (text_length > 2999) {
+    if(text_length == 0){
+      $("#save_content").prop("disabled", true);
+    }else if (text_length > 2999) {
       $('#add_speech_content').css('border-color','red');
       $("#save_content").prop("disabled", true);
     } else {
-      $("#save_content").prop("disabled", false);
+      if($("#acc_code_id").val() == ""){
+        $("#save_content").prop("disabled", true);
+      }else{
+        $("#save_content").prop("disabled", false);
+      }
     }
     var regex = /[!@#$%ˆ&*()+]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/g;
     if($('#add_speech_content').val().match(regex)){
@@ -300,14 +289,17 @@ $('#save_content').click(function(){
   }
 
   function aud_play_pause() {
-  var myAudio = document.getElementById("audioPlayback");
-  if (myAudio.paused) {
-    myAudio.play();
-    $(".play").html("").html('<i class="fa fa-pause-circle fa-lg" aria-hidden="true"></i>');
-  } else {
-    myAudio.pause();
-    $(".play").html("").html('<i class="fa fa-play-circle fa-lg" aria-hidden="true"></i>');
-  }
+    var myAudio = document.getElementById("audioPlayback");
+    if (myAudio.paused) {
+      myAudio.play();
+      $(".play").html("").html('<i class="fa fa-pause-circle fa-lg" aria-hidden="true"></i>');
+    } else {
+      myAudio.pause();
+      $(".play").html("").html('<i class="fa fa-play-circle fa-lg" aria-hidden="true"></i>');
+    }
+    myAudio.onended = function() {
+      $(".play").html("").html('<i class="fa fa-play-circle fa-lg" aria-hidden="true"></i>');
+    } 
 }
 
 </script>

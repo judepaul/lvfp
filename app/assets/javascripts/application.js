@@ -147,16 +147,27 @@ $(document).ready(function () {
         //Campaign Validation
         $("#save_content").click(function(){
             access_code_title = $("#article_title").val();
+            acc_code_id = $("#acc_code_id").val();
+            var msg = "";
             if(access_code_title.length <= 0){
-                alert('Please enter the article title');
+                msg += 'Please enter the article title \n' ;
                 $("#article_title").css("border-color","red");
-                return false;
             }else{
                 $("#article_title").css("border","none");
             }
+            if(acc_code_id.length <= 0){
+                msg += 'Please select the listener access code' ;
+                $("#acc_code_id").css("border-color","red");
+            }else{
+                $("#acc_code_id").css("border","none");
+            }
+            if(msg == ""){
+                return true;
+            }else{
+                alert(msg);
+                return false;
+            }
         });
-
-        //Article list page to show the corresponding nav-bar when they come from work-screen(cancel)
         
   });
 

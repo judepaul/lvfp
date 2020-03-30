@@ -23,13 +23,21 @@ class SpeechesController < ApplicationController
   # GET /speeches/new
   def new
     @speech = Speech.new
-    @access_codes = AccessCode.where(user_id: current_user.id).order('id DESC')
+    if current_user.role == "super_vc_admin"
+      @access_codes = AccessCode.all.order('id DESC')
+    else
+      @access_codes = AccessCode.where(user_id: current_user.id).order('id DESC')
+    end
   end
 
   # GET /speeches/1/edit
   def edit
     @speeches = Speech.find(params[:id])
-    @access_codes = AccessCode.where(user_id: current_user.id).order('id DESC')
+    if current_user.role == "super_vc_admin"
+      @access_codes = AccessCode.all.order('id DESC')
+    else
+      @access_codes = AccessCode.where(user_id: current_user.id).order('id DESC')
+    end
     @speech_access_code = AccessCodeSpeechMap.where(speech_id: params[:id]).last.access_code
   end
 

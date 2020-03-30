@@ -63,7 +63,7 @@
           <tbody class="h6">
             <tr style="cursor: pointer;font-size:18px;" onclick="location.href='<%= edit_speech_path(acsm.speech) %>'">
               <td style="vertical-align:middle;text-align:center;"><%= acsm.speech.id %></td>
-              <td><p class="content"><strong>Title:-</strong> <%= !acsm.speech.title.blank? ? acsm.speech.title : 'N/A' %> 
+              <td><p class="content">Title: <%= !acsm.speech.title.blank? ? acsm.speech.title : 'N/A' %> 
                 <!-- <span style="padding: 1px 5px 1px 5px; color:#FFF; background-color: <%#= acsm.speech.published? ? 'green' : !acsm.speech.published? ? 'orange' : "" %>;"><strong><%#= acsm.speech.published? ? 'Published' : !acsm.speech.published? ? 'Draft' : "" %></strong></span> -->
                 <span style="padding: 2px 5px 1px 2px;">
                   <% if acsm.speech.published? %>
