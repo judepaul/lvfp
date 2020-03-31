@@ -1,11 +1,11 @@
 <nav class="navbar navbar-expand-lg navbar-light navbar-laravel px-5">
         <% unless user_signed_in? %>
             <a class="navbar-brand js-scroll-trigger" href="/auth/login">
-                <!-- <img class="logo-navbar" src="/assets/vcs.png"> --> <span class='text-white h4' style="font-family: Raleway !important;font-weight:bold;"> Voice Chimp Studio </span> 
+                <img class="logo-navbar" src="/assets/header.png" width="300" height="40"> <!-- <span class='text-white h4' style="font-family: Raleway !important;font-weight:bold;"> Voice Chimp Studio </span> -->
             </a>
         <% else %>
             <a class="navbar-brand js-scroll-trigger" href="/access_codes">
-                <!-- <img class="logo-navbar" src="/assets/vcs.png"> --> <span class='text-white h4' style="font-family: Raleway !important; font-weight:bold;"> Voice Chimp Studio </span> 
+                <img class="logo-navbar" src="/assets/header.png" width="300" height="40"> <!-- <span class='text-white h3'> Voice Chimp Studio </span> -->
             </a>
         <% end %>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

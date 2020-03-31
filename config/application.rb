@@ -15,5 +15,9 @@ module Lvfp
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
     config.web_console.whiny_requests = false
+
+    # Adding custom fonts
+    config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
+    
   end
 end

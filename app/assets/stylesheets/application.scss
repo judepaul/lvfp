@@ -22,19 +22,43 @@
 @import "speeches";
 @import "dashboard";
 
+
+// @font-face {
+//      FontAwesome';
+//     src: url(font-path('fontawesome-webfont.eot'));
+//     src: url(font-path('fontawesome-webfont.eot?#iefix')) format('embedded-opentype'),
+//            url(font-path('fontawesome-webfont.woff')) format('woff'),
+//            url(font-path('fontawesome-webfont.ttf')) format('truetype'),
+//            url(font-path('fontawesome-webfont.svg#fontawesomeregular')) format('svg');
+//     font-weight: normal;
+//     font-style: normal;
+//     }
+
+@font-face {
+    font-family: "CentraNo2-Book";
+    src: url("/assets/CentraNo2-Book");
+}
+
+
 body {
     min-height: 400px;
     margin-bottom: 100px;
     clear: both;
-    font-family: "Tahoma";
-    font-size:18px;
+    font-family: "CentraNo2-Book";
+    font-size:20px;
     font-style: normal;
-    letter-spacing:.05rem;
+    font-weight: normal;
+    //letter-spacing:.05rem;
  }
 
  input, textarea, select { font-size: 18px !important; }
 
- .form-control[readonly],.form-control[disabled] {
+ .form-control[readonly] {
+    background-color: #FFF;
+    color: #bbb !important;
+}
+
+.form-control[disabled] {
     background-color: #FFF;
     color: #bbb !important;
 }

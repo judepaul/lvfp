@@ -68,11 +68,31 @@
   
 
   .form-control::-webkit-input-placeholder {
-    color: #bbb;
+    color: #bbb !important;
+  }
+  
+  ::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
+    color: #bbb !important;
+  }
+  
+   ::-moz-placeholder {
+    /* Firefox 19+ */
+    color: #bbb !important;
+  }
+  
+   :-ms-input-placeholder {
+    /* IE 10+ */
+    color: #bbb !important;
+  }
+  
+   :-moz-placeholder {
+    /* Firefox 18- */
+    color: #bbb !important;
   }
 
   .required::-webkit-input-placeholder {
-    color: rgb(255, 158, 158);
+    color: rgb(255, 158, 158) !important;
   }
   //   input[required], select[required] {
   //     background-image: url('/assets/icon-asterisk.png');
