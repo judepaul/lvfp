@@ -15,7 +15,7 @@ class SkillsController < ApplicationController
           reprompt_message = 'Please say your access code to get started'
           session_end = false
         else
-          intro_speech = '<audio src="soundbank://soundlibrary/ui/gameshow/amzn_ui_sfx_gameshow_intro_01"/> Hello! welcome back <break strength="strong" />'
+          intro_speech = '<audio src="soundbank://soundlibrary/ui/gameshow/amzn_ui_sfx_gameshow_intro_01"/> Hello! welcome back to voice chimp <break strength="strong" />'
           reprompt_message = ''
           session_end = false
           access_code_id = Audiance.check_device_exists(device_id).last.access_code_id
@@ -39,12 +39,19 @@ class SkillsController < ApplicationController
               message = intro_speech << "#{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='strong' /> Thats all for the day. Stay tuned<break strength='strong' /> <audio src='soundbank://soundlibrary/musical/amzn_sfx_drum_comedy_03'/>";
               session_end = false
             else
-              if article_from.blank?
-                message = intro_speech << "#{article_title} <break strength='strong' /><break strength='strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='strong' /><break strength='strong' /> Thats it for now. <break strength='strong' /> <audio src='soundbank://soundlibrary/musical/amzn_sfx_drum_comedy_03'/>";
+              if article_intro.blank? && article_outro.blank?
+                message = intro_speech << "#{article_title} <break strength='x-strong' /><break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='strong' /><break strength='x-strong' /> Thats it for now. <break strength='x-strong' /> <audio src='soundbank://soundlibrary/musical/amzn_sfx_drum_comedy_03'/>";
                 session_end = false
-              else
-                message = intro_speech << "#{article_title} <break strength='strong' /><break strength='strong' /> #{article_from} <break strength='strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='strong' /><break strength='strong' /> Thats it for now. <break strength='strong' /> <audio src='soundbank://soundlibrary/musical/amzn_sfx_drum_comedy_03'/>";
+              elsif !article_intro.blank? && article_outro.blank?
+                message = intro_speech << "#{intro_music} <break strength='x-strong' /> #{article_intro} <break strength='x-strong' /><break strength='x-strong' /> #{article_title} <break strength='x-strong' /><break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='x-strong' /><break strength='x-strong' /> Thats it for now. <break strength='x-strong' /> <audio src='soundbank://soundlibrary/musical/amzn_sfx_drum_comedy_03'/>";
                 session_end = false
+              elsif article_intro.blank? && !article_outro.blank?
+                message = intro_speech << "#{intro_music} <break strength='x-strong' /><break strength='x-strong' /> #{article_title} <break strength='x-strong' /><break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='x-strong' /><break strength='x-strong' /> #{article_outro} <break strength='x-strong' /><break strength='x-strong' /> Thats it for now. <break strength='x-strong' /> <audio src='soundbank://soundlibrary/musical/amzn_sfx_drum_comedy_03'/>";
+                session_end = false
+              elsif !article_intro.blank? && !article_outro.blank?
+                message = intro_speech << "#{intro_music} <break strength='x-strong' /> #{article_intro} <break strength='x-strong' /><break strength='x-strong' /> #{article_title} <break strength='x-strong' /><break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='x-strong' /><break strength='x-strong' /> #{article_outro}  <break strength='x-strong' /><break strength='x-strong' /> Thats it for now. <break strength='x-strong' /> <audio src='soundbank://soundlibrary/musical/amzn_sfx_drum_comedy_03'/>";
+                session_end = false
+              
               end
             end
           end
