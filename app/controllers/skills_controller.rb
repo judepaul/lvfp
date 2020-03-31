@@ -103,6 +103,7 @@ class SkillsController < ApplicationController
                 elsif !article_intro.blank? && !article_outro.blank?
                   message = intro_speech << "#{intro_music} <break strength='x-strong' /> #{article_intro} <break strength='x-strong' /><break strength='x-strong' /> #{article_title} <break strength='x-strong' /><break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='x-strong' /><break strength='x-strong' /> #{article_outro}  <break strength='x-strong' /><break strength='x-strong' /> Thats it for now. <break strength='x-strong' /> <audio src='soundbank://soundlibrary/musical/amzn_sfx_drum_comedy_03'/>";
                   session_end = false  
+                end
               end
             end
           else
