@@ -59,21 +59,28 @@
               <th scope="col">Articles</th>
             </tr>
           </thead>
-        <% ac.access_code_speech_map.each_with_index do |acsm,indx| %>
+        <% speech_arr = [] %>
+        <% ac.access_code_speech_map.each do |acsm|
+            speech_arr << acsm.speech 
+            end    
+        %>
+        <% speech_arr.sort_by(&:updated_at).reverse.each_with_index do |speech,indx| %>
           <tbody class="h6">
-            <tr style="cursor: pointer;font-size:18px;" onclick="location.href='<%= edit_speech_path(acsm.speech) %>'">
-              <td style="vertical-align:middle;text-align:center;"><%= acsm.speech.id %></td>
-              <td><p class="content">Title: <%= !acsm.speech.title.blank? ? acsm.speech.title : 'N/A' %> 
-                <!-- <span style="padding: 1px 5px 1px 5px; color:#FFF; background-color: <%#= acsm.speech.published? ? 'green' : !acsm.speech.published? ? 'orange' : "" %>;"><strong><%#= acsm.speech.published? ? 'Published' : !acsm.speech.published? ? 'Draft' : "" %></strong></span> -->
+            <tr style="cursor: pointer;font-size:18px;" onclick="location.href='<%= edit_speech_path(speech) %>'">
+              <td style="vertical-align:middle;text-align:center;"><%= indx+1 %></td>
+              <td><p class="content">Title: <%= !speech.title.blank? ? speech.title : 'N/A' %> 
+                <!-- <span style="padding: 1px 5px 1px 5px; color:#FFF; background-color: <%#= speech.published? ? 'green' : !speech.published? ? 'orange' : "" %>;"><strong><%#= speech.published? ? 'Published' : !speech.published? ? 'Draft' : "" %></strong></span> -->
                 <span style="padding: 2px 5px 1px 2px;">
-                  <% if acsm.speech.published? %>
-                    <%= link_to("/speeches/published_details/#{acsm.speech.id}",style:"text-decoration:none;",class:"btn btn-outline-success px-1 py-0") do %><i class="fas fa-link fa-1x"></i> Published<% end %>
+                  <% if speech.published? %>
+                    <%= link_to("/speeches/published_details/#{speech.id}",style:"text-decoration:none;",class:"btn btn-outline-success px-1 py-0") do %><i class="fas fa-link fa-1x"></i> Published<% end %> 
+                    <span style="float: right; padding-right:10px; font-size:14px; letter-spacing:0px; font-weight:bold;"> <%= image_tag 'icon-calendar', alt: "calendar" %> <%= speech.updated_at.strftime("%m/%d/%Y") %></span>
                   <% else %> 
                     <span class="btn btn-outline-warning px-1 py-0">Draft</span>
+                    <span style="float: right; padding-right:10px; font-size:14px; letter-spacing:0px; font-weight:bold;"> <%= image_tag 'icon-calendar', alt: "calendar" %> <%= speech.updated_at.strftime("%m/%d/%Y") %></span>
                   <% end %>
                 </span>
                 </p>
-                <p class="content"><%= !acsm.speech.email_from.blank? ? acsm.speech.email_from.rstrip.concat('.') : '' %> <%= acsm.speech.content %></p>
+                <p class="content"><%= !speech.email_from.blank? ? speech.email_from.rstrip.concat('.') : '' %> <%= speech.content %></p>
               </td>
             </tr>
           </tbody>
