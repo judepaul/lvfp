@@ -15,6 +15,8 @@
 //= require popper
 //= require bootstrap-sprockets
 //= require toastr
+//= require bootbox
+//= require data-confirm-modal
 
 
 $(document).ready(function () {
@@ -129,7 +131,7 @@ $(document).ready(function () {
         $("#campaign-save").click(function(){
             access_code_title = $("#access_code_title").val();
             if(access_code_title.length <= 0){
-                alert('Please enter the campaign name');
+                bootbox.alert('Please enter the campaign name');
                 $("#access_code_title").css("border-color","red");
                 return false;
             }else{
@@ -164,7 +166,7 @@ $(document).ready(function () {
             if(msg == ""){
                 return true;
             }else{
-                alert(msg);
+                bootbox.alert(msg);
                 return false;
             }
         });
