@@ -35,9 +35,10 @@ class AccessCodesController < ApplicationController
       if Listener.group_exists(params[:listener_group_name]).blank?
         @listener = Listener.create(user_id: current_user.id, group_name: params[:listener_group_name])
       else
-        respond_to do |format|
-          format.html { redirect_to access_codes_path, notice: 'Group Name already exists. Please enter another one. ' }
-        end
+        @listener = Listener.where(group_name: params[:listener_group_name]).last
+        # respond_to do |format|
+        #   format.html { redirect_to access_codes_path, notice: 'Group Name already exists. Please enter another one. ' }
+        # end
       end
       respond_to do |format|
       if @access_code.save
@@ -86,6 +87,7 @@ end
     # commented on 02/22/2020 by Jude for checking dependent records for the access code before deleting
     active_message_arr = Array.new
     AccessCodeSpeechMap.where(access_code: params[:id]).map {|acm| acm.speech.is_deleted.nil? ? active_message_arr << acm.speech.id : ''}
+    p "active_message_arr ==> #{active_message_arr}"
     if active_message_arr.blank?
       @access_code.destroy
       respond_to do |format|
@@ -93,6 +95,7 @@ end
         format.json { head :no_content }
       end
     else
+      p "in else"
       respond_to do |format|
         format.html { redirect_to access_codes_url, notice: 'Access code has associated with some active messages. Please deactivate those before deleting access code' }
         format.json { head :no_content }

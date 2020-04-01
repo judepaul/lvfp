@@ -42,14 +42,16 @@
 
 <tbody>
   <% @access_codes.each do |code| %>
-    <tr style="cursor: pointer;" onclick="location.href='<%= edit_access_code_path(code) %>'">
-      <td style="text-align:center;"><%= listener_group_name(code.listener_id) %></td>
-      <td style="text-align:center;"><%= code.code %></td>
-      <td style="text-align:center;"><%= code.title %> (<%= article_count code.id %>)</td>
+    <tr style="cursor: pointer;">
+      <td style="text-align:center;" onclick="location.href='<%= edit_access_code_path(code) %>'"><%= listener_group_name(code.listener_id) %></td>
+      <td style="text-align:center;" onclick="location.href='<%= edit_access_code_path(code) %>'"><%= code.code %></td>
+      <td style="text-align:center;" onclick="location.href='<%= edit_access_code_path(code) %>'"><%= code.title %> (<%= article_count code.id %>)</td>
       <% if current_user.super_vc_admin? %>
         <td style="text-align:center;"><%#= link_to 'Show', code %>
         <%#= link_to 'Edit', edit_access_code_path(code) %>
-        <%= link_to 'Delete', code, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <%#= link_to 'Delete', code, method: :delete, data: { confirm: 'Are you sure?' }, style:"text-decoration: none" %>
+        <%= link_to 'Delete', code, method: :delete, data: {confirm: 'Are you sure you want to delete this campaign?', title: 'Confirm Deletion', commit: 'Yes do it!', cancel: 'Not really!' }, style: "text-decoration:none; color:red;", id: "delete-btn" %>
+        </td>
       <% end %>
     </tr>
   <% end %>
