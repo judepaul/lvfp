@@ -78,7 +78,7 @@ class SkillsController < ApplicationController
   
             article_intro = published_article.intro
             article_outro = published_article.outro
-              if content.blank?
+            if content.blank?
               message = 'Sorry! I couldn\'t find any content avaiable for the code that you are asking'
             else
               if article_title.blank?
@@ -108,19 +108,41 @@ class SkillsController < ApplicationController
         when 'setup_campaign'
           code = input.slots["access_code"]["value"]
           unless code.blank?
-          access_code = AccessCode.where(code: code).last
-            if access_code.blank?
+            access_code_id = AccessCode.where(code: code).last.id
+            if access_code_id.blank?
               message = 'Sorry i can\'t recognize the access code. Ensure the access code available in voice chimp studio and try with that';
               reprompt_message = 'Try with another access code exists in voice chimp studio'
               session_end = false
             else
-              audiances = Audiance.where("user_id", access_code.user_id)
-              if audiances.blank?
-                message = "Congratulation! <break strength='x-strong' /> Access code has setup now."
+              acsm = AccessCodeSpeechMap.where(access_code_id: access_code_id)   
+              speech_ids = acsm.map{|acsm| acsm.speech_id}
+              published_article = Speech.where(id: speech_ids, published: true).order('updated_at').last
+              content = published_article.content
+              article_title = published_article.title
+              intro_music = '<audio src="soundbank://soundlibrary/ui/gameshow/amzn_ui_sfx_gameshow_outro_01"/>';
+    
+              article_intro = published_article.intro
+              article_outro = published_article.outro
+              if content.blank?
+                message = 'Sorry! I couldn\'t find any content avaiable for the code that you are asking'
               else
-                audiances.each do |audiance|
-                  audiance.update_attribute("access_code_id", access_code.id)
-                  message = "Congratulation! <break strength='x-strong' /> Access code has setup now. <break strength='x-strong' /> Your users can listen the campaigns under the updated access code. <break strength='x-strong' /> Bye."
+                if article_title.blank?
+                  message = "#{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='strong' /> Thats all for the day. Stay tuned<break strength='strong' /> <audio src='soundbank://soundlibrary/musical/amzn_sfx_drum_comedy_03'/>";
+                  session_end = false
+                else
+                  if article_intro.blank? && article_outro.blank?
+                    message = intro_speech << "#{article_title} <break strength='x-strong' /><break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='strong' /><break strength='x-strong' /> Thats it for now. <break strength='x-strong' /> <audio src='soundbank://soundlibrary/musical/amzn_sfx_drum_comedy_03'/>";
+                    session_end = false
+                  elsif !article_intro.blank? && article_outro.blank?
+                    message = intro_speech << "#{intro_music} <break strength='x-strong' /> #{article_intro} <break strength='x-strong' /><break strength='x-strong' /> #{article_title} <break strength='x-strong' /><break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='x-strong' /><break strength='x-strong' /> Thats it for now. <break strength='x-strong' /> <audio src='soundbank://soundlibrary/musical/amzn_sfx_drum_comedy_03'/>";
+                    session_end = false
+                  elsif article_intro.blank? && !article_outro.blank?
+                    message = intro_speech << "#{intro_music} <break strength='x-strong' /><break strength='x-strong' /> #{article_title} <break strength='x-strong' /><break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='x-strong' /><break strength='x-strong' /> #{article_outro} <break strength='x-strong' /><break strength='x-strong' /> Thats it for now. <break strength='x-strong' /> <audio src='soundbank://soundlibrary/musical/amzn_sfx_drum_comedy_03'/>";
+                    session_end = false
+                  elsif !article_intro.blank? && !article_outro.blank?
+                    message = intro_speech << "#{intro_music} <break strength='x-strong' /> #{article_intro} <break strength='x-strong' /><break strength='x-strong' /> #{article_title} <break strength='x-strong' /><break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='x-strong' /><break strength='x-strong' /> #{article_outro}  <break strength='x-strong' /><break strength='x-strong' /> Thats it for now. <break strength='x-strong' /> <audio src='soundbank://soundlibrary/musical/amzn_sfx_drum_comedy_03'/>";
+                    session_end = false  
+                  end
                 end
               end
             end
