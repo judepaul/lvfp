@@ -124,6 +124,9 @@ class SkillsController < ApplicationController
                 end
               end
             end
+          else
+            reprompt_message = 'Try with access code to setup'
+            session_end = false
           end
         when 'AMAZON.CancelIntent'
             message = 'Cancel intent handler in rails application'
