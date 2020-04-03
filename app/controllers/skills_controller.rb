@@ -114,7 +114,7 @@ class SkillsController < ApplicationController
               reprompt_message = 'Try with another access code exists in voice chimp studio'
               session_end = false
             else
-              audiances = Audiance.where("access_code_id", access_code.id)
+              audiances = Audiance.where("user_id", access_code.user_id)
               if audiances.blank?
                 message = "Congratulation! <break strength='x-strong' /> Access code has setup now."
               else
