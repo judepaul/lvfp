@@ -109,11 +109,14 @@ class SkillsController < ApplicationController
           code = input.slots["access_code"]["value"]
           unless code.blank?
             access_code_id = AccessCode.where(code: code).last.id
+            reprompt_message = ''
+            session_end = false
             if access_code_id.blank?
               message = 'Sorry i can\'t recognize the access code. Ensure the access code available in voice chimp studio and try with that';
               reprompt_message = 'Try with another access code exists in voice chimp studio'
               session_end = false
             else
+              intro_speech = '<audio src="soundbank://soundlibrary/ui/gameshow/amzn_ui_sfx_gameshow_intro_01"/> Hello! welcome back to voice chimp <break strength="strong" />'
               acsm = AccessCodeSpeechMap.where(access_code_id: access_code_id)   
               speech_ids = acsm.map{|acsm| acsm.speech_id}
               published_article = Speech.where(id: speech_ids, published: true).order('updated_at').last
