@@ -60,16 +60,10 @@ class SkillsController < ApplicationController
         when 'AccessCode'   
           access_code = input.slots["access_code"]["value"]   
           # message = "You said, #{given}."
-          p "@@@@@@@@@@@@@@@@"
-          p access_code
-          p AccessCode.pluck(:code)
           if AccessCode.pluck(:code).include?access_code.to_i
           # if access_code == '9964'
             access_code_id = AccessCode.where(code: access_code).last.id
             vc_admin_id = AccessCode.where(code: access_code).last.user_id
-            p "!!!!!!!!!!!"
-            p access_code_id
-            p vc_admin_id
             Audiance.create(voice_user_id: voice_user_id, device_id: device_id, user_id:vc_admin_id, access_code_id: access_code_id)
             # article_title = AccessCodeSpeechMap.where(access_code_id: access_code_id).last.speech.title
             # content = AccessCodeSpeechMap.where(access_code_id: access_code_id).last.speech.content
@@ -111,6 +105,26 @@ class SkillsController < ApplicationController
             reprompt_message = 'Try with another access code exists in voice chimp studio'
             session_end = false
           end
+        when 'setup_campaign'
+          code = input.slots["access_code"]["value"]
+          unless code.blank?
+          access_code = AccessCode.where(code: code).last
+            if access_code.blank?
+              message = 'Sorry i can\'t recognize the access code. Ensure the access code available in voice chimp studio and try with that';
+              reprompt_message = 'Try with another access code exists in voice chimp studio'
+              session_end = false
+            else
+              audiances = Audiance.where("access_code_id", access_code.id)
+              if audiances.blank?
+                message = "Congratulation! <break strength='x-strong' /> Access code has setup now."
+              else
+                audiances.each do |audiance|
+                  audiance.update_attribute("access_code_id", access_code.id)
+                  message = "Congratulation! <break strength='x-strong' /> Access code has setup now. <break strength='x-strong' /> Your users can listen the campaigns under the updated access code. <break strength='x-strong' /> Bye."
+                end
+              end
+            end
+          end
         when 'AMAZON.CancelIntent'
             message = 'Cancel intent handler in rails application'
         when 'AMAZON.StopIntent'
@@ -134,9 +148,21 @@ class SkillsController < ApplicationController
         # it's over
         message = nil
       end
-  
+
+      card = {
+        "type": "Standard",
+        "title": "Voice Chimp",
+        "subtitle": "listen to your email campaigns & newsletters",
+        "text": "Listen to the email campaigns & newsletters, anytime and anywhere. This is not about podcasting`",
+        "image": {
+          "smallImageUrl": "https://www.oredein.com/alexa/abc/images/small_card.png",
+          "largeImageUrl": "https://www.oredein.com/alexa/abc/images/small_card.png"
+        }
+      }
       output.add_speech(message,true) unless message.blank?
       output.add_reprompt(reprompt_message, true) unless reprompt_message.blank?
+      #output.add_card(type = 'Simple', title = "Voice Chimp", subtitle = "listen to your email campaigns & newsletters", content = "Listen to the email campaigns & newsletters, anytime and anywhere. This is not about podcasting")
+      output.add_hash_card(card)
       render json: output.build_response(session_end)
     end
 

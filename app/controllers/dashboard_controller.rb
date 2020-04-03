@@ -7,7 +7,8 @@ class DashboardController < ApplicationController
       @campaigns = AccessCode.all
       @articles = Speech.all
     else
-      redirect_to access_codes_path #, notice: "Welcome to Launch Voice First Portal. Creating new campaign will generate an access code for your subscribers. Ask them to use this code while invoke the skill from Voice enabled devices."
+      # Commented by Jude on 03/04/2020, to show the dashboard for the vc_admins too
+      # redirect_to access_codes_path #, notice: "Welcome to Launch Voice First Portal. Creating new campaign will generate an access code for your subscribers. Ask them to use this code while invoke the skill from Voice enabled devices."
     end
   end
 end

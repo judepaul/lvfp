@@ -1,0 +1,96 @@
+<div class="row" style="height:60px;"></div>
+<% if @access_code.blank? %>
+
+<% else 
+    speech_arr = [] 
+    if @access_code.access_code_speech_map.blank?
+
+    else
+        @access_code.access_code_speech_map.each do |acsm|
+        speech_arr << acsm.speech 
+        end    
+    end %>
+
+    <div class="container">
+    <div class="card" style="width:100%;">
+    <div class="card-header text-white h5">
+        <div class="row">
+            <div class="col-md-6">Details</div>
+            </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+        <!-- column 1 -->
+        <div class="col-md-8">
+            <div class="row" style="height:30px;"></div>
+            <div class="row">
+                <div class="col-md-3 offset-md-1">Skill Name: </div>
+                <div class="col-md-4">Voice Chimp <span data-toggle="tooltip" title="This is the name of the skill"><%= image_tag("/assets/icon-info.png") %></span></div>
+            </div>
+            <div class="row" style="height:15px;"></div>
+            <div class="row">
+                <div class="col-md-3 offset-md-1">Campaign Name: </div>
+                <div class="col-md-4"><%= @access_code.title %></div>
+            </div>
+            <div class="row" style="height:15px;"></div>
+            <div class="row">
+                <div class="col-md-3 offset-md-1">Listener Access Code: </div>
+                <div class="col-md-4"><%= @access_code.code %></div>
+            </div>
+            <div class="row" style="height:15px;"></div>
+            <div class="row">
+                <div class="col-md-3 offset-md-1">Instructions: </div>
+                <div class="col-md-8">
+                    Share this access code to your audiance/subscribers to access the content from skill.<br/>
+                    After a user invokes the "Voice Chimp" skill, they will be prompted for the access code - <%= @access_code.code %>,
+                    and then they will be able to listen to the articles.
+                </div>
+            </div> 
+         </div>
+         <!-- column 2 -->
+        <div class="col-md-4"><div style="padding-top:50px;"><%= image_tag('/assets/amazon-echo-dot.png', :size => "320x320") %> </div></div>
+
+    </div>
+</div>
+
+</div>
+<div style="height: 30px;"></div>
+
+<div class="card" style="width:100%;">
+    <div class="card-header text-white h5">
+        <div class="row">
+            <div class="col-md-11 pl-4"> Articles Details</div>
+        </div>
+    </div>
+    <div class="card-body table-responsive">
+        <table class="table table-bordered table-sm table-hover">
+            <thead class="thead-light h5 font-weight-bold">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Articles (<%= speech_arr.length %>)</th>
+                </tr>
+            </thead>
+            <% speech_arr.sort_by(&:updated_at).reverse.each_with_index do |speech,indx| %>
+                <% if indx < 3 %>
+                <tbody class="h6">
+                    <tr style="cursor: pointer;font-size:18px;">
+                        <td><%= indx+1 %></td>
+                        <td>
+                            <p class="content">Title: <%= !speech.title.blank? ? speech.title : 'N/A' %> 
+                            <!-- <span style="padding: 1px 5px 1px 5px; color:#FFF; background-color: <%#= speech.published? ? 'green' : !speech.published? ? 'orange' : "" %>;"><strong><%#= speech.published? ? 'Published' : !speech.published? ? 'Draft' : "" %></strong></span> -->
+                            <span style="padding: 2px 5px 1px 2px;">
+                                <span style="float: right; padding-right:10px; font-size:16px; letter-spacing:0px; font-weight:bold;"> <%= image_tag 'icon-calendar', alt: "calendar" %> <%= speech.updated_at.strftime("%m/%d/%Y") %></span>
+                            </span>
+                            </p>
+                            <p class="content"><%= !speech.email_from.blank? ? speech.email_from.rstrip.concat('.') : '' %> <%= speech.content %></p>
+                        </td>
+                    </tr>
+                </tbody>
+                <% end %>
+            <% end %>
+        </table>
+    </div>
+<div>
+</div>
+<div style="height: 60px;"></div>
+<% end %>

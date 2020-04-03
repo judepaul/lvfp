@@ -106,6 +106,10 @@ class SpeechesController < ApplicationController
     @speech = Speech.find(speech_id)
   end
 
+  def published_skill_details
+    @access_code = AccessCode.where(user_id: current_user.id).order('id DESC').first
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_speech

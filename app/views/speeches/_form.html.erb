@@ -22,10 +22,12 @@
                       </div>
                     </div>
                     <div class="card-body">
-                        <% unless @speech.new_record? %>       
+                        <% unless @speech.new_record? %>    
+                        <% unless @speech.published? %>   
                         <div class="row">
                           <div class="col-md-10 offset-md-1 btn-outline-light"><h2 style="padding: 2px 5px 2px 0px;color:#5C5656;font-weight:bold;text-align:left;">Click Publish to make this article available to your users.</h2></div>
                         </div> 
+                        <% end %>
                         <% end %>            
                         <div class="row" style="height:30px;"></div>
 
@@ -79,8 +81,10 @@
                                 </div>
                                 <div class="col-md-8">
                                     <%= form.text_area :content, id: :add_speech_content, size: "30x9", class: 'form-control show', placeholder: 'Enter the text to convert speech', readonly: @speech.published? ? true : false %>
-                                    <div class="col-md-8 pl-0" id="textarea_feedback" style="margin-top:10px !important; font-size:16px; letter-spacing:0px;"></div>
-                                    <div class="col-md-12 pl-0" style="margin-top:1px !important; font-size:16px; letter-spacing:0px;">All the links/special characters will be ignored in the audio</div>
+                                    <% unless @speech.published? %>
+                                      <div class="col-md-8 pl-0" id="textarea_feedback" style="margin-top:10px !important; font-size:16px; letter-spacing:0px;"></div>
+                                      <div class="col-md-12 pl-0" style="margin-top:1px !important; font-size:16px; letter-spacing:0px;">All the links/special characters will be ignored in the audio</div>
+                                    <% end %>
                                 </div>
                             </div>
 

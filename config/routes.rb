@@ -21,4 +21,6 @@ Rails.application.routes.draw do
 
   get "speeches/published_details/:speech_id" => "speeches#published_details", as: "published_details"
 
+  get "vcs/skill_details" => "speeches#published_skill_details", as: "published_skill_details"
+
 end
