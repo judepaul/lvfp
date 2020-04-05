@@ -112,9 +112,9 @@
                                 <div class="actions text-right align-" style="padding:0 40px 30px 0; position: absolute; bottom: 0; right: 0;">
                                   <!-- Edit Form cancel button which has the @speech_access_code obj -->
                                   <% if @speech_access_code.blank? %>
-                                    <%= link_to 'Cancel', speeches_path, class: "btn btn-outline-primary" %>
+                                    <%= link_to 'Cancel', speeches_path, class: "btn btn-outline-primary", style:"padding:8px !important;" %>
                                   <% else %>
-                                    <%= link_to 'Cancel', speeches_path(group_code: @speech_access_code.id), class: "btn btn-outline-primary" %>
+                                    <%= link_to 'Cancel', speeches_path(group_code: @speech_access_code.id), class: "btn btn-outline-primary", style:"padding:8px !important;" %>
                                   <% end %>
                                   <% if @speech.new_record? %>
                                     <%= form.submit 'Save', id: 'save_content', class:"btn btn-outline-primary", disabled: true %>
@@ -125,10 +125,11 @@
                                       <source id="audioSource" type="audio/mp3" src="">
                                     </audio>
                                     <!-- <button type="button" class="close audioPlayback play" onclick="aud_play_pause()" style="outline:none !important; padding-right:15px;"><span><i class="fa fa-play-circle fa-lg" aria-hidden="true"></i></span></button> -->
-                                    <button type="button" class="btn btn-outline-primary audioPlayback" onclick="aud_play_pause()">
+                                    <button type="button" class="btn btn-outline-primary audioPlayback" style="padding:8px!important; border: 1px solid #007bff !important;" onclick="aud_play_pause()">
                                       <span class="play"><i class="fa fa-play-circle fa-lg play" aria-hidden="true"></i></span> Play/Pause
                                     </button>
-                                    <%= link_to 'Delete', @speeches, method: :delete, data: {confirm: @speech.published? ? 'This article is already published. Are you sure you want to delete?' : 'Are you sure you want to delete this article?', title: 'Confirm Deletion', commit: 'Yes do it!', cancel: 'Not really!' }, :class => 'btn btn-outline-danger delete-speech', id: "delete-btn" %>
+                                    <!-- Commented by Jude on 04/04/2020 to move this button on the list article page based on the discussion on 03/04/2020 -->
+                                    <%#= link_to 'Delete', @speeches, method: :delete, data: {confirm: @speech.published? ? 'This article is already published. Are you sure you want to delete?' : 'Are you sure you want to delete this article?', title: 'Confirm Deletion', commit: 'Yes do it!', cancel: 'Not really!' }, :class => 'btn btn-outline-danger delete-speech', id: "delete-btn" %>
                                     <%= form.submit 'Save', id: 'save_content', class:"btn btn-outline-primary", disabled: @speech.published? ? true : false %>
                                     <% if @speech.draft? %>
                                       <%= form.submit 'Publish', id: 'publish_content', class:"btn btn-outline-primary", disabled: @speech.published? ? true : false %>

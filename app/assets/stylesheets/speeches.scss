@@ -115,3 +115,19 @@
     // -ms-transition:     all 0.12s ease-out;
     // -o-transition:      all 0.12s ease-out;
  }
+
+
+.back {
+	position: absolute;
+	left: 0;
+	top: 0;
+	opacity: 0;
+	visibility: hidden;
+	z-index: 2;
+	width: 100%;
+}
+.front:hover + .back,
+.back:hover {
+	opacity: 10;
+	visibility: visible;
+}

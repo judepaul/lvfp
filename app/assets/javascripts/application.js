@@ -171,6 +171,20 @@ $(document).ready(function () {
             }
         });
         
+
+        // $(".action").hover(function() {
+        //     $(this).prop("checked", !$(this).prop("checked"));
+        //   });
+
+        // Manage Articles show action buttons on the table row
+        $(".table tr").mouseover(function(){
+            $(".actions", this).show()
+        })
+        $(".table tr").mouseout(function(){
+            $(".actions", this).hide()
+        }) 
+
+
   });
 
 
