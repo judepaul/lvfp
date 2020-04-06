@@ -1,16 +1,62 @@
 <div class="row" style="height:40px"></div>
-<%#= render "layouts/shared/flash_message" %>
-<div class="container">
+ <div class="container">
+ <div class="row text-center">
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header studio-card-header"><h6 style="font-family: Laila-Bold !important; font-weight:bold !important; font-size:18px !important;color:#FFF;padding-top:3px;"><i class="fas fa-assistive-listening-systems"></i> Voice Chimp Studio </h6></div>
+      <div class="card-body studio-card-body text-left mt-0 p-0" style="border: 0.01rem solid #bbb !important; display:none;">
+        <ul class="list-group list-group-flush mt-0">
+          <li class="list-group-item mt-0 active" onclick="location.href='/voice-chimp-studio/campaign'"><i class="fas fa-layer-group"></i> Campaigns</li>
+          <li class="list-group-item mt-0" onclick="location.href='/voice-chimp-studio/article'"><i class="fas fa-newspaper"></i> Articles</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header skill-card-header" style="<%= (controller.controller_name == "access_codes" || controller.controller_name == "speeches") ? 'background-color:#D3D3D3 !important;' : '' %>" ><h6 style="font-family: Laila-Bold !important; font-weight:bold !important; font-size:18px !important;color:#FFF;padding-top:3px;"> <i class="fas fa-microphone"></i> Voice Chimp Skill </h6></div>
+      <div class="card-body skill-card-body text-left mt-0 p-0" style="border: 0.01rem solid #bbb !important; display:none;">
+        <ul class="list-group list-group-flush mt-0">
+          <li class="list-group-item mt-0" onclick="location.href='/voice-chimp-skill/details'"><i class="fas fa-clone"></i> Published Details</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header anal-card-header" style="<%= (controller.controller_name == "access_codes" || controller.controller_name == "speeches") ? 'background-color:#D3D3D3 !important;' : '' %>"><h6 style="font-family: Laila-Bold !important; font-weight:bold !important; font-size:18px !important;color:#FFF;padding-top:3px;"><i class="fas fa-chart-pie"></i> Voice Chimp Analytics </h6></div>
+      <div class="card-body anal-card-body text-left mt-0 p-0" style="border: 0.01rem solid #bbb !important; display:none;">
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <div class="collapse multi-collapse" id="multiCollapseExample1">
+      <div class="card card-body">
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="collapse multi-collapse" id="multiCollapseExample2">
+      <div class="card card-body">
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+      </div>
+    </div>
+  </div>
+</div>
+ 
 <!-- <p class="col-md-12 offset-md-1 pb-3" id="notice"><%#= notice %></p> -->
         <div class="row">
             <div class="col-md-10 offset-md-1 pb-3 btn-outline-light"><h5 style="padding: 2px 5px 2px 0px;color:#5C5656;text-align:left;font-size:24px !important;"><%= notice %></h5></div>
         </div>
 <div class="row justify-content-center">
-<div class="col-md-10">
+<div class="col-md-12">
 <div class="card" style="width:100%;">
   <div class="card-header text-white h5">
     <div class="row">
-      <div class="col-md-6">Manage Campaigns</div>
+      <div class="col-md-6"><i class="fas fa-layer-group"></i> Manage Campaigns</div>
         <div class="col-md-6 text-right">
             <span style="cursor: pointer;" class="campaing-show"><i class="fas fa-info-circle fa-lg"></i></span>
         </div>

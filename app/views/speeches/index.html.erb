@@ -1,15 +1,45 @@
-<div class="row" style="height:60px;"></div>
-
+<div class="row" style="height:40px;"></div>
+ <div class="container">
+<div class="row text-center">
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header studio-card-header"><h6 style="font-family: Laila-Bold !important; font-weight:bold !important; font-size:18px !important;color:#FFF;padding-top:3px;"><i class="fas fa-assistive-listening-systems"></i> Voice Chimp Studio </h6></div>
+      <div class="card-body studio-card-body text-left mt-0 p-0" style="border: 0.01rem solid #bbb !important; display:none;">
+        <ul class="list-group list-group-flush mt-0">
+          <li class="list-group-item mt-0" onclick="location.href='/voice-chimp-studio/campaign'"><i class="fas fa-layer-group"></i> Campaigns</li>
+          <li class="list-group-item mt-0 active" onclick="location.href='/voice-chimp-studio/article'"><i class="fas fa-newspaper"></i> Articles</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header skill-card-header" style="<%= (controller.controller_name == "access_codes" || controller.controller_name == "speeches") ? 'background-color:#D3D3D3 !important;' : '' %>" ><h6 style="font-family: Laila-Bold !important; font-weight:bold !important; font-size:18px !important;color:#FFF;padding-top:3px;"> <i class="fas fa-microphone"></i> Voice Chimp Skill </h6></div>
+      <div class="card-body skill-card-body text-left mt-0 p-0" style="border: 0.01rem solid #bbb !important; display:none;">
+        <ul class="list-group list-group-flush mt-0">
+          <li class="list-group-item mt-0" onclick="location.href='/voice-chimp-skill/details'"><i class="fas fa-clone"></i> Published Details</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header anal-card-header" style="<%= (controller.controller_name == "access_codes" || controller.controller_name == "speeches") ? 'background-color:#D3D3D3 !important;' : '' %>"><h6 style="font-family: Laila-Bold !important; font-weight:bold !important; font-size:18px !important;color:#FFF;padding-top:3px;"><i class="fas fa-chart-pie"></i> Voice Chimp Analytics </h6></div>
+      <div class="card-body anal-card-body text-left mt-0 p-0" style="border: 0.01rem solid #bbb !important; display:none;">
+      </div>
+    </div>
+  </div>
+</div>
 <%#= render 'form', speech: @speech %>
+<div class="row" style="height:40px;"></div>
 
-<div class="container">
     <div class="container-fluid px-0">
         <div class="row no-gutters">
             <div class="col-sm-12 col-md mr-md-3">
               <div class="card">
                         <div class="card-header text-white h5">
                           <div class="row">
-                              <div class="col-md-6">Manage Articles</div>
+                              <div class="col-md-6"><i class="fas fa-newspaper"></i> Manage Articles</div>
                               <div class="col-md-6 text-right">
                                 <span style="cursor: pointer;" class="article-show"><i class="fas fa-info-circle fa-lg"></i></span>
                               </div>
@@ -80,8 +110,8 @@
                 </p>
                 <p class="content"><%= !speech.email_from.blank? ? speech.email_from.rstrip.concat('.') : '' %> <%= speech.content %></p>
                 <div class="actions" style="display:none; float:right;">
-                  <i class="fas fa-edit btn btn-secondary" style="padding:10px!important;background-color:#61318f !important; border-color:#61318f !important;" onclick="location.href='<%= edit_speech_path(speech) %>'"></i>
-                  <a href="/speeches/<%=speech.id%>" data-method="delete" data-confirm="<%= speech.published? ? 'This article is already published. Are you sure you want to delete?' : 'Are you sure you want to delete this article?' %>" data-title='Confirm Deletion' data-commit='Yes do it!' data-cancel='Not really!'  class='btn btn-secondary delete-speech' style="background-color:#61318f !important; border-color:#61318f !important;" id="delete-btn">
+                  <i class="fas fa-edit btn btn-secondary" style="padding:8px!important;background-color:#61318f !important; border-color:#61318f !important;" onclick="location.href='<%= edit_speech_path(speech) %>'"></i>
+                  <a href="/speeches/<%=speech.id%>" data-method="delete" data-confirm="<%= speech.published? ? 'This article is already published. Are you sure you want to delete?' : 'Are you sure you want to delete this article?' %>" data-title='Confirm Deletion' data-commit='Yes do it!' data-cancel='Not really!'  class='btn btn-secondary delete-speech' style="padding:4px 10px 4px 10px!important;background-color:#61318f !important; border-color:#61318f !important;" id="delete-btn">
                     <i class="fas fa-trash-alt"></i></a>
                   </div>
 

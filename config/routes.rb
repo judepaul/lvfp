@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
   
   resources :listeners
-  resources :access_codes
-  resources :speeches
+  scope '/voice-chimp-studio' do
+    resources :access_codes, :path => "campaign"
+    resources :speeches, :path => "article"
+  end
+  
   resources :skills
   get 'dashboard/index'
 
@@ -21,6 +24,6 @@ Rails.application.routes.draw do
 
   get "speeches/published_details/:speech_id" => "speeches#published_details", as: "published_details"
 
-  get "vcs/skill_details" => "speeches#published_skill_details", as: "published_skill_details"
+  get "/voice-chimp-skill/details" => "dashboard#published_skill_details", as: "published_skill_details"
 
 end

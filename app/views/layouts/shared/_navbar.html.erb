@@ -5,11 +5,11 @@
             </a>
         <% else %>
             <a class="navbar-brand js-scroll-trigger" href="/dashboard/index/">
-                <% if controller.controller_name == "dashboard" %> 
+                <!% if controller.controller_name == "dashboard" %> 
                 <!-- <img class="logo-navbar" src="/assets/header-lvf.png" width="300" height="40"> font-family: Comic Sans MS !important;  --> <span class='text-white' style="font-family: Laila-Bold !important; font-weight:bold !important; font-size:30px !important;"> <i class="fas fa-rocket"></i> Launch Voice First </span>
-                <% else %>
-                <!-- <img class="logo-navbar" src="/assets/header-vcs.png" width="300" height="40"> --> <span class='text-white' style="font-family: Laila-Bold !important; font-weight:bold !important; font-size:32px !important;"> <i class="fas fa-assistive-listening-systems"></i> Voice Chimp Studio </span>
-                <% end %>
+                <!% else %>
+                <!-- <img class="logo-navbar" src="/assets/header-vcs.png" width="300" height="40">  <span class='text-white' style="font-family: Laila-Bold !important; font-weight:bold !important; font-size:32px !important;"> <i class="fas fa-assistive-listening-systems"></i> Voice Chimp Studio </span> -->
+                <!% end %>
             </a>
         <% end %>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,10 +33,10 @@
                     </li>
                     <% if controller.controller_name != "dashboard" %>
                     <li class="nav-item h5">
-                        <a class="nav-link text-white pt-3" href="/access_codes">Campaigns</a>
+                        <!-- <a class="nav-link text-white pt-3" href="/access_codes">Campaigns</a> -->
                     </li>
                     <li class="nav-item h5">
-                        <a class="nav-link text-white pt-3" href="/speeches">Articles</a>
+                        <!-- <a class="nav-link text-white pt-3" href="/speeches">Articles</a> -->
                     </li>
                     <% end %>
                     <li class="nav-item h5">

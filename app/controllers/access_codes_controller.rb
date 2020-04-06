@@ -63,7 +63,7 @@ class AccessCodesController < ApplicationController
 def update
 
   #if AccessCode.campaign_exists(access_code_params[:title]).blank?
-    @access_code.listener.update_attribute("group_name", params[:listener_group_name])
+    @access_code.listener.update_attribute("group_name", params[:listener_group_name]) unless params[:listener_group_name].blank?
     if @access_code.update(access_code_params)
       respond_to do |format|
         format.html { redirect_to access_codes_path }

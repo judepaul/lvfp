@@ -176,6 +176,34 @@ $(document).ready(function () {
         //     $(this).prop("checked", !$(this).prop("checked"));
         //   });
 
+        $(".studio-card-header").mouseover(function() {
+            $('.studio-card-body').show();
+            $('.skill-card-body').hide();
+        });
+        $(".studio-card-body").mouseover(function() {
+            $(this).show();
+        });
+        $(".studio-card-body").mouseout(function() {
+            $(this).hide();
+        });
+
+        $(".skill-card-header").mouseover(function() {
+            $('.skill-card-body').show();
+            $('.studio-card-body').hide();
+        });
+        $(".skill-card-body").mouseover(function() {
+            $(this).show();
+        });
+        $(".skill-card-body").mouseout(function() {
+            $(this).hide();
+        });
+
+        $(".anal-card-header").mouseover(function() {
+            $('.skill-card-body').hide();
+            $('.studio-card-body').hide();
+        });
+       
+
         // Manage Articles show action buttons on the table row
         $(".table tr").mouseover(function(){
             $(".actions", this).show()
