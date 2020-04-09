@@ -123,7 +123,6 @@ class SkillsController < ApplicationController
 			      acsm = AccessCodeSpeechMap.where(access_code_id: access_code_id)
 			      speech_ids = acsm.map{|acsm| acsm.speech_id}
 			      published_articles = Speech.where(id: speech_ids, published: true).order('updated_at DESC').first(2)
-			      published_articles = Speech.where(id: speech_ids, published: true).order('updated_at DESC').first(2)
 			      if published_articles.blank?
 				      message = 'Sorry! I couldn\'t find any article avaiable for the code that you are asking'
 			      else
@@ -134,7 +133,7 @@ class SkillsController < ApplicationController
 					      article_outro = !published_article.outro.blank? ? published_article.outro : ''
 					      article_text = published_articles.size == 1 ? "article" : "articles"
 					      if published_article == published_articles.first
-						      message = "You have #{published_articles.size} new #{article_text} <break strength='x-strong' /> #{message_end_music} <break 							=‘x-strong' /> #{article_title} <break strength='x-strong' /><break strength='x-strong' /> #{article_intro} <break strength='x-strong' />							<break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break 						strength=‘x-strong' /><break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{prompt_next_message}";
+						      message = "You have #{published_articles.size} new #{article_text} <break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{article_title} <break strength='x-strong' /><break strength='x-strong' /> #{article_intro} <break strength='x-strong' /><break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='x-strong' /><break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{prompt_next_message}";
 						      session_end = false
 					      else
 						      session_articles << published_article
@@ -152,7 +151,7 @@ class SkillsController < ApplicationController
       "type": "Standard",
       "title": "Voice Chimp",
       "subtitle": "listen to your email campaigns & newsletters",
-      "text": "Listen to the email campaigns & newsletters, anytime and anywhere. This is not about podcasting`",
+      "text": "Listen to the email campaigns & newsletters, anytime and anywhere. This is not about podcasting",
       "image": {
         "smallImageUrl": "https://www.oredein.com/alexa/abc/images/small_card.png",
         "largeImageUrl": "https://www.oredein.com/alexa/abc/images/small_card.png"
