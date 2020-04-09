@@ -37,9 +37,6 @@
 @font-face {
     font-family: "CentraNo2-Book";
     src: url("/assets/CentraNo2-Book");
-    // font-family: "Bulletto-Killa";
-    // src: url("/assets/Bulletto Killa");
-
 }
 
 @font-face {
@@ -47,15 +44,74 @@
     src: url("/assets/Laila-Bold");
 }
 
+@font-face {
+    font-family: "Bulletto-Killa";
+    src: url("/assets/Bulletto Killa");
+}
+
+@font-face {
+    font-family: "Nunito-ExtraBold";
+    src: url("/assets/Nunito/Nunito-ExtraBold.ttf");
+}
+@font-face {
+    font-family: "Nunito-Bold";
+    src: url("/assets/Nunito/Nunito-Bold.ttf");
+}
+@font-face {
+    font-family: "Nunito-SemiBold";
+    src: url("/assets/Nunito/Nunito-SemiBold.ttf");
+}
+@font-face {
+    font-family: "Nunito-Regular";
+    src: url("/assets/Nunito/Nunito-Regular.ttf");
+}
+@font-face {
+    font-family: "Nunito-Italic";
+    src: url("/assets/Nunito/Nunito-Italic.ttf");
+}
+
+
 body {
     min-height: 400px;
     margin-bottom: 100px;
     clear: both;
-    font-family: "CentraNo2-Book";
-    font-size:20px;
-    font-style: normal;
-    font-weight: normal;
-    //letter-spacing:.05rem;
+    font-family: "Nunito-Regular";
+    font-size:18px;
+    // letter-spacing:.03rem !important;
+ }
+
+ .heading-extra{
+    font-family: Nunito-ExtraBold !important; 
+    font-size:24px !important;
+    letter-spacing:.03rem !important;
+ }
+
+ .heading{
+    font-family: Nunito-Bold !important; 
+    font-size:24px !important;
+    letter-spacing:.03rem !important;
+ }
+
+ .heading-semibold{
+    font-family: Nunito-SemiBold !important; 
+    font-size:26px !important;
+    letter-spacing:.03rem !important;
+ }
+
+ .sub-heading{
+    font-family: Nunito-SemiBold !important; 
+    font-size:19px !important;
+    letter-spacing:.03rem !important;
+ }
+
+ .label-text{
+    font-family: Nunito-SemiBold !important; 
+    letter-spacing:.03rem !important;
+ }
+
+ .text-14-italic{
+    font-family: Nunito-Italic !important; 
+    font-size:14px !important;
  }
 
  input, textarea, select { font-size: 18px !important; }

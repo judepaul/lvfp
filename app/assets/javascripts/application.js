@@ -212,7 +212,16 @@ $(document).ready(function () {
             $(".actions", this).hide()
         }) 
 
-
+    //cards
+    // $('.studio-card').mouseover(function(){
+    //     $('.studio-img').hide();
+    //     $('.card-text').show();
+    // });
+    // $('.studio-card').mouseout(function(){
+    //     $('.studio-img').show();
+    //     $('.card-text').hide();
+    // });
+    
   });
 
 

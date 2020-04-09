@@ -2,8 +2,8 @@ Rails.application.routes.draw do
   
   resources :listeners
   scope '/voice-chimp-studio' do
-    resources :access_codes, :path => "campaign"
-    resources :speeches, :path => "article"
+    resources :access_codes, :path => "campaigns"
+    resources :speeches, :path => "articles"
   end
   
   resources :skills

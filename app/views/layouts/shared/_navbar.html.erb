@@ -1,12 +1,13 @@
-<nav class="navbar navbar-expand-lg navbar-light navbar-laravel px-5">
+<nav class="navbar navbar-expand-lg navbar-light navbar-laravel px-5 py-2">
         <% unless user_signed_in? %>
             <a class="navbar-brand js-scroll-trigger" href="/auth/login"> 
-                <!-- <img class="logo-navbar" src="/assets/header-lvf.png" width="300" height="40"> font-family: Comic Sans MS !important;  --> <span class='text-white' style="font-family: Laila-Bold !important; font-weight:bold !important; font-size:30px !important;"> <i class="fas fa-rocket"></i> Launch Voice First </span>
+                <!-- <img class="logo-navbar" src="/assets/header-lvf.png" width="300" height="40"> font-family: Comic Sans MS !important;  --> <!-- <span class='text-white heading-semibold'> <i class="fas fa-rocket"></i> Launch Voice First </span> -->
+                <span class='text-white heading-semibold' style="font-size:39px !important;"> <i class="fas fa-rocket"></i>L</span><span class='text-white heading-semibold'>aunch </span><span class='text-white heading-semibold' style="font-size:39px !important;">V</span><span class='text-white heading-semibold'>oice </span><span class='text-white heading-semibold' style="font-size:39px !important;">F</span><span class='text-white heading-semibold'>irst</span>
             </a>
         <% else %>
             <a class="navbar-brand js-scroll-trigger" href="/dashboard/index/">
                 <!% if controller.controller_name == "dashboard" %> 
-                <!-- <img class="logo-navbar" src="/assets/header-lvf.png" width="300" height="40"> font-family: Comic Sans MS !important;  --> <span class='text-white' style="font-family: Laila-Bold !important; font-weight:bold !important; font-size:30px !important;"> <i class="fas fa-rocket"></i> Launch Voice First </span>
+                <!-- <img class="logo-navbar" src="/assets/header-lvf.png" width="300" height="40"> font-family: Comic Sans MS !important;  --> <span class='text-white heading-semibold' style="font-size:39px !important;"> <i class="fas fa-rocket"></i>L</span><span class='text-white heading-semibold'>aunch </span><span class='text-white heading-semibold' style="font-size:39px !important;">V</span><span class='text-white heading-semibold'>oice </span><span class='text-white heading-semibold' style="font-size:39px !important;">F</span><span class='text-white heading-semibold'>irst</span>
                 <!% else %>
                 <!-- <img class="logo-navbar" src="/assets/header-vcs.png" width="300" height="40">  <span class='text-white' style="font-family: Laila-Bold !important; font-weight:bold !important; font-size:32px !important;"> <i class="fas fa-assistive-listening-systems"></i> Voice Chimp Studio </span> -->
                 <!% end %>
@@ -19,28 +20,28 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
                 <% unless user_signed_in? %>
-                <li class="nav-item">
+                <li class="nav-item sub-heading">
                     <a class="nav-link text-white" href="/auth/login">Login</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item sub-heading">
                     <!-- <a class="nav-link text-white" href="/auth/register/signup">Register</a> -->
                     <!-- <a class="nav-link text-white" href="http://eepurl.com/gO8n65">Register</a> -->
-                    <a class="nav-link text-white" href="https://launchvoicefirst.com/" data-toggle="tooltip" title=" Click to learn more and signup for an invite">Signup (<span style="font-style: italic;font-size:13px;">for Early Access</span>)</a>
+                    <a class="nav-link text-white" href="https://launchvoicefirst.com/" data-toggle="tooltip" title=" Click to learn more and signup for an invite">Signup (<span class="text-14-italic">for Early Access</span>)</a>
                 </li>
                 <% else %>
-                    <li class="nav-item h5">
-                        <span class="nav-link text-white pt-3"> Welcome <%= current_user.username %> (<%= current_user.role %>) </span>
+                    <li class="nav-item sub-heading">
+                        <span class="nav-link text-white"> Welcome <%= current_user.username %> (<%= current_user.role %>) </span>
                     </li>
                     <% if controller.controller_name != "dashboard" %>
-                    <li class="nav-item h5">
+                    <li class="nav-item sub-heading">
                         <!-- <a class="nav-link text-white pt-3" href="/access_codes">Campaigns</a> -->
                     </li>
-                    <li class="nav-item h5">
+                    <li class="nav-item sub-heading">
                         <!-- <a class="nav-link text-white pt-3" href="/speeches">Articles</a> -->
                     </li>
                     <% end %>
-                    <li class="nav-item h5">
-                        <a class="nav-link text-white pt-3" href="/auth/logout">Logout</a>
+                    <li class="nav-item sub-heading">
+                        <a class="nav-link text-white" href="/auth/logout">Logout</a>
                     </li>
                 <% end %>
             </ul>

@@ -35,6 +35,7 @@
     //background-color: #d3b2df;
     //background-color: ab61f0
     background-color: #61318f;
+    font-size:20px;
 }
 .navbar-laravel
 {
@@ -44,6 +45,10 @@
 .navbar-brand , .nav-link, .my-form, .login-form
 {
     //font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.navbar .nav-link {
+    padding-left: 24px !important;
 }
 
 .my-form

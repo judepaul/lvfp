@@ -94,7 +94,7 @@
             </tr>
           </thead>
         <% speech_arr.sort_by(&:updated_at).reverse.each_with_index do |speech,indx| %>
-          <tbody class="h6">
+          <tbody class="">
             <tr style="cursor: pointer;font-size:18px;">
               <td><p class="content">Title: <%= !speech.title.blank? ? speech.title : 'N/A' %> 
                 <!-- <span style="padding: 1px 5px 1px 5px; color:#FFF; background-color: <%#= speech.published? ? 'green' : !speech.published? ? 'orange' : "" %>;"><strong><%#= speech.published? ? 'Published' : !speech.published? ? 'Draft' : "" %></strong></span> -->
