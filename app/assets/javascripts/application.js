@@ -222,10 +222,36 @@ $(document).ready(function () {
     //     $('.card-text').hide();
     // });
 
-    $('.navbar-light .dmenu').hover(function () {
-        $(this).find('.sm-menu').first().stop(true, true).slideDown(150);
-    }, function () {
-        $(this).find('.sm-menu').first().stop(true, true).slideUp(105)
+    $(".dropdown-studio").hover(            
+        function() {
+            $('.studio-menu', this).stop( true, true ).slideDown("300");
+        },
+        function() {
+            $('.studio-menu', this).stop( true, true ).slideUp("300");
+        });
+
+    $(".dropdown-skill").hover(            
+        function() {
+            $('.skill-menu', this).stop( true, true ).slideDown("300");
+        },
+        function() {
+            $('.skill-menu', this).stop( true, true ).slideUp("300");
+    });  
+
+    $(".dropdown-analytics").hover(            
+        function() {
+            $('.analytics-menu', this).stop( true, true ).slideDown("300");
+        },
+        function() {
+            $('.analytics-menu', this).stop( true, true ).slideUp("300");
+    });
+    
+    $(".dropdown-logout").hover(            
+        function() {
+            $('.logout-menu', this).stop( true, true ).slideDown("300");
+        },
+        function() {
+            $('.logout-menu', this).stop( true, true ).slideUp("300");
     });
     
   });

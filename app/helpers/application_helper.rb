@@ -13,4 +13,16 @@ module ApplicationHelper
           flash_type.to_s
         end
       end
+
+      def current_class?(url_path)
+        # p request.path.include?('articles')
+        if request.path.include?("/voice-chimp-studio/campaigns") || request.path.include?("/voice-chimp-studio/articles")
+          class_name = "access_codes"
+        elsif request.path.include?("/voice-chimp-skill/details")
+          class_name = "skills"
+        end
+        p "!@!@!@!@"
+        p class_name
+        return class_name
+      end
 end

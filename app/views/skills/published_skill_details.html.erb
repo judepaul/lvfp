@@ -12,7 +12,7 @@
     end %>
 
     <div class="container">
-    <div class="row text-center">
+<!--     <div class="row text-center">
       <div class="col-md-4">
     <div class="card">
       <div class="card-header studio-card-header" style="<%= (controller.controller_name == "dashboard" || controller.controller_name == "dashboard") ? 'background-color:#D3D3D3 !important;' : '' %>"><h6 style="font-family: Laila-Bold !important; font-weight:bold !important; font-size:18px !important;color:#FFF;padding-top:3px;"><i class="fas fa-assistive-listening-systems"></i> Voice Chimp Studio </h6></div>
@@ -41,13 +41,13 @@
       </div>
     </div>
   </div>
-    </div>
-    <div class="row" style="height:40px;"></div>
+    </div> 
+    <div class="row" style="height:40px;"></div> -->
 
     <div class="card" style="width:100%;">
-    <div class="card-header text-white h5">
+    <div class="card-header text-white">
         <div class="row">
-            <div class="col-md-6"><i class="fas fa-clone"></i> Published Details</div>
+            <div class="col-md-6"><i class="fas fa-clone"></i> Skill Details</div>
             </div>
     </div>
     <div class="card-body">
@@ -89,28 +89,37 @@
 <div style="height: 30px;"></div>
 
 <div class="card" style="width:100%;">
-    <div class="card-header text-white h5">
+    <div class="card-header text-white">
         <div class="row">
-            <div class="col-md-11 pl-4"> Lastest Articles</div>
+            <div class="col-md-11 pl-4"><i class="fas fa-newspaper"></i> Recent Two Articles </div>
         </div>
     </div>
     <div class="card-body table-responsive">
         <table class="table table-bordered table-sm table-hover">
             <thead class="thead-light h5 font-weight-bold">
                 <tr>
-                    <th scope="col">Articles (<%= speech_arr.length %>)</th>
+                    <!-- Commented by Jude on 04/10/2020 Hide the header based on the discussion -->
+                    <th scope="col"><!-- Articles (<%#= speech_arr.length %>) --></th>
                 </tr>
             </thead>
             <% speech_arr.sort_by(&:updated_at).reverse.each_with_index do |speech,indx| %>
-                <% if indx < 3 %>
-                <tbody class="h6">
-                    <tr style="cursor: pointer;font-size:18px;">
+                <% if indx < 2 %>
+                <tbody class="">
+                    <tr style="cursor: pointer;">
                         <td>
                             <p class="content">Title: <%= !speech.title.blank? ? speech.title : 'N/A' %> 
                             <!-- <span style="padding: 1px 5px 1px 5px; color:#FFF; background-color: <%#= speech.published? ? 'green' : !speech.published? ? 'orange' : "" %>;"><strong><%#= speech.published? ? 'Published' : !speech.published? ? 'Draft' : "" %></strong></span> -->
-                            <span style="padding: 2px 5px 1px 2px;">
-                                <span style="float: right; padding-right:10px; font-size:16px; letter-spacing:0px; font-weight:bold;"> <%= image_tag 'icon-calendar', alt: "calendar" %> <%= speech.updated_at.strftime("%m/%d/%Y") %></span>
-                            </span>
+                            <span style="padding: 3px 5px 1px 2px;">
+                                <span style="float: right; padding-right:10px; font-size:14px; letter-spacing:0px; font-weight:bold;">    
+                                  <a href="/voice-chimp-studio/articles/<%= speech.id %>/edit" class="btn btn-outline-success py-0 px-1"><i class="fas fa-external-link-alt fa-1x"></i></a>
+                                </span>
+                                <span style="float: right; padding-right:10px; font-size:14px; letter-spacing:0px; font-weight:bold;">
+                                  <%= link_to("/speeches/published_details/#{speech.id}",style:"text-decoration:none;",class:"btn btn-outline-success px-1 py-0") do %><i class="fas fa-link fa-1x"></i> Published <% end %> 
+                                </span>
+                                <span style="float: right; padding-right:10px; font-size:14px; letter-spacing:0px; font-weight:bold;">
+                                  <%= image_tag 'icon-calendar', alt: "calendar" %> <%= speech.updated_at.strftime("%m/%d/%Y") %>
+                                </span>
+                              </span>
                             </p>
                             <p class="content"><%= !speech.email_from.blank? ? speech.email_from.rstrip.concat('.') : '' %> <%= speech.content %></p>
                         </td>

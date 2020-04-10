@@ -24,6 +24,6 @@ Rails.application.routes.draw do
 
   get "speeches/published_details/:speech_id" => "speeches#published_details", as: "published_details"
 
-  get "/voice-chimp-skill/details" => "dashboard#published_skill_details", as: "published_skill_details"
+  get "/voice-chimp-skill/details" => "skills#published_skill_details", as: "published_skill_details"
 
 end

@@ -94,7 +94,7 @@ body {
 
  .heading-semibold{
     font-family: Nunito-SemiBold !important; 
-    font-size:18px !important;
+    font-size:20px !important;
     letter-spacing:.03rem !important;
  }
 
@@ -136,3 +136,14 @@ input[type="text"], textarea, select, button {
     outline: none !important;
     box-shadow: none;
 }
+
+//Navbar Dropdown
+.dropdown-menu {
+    min-width: 150px;
+    padding: 15px 5px 5px 5px !important;
+}
+
+.nav-active {
+    border-bottom: 3px solid #fff !important;
+}
+

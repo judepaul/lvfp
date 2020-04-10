@@ -167,4 +167,9 @@ class SkillsController < ApplicationController
     render json: output.build_response(session_end)
   end #root ends here
 
+
+  def published_skill_details
+    @access_code = AccessCode.where(user_id: current_user.id).order('id DESC').first
+  end
+
 end #class ends here
