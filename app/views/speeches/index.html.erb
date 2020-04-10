@@ -37,9 +37,9 @@
         <div class="row no-gutters">
             <div class="col-sm-12 col-md mr-md-3">
               <div class="card">
-                        <div class="card-header text-white h5 sub-heading">
+                        <div class="card-header text-white">
                           <div class="row">
-                              <div class="col-md-6"><i class="fas fa-newspaper"></i> Manage Articles</div>
+                              <div class="col-md-6 heading-semibold"><i class="fas fa-newspaper"></i> Manage Articles</div>
                               <div class="col-md-6 text-right">
                                 <span style="cursor: pointer;" class="article-show"><i class="fas fa-info-circle fa-lg"></i></span>
                               </div>
@@ -53,7 +53,7 @@
   <div class="card">
     <div class="card-header" id="heading<%=indx+1%>" class="btn btn-link" data-toggle="collapse" data-target="#collapse<%=indx+1%>" aria-expanded="true" aria-controls="collapse<%=indx+1%>" style="color: #FFF !important; text-decoration: none !important; padding: 10px; !important;">
       <div class="row">
-      <div class="col-md-11 pl-4"> Campaign: <%= ac.title.titlecase %> | Listener Group Access Code: <%= ac.code %></div>
+      <div class="col-md-11 pl-4 sub-heading"> Campaign: <%= ac.title.titlecase %> | Listener Group Access Code: <%= ac.code %></div>
       <!-- <div class="col-md-6 text-right" style="padding-right:20px;"><h6>Published Articles - <%#= articlel_count ac.id %></h6></div> -->
         <div class="col-md-1" style="padding:3px 40px 0 0;"><i class="fas fa-plus float-right "></i></div>
       </div>
@@ -95,7 +95,7 @@
           </thead>
         <% speech_arr.sort_by(&:updated_at).reverse.each_with_index do |speech,indx| %>
           <tbody class="">
-            <tr style="cursor: pointer;font-size:16px;">
+            <tr style="cursor: pointer;">
               <td><p class="content">Title: <%= !speech.title.blank? ? speech.title : 'N/A' %> 
                 <!-- <span style="padding: 1px 5px 1px 5px; color:#FFF; background-color: <%#= speech.published? ? 'green' : !speech.published? ? 'orange' : "" %>;"><strong><%#= speech.published? ? 'Published' : !speech.published? ? 'Draft' : "" %></strong></span> -->
                 <span style="padding: 2px 5px 1px 2px;">
@@ -110,8 +110,8 @@
                 </p>
                 <p class="content"><%= !speech.email_from.blank? ? speech.email_from.rstrip.concat('.') : '' %> <%= speech.content %></p>
                 <div class="actions" style="display:none; float:right;">
-                  <i class="fas fa-edit btn btn-secondary" style="padding:8px!important;background-color:#61318f !important; border-color:#61318f !important;" onclick="location.href='<%= edit_speech_path(speech) %>'"></i>
-                  <a href="/speeches/<%=speech.id%>" data-method="delete" data-confirm="<%= speech.published? ? 'This article is already published. Are you sure you want to delete?' : 'Are you sure you want to delete this article?' %>" data-title='Confirm Deletion' data-commit='Yes do it!' data-cancel='Not really!'  class='btn btn-secondary delete-speech' style="padding:4px 10px 4px 10px!important;background-color:#61318f !important; border-color:#61318f !important;" id="delete-btn">
+                  <i class="fas fa-edit btn btn-secondary" style="padding:5px!important;background-color:#61318f !important; border-color:#61318f !important;" onclick="location.href='<%= edit_speech_path(speech) %>'"></i>
+                  <a href="/speeches/<%=speech.id%>" data-method="delete" data-confirm="<%= speech.published? ? 'This article is already published. Are you sure you want to delete?' : 'Are you sure you want to delete this article?' %>" data-title='Confirm Deletion' data-commit='Yes do it!' data-cancel='Not really!'  class='btn btn-secondary delete-speech' style="padding:1px 6px 1px 6px!important;background-color:#61318f !important; border-color:#61318f !important;" id="delete-btn">
                     <i class="fas fa-trash-alt"></i></a>
                   </div>
 
