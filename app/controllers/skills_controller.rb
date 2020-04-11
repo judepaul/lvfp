@@ -43,7 +43,7 @@ class SkillsController < ApplicationController
             article_outro = !published_article.outro.blank? ? published_article.outro : ''
             article_text = published_articles.size == 1 ? "article" : "articles" 
             if published_article == published_articles.first
-              message = intro_speech << "You have #{published_articles.size} new #{article_text} <break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{article_title} <break strength='x-strong' /><break strength='x-strong' /> #{article_intro} <break strength='x-strong' /><break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='x-strong' /><break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{prompt_next_message}";
+              message = intro_speech << "You have #{published_articles.size} new #{article_text} <break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{article_intro} <break strength='x-strong' /><break strength='x-strong' /> #{article_title} <break strength='x-strong' /><break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='x-strong' /><break strength='x-strong' /> #{article_outro} <break strength='x-strong' /><break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{prompt_next_message}";
               session_end = false
             else
               session_articles << published_article
@@ -73,7 +73,7 @@ class SkillsController < ApplicationController
               article_outro = !published_article.outro.blank? ? published_article.outro : ''
               article_text = published_articles.size == 1 ? "article" : "articles" 
               if published_article == published_articles.first
-                message = "You have #{published_articles.size} new #{article_text} <break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{article_title} <break strength='x-strong' /><break strength='x-strong' /> #{article_intro} <break strength='x-strong' /><break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='x-strong' /><break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{prompt_next_message}";
+                message = "You have #{published_articles.size} new #{article_text} <break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{article_intro} <break strength='x-strong' /><break strength='x-strong' /> #{article_title} <break strength='x-strong' /><break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='x-strong' /><break strength='x-strong' /> #{article_outro} <break strength='x-strong' /><break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{prompt_next_message}";
                 session_end = false
               else
                 session_articles << published_article
@@ -100,7 +100,7 @@ class SkillsController < ApplicationController
           article_intro = !published_article["intro"].blank? ? published_article["intro"] : ''
           article_outro = !published_article["outro"].blank? ? published_article["outro"] : ''
           article_text = published_articles.size == 1 ? "article" : "articles"
-          message = "<break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{article_title} <break strength='x-strong' /><break strength='x-strong' /> #{article_intro} <break strength='x-strong' /><break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='x-strong' /><break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /><break strength='x-strong' /> #{closing_message} <break strength='x-strong' /><break strength='x-strong' /> #{outro_music}";
+          message = "<break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{article_intro} <break strength='x-strong' /><break strength='x-strong' /> #{article_title} <break strength='x-strong' /><break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='x-strong' /><break strength='x-strong' /> #{article_outro} <break strength='x-strong' /><break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /><break strength='x-strong' /> #{closing_message} <break strength='x-strong' /><break strength='x-strong' /> #{outro_music}";
         end
       when 'AMAZON.NoIntent'
         message = 'Okay see you later' 
@@ -133,7 +133,7 @@ class SkillsController < ApplicationController
 					      article_outro = !published_article.outro.blank? ? published_article.outro : ''
 					      article_text = published_articles.size == 1 ? "article" : "articles"
 					      if published_article == published_articles.first
-						      message = "You have #{published_articles.size} new #{article_text} <break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{article_title} <break strength='x-strong' /><break strength='x-strong' /> #{article_intro} <break strength='x-strong' /><break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='x-strong' /><break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{prompt_next_message}";
+						      message = "You have #{published_articles.size} new #{article_text} <break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{article_intro} <break strength='x-strong' /><break strength='x-strong' /> #{article_title} <break strength='x-strong' /><break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='x-strong' /><break strength='x-strong' /> #{article_outro} <break strength='x-strong' /><break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{prompt_next_message}";
 						      session_end = false
 					      else
 						      session_articles << published_article
