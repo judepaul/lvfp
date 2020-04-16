@@ -106,7 +106,7 @@
                                     <% end %>
                                 </div>
                                 <div class="mt-2 col-md-6">
-                                  <%= select_tag 'acc_code_id', options_for_select(@access_codes.collect{ |c| ["#{c.code} - #{c.title}", c.id]}, :selected => !@speech_access_code.blank? ? @speech_access_code.id : ''), prompt: "Select Listener Group Access Code", class: "form-control required", disabled: true %>
+                                  <%= select_tag 'acc_code_id', options_for_select(@access_codes.collect{ |c| ["#{c.code} - #{c.title}", c.id]}, :selected => !@speech_access_code.blank? ? @speech_access_code.id : ''), prompt: "Select Listener Group", class: "form-control required", disabled: true %>
                                 </div>
                                 <div class="col-md-12" style="height:60px;"></div>
                                 <div class="actions text-right align-" style="padding:0 40px 30px 0; position: absolute; bottom: 0; right: 0;">
