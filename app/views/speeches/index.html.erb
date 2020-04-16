@@ -39,7 +39,7 @@
               <div class="card">
                         <div class="card-header text-white">
                           <div class="row">
-                              <div class="col-md-6"><i class="fas fa-newspaper"></i> Manage Articles</div>
+                              <div class="col-md-6 table-heading"><i class="fas fa-newspaper"></i> Manage Articles</div>
                               <div class="col-md-6 text-right">
                                 <span style="cursor: pointer;" class="article-show"><i class="fas fa-info-circle fa-lg"></i></span>
                               </div>
@@ -87,23 +87,31 @@
             speech_arr << acsm.speech 
             end    
         %>
-        <table class="table table-bordered table-sm table-hover">
+        <table class="table table-bordered table-sm table-hover table-<%= ac.code %>">
           <thead class="thead-light h5 font-weight-bold">
             <tr>
-              <th scope="col">Articles (<%= speech_arr.length %>)</th>
+              <nav style="background-color:#e9ecef !important;">
+                <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                  <a class="nav-item nav-link table-heading pointer active <%#= params[:tab]==nil || params[:tab]=='All' ? 'active' : '' %>" id="nav-all-tab" onclick="return nav_all_tab(<%= ac.code %>)" data-toggle="tab" href="#nav-all" role="tab" aria-controls="nav-home" aria-selected="true"><span style="color:#000 !important;"><i class="fas fa-square" style="color:orange;"></i> <i class="fas fa-square" style="color:green;"></i> All</span></a>
+                  <a class="nav-item nav-link table-heading pointer <%#= params[:tab]=='Draft' ? 'active' : '' %>" id="nav-draft-tab" onclick="return nav_draft_tab(<%= ac.code %>)" data-toggle="tab" href="#nav-draft" role="tab" aria-controls="nav-profile" aria-selected="false"><span style="color:#000 !important;"><i class="fas fa-square" style="color:orange;"></i> Draft</span></a>
+                  <a class="nav-item nav-link table-heading pointer <%#= params[:tab]=='Published' ? 'active' : '' %>" id="nav-published-tab" onclick="return nav_published_tab(<%= ac.code %>)" data-toggle="tab" href="#nav-published" role="tab" aria-controls="nav-contact" aria-selected="false"><span style="color:#000 !important;"><i class="fas fa-square" style="color:green;"></i> Published</span></a>
+                </div>
+              </nav>
+              
+              
             </tr>
           </thead>
         <% speech_arr.sort_by(&:updated_at).reverse.each_with_index do |speech,indx| %>
-          <tbody class="">
+          <tbody>
             <tr style="cursor: pointer;">
-              <td><p class="content">Title: <%= !speech.title.blank? ? speech.title : 'N/A' %> 
+              <td><p class="content"><i class="fas fa-square" style="color:<%= speech.published? ? 'green' : 'orange' %>;"></i>  Title: <%= !speech.title.blank? ? speech.title : 'N/A' %> 
                 <!-- <span style="padding: 1px 5px 1px 5px; color:#FFF; background-color: <%#= speech.published? ? 'green' : !speech.published? ? 'orange' : "" %>;"><strong><%#= speech.published? ? 'Published' : !speech.published? ? 'Draft' : "" %></strong></span> -->
                 <span style="padding: 2px 5px 1px 2px;">
                   <% if speech.published? %>
-                    <%= link_to("/speeches/published_details/#{speech.id}",style:"text-decoration:none;",class:"btn btn-outline-success px-1 py-0") do %><i class="fas fa-link fa-1x"></i> Published<% end %> 
+                    <!-- <%#= link_to("/speeches/published_details/#{speech.id}",style:"text-decoration:none;",class:"btn btn-outline-success px-1 py-0") do %><i class="fas fa-link fa-1x"></i> Published<!% end %> -->
                     <span style="float: right; padding-right:10px; font-size:16px; letter-spacing:0px; font-weight:bold;"> <%= image_tag 'icon-calendar', alt: "calendar" %> <%= speech.updated_at.strftime("%m/%d/%Y") %></span>
                   <% else %> 
-                    <span class="btn btn-outline-warning px-1 py-0">Draft</span>
+                    <!-- <span class="btn btn-outline-warning px-1 py-0">Draft</span> -->
                     <span style="float: right; padding-right:10px; font-size:16px; letter-spacing:0px; font-weight:bold;"> <%= image_tag 'icon-calendar', alt: "calendar" %> <%= speech.updated_at.strftime("%m/%d/%Y") %></span>
                   <% end %>
                 </span>

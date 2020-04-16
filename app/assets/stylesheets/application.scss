@@ -98,6 +98,18 @@ body {
     letter-spacing:.03rem !important;
  }
 
+ .card-heading{
+    font-family: Nunito-SemiBold !important; 
+    font-size:18px !important;
+    letter-spacing:.03rem !important;    
+ }
+
+ .table-heading{
+    font-family: Nunito-SemiBold !important; 
+    font-size:16px !important;
+    letter-spacing:.03rem !important;
+ }
+
  .sub-heading{
     font-family: Nunito-SemiBold !important; 
     font-size:16px !important;
@@ -145,5 +157,13 @@ input[type="text"], textarea, select, button {
 
 .nav-active {
     border-bottom: 3px solid #fff !important;
+}
+
+.studio-menu, .skill-menu, .analytics-menu, .logout-menu{
+    margin-top:-2px !important;
+}
+
+.pointer{
+    cursor: pointer;
 }
 

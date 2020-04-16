@@ -26,4 +26,7 @@ Rails.application.routes.draw do
 
   get "/voice-chimp-skill/details" => "skills#published_skill_details", as: "published_skill_details"
 
+  post "/voice-chimp-studio/articles/getArticlesByType" => "speeches#getArticlesByType", as: "getArticlesByType"
+
+
 end

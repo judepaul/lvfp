@@ -106,6 +106,41 @@ class SpeechesController < ApplicationController
     @speech = Speech.find(speech_id)
   end
 
+  def getArticlesByType
+    @code = params[:access_code]
+    @tab = params[:tab]
+    access_code = AccessCode.where(code: @code).last
+    speech_ids = access_code.access_code_speech_map.map{|acsm| acsm.speech}
+    if current_user.role == "super_vc_admin"
+      if @tab=="All"
+        @speeches = Speech.all.paginate(page: params[:page])
+      elsif @tab=="Draft"
+        @speeches = Speech.where(draft: true, published: false).paginate(page: params[:page])
+      elsif @tab=="Published"
+        @speeches = Speech.where(published: true).paginate(page: params[:page])
+      else
+        @speeches = Speech.all.paginate(page: params[:page])
+      end  
+      @access_code = AccessCode.where(code: @code).last
+    else
+      if @tab=="All"
+        @speeches = Speech.where(id: speech_ids).where(user_id: current_user.id).order('id DESC').paginate(page: params[:page])
+      elsif @tab=="Draft"
+        # @speeches = Speech.where(user_id: current_user.id, draft: true).where('published is NULL').order('id DESC').paginate(page: params[:page])
+        @speeches = Speech.where(id: speech_ids).where(user_id: current_user.id).where('published IS NULL').order('id DESC').paginate(page: params[:page])
+      elsif @tab=="Published"
+        @speeches = Speech.where(id: speech_ids).where(user_id: current_user.id, published: true).order('id DESC').paginate(page: params[:page])
+      else
+        @speeches = Speech.where(user_id: current_user.id).order('id DESC').paginate(page: params[:page])
+      end
+      @access_code = AccessCode.where(code: @code).last
+    end
+    @group_code = params[:group_code] unless params[:group_code].blank?
+    respond_to do |format|
+      format.js
+    end
+  end
+
 
 
   private

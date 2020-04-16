@@ -224,37 +224,88 @@ $(document).ready(function () {
 
     $(".dropdown-studio").hover(            
         function() {
-            $('.studio-menu', this).stop( true, true ).slideDown("300");
+            $('.studio-menu', this).stop( true, true ).slideDown("150");
         },
         function() {
-            $('.studio-menu', this).stop( true, true ).slideUp("300");
+            $('.studio-menu', this).stop( true, true ).slideUp("150");
         });
 
     $(".dropdown-skill").hover(            
         function() {
-            $('.skill-menu', this).stop( true, true ).slideDown("300");
+            $('.skill-menu', this).stop( true, true ).slideDown("150");
         },
         function() {
-            $('.skill-menu', this).stop( true, true ).slideUp("300");
+            $('.skill-menu', this).stop( true, true ).slideUp("150");
     });  
 
     $(".dropdown-analytics").hover(            
         function() {
-            $('.analytics-menu', this).stop( true, true ).slideDown("300");
+            $('.analytics-menu', this).stop( true, true ).slideDown("150");
         },
         function() {
-            $('.analytics-menu', this).stop( true, true ).slideUp("300");
+            $('.analytics-menu', this).stop( true, true ).slideUp("150");
     });
     
     $(".dropdown-logout").hover(            
         function() {
-            $('.logout-menu', this).stop( true, true ).slideDown("300");
+            $('.logout-menu', this).stop( true, true ).slideDown("150");
         },
         function() {
-            $('.logout-menu', this).stop( true, true ).slideUp("300");
+            $('.logout-menu', this).stop( true, true ).slideUp("150");
     });
+
+    // $("#nav-all-tab").click(function(){
+    //     var access_code = $(this).data("access-code");
+    //     alert(access_code);
+    //     var url = "/voice-chimp-studio/articles/getArticlesByType";
+    //     var data = {access_code: access_code, tab: 'All'};
+    //     //window.location.href = "/voice-chimp-studio/articles?tab=All&code="+access_code;
+    //     //$.get("/voice-chimp-studio/articles/getArticlesByType", {access_code: access_code, tab: 'All'});
+        
+    // });
+
+    // $("#nav-draft-tab").click(function(){
+    //     var access_code = $(this).data("access-code");
+    //     window.location.href = "/voice-chimp-studio/articles?tab=Draft&code="+access_code;
+    // });
+
+    // $("#nav-published-tab").click(function(){
+    //     var access_code = $(this).data("access-code");
+    //     window.location.href = "/voice-chimp-studio/articles?tab=Published&code="+access_code;
+    // });
     
   });
 
+  function nav_all_tab(code){
+    //alert(code);
+    var url = "/voice-chimp-studio/articles/getArticlesByType";
+    var data = {access_code: code, tab: 'All'};
+    return $.ajax({
+        type: "POST",
+        url: url,
+        data: data
+      });
+  }
 
+  function nav_draft_tab(code){
+    //alert(code);
+    var url = "/voice-chimp-studio/articles/getArticlesByType";
+    var data = {access_code: code, tab: 'Draft'};
+    return $.ajax({
+        type: "POST",
+        url: url,
+        data: data
+      });
+  }
+
+  function nav_published_tab(code){
+    //alert(code);
+    var url = "/voice-chimp-studio/articles/getArticlesByType";
+    var data = {access_code: code, tab: 'Published'};
+    return $.ajax({
+        type: "POST",
+        url: url,
+        data: data
+      });
+  }
   
