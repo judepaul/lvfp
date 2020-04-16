@@ -118,7 +118,7 @@ body {
 
  .label-text{
     font-family: Nunito-SemiBold !important; 
-    letter-spacing:.03rem !important;
+    letter-spacing:.02rem !important;
  }
 
  .text-14-italic{
@@ -167,3 +167,9 @@ input[type="text"], textarea, select, button {
     cursor: pointer;
 }
 
+
+.btn-purple {
+    color: #fff;
+    background-color: #61318f;
+    border-color: #61318f;
+}

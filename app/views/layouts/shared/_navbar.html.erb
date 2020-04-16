@@ -2,12 +2,12 @@
         <% unless user_signed_in? %>
             <a class="navbar-brand js-scroll-trigger" href="/auth/login"> 
                 <!-- <img class="logo-navbar" src="/assets/header-lvf.png" width="300" height="40"> font-family: Comic Sans MS !important;  --> <!-- <span class='text-white heading-semibold'> <i class="fas fa-rocket"></i> Launch Voice First </span> -->
-                <span class='text-white heading-semibold'> <i class="fas fa-rocket fa-2x"> </i> Launch Voice First </span>
+                <span class='text-white heading-semibold'> <i class="fas fa-rocket fa-2x" style="font-size:27px;"> </i> Launch Voice First </span>
             </a>
         <% else %>
             <a class="navbar-brand js-scroll-trigger pt-0" href="/dashboard/index/">
                 <!% if controller.controller_name == "dashboard" %> 
-                <!-- <img class="logo-navbar" src="/assets/header-lvf.png" width="300" height="40"> font-family: Comic Sans MS !important;  --> <span class='text-white heading-semibold'> <i class="fas fa-rocket fa-2x"> </i>  Launch Voice First </span>
+                <!-- <img class="logo-navbar" src="/assets/header-lvf.png" width="300" height="40"> font-family: Comic Sans MS !important;  --> <span class='text-white heading-semibold'> <i class="fas fa-rocket" style="font-size:27px;"> </i>  Launch Voice First </span>
                 <!% else %>
                 <!-- <img class="logo-navbar" src="/assets/header-vcs.png" width="300" height="40">  <span class='text-white' style="font-family: Laila-Bold !important; font-weight:bold !important; font-size:32px !important;"> <i class="fas fa-assistive-listening-systems"></i> Voice Chimp Studio </span> -->
                 <!% end %>
@@ -55,11 +55,12 @@
                         <a class="nav-link text-white" href="#"> <i class="fas fa-chart-pie"></i> Analytics </a>
                         <div class="dropdown-menu analytics-menu">
                             <a class="dropdown-item sub-heading pb-1" style="font-size:16px !important"><strong>Voice Chimp Analytics</strong></a>
+                            <a class="dropdown-item sub-heading pt-3" href='#'><i class="fas fa-clone"></i> Coming Soon...</a>
                         </div>
                     </li>
 
                     <% end %>
-                    <li class="nav-item dropdown dropdown-logout sub-heading  pt-1">
+                    <li class="nav-item dropdown dropdown-logout sub-heading  pt-1" style="opacity: 0.8;">
                         <a class="nav-link text-white dropdown-toggle" href="/auth/logout"> <i class="fas fa-user"></i> <%= current_user.username %> </a>
                         <div class="dropdown-menu logout-menu">
                             <a class="dropdown-item sub-heading pt-2" style="font-size:16px !important" href="/auth/logout"> <i class="fas fa-sign-out-alt"></i> Logout</a>
