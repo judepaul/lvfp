@@ -82,6 +82,7 @@ class SkillsController < ApplicationController
               article_text = published_articles.size == 1 ? "article" : "articles" 
               if published_article == published_articles.first
                 message = "You have #{published_articles.size} new #{article_text} <break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{article_intro} <break strength='x-strong' /><break strength='x-strong' /> #{article_title} <break strength='x-strong' /><break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='x-strong' /><break strength='x-strong' /> #{article_outro} <break strength='x-strong' /><break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{prompt_next_message}";
+                reprompt_message = prompt_next_message
                 session_end = false
               else
                 session_articles << published_article
@@ -94,9 +95,9 @@ class SkillsController < ApplicationController
           session_end = false
         end
       when 'AMAZON.CancelIntent'
-        message = 'Cancel intent handler in rails application'
+        message = 'Okay see you later'
       when 'AMAZON.StopIntent'
-        message = 'Stop intent handler in rails application'
+        message = 'Okay see you later'
       when 'helloIntent'
         message = 'Hello, Awesome you are in custom intent handler. Say stop or cancel to exist'
         session_end = false
@@ -144,6 +145,7 @@ class SkillsController < ApplicationController
                   # Add prompt message (Do you want to read the next article) for the first article
                   if published_article == published_articles.first
                     message = intro_speech << "You have #{published_articles.size} new #{article_text} <break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{article_intro} <break strength='x-strong' /><break strength='x-strong' /> #{article_title} <break strength='x-strong' /><break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='x-strong' /><break strength='x-strong' /> #{article_outro} <break strength='x-strong' /><break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{prompt_next_message}";
+                    reprompt_message = prompt_next_message
                     session_end = false
                   else
                     # Add 2nd article into session to keep reading based on user's confirmation
