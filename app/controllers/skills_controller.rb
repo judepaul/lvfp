@@ -12,8 +12,8 @@ class SkillsController < ApplicationController
     
     # Constants
     intro_music = '<audio src="soundbank://soundlibrary/ui/gameshow/amzn_ui_sfx_gameshow_intro_01"/> <break strength="x-strong" />'
-    first_time_welcome_message = 'Hello! welcome to voice chimp <break strength="x-strong" /><break strength="x-strong" /> Please say your access code to get started <break strength="x-strong" />'
-    welcome_message = 'Hello! welcome back to voice chimp <break strength="x-strong" />'
+    first_time_welcome_message = 'Hello! welcome to voice leader <break strength="x-strong" /><break strength="x-strong" /> Please say your access code to get started <break strength="x-strong" />'
+    welcome_message = 'Hello! welcome back to voice leader <break strength="x-strong" />'
     launch_intent_reprompt_message = 'Please say your access code to get started <break strength="x-strong" />'
     prompt_next_message = 'Do you want to listen to the next one? <break strength="x-strong" />'
     message_end_music = "<audio src='soundbank://soundlibrary/ui/gameshow/amzn_ui_sfx_gameshow_outro_01'/>"
@@ -42,11 +42,19 @@ class SkillsController < ApplicationController
             article_intro = !published_article.intro.blank? ? published_article.intro : ''
             article_outro = !published_article.outro.blank? ? published_article.outro : ''
             article_text = published_articles.size == 1 ? "article" : "articles" 
-            if published_article == published_articles.first
-              message = intro_speech << "You have #{published_articles.size} new #{article_text} <break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{article_intro} <break strength='x-strong' /><break strength='x-strong' /> #{article_title} <break strength='x-strong' /><break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='x-strong' /><break strength='x-strong' /> #{article_outro} <break strength='x-strong' /><break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{prompt_next_message}";
-              session_end = false
+            if published_articles.size == 2
+              # Add prompt message (Do you want to read the next article) for the first article
+              if published_article == published_articles.first
+                message = intro_speech << "You have #{published_articles.size} new #{article_text} <break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{article_intro} <break strength='x-strong' /><break strength='x-strong' /> #{article_title} <break strength='x-strong' /><break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='x-strong' /><break strength='x-strong' /> #{article_outro} <break strength='x-strong' /><break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{prompt_next_message}";
+                session_end = false
+              else
+                # Add 2nd article into session to keep reading based on user's confirmation
+                session_articles << published_article
+              end
             else
-              session_articles << published_article
+              # If published_articles.size == 1 then no need to add the prompt message
+              message = intro_speech << "You have #{published_articles.size} new #{article_text} <break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{article_intro} <break strength='x-strong' /><break strength='x-strong' /> #{article_title} <break strength='x-strong' /><break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='x-strong' /><break strength='x-strong' /> #{article_outro} <break strength='x-strong' /><break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /><break strength='x-strong' />  #{closing_message}  <break strength='x-strong' /> #{outro_music}";
+              session_end = false
             end
           end
         end
@@ -81,8 +89,8 @@ class SkillsController < ApplicationController
             end
           end
         else
-          message = 'Sorry i can\'t recognize the access code. Ensure the access code available in voice chimp studio and try with that';
-          reprompt_message = 'Try with another access code exists in voice chimp studio'
+          message = 'Sorry i can\'t recognize the access code. Ensure the access code available in voice leader studio and try with that';
+          reprompt_message = 'Try with another access code exists in voice leader studio'
           session_end = false
         end
       when 'AMAZON.CancelIntent'
@@ -115,8 +123,8 @@ class SkillsController < ApplicationController
 		      reprompt_message = ''
 		      session_end = false
 		      if access_code_id.blank?
-			      message = 'Sorry i can\'t recognize the access code. Ensure the access code available in voice chimp studio and try with that';
-			      reprompt_message = 'Try with another access code exists in voice chimp studio'
+			      message = 'Sorry i can\'t recognize the access code. Ensure the access code available in voice leader studio and try with that';
+			      reprompt_message = 'Try with another access code exists in voice leader studio'
 			      session_end = false
 		      else
 			      intro_speech = '<audio src="soundbank://soundlibrary/ui/gameshow/amzn_ui_sfx_gameshow_intro_01"/> Hello! welcome to voice master <break 				strength="strong" />'
@@ -132,12 +140,20 @@ class SkillsController < ApplicationController
 					      article_intro = !published_article.intro.blank? ? published_article.intro : ''
 					      article_outro = !published_article.outro.blank? ? published_article.outro : ''
 					      article_text = published_articles.size == 1 ? "article" : "articles"
-					      if published_article == published_articles.first
-						      message = "You have #{published_articles.size} new #{article_text} <break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{article_intro} <break strength='x-strong' /><break strength='x-strong' /> #{article_title} <break strength='x-strong' /><break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='x-strong' /><break strength='x-strong' /> #{article_outro} <break strength='x-strong' /><break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{prompt_next_message}";
-						      session_end = false
-					      else
-						      session_articles << published_article
-					      end
+                if published_articles.size == 2
+                  # Add prompt message (Do you want to read the next article) for the first article
+                  if published_article == published_articles.first
+                    message = intro_speech << "You have #{published_articles.size} new #{article_text} <break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{article_intro} <break strength='x-strong' /><break strength='x-strong' /> #{article_title} <break strength='x-strong' /><break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='x-strong' /><break strength='x-strong' /> #{article_outro} <break strength='x-strong' /><break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{prompt_next_message}";
+                    session_end = false
+                  else
+                    # Add 2nd article into session to keep reading based on user's confirmation
+                    session_articles << published_article
+                  end
+                else
+                  # If published_articles.size == 1 then no need to add the prompt message
+                  message = intro_speech << "You have #{published_articles.size} new #{article_text} <break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{article_intro} <break strength='x-strong' /><break strength='x-strong' /> #{article_title} <break strength='x-strong' /><break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='x-strong' /><break strength='x-strong' /> #{article_outro} <break strength='x-strong' /><break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /><break strength='x-strong' />  #{closing_message}  <break strength='x-strong' /> #{outro_music}";
+                  session_end = false
+                end
 				      end
 			      end
 		      end
@@ -149,19 +165,19 @@ class SkillsController < ApplicationController
     end # When ends here
     card = {
       "type": "Standard",
-      "title": "Voice Chimp",
+      "title": "voice leader",
       "subtitle": "listen to your email campaigns & newsletters",
       "text": "Listen to the email campaigns & newsletters, anytime and anywhere. This is not about podcasting",
       "image": {
-        "smallImageUrl": "https://www.oredein.com/alexa/abc/images/small_card.png",
-        "largeImageUrl": "https://www.oredein.com/alexa/abc/images/small_card.png"
+        "smallImageUrl": "https://fish-world.s3.amazonaws.com/voice-chimp-720-480.png",
+        "largeImageUrl": "https://fish-world.s3.amazonaws.com/voice-chimp-1200-800.png"
       }
     }
 
     
     output.add_speech(message,true) unless message.blank?
     output.add_reprompt(reprompt_message, true) unless reprompt_message.blank?
-    #output.add_card(type = 'Simple', title = "Voice Chimp", subtitle = "listen to your email campaigns & newsletters", content = "Listen to the email campaigns & newsletters, anytime and anywhere. This is not about podcasting")
+    #output.add_card(type = 'Simple', title = "voice leader", subtitle = "listen to your email campaigns & newsletters", content = "Listen to the email campaigns & newsletters, anytime and anywhere. This is not about podcasting")
     output.add_hash_card(card)
     output.add_session_attribute("articles", session_articles)
     render json: output.build_response(session_end)
