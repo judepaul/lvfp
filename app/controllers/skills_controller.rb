@@ -17,7 +17,7 @@ class SkillsController < ApplicationController
     launch_intent_reprompt_message = 'Please say your access code to get started <break strength="x-strong" />'
     prompt_next_message = 'Do you want to listen to the next one? <break strength="x-strong" />'
     message_end_music = "<audio src='soundbank://soundlibrary/ui/gameshow/amzn_ui_sfx_gameshow_outro_01'/>"
-    closing_message = "Thats it for now"
+    closing_message = "<break strength='x-strong' /> Thats it for now"
     outro_music = "<audio src='soundbank://soundlibrary/musical/amzn_sfx_drum_comedy_03'/>"
     case input.type
     when "LAUNCH_REQUEST"
@@ -53,7 +53,7 @@ class SkillsController < ApplicationController
               end
             else
               # If published_articles.size == 1 then no need to add the prompt message
-              message = intro_speech << "You have #{published_articles.size} new #{article_text} <break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{article_intro} <break strength='x-strong' /><break strength='x-strong' /> #{article_title} <break strength='x-strong' /><break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='x-strong' /><break strength='x-strong' /> #{article_outro} <break strength='x-strong' /><break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /><break strength='x-strong' />  #{closing_message}  <break strength='x-strong' /> #{outro_music}";
+              message = intro_speech << "You have #{published_articles.size} new #{article_text} <break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{article_intro} <break strength='x-strong' /><break strength='x-strong' /> #{article_title} <break strength='x-strong' /><break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='x-strong' /><break strength='x-strong' /> #{article_outro} <break strength='x-strong' /><break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /><break strength='x-strong' />  #{closing_message}  <break strength='x-strong' /><break strength='x-strong' /> #{outro_music}";
               session_end = false
             end
           end
@@ -128,7 +128,7 @@ class SkillsController < ApplicationController
 			      reprompt_message = 'Try with another access code exists in voice leader studio'
 			      session_end = false
 		      else
-			      intro_speech = '<audio src="soundbank://soundlibrary/ui/gameshow/amzn_ui_sfx_gameshow_intro_01"/> Hello! welcome to voice master <break 				strength="strong" />'
+			      intro_speech = '<audio src="soundbank://soundlibrary/ui/gameshow/amzn_ui_sfx_gameshow_intro_01"/> Hello! welcome to voice master <break strength="strong" />'
 			      acsm = AccessCodeSpeechMap.where(access_code_id: access_code_id)
 			      speech_ids = acsm.map{|acsm| acsm.speech_id}
 			      published_articles = Speech.where(id: speech_ids, published: true).order('updated_at DESC').first(2)
@@ -187,7 +187,7 @@ class SkillsController < ApplicationController
 
 
   def published_skill_details
-    @access_code = AccessCode.where(user_id: current_user.id).order('id DESC').first
+    @access_code = AccessCode.where(user_id: current_user.id).order('id DESC').last
   end
 
 end #class ends here

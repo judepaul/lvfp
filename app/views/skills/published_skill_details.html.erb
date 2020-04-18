@@ -114,10 +114,12 @@
                                   <a href="/voice-chimp-studio/articles/<%= speech.id %>/edit" class="btn btn-outline-success py-0 px-1"><i class="fas fa-external-link-alt fa-1x"></i></a>
                                 </span>
                                 <span style="float: right; padding-right:10px; font-size:14px; letter-spacing:0px; font-weight:bold;">
-                                  <%= link_to("/speeches/published_details/#{speech.id}",style:"text-decoration:none;",class:"btn btn-outline-success px-1 py-0") do %><i class="fas fa-link fa-1x"></i> Published <% end %> 
+                                  <!-- updated by Jude on 04/18/2020 to change the redirect url to skill details 
+                                  <%#= link_to("/speeches/published_details/#{speech.id}",style:"text-decoration:none;",class:"btn btn-outline-success px-1 py-0") do %>Published<!% end %> -->
+                                  <%= link_to("/voice-chimp-skill/details",style:"text-decoration:none;",class:"btn btn-outline-success px-1 py-0") do %>Published<% end %>
                                 </span>
                                 <span style="float: right; padding-right:10px; font-size:14px; letter-spacing:0px; font-weight:bold;">
-                                  <%= image_tag 'icon-calendar', alt: "calendar" %> <%= speech.updated_at.strftime("%m/%d/%Y") %>
+                                  <%#= image_tag 'icon-calendar', alt: "calendar" %><b data-toggle="tooltip" data-placement="top" title="The Date article was published/updated"> <%= speech.updated_at.strftime("%m/%d/%Y") %> </b>
                                 </span>
                               </span>
                             </p>

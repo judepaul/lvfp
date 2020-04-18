@@ -34,11 +34,13 @@
                     <!-- <span class="btn btn-outline-warning px-1 py-0">Draft</span> -->
                     <span style="float: right; padding-right:10px; font-size:14px;"> 
                       <% if speech.published? %>
-                        <%= link_to("/speeches/published_details/#{speech.id}",style:"text-decoration:none;font-size:14px;",class:"btn btn-outline-success px-1 py-0") do %>Published<% end %>
+                        <!-- updated by Jude on 04/18/2020 to change the redirect url to skill details 
+                        <%#= link_to("/speeches/published_details/#{speech.id}",style:"text-decoration:none;",class:"btn btn-outline-success px-1 py-0") do %>Published<!% end %> -->
+                        <%= link_to("/voice-chimp-skill/details",style:"text-decoration:none;",class:"btn btn-outline-success px-1 py-0") do %>Published<% end %>
                       <% else %> 
                         <span class="btn btn-outline-warning px-1 py-0" style="text-decoration:none;font-size:14px;">Draft</span>
                       <% end %>
-                      <%= image_tag 'icon-calendar', alt: "calendar", style:"padding-left:6px;" %><b data-toggle="tooltip" data-placement="top" title="The Date article was published/updated"> <%= speech.updated_at.strftime("%m/%d/%Y") %> </b>
+                      <%#= image_tag 'icon-calendar', alt: "calendar", style:"padding-left:6px;" %><b data-toggle="tooltip" data-placement="top" title="The Date article was published/updated"> <%= speech.updated_at.strftime("%m/%d/%Y") %> </b>
                       <i class="fas fa-edit" style="padding-left:6px;color:#61318f;" onclick="location.href='<%= edit_speech_path(speech) %>'"></i>
                   <a href="/voice-chimp-studio/articles/<%=speech.id%>" data-method="delete" data-confirm="<%= speech.published? ? 'This article is already published. Are you sure you want to delete?' : 'Are you sure you want to delete this article?' %>" data-title='Confirm Deletion' data-commit='Yes do it!' data-cancel='Not really!'  class='delete-speech' style="color:#61318f;padding-left:6px;" id="delete-btn">
                     <i class="fas fa-trash-alt"></i></a>  

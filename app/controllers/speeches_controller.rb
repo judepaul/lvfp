@@ -77,7 +77,9 @@ class SpeechesController < ApplicationController
           format.html { redirect_to edit_speech_path(@speech), notice: "One more step needs to be done to make this available to your users. Click the Publish button to get published.".html_safe }
           format.json { render :show, status: :ok, location: @speech }
         elsif(params[:commit] == "Publish")
-          format.html { redirect_to published_details_path(@speech) }
+          # updated by Jude on 04/18/2020 to change the redirect url to skill details
+          # format.html { redirect_to published_details_path(@speech) }
+          format.html { redirect_to published_skill_details_path }
           format.json { render :show, status: :ok, location: @speech }
         end
       else
@@ -115,7 +117,7 @@ class SpeechesController < ApplicationController
       if @tab=="All"
         @speeches = Speech.all.paginate(page: params[:page])
       elsif @tab=="Draft"
-        @speeches = Speech.where(draft: true, published: false).paginate(page: params[:page])
+        @speeches = Speech.where(id: speech_ids).where(user_id: current_user.id, published: false).order('id DESC').paginate(page: params[:page])
       elsif @tab=="Published"
         @speeches = Speech.where(published: true).paginate(page: params[:page])
       else
@@ -127,7 +129,7 @@ class SpeechesController < ApplicationController
         @speeches = Speech.where(id: speech_ids).where(user_id: current_user.id).order('id DESC').paginate(page: params[:page])
       elsif @tab=="Draft"
         # @speeches = Speech.where(user_id: current_user.id, draft: true).where('published is NULL').order('id DESC').paginate(page: params[:page])
-        @speeches = Speech.where(id: speech_ids).where(user_id: current_user.id).where('published IS NULL').order('id DESC').paginate(page: params[:page])
+        @speeches = Speech.where(id: speech_ids).where(user_id: current_user.id, published: false).order('id DESC').paginate(page: params[:page])
       elsif @tab=="Published"
         @speeches = Speech.where(id: speech_ids).where(user_id: current_user.id, published: true).order('id DESC').paginate(page: params[:page])
       else
