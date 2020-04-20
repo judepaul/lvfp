@@ -168,6 +168,8 @@ input[type="text"], textarea, select, button {
 }
 
 
+// Bootstrap overridden
+
 .btn-purple {
     color: #fff;
     background-color: #61318f;
@@ -177,3 +179,13 @@ input[type="text"], textarea, select, button {
 .tooltip{
     font-size: 12px;
  }
+
+ .border-purple {
+    border-bottom: 2px solid #61318f !important;
+}
+
+.dropdown-item {
+    background-color: transparent !important;
+}
+
+.row { margin: 0; padding: 0 }
