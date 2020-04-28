@@ -114,7 +114,11 @@
                                   <% if @speech_access_code.blank? %>
                                     <%= link_to 'Cancel', speeches_path, class: "btn btn-outline-primary", style:"padding:8px !important;" %>
                                   <% else %>
-                                    <%= link_to 'Cancel', speeches_path(group_code: @speech_access_code.id), class: "btn btn-outline-primary", style:"padding:8px !important;" %>
+                                    <% if params[:pg] == "skill_details" %>
+                                      <%= link_to 'Cancel', published_skill_details_path, class: "btn btn-outline-primary", style:"padding:8px !important;" %>
+                                    <% else %>
+                                      <%= link_to 'Cancel', speeches_path(group_code: @speech_access_code.id), class: "btn btn-outline-primary", style:"padding:8px !important;" %>
+                                    <% end %>
                                   <% end %>
                                   <% if @speech.new_record? %>
                                     <%= form.submit 'Save', id: 'save_content', class:"btn btn-outline-primary", disabled: true %>
