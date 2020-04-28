@@ -273,6 +273,14 @@ $(document).ready(function () {
     //     var access_code = $(this).data("access-code");
     //     window.location.href = "/voice-chimp-studio/articles?tab=Published&code="+access_code;
     // });
+
+    $( ".dash-card" ).hover(
+        function() {
+          $(this).addClass('shadow-lg').css('cursor', 'pointer'); 
+        }, function() {
+          $(this).removeClass('shadow-lg');
+        }
+      );
     
   });
 

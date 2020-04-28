@@ -1,1 +1,4 @@
+$(document).ready(function () {
+$('[data-toggle="tooltip"]').tooltip();
+});
 $(".table-<%= @code %>").html("<%= escape_javascript(render partial: 'getArticlesByType', locals: {speech_arr: @speeches, ac: @access_code, tab: @tab } ) %>");
