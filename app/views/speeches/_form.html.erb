@@ -40,7 +40,6 @@
                                 </div>
                                 <div class="mt-2 col-md-1"></div>
                           </div>
-                          <div class="row" style="height:15px;"></div>
                           <div class="form-group row">
                                 <div class="mt-2 col-md-2 offset-md-1">
                                     <strong>Title/Subject</strong> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Title of the article which the skill user will hear before the main content"><%= image_tag("/assets/icon-info.png") %></span>
@@ -76,7 +75,6 @@
                                   <!% end %>
                                 </div>
                             </div> -->
-                          <div class="row" style="height:15px;"></div>
                           <div class="form-group row">
                                 <div class="mt-2 col-md-2 offset-md-1">
                                     <strong>Content</strong> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Main content that the skill users will hear"><%= image_tag("/assets/icon-info.png") %></span>
@@ -90,7 +88,6 @@
                                 </div>
                                 <div class="mt-2 col-md-1"></div>
                             </div>
-                            <div class="row" style="height:15px;"></div>
                             <div class="form-group row">
                                 <div class="mt-2 col-md-2 offset-md-1">
                                     <strong>Outro</strong> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Closing text of an article. ex: Bye, See you, Goodbye"><%= image_tag("/assets/icon-info.png") %></span>
@@ -100,7 +97,6 @@
                                 </div>
                                 <div class="mt-2 col-md-1"></div>
                             </div>                           
-                            <div class="row" style="height:15px;"></div>
                             <div class="form-group row">
                                 <div class="mt-2 col-md-2 offset-md-1">
                                     <% if @speech.published? %>
@@ -113,7 +109,7 @@
                                   <%= select_tag 'acc_code_id', options_for_select(@access_codes.collect{ |c| ["#{c.code} - #{c.title}", c.id]}, :selected => !@speech_access_code.blank? ? @speech_access_code.id : ''), prompt: "Select Listener Group", class: "form-control required", disabled: true %>
                                 </div>
                                 <div class="col-md-12" style="height:90px;"></div>
-                                <div class="actions text-right align-" style="padding:0 120px 30px 0; position: absolute; bottom: 0; right: 0;">
+                                <div class="actions text-right align-" style="padding:0 60px 30px 0; position: absolute; bottom: 0; right: 0;">
                                   <!-- Edit Form cancel button which has the @speech_access_code obj -->
                                   <% if @speech_access_code.blank? %>
                                     <%= link_to 'Cancel', speeches_path, class: "btn btn-outline-primary", style:"padding:8px !important;" %>

@@ -188,7 +188,7 @@ input[type="text"], textarea, select, button {
     background-color: transparent !important;
 }
 
-.row { margin: 0; padding: 0 }
+.row { margin-left: 0; margin-right: 0; padding-left: 0; padding-right: 0;}
 
 //Bootstrap Card Height and effects
 //.card {max-height:390px;overflow:auto;}
