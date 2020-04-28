@@ -15,7 +15,7 @@
                             <% if @speech.published? %>
                               <%= link_to("/speeches/published_details/#{@speech.id}",style:"text-decoration:none;",class:"btn btn-outline-light px-2 py-0") do %><i class="fas fa-link fa-1x"></i> Published<% end %>
                             <% else %>
-                              <span class="btn btn-outline-light px-2 py-0">Draft</span>
+                              <span class="px-2 py-0">Draft</span>
                             <% end %>
                             <span class="col-md-2" style="cursor: pointer;" class="article-show"><i class="fas fa-info-circle fa-lg"></i></span>
                         </div>
