@@ -7,7 +7,9 @@
 
     else
         @access_code.access_code_speech_map.each do |acsm|
-        speech_arr << acsm.speech 
+        if acsm.speech.published?
+          speech_arr << acsm.speech 
+        end
         end    
     end %>
 

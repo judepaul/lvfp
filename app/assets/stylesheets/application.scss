@@ -195,11 +195,12 @@ input[type="text"], textarea, select, button {
 .inner{
     overflow: hidden;
 }
+
+// Card Zoom Effects
+// .inner img{
+//     transition: all 1.5s ease;
+// }
  
-.inner img{
-    transition: all 1.5s ease;
-}
- 
-.inner:hover img{
-    transform: scale(1.5);
-}
+// .inner:hover img{
+//     transform: scale(1.5);
+// }

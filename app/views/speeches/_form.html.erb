@@ -7,15 +7,15 @@
         <div class="row no-gutters">
             <div class="col-sm-12 col-md mr-md-3">
               <div class="card">
-                    <div class="card-header text-white h5">
+                    <div class="card-header text-white">
                       <div class="row">
-                        <div class="col-md-6">Campaign: <%= !@speech_access_code.blank? ? @speech_access_code.title.capitalize : !@access_codes.blank? ? @access_codes.last.title : "" %></div>
+                        <div class="col-md-6 table-heading">Campaign: <%= !@speech_access_code.blank? ? @speech_access_code.title.capitalize : !@access_codes.blank? ? @access_codes.last.title : "" %></div>
                         <div class="col-md-6 text-right">
-                          <span class="col-md-4 text-light">
+                          <span class="col-md-4 text-light table-heading">
                             <% if @speech.published? %>
-                              <%= link_to("/speeches/published_details/#{@speech.id}",style:"text-decoration:none;",class:"btn btn-outline-light px-2 py-0") do %><i class="fas fa-link fa-1x"></i> Published<% end %>
+                              <%= link_to("/speeches/published_details/#{@speech.id}",style:"text-decoration:none;",class:"text-light") do %>Published<% end %>
                             <% else %>
-                              <span class="px-2 py-0">Draft</span>
+                              <span class="text-light">Draft</span>
                             <% end %>
                             <span class="col-md-2" style="cursor: pointer;" class="article-show"><i class="fas fa-info-circle fa-lg"></i></span>
                         </div>

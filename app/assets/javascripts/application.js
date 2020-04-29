@@ -274,13 +274,14 @@ $(document).ready(function () {
     //     window.location.href = "/voice-chimp-studio/articles?tab=Published&code="+access_code;
     // });
 
-    $( ".dash-card" ).hover(
-        function() {
-          $(this).addClass('shadow-lg').css('cursor', 'pointer'); 
-        }, function() {
-          $(this).removeClass('shadow-lg');
-        }
-      );
+    // Dashboard card effects
+    // $( ".dashboard-card" ).hover(
+    //     function() {
+    //       $(this).addClass('shadow-lg').css('cursor', 'pointer'); 
+    //     }, function() {
+    //       $(this).removeClass('shadow-lg');
+    //     }
+    //   );
     
   });
 
@@ -315,5 +316,17 @@ $(document).ready(function () {
         url: url,
         data: data
       });
+  }
+  
+  function tab_delete(code, tab){
+    alert(code);
+    alert(tab);
+    var url = "/voice-chimp-studio/articles/getArticlesByType";
+    var data = {access_code: code, tab: tab};
+    // return $.ajax({
+    //     type: "POST",
+    //     url: url,
+    //     data: data
+    //   });
   }
   
