@@ -94,9 +94,9 @@
             <tr>
               <nav style="background-color:#e9ecef !important;">
                 <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                  <a class="nav-item nav-link table-heading pointer <%= params[:tab]==nil || params[:tab]=='All' ? 'active' : '' %>" id="nav-all-tab" onclick="return nav_all_tab(<%= ac.code %>)" data-toggle="tab" href="#nav-all" role="tab" aria-controls="nav-home" aria-selected="true"><span style="color:#000 !important;"><i class="fas fa-square" style="font-size:14px; color:orange;"></i> <i class="fas fa-square" style="font-size:14px; color:green;"></i> All</span></a>
-                  <a class="nav-item nav-link table-heading pointer <%= params[:tab]=='Draft' ? 'active' : '' %>" id="nav-draft-tab" onclick="return nav_draft_tab(<%= ac.code %>)" data-toggle="tab" href="#nav-draft" role="tab" aria-controls="nav-profile" aria-selected="false"><span style="color:#000 !important;"><i class="fas fa-square" style="font-size:14px; color:orange;"></i> Draft</span></a>
-                  <a class="nav-item nav-link table-heading pointer <%= params[:tab]=='Published' ? 'active' : '' %>" id="nav-published-tab" onclick="return nav_published_tab(<%= ac.code %>)" data-toggle="tab" href="#nav-published" role="tab" aria-controls="nav-contact" aria-selected="false"><span style="color:#000 !important;"><i class="fas fa-square" style="font-size:14px; color:green;"></i> Published</span></a>
+                  <a class="nav-item nav-link table-heading pointer active <%#= params[:tab]==nil || params[:tab]=='All' ? 'active' : '' %>" id="nav-all-tab" onclick="return nav_all_tab(<%= ac.code %>)" data-toggle="tab" href="#nav-all" role="tab" aria-controls="nav-home" aria-selected="true"><span style="color:#000 !important;"><i class="fas fa-square" style="font-size:14px; color:orange;"></i> <i class="fas fa-square" style="font-size:14px; color:green;"></i> All</span></a>
+                  <a class="nav-item nav-link table-heading pointer <%#= params[:tab]=='Draft' ? 'active' : '' %>" id="nav-draft-tab" onclick="return nav_draft_tab(<%= ac.code %>)" data-toggle="tab" href="#nav-draft" role="tab" aria-controls="nav-profile" aria-selected="false"><span style="color:#000 !important;"><i class="fas fa-square" style="font-size:14px; color:orange;"></i> Draft</span></a>
+                  <a class="nav-item nav-link table-heading pointer <%#= params[:tab]=='Published' ? 'active' : '' %>" id="nav-published-tab" onclick="return nav_published_tab(<%= ac.code %>)" data-toggle="tab" href="#nav-published" role="tab" aria-controls="nav-contact" aria-selected="false"><span style="color:#000 !important;"><i class="fas fa-square" style="font-size:14px; color:green;"></i> Published</span></a>
                 </div>
               </nav>
               
@@ -106,10 +106,15 @@
         <% speech_arr.sort_by(&:updated_at).reverse.each_with_index do |speech,indx| %>
           <tbody>
             <tr>
-              <td><span class="content label-text">Title: <%= !speech.title.blank? ? speech.title : 'N/A' %> 
+              <td>
+                <table class="table-borderless">
+                  <tr>
+                    <td width="900px">
+                      <span class="content label-text">Title: <%= !speech.title.blank? ? speech.title : 'N/A' %> </span>
+                    </td>
                 <!-- <span style="padding: 1px 5px 1px 5px; color:#FFF; background-color: <%#= speech.published? ? 'green' : !speech.published? ? 'orange' : "" %>;"><strong><%#= speech.published? ? 'Published' : !speech.published? ? 'Draft' : "" %></strong></span> -->
                 
-                
+                    <td width="300px" style="float: right; padding-right:10px; font-size:14px;">
                     <!-- <span class="btn btn-outline-warning px-1 py-0">Draft</span> -->
                     <span style="float: right; padding-right:10px; font-size:14px;"> 
                       <table class="table-borderless">
@@ -137,7 +142,7 @@
                     </table>
                     </span>
                 
-                </span>
+                  </td></tr></table>
                 <p class="content"><%= !speech.email_from.blank? ? speech.email_from.rstrip.concat('.') : '' %> <%= speech.content %></p>
                 <div class="actions" style="display:none; float:right;">
                   
