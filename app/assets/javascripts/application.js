@@ -287,7 +287,7 @@ $(document).ready(function () {
 
   function nav_all_tab(code){
     //alert(code);
-    var url = "/voice-chimp-studio/articles/getArticlesByType";
+    var url = "/voice-reader-studio/articles/getArticlesByType";
     var data = {access_code: code, tab: 'All'};
     return $.ajax({
         type: "POST",
@@ -298,7 +298,7 @@ $(document).ready(function () {
 
   function nav_draft_tab(code){
     //alert(code);
-    var url = "/voice-chimp-studio/articles/getArticlesByType";
+    var url = "/voice-reader-studio/articles/getArticlesByType";
     var data = {access_code: code, tab: 'Draft'};
     return $.ajax({
         type: "POST",
@@ -309,7 +309,7 @@ $(document).ready(function () {
 
   function nav_published_tab(code){
     //alert(code);
-    var url = "/voice-chimp-studio/articles/getArticlesByType";
+    var url = "/voice-reader-studio/articles/getArticlesByType";
     var data = {access_code: code, tab: 'Published'};
     return $.ajax({
         type: "POST",
@@ -321,7 +321,7 @@ $(document).ready(function () {
   function tab_delete(code, tab){
     alert(code);
     alert(tab);
-    var url = "/voice-chimp-studio/articles/getArticlesByType";
+    var url = "/voice-reader-studio/articles/getArticlesByType";
     var data = {access_code: code, tab: tab};
     // return $.ajax({
     //     type: "POST",
