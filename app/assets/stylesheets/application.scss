@@ -169,6 +169,12 @@ input[type="text"], textarea, select, button {
 
 
 // Bootstrap overridden
+.btn-outline-primary, .btn-outline-primary:hover, .btn-outline-primary:active, .btn-outline-primary:visited {
+    background-color: #61318f !important;
+    color: #fff;
+    border-color: #61318f !important;
+    padding: 3px 6px 3px 6px !important;
+}
 
 .btn-purple {
     color: #fff;

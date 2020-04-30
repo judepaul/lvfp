@@ -12,8 +12,8 @@ class SkillsController < ApplicationController
     
     # Constants
     intro_music = '<audio src="soundbank://soundlibrary/ui/gameshow/amzn_ui_sfx_gameshow_intro_01"/> <break strength="x-strong" />'
-    first_time_welcome_message = 'Hello! welcome to voice leader <break strength="x-strong" /><break strength="x-strong" /> Please say your access code to get started <break strength="x-strong" />'
-    welcome_message = 'Hello! welcome back to voice leader <break strength="x-strong" />'
+    first_time_welcome_message = 'Hello! welcome to voice reader <break strength="x-strong" /><break strength="x-strong" /> Please say your access code to get started <break strength="x-strong" />'
+    welcome_message = 'Hello! welcome back to voice reader <break strength="x-strong" />'
     launch_intent_reprompt_message = 'Please say your access code to get started <break strength="x-strong" />'
     prompt_next_message = 'Do you want to listen to the next one? <break strength="x-strong" />'
     message_end_music = "<audio src='soundbank://soundlibrary/ui/gameshow/amzn_ui_sfx_gameshow_outro_01'/>"
@@ -90,8 +90,8 @@ class SkillsController < ApplicationController
             end
           end
         else
-          message = 'Sorry i can\'t recognize the access code. Ensure the access code available in voice leader studio and try with that';
-          reprompt_message = 'Try with another access code exists in voice leader studio'
+          message = 'Sorry i can\'t recognize the access code. Ensure the access code available in voice reader studio and try with that';
+          reprompt_message = 'Try with another access code exists in voice reader studio'
           session_end = false
         end
       when 'AMAZON.CancelIntent'
@@ -124,8 +124,8 @@ class SkillsController < ApplicationController
 		      reprompt_message = ''
 		      session_end = false
 		      if access_code_id.blank?
-			      message = 'Sorry i can\'t recognize the access code. Ensure the access code available in voice leader studio and try with that';
-			      reprompt_message = 'Try with another access code exists in voice leader studio'
+			      message = 'Sorry i can\'t recognize the access code. Ensure the access code available in voice reader studio and try with that';
+			      reprompt_message = 'Try with another access code exists in voice reader studio'
 			      session_end = false
 		      else
 			      intro_speech = '<audio src="soundbank://soundlibrary/ui/gameshow/amzn_ui_sfx_gameshow_intro_01"/> Hello! welcome to voice master <break strength="strong" />'
@@ -167,7 +167,7 @@ class SkillsController < ApplicationController
     end # When ends here
     card = {
       "type": "Standard",
-      "title": "voice leader",
+      "title": "voice reader",
       "subtitle": "listen to your email campaigns & newsletters",
       "text": "Listen to the email campaigns & newsletters, anytime and anywhere. This is not about podcasting",
       "image": {
@@ -179,7 +179,7 @@ class SkillsController < ApplicationController
     
     output.add_speech(message,true) unless message.blank?
     output.add_reprompt(reprompt_message, true) unless reprompt_message.blank?
-    #output.add_card(type = 'Simple', title = "voice leader", subtitle = "listen to your email campaigns & newsletters", content = "Listen to the email campaigns & newsletters, anytime and anywhere. This is not about podcasting")
+    #output.add_card(type = 'Simple', title = "voice reader", subtitle = "listen to your email campaigns & newsletters", content = "Listen to the email campaigns & newsletters, anytime and anywhere. This is not about podcasting")
     output.add_hash_card(card)
     output.add_session_attribute("articles", session_articles)
     render json: output.build_response(session_end)

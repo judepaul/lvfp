@@ -16,9 +16,9 @@ module ApplicationHelper
 
       def current_class?(url_path)
         # p request.path.include?('articles')
-        if request.path.include?("/voice-chimp-studio/campaigns") || request.path.include?("/voice-chimp-studio/articles")
+        if request.path.include?("/voice-reader-studio/campaigns") || request.path.include?("/voice-reader-studio/articles")
           class_name = "access_codes"
-        elsif request.path.include?("/voice-chimp-skill/details")
+        elsif request.path.include?("/voice-reader-skill/details")
           class_name = "skills"
         end
         p "!@!@!@!@"

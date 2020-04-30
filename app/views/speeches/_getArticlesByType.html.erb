@@ -55,7 +55,7 @@
                       <%#= image_tag 'icon-calendar', alt: "calendar", style:"padding-left:6px;" %>
                       <%#= image_tag 'icon-calendar', alt: "calendar", style:"padding-left:6px;" %><b data-toggle="tooltip" data-placement="top" title="The Date article was published/updated"> <%= speech.updated_at.strftime("%m/%d/%Y") %> </b>
                       <!-- <i class="fas fa-edit" style="padding-left:6px;color:#61318f; cursor:pointer;" onclick="location.href='<%#= edit_speech_path(speech) %>'"></i> -->
-                    <a href="/voice-chimp-studio/articles/<%=speech.id%>?tab=<%=tab%>" data-method="delete" data-tab="<%=tab%>" data-confirm="<%= speech.published? ? 'This article is already published. Are you sure you want to delete?' : 'Are you sure you want to delete this article?' %>" data-title='Confirm Deletion' data-commit='Yes do it!' data-cancel='Not really!'  class='delete-speech' style="color:#61318f;padding-left:6px;" id="delete-btn">
+                    <a href="/voice-reader-studio/articles/<%=speech.id%>?tab=<%=tab%>" data-method="delete" data-tab="<%=tab%>" data-confirm="<%= speech.published? ? 'This article is already published. Are you sure you want to delete?' : 'Are you sure you want to delete this article?' %>" data-title='Confirm Deletion' data-commit='Yes do it!' data-cancel='Not really!'  class='delete-speech' style="color:#61318f;padding-left:6px;" id="delete-btn">
                       <i class="fas fa-trash-alt" data-toggle="tooltip" data-placement="top" title="Delete"></i></a>  
                     
                     </td>

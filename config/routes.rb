@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   
   resources :listeners
-  scope '/voice-chimp-studio' do
+  scope '/voice-reader-studio' do
     resources :access_codes, :path => "campaigns"
     resources :speeches, :path => "articles"
   end
@@ -26,7 +26,7 @@ Rails.application.routes.draw do
 
   get "/voice-chimp-skill/details" => "skills#published_skill_details", as: "published_skill_details"
 
-  post "/voice-chimp-studio/articles/getArticlesByType" => "speeches#getArticlesByType", as: "getArticlesByType"
+  post "/voice-reader-studio/articles/getArticlesByType" => "speeches#getArticlesByType", as: "getArticlesByType"
 
 
 end
