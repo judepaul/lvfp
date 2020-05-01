@@ -1,155 +1,139 @@
-<%= form_with(model: speech, local: true) do |form| %>
-
 <div class="row" style="height:30px;"></div>
 <%#= render "layouts/shared/flash_message" %>
 <div class="container">
-    <div class="container-fluid px-0">
-        <div class="row no-gutters">
-            <div class="col-sm-12 col-md mr-md-3">
-              <div class="card">
-                    <div class="card-header text-white">
-                      <div class="row">
-                        <div class="col-md-6 table-heading">Campaign: <%= !@speech_access_code.blank? ? @speech_access_code.title.capitalize : !@access_codes.blank? ? @access_codes.last.title : "" %></div>
-                        <div class="col-md-6 text-right">
-                          <span class="col-md-4 text-light table-heading">
-                            <% if @speech.published? %>
-                              <%= link_to("/speeches/published_details/#{@speech.id}",style:"text-decoration:none;",class:"text-light") do %>Published<% end %>
-                            <% else %>
-                              <span class="text-light">Draft</span>
-                            <% end %>
-                            <span class="col-md-2" style="cursor: pointer;" class="article-show"><i class="fas fa-info-circle fa-lg"></i></span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card-body">
-                        <% unless @speech.new_record? %>    
-                        <% unless @speech.published? %>   
-                        <div class="row">
-                          <div class="col-md-10 offset-md-1 btn-outline-light"><h4 style="padding: 2px 5px 2px 0px;color:#5C5656;font-weight:bold;text-align:left;">Click Publish to make this article available to your users.</h4></div>
-                        </div> 
-                        <% end %>
-                        <% end %>            
-                        <div class="row" style="height:30px;"></div>
-
-                        <div class="form-group row">
-                                <div class="mt-2 col-md-2 offset-md-1">
-                                    <strong>Intro</strong> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Welcoming text at the begining of an article. ex. Hi/Hello/Welcome"><%= image_tag("/assets/icon-info.png") %></span>
-                                </div>
-                                <div class="col-md-8">
-                                  <%= form.text_field :intro, id: :article_intro, class: 'form-control', value: "#{!@speech.blank? ? @speech.intro : ""}", placeholder: 'Optional - Enter Intro', readonly: @speech.published? ? true : false %>
-                                </div>
-                                <div class="mt-2 col-md-1"></div>
-                          </div>
-                          <div class="form-group row">
-                                <div class="mt-2 col-md-2 offset-md-1">
-                                    <strong>Title/Subject</strong> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Title of the article which the skill user will hear before the main content"><%= image_tag("/assets/icon-info.png") %></span>
-                                </div>
-                                <div class="col-md-8">
-                                    <%= form.text_field :title, id: :article_title, class: 'form-control required', value: "#{!@speech.blank? ? @speech.title : ""}", required: true, placeholder: 'Required - Enter title', readonly: @speech.published? ? true : false %>
-                                </div>
-                                <div class="mt-2 col-md-1"></div>
-                          </div>
-
-                        <!-- <div class="form-group row">
-                                <div class="mt-2 col-md-3 offset-md-1"" style="padding-top:20px;">
-                                    <strong>Email From</strong> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Sender information that the skill user will hear this before their content"><i class="fas fa-info-circle fa-lg"></i></span>
-                                </div>
-                                <div class="col-md-8">
-                                  <!% if @speech.published? %>
-                                    <p style="padding-top:5px;"><%#= @speech.email_from.blank? ? 'N/A' : @speech.email_from %></p>
-                                  <!% else %>
-                                    <%#= form.text_field :email_from, id: :article_from, class: 'form-control', value: "#{!@speech.blank? ? @speech.email_from : ""}", placeholder: 'Optional - Enter From' %>
-                                  <!% end %>
-                                </div>
-                            </div> -->
-
-                        <!--  <div class="form-group row">
-                                <div class="mt-2 col-md-3 offset-md-1"" style="padding-top:20px;">
-                                    <strong>Email Sent On</strong> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Sender information that the skill user will hear this before their content"><i class="fas fa-info-circle fa-lg"></i></span>
-                                </div>
-                                <div class="col-md-4">
-                                  <!% if @speech.published? %>
-                                    <p style="padding-top:5px;"><%#= @speech.email_sent_date.blank? ? 'N/A' : @speech.email_sent_date %>
-                                  <!% else %>
-                                    <%#= form.text_field :email_sent_date, id: :email_sent_date, class: 'form-control', value: "#{!@speech.blank? ? @speech.email_sent_date : ""}", placeholder: 'Choose Date' %>
-                                  <!% end %>
-                                </div>
-                            </div> -->
-                          <div class="form-group row">
-                                <div class="mt-2 col-md-2 offset-md-1">
-                                    <strong>Content</strong> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Main content that the skill users will hear"><%= image_tag("/assets/icon-info.png") %></span>
-                                </div>
-                                <div class="col-md-8">
-                                    <%= form.text_area :content, id: :add_speech_content, size: "30x9", class: 'form-control show', placeholder: 'Enter the text to convert speech', readonly: @speech.published? ? true : false %>
-                                    <% unless @speech.published? %>
-                                      <div class="col-md-8 pl-0" id="textarea_feedback" style="margin-top:10px !important; font-size:16px; letter-spacing:0px;"></div>
-                                      <div class="col-md-12 pl-0" style="margin-top:1px !important; font-size:16px; letter-spacing:0px;">All the links/special characters will be ignored in the audio</div>
-                                    <% end %>
-                                </div>
-                                <div class="mt-2 col-md-1"></div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="mt-2 col-md-2 offset-md-1">
-                                    <strong>Outro</strong> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Closing text of an article. ex: Bye, See you, Goodbye"><%= image_tag("/assets/icon-info.png") %></span>
-                                </div>
-                                <div class="col-md-8">
-                                  <%= form.text_field :outro, id: :article_outro, class: 'form-control', value: "#{!@speech.blank? ? @speech.outro : ""}", placeholder: 'Optional - Enter Outro', readonly: @speech.published? ? true : false %>
-                                </div>
-                                <div class="mt-2 col-md-1"></div>
-                            </div>                           
-                            <div class="form-group row">
-                                <div class="mt-2 col-md-2 offset-md-1">
-                                    <% if @speech.published? %>
-                                      <strong>Listener Group</strong>
-                                    <% else %>
-                                      <strong>Select Listener Group</strong>
-                                    <% end %>
-                                </div>
-                                <div class="mt-2 col-md-8">
-                                  <%= select_tag 'acc_code_id', options_for_select(@access_codes.collect{ |c| ["#{c.code} - #{c.title}", c.id]}, :selected => !@speech_access_code.blank? ? @speech_access_code.id : ''), prompt: "Select Listener Group", class: "form-control required", disabled: true %>
-                                </div>
-                                <div class="col-md-12" style="height:90px;"></div>
-                                <div class="actions text-right align-" style="padding:0 60px 30px 0; position: absolute; bottom: 0; right: 0;">
-                                  <!-- Edit Form cancel button which has the @speech_access_code obj -->
-                                  <% if @speech_access_code.blank? %>
-                                    <%= link_to 'Cancel', speeches_path, class: "btn btn-outline-primary", style:"padding:8px !important;" %>
-                                  <% else %>
-                                    <% if params[:pg] == "skill_details" %>
-                                      <%= link_to 'Cancel', published_skill_details_path, class: "btn btn-outline-primary", style:"padding:8px !important;" %>
-                                    <% else %>
-                                      <%= link_to 'Cancel', speeches_path(group_code: @speech_access_code.id), class: "btn btn-outline-primary", style:"padding:8px !important;" %>
-                                    <% end %>
-                                  <% end %>
-                                  <% if @speech.new_record? %>
-                                    <%= form.submit 'Save', id: 'save_content', class:"btn btn-outline-primary", disabled: true %>
-                                    <%= form.submit 'Publish', id: 'publish_content', class:"btn btn-outline-primary", disabled: true %>
-                                  <% else %>
-                                    <!-- <audio id="audioPlayback" controls> -->
-                                    <audio id="audioPlayback">
-                                      <source id="audioSource" type="audio/mp3" src="">
-                                    </audio>
-                                    <!-- <button type="button" class="close audioPlayback play" onclick="aud_play_pause()" style="outline:none !important; padding-right:15px;"><span><i class="fa fa-play-circle fa-lg" aria-hidden="true"></i></span></button> -->
-                                    <button type="button" class="btn btn-outline-primary audioPlayback" style="padding:8px!important; border: 1px solid #007bff !important;" onclick="aud_play_pause()">
-                                      <span class="play"><i class="fa fa-play-circle fa-lg play" aria-hidden="true"></i></span> Play/Pause
-                                    </button>
-                                    <!-- Commented by Jude on 04/04/2020 to move this button on the list article page based on the discussion on 03/04/2020 -->
-                                    <%#= link_to 'Delete', @speeches, method: :delete, data: {confirm: @speech.published? ? 'This article is already published. Are you sure you want to delete?' : 'Are you sure you want to delete this article?', title: 'Confirm Deletion', commit: 'Yes do it!', cancel: 'Not really!' }, :class => 'btn btn-outline-danger delete-speech', id: "delete-btn" %>
-                                    <% unless @speech.published? %>
-                                      <%= form.submit 'Save', id: 'save_content', class:"btn btn-outline-primary", disabled: @speech.published? ? true : false %>                                      
-                                      <%= form.submit 'Publish', id: 'publish_content', class:"btn btn-outline-primary", disabled: @speech.published? ? true : false %>
-                                    <!% else %>
-                                      <%#= form.submit 'Publish', id: 'publish_content', class:"btn btn-outline-primary", disabled: true %>
-                                    <% end %>
-                                  <% end %>
-                                </div>
-                    </div>
+  <div class="container-fluid px-0" style="border:1px solid #E9ECEF;">
+    <div class="row no-gutters">
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-header text-white">
+            <div class="row">
+              <div class="col-md-6 table-heading">Campaign: <%= !@speech_access_code.blank? ? @speech_access_code.title.capitalize : !@access_codes.blank? ? @access_codes.last.title : "" %></div>
+                <div class="col-md-6 text-right">
+                  <span class="col-md-4 text-light table-heading">
+                    <% if @speech.published? %>
+                      <%= link_to("/speeches/published_details/#{@speech.id}",style:"text-decoration:none;",class:"text-light") do %>Published<% end %>
+                    <% else %>
+                      <span class="text-light pt-0">Draft</span>
+                    <% end %>
+                  </span>
+                  <span class="col-md-2 pt-0" style="cursor: pointer;" class="article-show"><i class="fas fa-info-circle fa-lg"></i></span>
+                </div>
               </div>
             </div>
-        </div>
-    </div> 
-</div> 
+          </div> <!-- card-header ends here -->   
+          <div class="card-body">
+            <%= form_with(model: speech, local: true) do |form| %>
+            <% unless @speech.new_record? %>    
+              <% unless @speech.published? %>   
+                <div class="row">
+                  <div class="col-md-10 offset-md-1 btn-outline-light"><h4 style="padding: 2px 5px 2px 0px;color:#5C5656;font-weight:bold;text-align:center;">Click Publish to make this article available to your users.</h4></div> 
+                </div>
+                <% end %>
+              <% end %>            
+            <div class="row" style="height:30px;"></div>
+            <div class="form-group row">
+              <div class="mt-2 col-md-3 offset-md-1">
+                <span class="label-text">Intro</span> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Welcoming text at the begining of an article. ex. Hi/Hello/Welcome"><%= image_tag("/assets/icon-info.png") %></span>
+              </div>
+              <div class="col-md-7">
+                <%= form.text_field :intro, id: :article_intro, class: 'form-control', value: "#{!@speech.blank? ? @speech.intro : ""}", placeholder: 'Optional - Enter Intro', readonly: @speech.published? ? true : false %>
+              </div>
+            </div>
 
-<% end %>
+            <div class="form-group row">
+              <div class="mt-2 col-md-3 offset-md-1">
+                <span class="label-text">Title/Subject</span> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Title of the article which the skill user will hear before the main content"><%= image_tag("/assets/icon-info.png") %></span>
+              </div>
+              <div class="col-md-7">
+                <%= form.text_field :title, id: :article_title, class: 'form-control', value: "#{!@speech.blank? ? @speech.title : ""}", required: true, placeholder: 'Required - Enter title', readonly: @speech.published? ? true : false %>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <div class="mt-2 col-md-3 offset-md-1">
+                <span class="label-text">Content</span> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Main content that the skill users will hear"><%= image_tag("/assets/icon-info.png") %></span>
+              </div>
+              <div class="col-md-7">
+                <%= form.text_area :content, id: :add_speech_content, size: "30x9", class: 'form-control show', placeholder: 'Required - Enter text', readonly: @speech.published? ? true : false %>
+                <% unless @speech.published? %>
+                  <div class="col-md-8 pl-0" id="textarea_feedback" style="margin-top:10px !important; font-size:14px; font-weight:bold; letter-spacing:0px;"></div>
+                  <div class="col-md-12 pl-0" style="margin-top:1px !important; font-size:14px; font-weight:bold; letter-spacing:0px;">All the links/special characters will be ignored in the skill</div>
+                <% end %>
+              </div>
+            </div>
+            
+            <div class="form-group row">
+              <div class="mt-2 col-md-3 offset-md-1">
+                <span class="label-text">Outro</span> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Closing text of an article. ex: Bye, See you, Goodbye"><%= image_tag("/assets/icon-info.png") %></span>
+              </div>
+              <div class="col-md-7">
+                <%= form.text_field :outro, id: :article_outro, class: 'form-control', value: "#{!@speech.blank? ? @speech.outro : ""}", placeholder: 'Optional - Enter Outro', readonly: @speech.published? ? true : false %>
+              </div>
+            </div>                           
+                            
+            <div class="form-group row">
+              <div class="mt-2 col-md-3 offset-md-1">
+                <% if @speech.published? %>
+                  <span class="label-text">Listener Group</span>
+                <% else %>
+                  <span class="label-text">Select Listener Group</span>
+                <% end %>
+              </div>
+              <div class="mt-2 col-md-7">
+                <%= select_tag 'acc_code_id', options_for_select(@access_codes.collect{ |c| ["#{c.code} - #{c.title}", c.id]}, :selected => !@speech_access_code.blank? ? @speech_access_code.id : ''), prompt: "Select Listener Group", class: "form-control required", disabled: true %>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="row" style="height:30px;"></div>
+            </div>
+            <div class="form-group row">
+            <div class="actions text-right" style="padding:0 100px 0px 0; position: absolute; bottom: 0; right: 0;">
+              <!-- Edit Form cancel button which has the @speech_access_code obj -->
+              <% if @speech_access_code.blank? %>
+                <%= link_to 'Cancel', speeches_path, class: "btn btn-outline-primary", style:"padding:8px !important;" %>
+              <% else %>
+                <% if params[:pg] == "skill_details" %>
+                  <%= link_to 'Cancel', published_skill_details_path, class: "btn btn-outline-primary", style:"padding:8px !important;" %>
+                <% else %>
+                  <%= link_to 'Cancel', speeches_path(group_code: @speech_access_code.id), class: "btn btn-outline-primary", style:"padding:8px !important;" %>
+                <% end %>
+              <% end %>
+              <% if @speech.new_record? %>
+                <%= form.submit 'Save', id: 'save_content', class:"btn btn-outline-primary", disabled: true %>
+                <%= form.submit 'Publish', id: 'publish_content', class:"btn btn-outline-primary", disabled: true %>
+              <% else %>
+                <!-- <audio id="audioPlayback" controls> -->
+                <audio id="audioPlayback">
+                  <source id="audioSource" type="audio/mp3" src="">
+                </audio>
+                <!-- <button type="button" class="close audioPlayback play" onclick="aud_play_pause()" style="outline:none !important; padding-right:15px;"><span><i class="fa fa-play-circle fa-lg" aria-hidden="true"></i></span></button> -->
+                <button type="button" class="btn btn-outline-primary audioPlayback" style="padding:8px!important; border: 1px solid #61318f !important;" onclick="aud_play_pause()">
+                  <span class="play"><i class="fa fa-play-circle fa-lg play" aria-hidden="true"></i></span> Play/Pause
+                </button>
+                <!-- Commented by Jude on 04/04/2020 to move this button on the list article page based on the discussion on 03/04/2020 -->
+                <%#= link_to 'Delete', @speeches, method: :delete, data: {confirm: @speech.published? ? 'This article is already published. Are you sure you want to delete?' : 'Are you sure you want to delete this article?', title: 'Confirm Deletion', commit: 'Yes do it!', cancel: 'Not really!' }, :class => 'btn btn-outline-danger delete-speech', id: "delete-btn" %>
+                <% unless @speech.published? %>
+                  <%= form.submit 'Save', id: 'save_content', class:"btn btn-outline-primary", style:"padding: 8px !important;", disabled: @speech.published? ? true : false %>                                      
+                  <%= form.submit 'Publish', id: 'publish_content', class:"btn btn-outline-primary", style:"padding: 8px !important;", disabled: @speech.published? ? true : false %>
+                <!% else %>
+                  <%#= form.submit 'Publish', id: 'publish_content', class:"btn btn-outline-primary", disabled: true %>
+                <% end %>
+              <% end %>
+            </div>
+            </div>
+            <% end %> <!-- form ends here -->
+          </div> <!-- card-body ends here --> 
+              
+          </div> <!-- card-footer ends here --> 
+          <div class="form-group row px-5 py-1">
+                <p style="padding:0 60px 0 60px; font-size:14px;"><strong>Note:</strong><br/>
+                The play-pause function is to give you an idea for how the content will sound in the skill on the voice first device. Here play-pause button can only play the text that is in the content field, however on the device all of the following Title, Intro, Content and Outro will play.</p>
+              </div>            
+        </div> <!-- card ends here -->
+      </div> 
+    </div> <!-- row ends here -->
+  </div> <!-- container-fliud ends here -->
+</div> <!-- container ends here -->
 
 
 <!-- Modal -->
@@ -213,11 +197,11 @@ $("#acc_code_id").change(function(){
 });
 
 var text_max = 2999;
-$('#textarea_feedback').html(text_max + ' characters remaining (Appx. 500 words)');
+$('#textarea_feedback').html(text_max + ' characters remaining (approximate 500 words)');
 $('#add_speech_content').keyup(function() {
   var text_length = $('#add_speech_content').val().length;
   var text_remaining = text_max - text_length;
-  $('#textarea_feedback').html(text_remaining + ' characters remaining  (Appx. 500 words)');
+  $('#textarea_feedback').html(text_remaining + ' characters remaining  (approximate. 500 words)');
     if(text_length == 0){
       $("#save_content").prop("disabled", true);
     }else if (text_length > 2999) {

@@ -107,14 +107,14 @@
           <tbody>
             <tr>
               <td>
-                <table class="table-borderless">
+                <table class="table-borderless table-sm">
                   <tr>
-                    <td width="900px">
+                    <td width="900px" style="padding:0.3rem !important;">
                       <span class="content label-text">Title: <%= !speech.title.blank? ? speech.title : 'N/A' %> </span>
                     </td>
                 <!-- <span style="padding: 1px 5px 1px 5px; color:#FFF; background-color: <%#= speech.published? ? 'green' : !speech.published? ? 'orange' : "" %>;"><strong><%#= speech.published? ? 'Published' : !speech.published? ? 'Draft' : "" %></strong></span> -->
                 
-                    <td width="300px" style="float: right; padding-right:10px; font-size:14px;">
+                    <td width="300px" style="float: right; padding-right:10px; font-size:14px; padding:0.1rem;">
                     <!-- <span class="btn btn-outline-warning px-1 py-0">Draft</span> -->
                     <span style="float: right; padding-right:10px; font-size:14px;"> 
                       <table class="table-borderless">
@@ -143,7 +143,7 @@
                     </span>
                 
                   </td></tr></table>
-                <p class="content"><%= !speech.email_from.blank? ? speech.email_from.rstrip.concat('.') : '' %> <%= speech.content %></p>
+                <p class="content content-text"><%= !speech.email_from.blank? ? speech.email_from.rstrip.concat('.') : '' %> <%= speech.content %></p>
                 <div class="actions" style="display:none; float:right;">
                   
                   </div>

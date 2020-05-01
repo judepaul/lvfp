@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light navbar-laravel px-5 py-2">
+<nav class="navbar navbar-expand-lg navbar-dark navbar-laravel pr-0 py-2">
         <% unless user_signed_in? %>
             <a class="navbar-brand js-scroll-trigger" href="/auth/login"> 
                 <!-- <img class="logo-navbar" src="/assets/header-lvf.png" width="300" height="40"> font-family: Comic Sans MS !important;  --> <!-- <span class='text-white heading-semibold'> <i class="fas fa-rocket"></i> Launch Voice First </span> -->
@@ -26,7 +26,7 @@
                 <li class="nav-item sub-heading">
                     <!-- <a class="nav-link text-white" href="/auth/register/signup">Register</a> -->
                     <!-- <a class="nav-link text-white" href="http://eepurl.com/gO8n65">Register</a> -->
-                    <a class="nav-link text-white" href="https://launchvoicefirst.com/" data-toggle="tooltip" title=" Click to learn more and signup for an invite">Signup (<span class="text-14-italic">for Early Access</span>)</a>
+                    <a class="nav-link text-white" href="https://launchvoicefirst.com/" data-toggle="tooltip" title=" Click to learn more and signup for an invite">Signup <!-- (<span class="text-14-italic">for Early Access</span>) --></a>
                 </li>
                 <% else %>
                     <% if controller.controller_name != "dashboard" %>
