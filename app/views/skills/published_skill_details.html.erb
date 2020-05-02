@@ -80,31 +80,24 @@
                     and then they will be able to listen to the articles.
                 </div>
             </div> 
+            <div style="height: 30px;"></div>
          </div>
          <!-- column 2 -->
         <!-- <div class="col-md-4"><div style="padding-top:50px;"><%#= image_tag('/assets/amazon-echo-dot.png', :size => "320x320") %> </div></div> -->
 
-    </div>
-</div>
 
-</div>
-<div style="height: 30px;"></div>
-
-<div class="card" style="width:100%;">
-    <div class="card-header text-white">
-        <div class="row">
+        <table class="table table-bordered table-sm table-hover">
+            <thead class="thead-light h5 font-weight-bold">
+                <tr>
+                    <!-- Commented by Jude on 04/10/2020 Hide the header based on the discussion -->
+                    <th scope="col"><!-- Articles (<%#= speech_arr.length %>) -->
+                    <div class="row">
             <div class="col-md-6 pl-0 table-heading"><i class="fas fa-newspaper"></i> Articles available in the skill </div>
             <div class="col-md-6 text-right table-heading">
               <span style="cursor: pointer;" class="campaing-show">Published</span>
             </div>
         </div>
-    </div>
-    <div class="card-body table-responsive">
-        <table class="table table-bordered table-sm table-hover">
-            <thead class="thead-light h5 font-weight-bold">
-                <tr>
-                    <!-- Commented by Jude on 04/10/2020 Hide the header based on the discussion -->
-                    <th scope="col"><!-- Articles (<%#= speech_arr.length %>) --></th>
+                    </th>
                 </tr>
             </thead>
             <% speech_arr.sort_by(&:updated_at).reverse.each_with_index do |speech,indx| %>
@@ -135,8 +128,10 @@
                 <% end %>
             <% end %>
         </table>
-    </div>
-<div>
+    
 </div>
-<div style="height: 60px;"></div>
-<% end %>
+<div style="height: 10px;"></div>
+<% end %>    </div>
+</div>
+
+</div>
