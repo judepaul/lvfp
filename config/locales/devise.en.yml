@@ -3,8 +3,8 @@
         sessions:
           user:
             signed_in: 'Signed in successfully.'
-            signed_in_first_time: "Welcome to Launch Voice First Portal. Generate the access code for your subscribers and ask them to use this code while invoke the skill from Voice enabled devices."
+            signed_in_first_time: "Welcome to Launch Voice Reader Portal. Generate the access code for your subscribers and ask them to use this code while invoke the skill from Voice enabled devices."
             signed_out: 'Signed out successfully.'
         registrations:
           user:
-            signed_up_first_time: "Welcome to Launch Voice First Portal. Creating new campaign will generate an access code for your subscribers. Ask them to use this code while invoke the skill from Voice enabled devices."
+            signed_up_first_time: "Welcome to Launch Voice Reader Portal. Creating new campaign will generate an access code for your subscribers. Ask them to use this code while invoke the skill from Voice enabled devices."
