@@ -2,6 +2,8 @@ class SkillsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def root
+    p "in SkillsController root method"
+    p params
     input = AlexaRubykit.build_request(params)
     output = AlexaRubykit::Response.new
     session_end = true
@@ -189,5 +191,6 @@ class SkillsController < ApplicationController
   def published_skill_details
     @access_code = AccessCode.where(user_id: current_user.id).order('id DESC').last
   end
+
 
 end #class ends here

@@ -28,5 +28,4 @@ Rails.application.routes.draw do
 
   post "/voice-reader-studio/articles/getArticlesByType" => "speeches#getArticlesByType", as: "getArticlesByType"
 
-
 end
