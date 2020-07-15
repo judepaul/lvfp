@@ -40,22 +40,28 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="password" class="col-md-4 col-form-label text-md-right text-bold">Listener Group Name <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="A unique name that must be given to the group when you create a new one. Ex: Access code 9999 is identified as VC-Podcast" ><%= image_tag("/assets/icon-info.png") %></span></label>
+                                <label for="password" class="col-md-4 col-form-label text-md-right text-bold">Listener Group Name <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="A unique name that has been given to the group when you create a new one. Ex: Access code 9999 is identified as VC-Podcast" ><%= image_tag("/assets/icon-info.png") %></span></label>
                                 <div class="col-md-6">
                                     <%#= form.text_field :title, id: :access_code_title, class: "form-control" %>
                                     <% if access_code.new_record? %>
                                       <%= text_field_tag "listener_group_name", "", class: "form-control", placeholder: 'Optional' %>
                                     <% else %>
-                                      <%= text_field_tag "listener_group_name", !access_code.listener.blank? ? access_code.listener.group_name : "", class: "form-control", placeholder: 'Optional' %>
+                                      <%= text_field_tag "listener_group_name", !access_code.listener.blank? ? access_code.listener.group_name : "", class: "form-control", placeholder: 'Optional', disabled:true %>
                                     <% end %>
                                 </div>
                             </div>
-                            <div class="actions text-right" style="padding:30px 40px 30px 0; bottom: 0; right: 0;">
-    <%= link_to 'Cancel', access_codes_path, class: "btn btn-outline-primary" %>
-    <%= form.submit "Submit", id: 'campaign-save', class: "btn btn-outline-primary" %>
-
-  </div>
-</div>
+                            <div class="row">
+                                <div class="col-md-6 actions text-left" style="padding:30px 40px 30px 18px; bottom: 0; left: 0;">
+                                  <% unless access_code.new_record? %>
+                                    <%= link_to 'View Articles', speeches_path, class: "btn btn-outline-primary" %>
+                                  <% end %>
+                                </div>
+                              
+                              <div class="col-md-6 actions text-right" style="padding:30px 20px 30px 0; bottom: 0; right: 0;">
+                                <%= link_to 'Cancel', access_codes_path, class: "btn btn-outline-primary" %>
+                                <%= form.submit "Submit", id: 'campaign-save', class: "btn btn-outline-primary" %>
+                              </div>
+                            </div>
 </div>  
 <% end %>
 </div>
