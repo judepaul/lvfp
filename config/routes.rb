@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  #scope '/early-access' do
+    resources :leads
+  #end
   
   resources :listeners
   scope '/voice-reader-studio' do

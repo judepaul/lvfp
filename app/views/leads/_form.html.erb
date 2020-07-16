@@ -1,0 +1,77 @@
+<main class="login-form">
+    <div class="cotainer">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header text-white">Register</div>
+                    <div class="card-body">
+                      <%= render "layouts/shared/flash_message" %>
+                      <%#= render "devise/shared/error_messages", resource: resource %>
+                      <%= form_with(model: lead, local: true) do |form| %>
+                          <div class="form-group row">
+                            <label for="email" class="col-md-4 col-form-label text-md-right">Firstname</label>
+                                <div class="col-md-6">
+                                    <%= form.text_field :firstname, autofocus: true, class: "form-control", autocomplete: "firstname" %>
+                                </div>
+                          </div>
+
+                          <div class="form-group row">
+                            <label for="email" class="col-md-4 col-form-label text-md-right">Lastname</label>
+                                <div class="col-md-6">
+                                    <%= form.text_field :lastname, class: "form-control", autocomplete: "lastname" %>
+                                </div>
+                          </div>
+
+                          <div class="form-group row">
+                                <label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
+                                <div class="col-md-6">
+                                    <%= form.text_field :email, class: "form-control", autocomplete: "email" %>
+                                </div>
+                            </div>
+  
+<!-- 
+  <div class="field">
+    <%#= form.label :company %>
+    <%#= form.text_area :company, id: :lead_company %>
+  </div>
+
+  <div class="field">
+    <%#= form.label :phone %>
+    <%#= form.text_area :phone, id: :lead_phone %>
+  </div>
+
+  <div class="field">
+    <%#= form.label :address %>
+    <%#= form.text_area :address, id: :lead_address %>
+  </div>
+
+  <div class="field">
+    <%#= form.label :city %>
+    <%#= form.text_area :city, id: :lead_city %>
+  </div>
+
+  <div class="field">
+    <%#= form.label :state %>
+    <%#= form.text_area :state, id: :lead_state %>
+  </div>
+
+  <div class="field">
+    <%= form.label :country %>
+    <%= form.text_area :country, id: :lead_country %>
+  </div>
+
+  <div class="field">
+    <%#= form.label :zip %>
+    <%#= form.text_area :zip, id: :lead_zip %>
+  </div>
+-->
+                          <div class="col-md-6 offset-md-6">
+                            <%= form.submit "Sign up", class: "btn btn-outline-primary" %>
+                          </div>
+                        <% end %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+</main>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200327074701) do
+ActiveRecord::Schema.define(version: 20200716082353) do
 
   create_table "access_code_speech_maps", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "access_code_id"
@@ -43,6 +43,21 @@ ActiveRecord::Schema.define(version: 20200327074701) do
     t.index ["user_id"], name: "index_audiances_on_user_id"
   end
 
+  create_table "leads", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.text "email"
+    t.text "firstname"
+    t.text "lastname"
+    t.text "company"
+    t.text "phone"
+    t.text "address"
+    t.text "city"
+    t.text "state"
+    t.text "country"
+    t.text "zip"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "listeners", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "user_id"
     t.string "group_name"
@@ -63,9 +78,9 @@ ActiveRecord::Schema.define(version: 20200327074701) do
     t.boolean "is_deleted"
     t.bigint "user_id"
     t.text "title"
-    t.boolean "draft"
+    t.boolean "draft", default: false
     t.text "published_content"
-    t.boolean "published"
+    t.boolean "published", default: false
     t.text "email_from"
     t.datetime "email_sent_date"
     t.text "intro"
