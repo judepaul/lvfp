@@ -36,7 +36,9 @@
     <div class="container-fluid px-0">
         <div class="row no-gutters">
             <div class="col-sm-12 col-md mr-md-3">
-              <div class="card">
+                <!-- Remove the outline - 07/16/2020 - by Jude -->
+                <!-- <div class="card"> -->
+                <div class="card" style="border:none;">
                         <div class="card-header text-white">
                           <div class="row">
                               <div class="col-md-6 table-heading"><i class="fas fa-newspaper"></i> Manage Articles</div>
@@ -50,7 +52,9 @@
   <% unless @access_codes.blank?
         @access_codes.each_with_index do |ac,indx|
   %>
-  <div class="card">
+  <!-- Remove the outline - 07/16/2020 - by Jude -->
+  <!-- <div class="card"> -->
+  <div class="card" style="border:none;">
     <div class="card-header" id="heading<%=indx+1%>" class="btn btn-link" data-toggle="collapse" data-target="#collapse<%=indx+1%>" aria-expanded="true" aria-controls="collapse<%=indx+1%>" style="color: #FFF !important; text-decoration: none !important; padding: 10px; !important;">
       <div class="row">
       <div class="col-md-11 pl-4 sub-heading"> Campaign: <%= ac.title.titlecase %> | Listener Group Access Code: <%= ac.code %></div>

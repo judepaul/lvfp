@@ -38,7 +38,9 @@
         </div>
 <div class="row justify-content-center">
 <div class="col-md-12">
-<div class="card" style="width:100%;">
+<!-- Remove the outline - 07/16/2020 - by Jude -->
+<!-- <div class="card" style="width:100%;"> -->
+<div class="card" style="width:100%; border:none !important;">
   <div class="card-header text-white">
     <div class="row">
       <div class="col-md-6 card-heading"><i class="fas fa-layer-group"></i> Manage Campaigns</div>
@@ -108,7 +110,7 @@
 <% end %>
 <br/>
 
-<div class="actions text-right" style="padding:30px 40px 30px 0; bottom: 0; right: 0;">
+<div class="actions text-right" style="padding:5px 40px 30px 0; bottom: 0; right: 0;">
 <% if current_user.super_vc_admin? %>
 <%= link_to 'Create Campaign', new_access_code_path, class: 'btn btn-outline-primary' %>
 <% else %>
@@ -117,6 +119,8 @@
 <% else %>
   <!-- As per the discussion on 07/14/2020 show the disable button on the list screen for normal users by Jude on 07/15/2020 -->
  <button disabled class="btn btn-outline-primary"> Create Campaign </button>
+ <br/>
+ <span style="font-style:italic;font-size:12px;padding-right:20px;">Coming Soon...</span>
 <% end %>
 <% end %>
 </div>

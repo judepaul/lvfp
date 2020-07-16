@@ -23,11 +23,15 @@
                 <li class="nav-item sub-heading">
                     <a class="nav-link text-white" href="/auth/login">Login</a>
                 </li>
+                <% if controller.controller_name != "leads" %>
                 <li class="nav-item sub-heading">
                     <!-- <a class="nav-link text-white" href="/auth/register/signup">Register</a> -->
                     <!-- <a class="nav-link text-white" href="http://eepurl.com/gO8n65">Register</a> -->
-                    <a class="nav-link text-white" href="https://launchvoicereader.com/" data-toggle="tooltip" title=" Click to learn more and signup for an invite">Signup <!-- (<span class="text-14-italic">for Early Access</span>) --></a>
+                    <!-- <a class="nav-link text-white" href="https://launchvoicereader.com/" data-toggle="tooltip" title=" Click to learn more and signup for an invite">Signup <!-- (<span class="text-14-italic">for Early Access</span>) --><!-- </a> -->
+                    <!-- Updated Signup URL to lead page - 07/16/2020 by Jude -->
+                    <a class="nav-link text-white" href="/leads/new" data-toggle="tooltip" title=" Click to learn more and signup for an invite">Signup <!-- (<span class="text-14-italic">for Early Access</span>) --></a>
                 </li>
+                <% end %>
                 <% else %>
                     <% if controller.controller_name != "dashboard" %>
                     <li class="nav-item  dropdown dropdown-studio sub-heading pt-1">
@@ -52,7 +56,7 @@
                         </div>
                     </li>
                     <li class="nav-item dropdown dropdown-analytics sub-heading  pt-1">
-                        <a class="nav-link text-white" href="#"> <i class="fas fa-chart-pie"></i> Analytics </a>
+                        <a class="nav-link text-white dropdown-toggle" href="#"> <i class="fas fa-chart-pie"></i> Analytics </a>
                         <div class="dropdown-menu analytics-menu">
                             <a class="dropdown-item sub-heading border-bottom border-purple pb-1" style="font-size:16px !important"><strong>Voice Reader Analytics</strong></a>
                             <a class="dropdown-item sub-heading pt-3" href='#'><i class="fas fa-clone"></i> Coming Soon...</a>
@@ -61,10 +65,13 @@
 
                     <% end %>
                     <li class="nav-item dropdown dropdown-logout sub-heading  pt-1">
-                        <a class="nav-link text-white dropdown-toggle" href="/auth/logout"> <i class="fas fa-user"></i> <%= current_user.username %> </a>
-                        <div class="dropdown-menu logout-menu">
+                        <a class="nav-link text-white" href="/auth/logout"> <!-- <i class="fas fa-user"></i> --> <%= current_user.username %> <i class='fas fa-sign-out-alt'></i>
+</a>
+                        <!-- Commented dropdown for Signout based on the discussion on 07/15/2020 -->
+                        <!-- <div class="dropdown-menu logout-menu">
                             <a class="dropdown-item sub-heading pt-2" style="font-size:16px !important" href="/auth/logout"> <i class="fas fa-sign-out-alt"></i> Logout</a>
                         </div>
+                        -->
                     </li> 
                 <% end %>
             </ul>

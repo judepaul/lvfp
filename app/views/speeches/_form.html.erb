@@ -1,7 +1,9 @@
 <div class="row" style="height:30px;"></div>
 <%#= render "layouts/shared/flash_message" %>
 <div class="container">
-  <div class="container-fluid px-0" style="border:1px solid #E9ECEF;">
+  <!-- Remove the outline - 07/16/2020 - by Jude -->
+  <!-- <div class="container-fluid px-0" style="border:1px solid #E9ECEF;"> -->
+  <div class="container-fluid px-0">
     <div class="row no-gutters">
       <div class="col-sm-12">
         <div class="card">
@@ -87,7 +89,7 @@
               <div class="row" style="height:30px;"></div>
             </div>
             <div class="form-group row">
-            <div class="actions text-right" style="padding:0 100px 0px 0; position: absolute; bottom: 0; right: 0;">
+            <div class="actions text-right" style="padding:0 120px 0px 0; position: absolute; bottom: 0; right: 0;">
               <!-- Edit Form cancel button which has the @speech_access_code obj -->
               <% if @speech_access_code.blank? %>
                 <%= link_to 'Cancel', speeches_path, class: "btn btn-outline-primary", style:"padding:8px !important;" %>
