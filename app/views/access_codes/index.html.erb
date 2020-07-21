@@ -88,8 +88,8 @@
       <td style="text-align:center;"><%= listener_group_name(code.listener_id) %></td>
       <td style="text-align:center;"><%= code.code %></td>
       <!-- As per the discussion on 07/14/2020 it was updated by Jude on 07/15/2020 -->
-      <td style="text-align:center;"><%= link_to code.title, edit_access_code_path(code), style:"color:#000;cursor: pointer;text-decoration:none;" %></td>
-      <td style="text-align:center;"><%= link_to article_count(code.id), speeches_path, style:"color:#000;cursor: pointer;text-decoration:none;" %></td>
+      <td style="text-align:center;"><%= link_to edit_access_code_path(code), style:"color:#000;cursor: pointer;text-decoration:none;" do %> <%= code.title %> <i class="fa fa-link" style="font-size:14px; color: #61318f !important;" aria-hidden="true"></i> <% end %></td>
+      <td style="text-align:center;"><%= link_to speeches_path, style:"color:#000;cursor: pointer;text-decoration:none;" do %> <%= article_count(code.id) %> <i class="fa fa-link" style="font-size:14px; color: #61318f !important;" aria-hidden="true"></i> <% end %></td>
       <% if current_user.super_vc_admin? %>
         <td style="text-align:center;"><%#= link_to 'Show', code %>
         <%#= link_to 'Edit', edit_access_code_path(code) %>

@@ -3,9 +3,9 @@ require 'net/smtp'
 ActionMailer::Base.smtp_settings = {
   :address              => "smtp.gmail.com",
   :port                 => 587,
-  :domain               => 'seedcube.com',
-  :user_name            => 'jude@seedcube.com',
-  :password             => 'H8wyQwkI7UPr',
+  :domain               => 'launchvoicereader.com',
+  :user_name            => 'hello@launchvoicefirst.com',
+  :password             => 'Zfi5lX561DHj^y',
   # :domain               => 'visiontss.com',
   # :user_name            => 'smartadmin@visiontss.com',
   # :password             => 'smartadmin',

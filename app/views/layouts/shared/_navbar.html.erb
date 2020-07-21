@@ -20,20 +20,27 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
                 <% unless user_signed_in? %>
+                <% if controller.controller_name != "sessions" %>
                 <li class="nav-item sub-heading">
                     <a class="nav-link text-white" href="/auth/login">Login</a>
                 </li>
-                <% if controller.controller_name != "leads" %>
+                <% end %>
+                <!% if controller.controller_name != "leads" %>
                 <li class="nav-item sub-heading">
                     <!-- <a class="nav-link text-white" href="/auth/register/signup">Register</a> -->
                     <!-- <a class="nav-link text-white" href="http://eepurl.com/gO8n65">Register</a> -->
                     <!-- <a class="nav-link text-white" href="https://launchvoicereader.com/" data-toggle="tooltip" title=" Click to learn more and signup for an invite">Signup <!-- (<span class="text-14-italic">for Early Access</span>) --><!-- </a> -->
                     <!-- Updated Signup URL to lead page - 07/16/2020 by Jude -->
-                    <a class="nav-link text-white" href="/leads/new" data-toggle="tooltip" title=" Click to learn more and signup for an invite">Signup <!-- (<span class="text-14-italic">for Early Access</span>) --></a>
+                    <!-- <a class="nav-link text-white" href="/leads/new" data-toggle="tooltip" title=" Click to learn more and signup for an invite">Signup --> <!-- (<span class="text-14-italic">for Early Access</span>)</a> -->
                 </li>
-                <% end %>
+                <!% end %>
                 <% else %>
                     <% if controller.controller_name != "dashboard" %>
+                        <li class="nav-item  dropdown dropdown-studio sub-heading pt-1">
+                            <a class="nav-link text-white" href="/dashboard/index/">
+                                <i class="fas fa-home"></i> Home
+                            </a>
+                        </li>
                     <li class="nav-item  dropdown dropdown-studio sub-heading pt-1">
                         <!-- <a class="nav-link text-white pt-3" href="/access_codes">Campaigns</a> -->
                         <a class="nav-link text-white dropdown-toggle <%= (current_class? ["/voice-reader-studio/campaigns", "/voice-reader-studio/articles"]) == "access_codes" ? 'nav-active' : ''  %>" href="#" id="navbardrop" data-toggle="dropdown">
@@ -65,7 +72,7 @@
 
                     <% end %>
                     <li class="nav-item dropdown dropdown-logout sub-heading  pt-1">
-                        <a class="nav-link text-white" href="/auth/logout"> <!-- <i class="fas fa-user"></i> --> <%= current_user.username %> <i class='fas fa-sign-out-alt'></i>
+                        <a class="nav-link text-white" href="/auth/logout"> <!-- <i class="fas fa-user"></i> --> <%= current_user.lead.firstname unless current_user.lead.blank? %> <i class='fas fa-sign-out-alt'></i>
 </a>
                         <!-- Commented dropdown for Signout based on the discussion on 07/15/2020 -->
                         <!-- <div class="dropdown-menu logout-menu">

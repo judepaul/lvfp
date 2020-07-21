@@ -3,7 +3,7 @@ class User < ApplicationRecord
   has_many :audiances
   has_many :listeners
   has_many :access_code
-
+  belongs_to :lead
 
   scope :user_by_code, -> (access_code) { where access_code: access_code}
   # Assign role to new user
