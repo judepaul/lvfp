@@ -12,8 +12,8 @@ class RegistrationsController < Devise::RegistrationsController
      if User.exists?(username: username)
         redirect_to new_user_registration_path, notice: "Username already exists. Try with another one" 
      else
-        set_flash_message(:notice, :signed_up_first_time)
         super
+        set_flash_message(:notice, :signed_up_first_time)
       end
 
     end

@@ -72,7 +72,7 @@
 
                     <% end %>
                     <li class="nav-item dropdown dropdown-logout sub-heading  pt-1">
-                        <a class="nav-link text-white" href="/auth/logout"> <!-- <i class="fas fa-user"></i> --> <%= current_user.lead.firstname unless current_user.lead.blank? %> <i class='fas fa-sign-out-alt'></i>
+                        <a class="nav-link text-white" href="/auth/logout"> <!-- <i class="fas fa-user"></i> --> <%= current_user.username %> <i class='fas fa-sign-out-alt'></i>
 </a>
                         <!-- Commented dropdown for Signout based on the discussion on 07/15/2020 -->
                         <!-- <div class="dropdown-menu logout-menu">

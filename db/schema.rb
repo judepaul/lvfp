@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200721103145) do
+ActiveRecord::Schema.define(version: 20200722123952) do
 
   create_table "access_code_speech_maps", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "access_code_id"
@@ -41,6 +41,14 @@ ActiveRecord::Schema.define(version: 20200721103145) do
     t.bigint "access_code_id"
     t.index ["access_code_id"], name: "index_audiances_on_access_code_id"
     t.index ["user_id"], name: "index_audiances_on_user_id"
+  end
+
+  create_table "clients", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.text "name"
+    t.text "title"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "leads", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -114,7 +122,9 @@ ActiveRecord::Schema.define(version: 20200721103145) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "username"
+    t.bigint "client_id"
     t.bigint "lead_id"
+    t.index ["client_id"], name: "index_users_on_client_id"
     t.index ["lead_id"], name: "index_users_on_lead_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
@@ -130,5 +140,6 @@ ActiveRecord::Schema.define(version: 20200721103145) do
   add_foreign_key "speeches", "users"
   add_foreign_key "user_content_maps", "speeches"
   add_foreign_key "user_content_maps", "users"
+  add_foreign_key "users", "clients"
   add_foreign_key "users", "leads"
 end
