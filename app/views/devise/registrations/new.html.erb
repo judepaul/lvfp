@@ -3,7 +3,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header text-white">Register</div>
+                    <div class="card-header text-white text-center">Create your account</div>
                     <div class="card-body">
                             <%= render "layouts/shared/flash_message" %>
                             <%#= render "devise/shared/error_messages", resource: resource %>
@@ -11,7 +11,7 @@
                             <div class="form-group row">
                                 <label for="email_address" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
                                 <div class="col-md-6">
-                                    <%= f.email_field :email, autofocus: true, class: "form-control", autocomplete: "email" %>
+                                    <%= f.email_field :email, value: "#{@email}", class: "form-control", disabled:true %>
                                 </div>
                             </div>
 
@@ -43,7 +43,7 @@
                             </div>
                             
                             <div class="col-md-6 offset-md-6">
-                                    <%= f.submit "Sign up", class: "btn btn-outline-primary" %>
+                                    <%= f.submit "Submit", class: "btn btn-outline-primary" %>
                                 <%# <a href="#" class="btn btn-link">
                                     Forgot Your Password?
                                 </a> %>

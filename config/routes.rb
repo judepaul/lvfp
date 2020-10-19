@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   post '/skill/handler' => 'skills#root', :as => :skill_handler
 
   get "users/check_username", :controller => "registrations", :action => "check_username"
-
+  
   get "speeches/published_details/:speech_id" => "speeches#published_details", as: "published_details"
 
   get "/voice-chimp-skill/details" => "skills#published_skill_details", as: "published_skill_details"

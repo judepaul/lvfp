@@ -1,6 +1,12 @@
 class RegistrationsController < Devise::RegistrationsController
-    require 'securerandom'
+    require 'securerandom'    
 
+    def new
+      p params[:confirmation_token]
+      @email = params["email"] unless params["email"].nil?
+      super
+    end
+    
     def create
         # Commented on 18/02/2020 by Jude for generating access code on demand
         # super do

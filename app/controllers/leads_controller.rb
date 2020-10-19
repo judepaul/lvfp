@@ -25,12 +25,15 @@ class LeadsController < ApplicationController
   # POST /leads.json
   def create
     @lead = Lead.new(lead_params)
-    LeadMailer.with(lead: @lead).welcome_email.deliver
     respond_to do |format|
       if @lead.save
         # format.html { redirect_to @lead, notice: 'Lead was successfully created.' }
         # format.json { render :show, status: :created, location: @lead }
-        format.html { redirect_to '/auth/login', notice: 'Congratulations! We will send you the login details to your email shortly.' }
+        #format.html { redirect_to '/auth/login', notice: 'Congratulations! We will send you the login details to your email shortly.' }
+        LeadMailer.with(lead: @lead).welcome_email.deliver
+        LeadMailer.with(lead: @lead).lead_notification_email_to_admin.deliver
+        format.html { redirect_to '/leads/new', notice: 'Thanks for signing up. Please confirm your email address to continue.' }
+        
       else
         format.html { render :new }
         format.json { render json: @lead.errors, status: :unprocessable_entity }
