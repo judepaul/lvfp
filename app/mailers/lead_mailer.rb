@@ -11,7 +11,7 @@ class LeadMailer < ApplicationMailer
         @lead_email = lead_details[:email]
         @lead_fname = lead_details[:firstname]
         @lead_lname = lead_details[:lastname]
-        admin_email = "hello@launchvoicefirst.com"
+        admin_email = "hello@launchvoicereader.com"
         mail(to: admin_email, subject: "New lead from Launch Voice Reader!")
       end
     
