@@ -1,6 +1,9 @@
 class DashboardController < ApplicationController
   before_action :authenticate_user!
   def index
+    Rails.logger.info "@@@@@@@@@@@@@@@"
+    Rails.logger.info "#{current_user}"
+    Rails.logger.info "#{current_user.role}"
     if current_user.role == "super_vc_admin"
       @campaigns_count = AccessCode.count
       @articles_count = Speech.count
