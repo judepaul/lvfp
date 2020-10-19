@@ -18,6 +18,9 @@ module Lvfp
 
     # Adding custom fonts
     config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
-    
+    config.action_mailer.delivery_method = :postmark
+    config.action_mailer.postmark_settings = {
+      api_token: "95612744-b9e3-4af2-9de2-746693b28d21"
+    }
   end
 end

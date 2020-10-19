@@ -88,4 +88,12 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+  
+  config.action_mailer.delivery_method = :postmark
+  config.action_mailer.postmark_settings = { api_token: "95612744-b9e3-4af2-9de2-746693b28d21" }
+  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.asset_host = 'https://app.launchvoicereader.com'
+  config.action_mailer.default_url_options = { host: 'https://app.launchvoicereader.com' }
+  
 end
