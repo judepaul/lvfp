@@ -1,18 +1,42 @@
-<footer class="footer fixed-bottom px-3 py-0 bg-light text-center" style="color:#61318f;padding-top:12px !important; font-size:14px;">
+<footer class="footer fixed-bottom px-3 py-0 text-center" style="background-color:#b8e2fc; color:#FFF!important;padding: 10px 10px 40px 10px !important; font-size:14px;">
+			<div class="row text-center text-xs-center text-sm-left text-md-left">
+			
+				<div class="col-xs-12 col-sm-4 col-md-4">
+					<ul class="list-unstyled quick-links">
+						<li><h6><a href="<%= !user_signed_in? ? '#':'/' %>" class="footer-menu" style="color:<%= !user_signed_in? ? '#808080':'#000' %>; " >Knowledge Base</a></h6></li>
+						<li><h6><a href="<%= !user_signed_in? ? '#':'/' %>" class="footer-menu" style="color:<%= !user_signed_in? ? '#808080':'#000' %>; ">Help</a></h6></li>
+						<li><h6><a href="<%= !user_signed_in? ? '#':'/' %>" class="footer-menu" style="color:<%= !user_signed_in? ? '#808080':'#000' %>; ">FAQ</a></h6></li>
+						<li></li>
+						<li></li>
+					</ul>
+				</div>
+				<div class="col-xs-12 col-sm-4 col-md-4 text-md-center">
+					<ul class="list-unstyled quick-links">
+						<li><h6><a href="" class="footer-menu" style="color: #000;">Contact Us</a></h6></li>
+						<li><h6><a href="<%= !user_signed_in? ? '#':'/' %>" class="footer-menu" style="color:<%= !user_signed_in? ? '#808080':'#000' %>; ">Support</a></h6></li>
+						<li><h6><a href="#" class="footer-menu" style="color:#000;">Pricing</a></h6></li>
+						<li></li>
+						<li></li>
+					</ul>
+				</div>
+				<div class="col-xs-12 col-sm-4 col-md-4 text-md-right">
+					<ul class="list-unstyled quick-links">
+						<li><h6><a href="<%= !user_signed_in? ? '#':'/' %>" class="footer-menu" style="color:<%= !user_signed_in? ? '#808080':'#000' %>; ">Terms & Conditions</a></h6></li>
+						<li><h6><a href="<%= !user_signed_in? ? '#':'/' %>" class="footer-menu" style="color:<%= !user_signed_in? ? '#808080':'#000' %>; ">Privacy</a></h6></li>
+						<li><h6><a href="<%= !user_signed_in? ? '#':'/' %>" class="footer-menu" style="color:<%= !user_signed_in? ? '#808080':'#000' %>; ">Media</a></h6></li>
+						<li></li>
+						<li></li>
+					</ul>
+				</div>
+			</div>
+			<div class="row" stype="padding-bottom:100px;"></div>
+			
+</footer>
+<footer class="footer fixed-bottom px-3 py-0 text-center" style="background-color: #5e90af; color:#FFF;padding-top:10px !important; font-size:16px;">
     <!-- &copy; <script>document.write(new Date().getFullYear())</script> -->
     <!-- <a style="color:#61318f;cursor:pointer;text-decoration:none;font-size:18px !important;" href="https://www.launchvoicereader.com"> LaunchVoiceReader.com </a> -->
-    <table class="table-borderless">
-    <tr>
-    <td width="300px" class=" text-left" style="padding-bottom:15px !important;">Privacy</td>
-    <td width="600px" style="text-align:center; padding-bottom:15px !important;">
-    <!-- Updated by Jude on 07/16/2020 based on the conversation with Gaurav on 07/15/2020 -->
-    <!-- <strong>Voice Reader</strong> service offered by <a style="color:#61318f;cursor:pointer;text-decoration:none;" href="https://www.launchvoicereader.com"> <strong>Launch Voice Reader</strong></a>
-    &copy; <script>document.write(new Date().getFullYear())</script> -->
-    <!--  -->
-    <strong>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Launch Voice Reader</strong>
-    
-    </td>
-    <td width="400px" class="text-right" style="text-align:center; padding-bottom:15px !important;">Terms and Conditions</td>
-    </tr>
-    </table>
+
+	<div class="mx-auto" style="width: 800px;vertical-align: middle; padding-bottom:15px !important;">
+      <strong>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Launch Voice Reader</strong>
+	</div>
 </footer>

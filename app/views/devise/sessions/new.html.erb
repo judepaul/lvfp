@@ -3,7 +3,7 @@
         <div class="row justify-content-center">
             <div class="col-md-5">
                 <div class="card">
-                    <div class="card-header text-white sub-heading"><i class="fas fa-user"></i> Login</div>
+                    <div class="card-header text-white card-heading"><i class="fas fa-user"></i> Login</div>
                     <div class="card-body">
                         <%= render "layouts/shared/flash_message" %>
                         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
@@ -33,15 +33,17 @@
                             <div class="form-group row">
                                 <label for="" class="col-md-4 col-form-label text-md-right label-text"></label>
                                 <div class="col-md-7 text-center">
-                                    <%= f.submit "Log in", class: "btn btn-outline-primary" %>
+                                    <%= f.submit "Submit", class: "btn btn-outline-primary sub-heading", style: "font-size:20px !important;" do %>
+									<i class="fa fa-sign-in-alt"></i>
+									<% end %>
                                 </div>
                             </div>
                     <% end %>
                     </div>
                     </form>
-                    <div class="col-md-12 text-right pt-0" style="text-align:right !important;">
-                        <div class="" style="font-size:14px;padding-right:45px;">
-                                    Want to join our Early Access program, <a href="/leads/new" style="padding:0 6px 0 3px;text-decoration:none;"> click here </a>
+                    <div class="col-md-12 text-center pt-0 label-text" style="text-align:center !important;">
+                        <div class="" style="">
+                                    Don't have an account? , <a href="/leads/new" style="padding:0 6px 0 3px;text-decoration:none;"> Register </a>
                                 </div>
                     </div>
                 </div>

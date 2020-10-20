@@ -53,7 +53,7 @@
 
 <% if @access_codes.blank? %>
   <div class="row" style="height:60px"></div>
-  <div class="col-md-8 offset-md-4 align-self-center">  <%= link_to 'Create your first campaign', new_access_code_path, class: 'btn btn-outline-primary' %></div>
+  <div class="col-md-8 offset-md-4 align-self-center">  <%= link_to 'Create your first campaign', new_access_code_path, class: 'btn btn-outline-primary', style:"font-size:20px!important;" %></div>
 <% else %>
 <div class="row justify-content-end" style="text-align: right !important;">
 <%= will_paginate @access_codes, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
