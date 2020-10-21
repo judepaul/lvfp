@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :contacts
   #scope '/early-access' do
     resources :leads
   #end

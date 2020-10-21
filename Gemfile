@@ -65,3 +65,4 @@ gem 'font-awesome-sass'
 gem 'bootbox-rails'
 gem 'data-confirm-modal'
 gem 'postmark-rails'
+gem "recaptcha", require: "recaptcha/rails"
