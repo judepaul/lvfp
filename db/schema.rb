@@ -12,7 +12,6 @@
 
 ActiveRecord::Schema.define(version: 20201021070102) do
 
-
   create_table "access_code_speech_maps", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "access_code_id"
     t.bigint "speech_id"
