@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body style="font-family:verdana; font-size:14px;">
+    <%#= image_tag('mailer-header-image.png', :size=>"400*50") %>
+    <p><h2>New contact form submitted from LVR Portal</h2></p>
+    <p>Hello Admin,</p>
+    <p> Below mentioned the contact details. </p>
+    <p></p>
+    <p>Name: <%= @contact_detail.name %> </p>
+    <p></p>
+    <p>Email: <%= @contact_detail.email %> </p>
+    <p></p>
+	<p>Phone: <%= @contact_detail.phone %></p>
+    <p></p>
+	<p>Message: <%= @contact_detail.message %> </p>
+    <p></p>
+	<p>Date & Time: <%= Time.new.strftime("%d/%m/%Y %I:%M %p") %> <%= Time.new.zone %></p>
+    <p></p>
+    <p>--</p>
+    <p>Support Team</p>
+  </body>
+</html>
