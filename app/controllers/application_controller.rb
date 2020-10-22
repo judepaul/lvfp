@@ -2,6 +2,33 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  def knowledge
+      render "/knowledge"
+    end
+    def help
+        render "/help"
+      end
+      def faq
+          render "/faq"
+        end
+        def support
+            render "/support"
+          end
+          def pricing
+              render "/pricing"
+            end
+            def terms
+                render "/terms"
+              end
+              def privacy
+                  render "/privacy"
+                end
+              def media
+                  render "/media"
+                end
+                
+    
+    
   protected
 
   def after_sign_in_path_for(resource)

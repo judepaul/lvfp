@@ -1,4 +1,15 @@
 Rails.application.routes.draw do
+  
+  get "/knowledge", to: "application#knowledge"
+  get "/help", to: "application#help"
+  get "/faq", to: "application#faq"
+  get "/support", to: "application#support"
+  get "/pricing", to: "application#pricing"
+  get "/terms", to: "application#terms"
+  get "/privacy", to: "application#privacy"
+  get "/media", to: "application#media"
+
+  
   resources :contacts
   #scope '/early-access' do
     resources :leads
@@ -14,7 +25,7 @@ Rails.application.routes.draw do
   get 'dashboard/index'
 
   #devise_for :users
-  devise_for :users, :controllers => {:sessions => 'sessions', :registrations => "registrations"}, path: 'auth', path_names: { sign_in: 'login', sign_out: 'logout', password: 'secret', confirmation: 'verification', unlock: 'unblock', registration: 'register', sign_up: 'signup' }
+  devise_for :users, :controllers => {:confirmations => "confirmations", :sessions => 'sessions', :registrations => "registrations"}, path: 'auth', path_names: { sign_in: 'login', sign_out: 'logout', password: 'secret', confirmation: 'verification', unlock: 'unblock', registration: 'register', sign_up: 'signup' }
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   authenticated :user do
     root to: 'dashboard#index', as: :authenticated_root
@@ -31,5 +42,10 @@ Rails.application.routes.draw do
   get "/voice-chimp-skill/details" => "skills#published_skill_details", as: "published_skill_details"
 
   post "/voice-reader-studio/articles/getArticlesByType" => "speeches#getArticlesByType", as: "getArticlesByType"
+  
+  devise_scope :user do
+    patch "/confirm" => "confirmations#confirm"
+  end
+  
 
 end

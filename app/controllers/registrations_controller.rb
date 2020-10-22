@@ -19,7 +19,7 @@ class RegistrationsController < Devise::RegistrationsController
         redirect_to new_user_registration_path, notice: "Username already exists. Try with another one" 
      else
         super
-        set_flash_message(:notice, :signed_up_first_time)
+        #set_flash_message(:notice, :signed_up_first_time)
       end
 
     end
@@ -34,5 +34,9 @@ class RegistrationsController < Devise::RegistrationsController
       end
     end
     
-
+    protected 
+    def configure_permitted_parameters
+       devise_parameter_sanitizer.permit(:sign_up, keys: [:email, :firstname, :lastname])
+       # devise_parameter_sanitizer.for(:account_update).push(:name, :surname, :email, :avatar)
+    end
 end

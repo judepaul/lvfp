@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201021070102) do
-
+ActiveRecord::Schema.define(version: 20201022131025) do
 
   create_table "access_code_speech_maps", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "access_code_id"
@@ -121,6 +120,10 @@ ActiveRecord::Schema.define(version: 20201021070102) do
     t.string "last_sign_in_ip"
     t.string "device_id"
     t.integer "access_code"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
     t.integer "role"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

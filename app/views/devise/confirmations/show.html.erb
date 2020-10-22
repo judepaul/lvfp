@@ -1,0 +1,36 @@
+<main class="login-form">
+    <div class="cotainer">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header text-white text-center">Confirm your account</div>
+                    <div class="card-body">
+<h5 style="text-align:center;">You're almost done! Now create a password to securely access your account.</h5>
+<%= form_for(resource, as: resource_name, url: confirm_path, html: { method: :patch }) do |f| %>
+  <%#= devise_error_messages! %>
+<br/>
+  <div class="form-group row">
+      <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+      <div class="col-md-6">
+          <%= f.password_field :password, autofocus: true, class: "form-control", autocomplete: "password" %>
+      </div>
+  </div>
+  <div class="form-group row">
+      <label for="password_confirmation" class="col-md-4 col-form-label text-md-right">Password Confirmation</label>
+      <div class="col-md-6">
+          <%= f.password_field :password_confirmation, class: "form-control", autocomplete: "password_confirmation" %>
+      </div>
+  </div>
+
+  <%= f.hidden_field :confirmation_token, :value => @original_token %>
+
+  <div class="col-md-6 offset-md-6">
+    <%= f.submit "Confirm", class: "btn btn-outline-primary" %>
+  </div>
+<% end %>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+<%#= render "devise/shared/links" %>
