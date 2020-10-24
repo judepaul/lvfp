@@ -16,8 +16,34 @@ class User < ApplicationRecord
 
   enum role: [:user, :system_admin, :vc_admin, :super_vc_admin]
 
-validates :email, uniqueness: false
+  validates :email, 
+            :presence => {:message => "Title can't be blank." },
+            :uniqueness => {:message => "Email already taken."},
+            :length => { :maximum => 100, :message => "Must be less than 100 characters"},
+            on: :create
 validates :username, uniqueness: true
+#validate :email_uniqueness
+PASSWORD_FORMAT = /\A
+  (?=.{8,})          # Must contain 8 or more characters
+  (?=.*\d)           # Must contain a digit
+  (?=.*[a-z])        # Must contain a lower case character
+  (?=.*[A-Z])        # Must contain an upper case character
+  (?=.*[[:^alnum:]]) # Must contain a symbol
+/x
+
+validates :password, 
+  presence: true, 
+  length: { in: Devise.password_length }, 
+  format: { with: PASSWORD_FORMAT }, 
+  confirmation: true, 
+  on: :create 
+
+validates :password, 
+  allow_nil: true, 
+  length: { in: Devise.password_length }, 
+  format: { with: PASSWORD_FORMAT }, 
+  confirmation: true, 
+  on: :update
 
 # Only allow letter, number, underscore and punctuation.
 validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true
@@ -65,6 +91,14 @@ def self.find_first_by_auth_conditions(warden_conditions)
   else
     where(conditions).first
   end
+end
+
+def email_uniqueness
+  p "!!!!!!!!!"
+  p User.where(:email => self.email).exists?
+   if User.where(:email => self.email).exists?
+     self.errors.add(:signed_up_first_time, 'Email address already exists. Please try with another one.')
+   end
 end
 
 # def self.find_for_database_authentication(warden_conditions)

@@ -71,15 +71,26 @@
                     </li>
 
                     <% end %>
-                    <li class="nav-item dropdown dropdown-logout sub-heading  pt-1">
-                        <a class="nav-link text-white" href="/auth/logout"> <!-- <i class="fas fa-user"></i> --> <%= current_user.username %> <i class='fas fa-sign-out-alt'></i>
+					
+                    <!-- <li class="nav-item dropdown dropdown-logout sub-heading  pt-1">
+                        <a class="nav-link text-white" href="/auth/logout"> <!-- <i class="fas fa-user"></i> --> <%#= current_user.username %> <!-- <i class='fas fa-sign-out-alt'></i> -->
 </a>
                         <!-- Commented dropdown for Signout based on the discussion on 07/15/2020 -->
                         <!-- <div class="dropdown-menu logout-menu">
                             <a class="dropdown-item sub-heading pt-2" style="font-size:16px !important" href="/auth/logout"> <i class="fas fa-sign-out-alt"></i> Logout</a>
                         </div>
                         -->
-                    </li> 
+                    <!-- ></li>  -->
+					
+					<!-- Updated Signout with Account update based on the discussion on 10/24/2020 -->
+                    <li class="nav-item dropdown dropdown-analytics sub-heading  pt-1">
+                        <a class="nav-link text-white dropdown-toggle" href="#"> <i class="fas fa-user"></i> <%= current_user.username %></a>
+                        <div class="dropdown-menu analytics-menu">
+                            <a class="dropdown-item sub-heading pt-2" style="font-size:16px !important" href="/users/edit"> <i class="fas fa-cog" aria-hidden="true"></i> Settings</a>
+                            <a class="dropdown-item sub-heading pt-2" style="font-size:16px !important" href="/auth/logout"> <i class="fas fa-sign-out-alt"></i> Logout</a>
+                        </div>
+                    </li>
+					
                 <% end %>
             </ul>
 

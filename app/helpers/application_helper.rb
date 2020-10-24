@@ -21,8 +21,6 @@ module ApplicationHelper
         elsif request.path.include?("/voice-reader-skill/details")
           class_name = "skills"
         end
-        p "!@!@!@!@"
-        p class_name
         return class_name
       end
 end

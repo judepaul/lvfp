@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
   
+  get 'users/edit'
+
+  get 'users/update_password'
+
   get "/knowledge", to: "application#knowledge"
   get "/help", to: "application#help"
   get "/faq", to: "application#faq"
@@ -45,7 +49,13 @@ Rails.application.routes.draw do
   
   devise_scope :user do
     patch "/confirm" => "confirmations#confirm"
+    patch '/users/update_password' => "users#update_password"
   end
   
-
+  resource :user, only: [:edit] do
+    collection do
+      #patch 'update_password'
+    end
+  end
+  
 end

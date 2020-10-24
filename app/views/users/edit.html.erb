@@ -1,0 +1,58 @@
+<main class="login-form">
+    <div class="cotainer">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header text-white text-left">Edit Details</div>
+                    <div class="card-body">
+                            <%= render "layouts/shared/flash_message" %>
+<%= form_for(@user, :url => { :action => "update_password" } ) do |f| %>
+
+                            <div class="form-group row">
+                                <label for="email_address" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
+                                <div class="col-md-6">
+                                    <%= f.email_field :email, value: "#{@user.email}", :autocomplete => "off", disabled:true, class: "form-control" %>
+                                </div>
+                            </div>
+							
+                            <div class="form-group row">
+                                <label for="username" class="col-md-4 col-form-label text-md-right">Username</label>
+                                <div class="col-md-6">
+                                    <%= f.text_field :username, value: "#{@user.username}", autofocus: true, class: "form-control", autocomplete: "username" %>
+                                </div>
+                            </div>
+							
+							<div class="form-group row">
+							                                <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+							                                <div class="col-md-6">
+							                                    <%= f.password_field :password, autocomplete: "new-password", class: "form-control", required:true %>
+							                                    <!% if @minimum_password_length %>
+							                                      <em>(<%= @minimum_password_length %> characters minimum)</em>
+							                                    <!% end %><br />
+							                                </div>
+							                            </div>
+
+							                            <div class="form-group row">
+							                                <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+							                                <div class="col-md-6">
+							                                    <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control",  required:true %>
+							                                    <!% if @minimum_password_length %>
+							                                      <em>(<%= @minimum_password_length %> characters minimum)</em>
+							                                    <!% end %><br />
+							                                </div>
+							                            </div>
+							
+							                            <div class="col-md-6 offset-md-6">
+							                                    <%= f.submit "Submit", class: "btn btn-outline-primary" %>
+							                                <%# <a href="#" class="btn btn-link">
+							                                    Forgot Your Password?
+							                                </a> %>
+							                            </div>
+<% end %>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+</main>
