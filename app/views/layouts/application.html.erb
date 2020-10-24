@@ -14,12 +14,16 @@
       <%= render 'layouts/shared/navbar' %>
     </header>
     <!-- END Header -->
-    <div class="body">
-      <%= yield %>
-    </div>
-	<div class="row" stype="padding-bottom:40px;"></div>
+   <div id="page-container">
+      <div id="content-wrap">
+      	<%= yield %>
+      </div>
+	  <footer id="footer">
+	  	<%= render 'layouts/shared/footer_menu' %>
+	  </footer>
     <!-- Footer -->
     <%= render 'layouts/shared/footer' %>
     <!-- END Footer -->
+</div>
   </body>
 </html>

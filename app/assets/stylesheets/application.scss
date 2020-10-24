@@ -260,4 +260,22 @@ input[type="text"], textarea, select, button {
 
 .footer-menu {
 	 text-decoration: none!important;
+	 font-size: 14px!important;
+}
+
+
+#page-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+#content-wrap {
+  padding-bottom: 2.5rem;    /* Footer height */
+}
+
+#footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 1.0rem;            /* Footer height */
 }

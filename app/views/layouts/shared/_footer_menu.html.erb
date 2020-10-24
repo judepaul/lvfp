@@ -1,0 +1,31 @@
+			<div class="row text-center text-xs-center text-sm-left text-md-left" style="background-color:#b8e2fc; color:#FFF!important;padding: 10px 10px 40px 10px !important;">
+			
+				<div class="col-xs-12 col-sm-4 col-md-4">
+					<ul class="list-unstyled quick-links">
+						<li><h6><a href="<%= !user_signed_in? ? '#':'/knowledge' %>" class="footer-menu" style="color:<%= !user_signed_in? ? '#808080':'#000' %>; " >Knowledge Base</a></h6></li>
+						<li><h6><a href="<%= !user_signed_in? ? '#':'/help' %>" class="footer-menu" style="color:<%= !user_signed_in? ? '#808080':'#000' %>; ">Help</a></h6></li>
+						<li><h6><a href="<%= !user_signed_in? ? '#':'/faq' %>" class="footer-menu" style="color:<%= !user_signed_in? ? '#808080':'#000' %>; ">FAQ</a></h6></li>
+						<li></li>
+						<li></li>
+					</ul>
+				</div>
+				<div class="col-xs-12 col-sm-4 col-md-4 text-md-center">
+					<ul class="list-unstyled quick-links">
+						<li><h6><a href="/contacts/new" class="footer-menu" style="color: #000;">Contact Us</a></h6></li>
+						<li><h6><a href="<%= !user_signed_in? ? '#':'/support' %>" class="footer-menu" style="color:<%= !user_signed_in? ? '#808080':'#000' %>; ">Support</a></h6></li>
+						<li><h6><a href="/pricing" class="footer-menu" style="color:#000;">Pricing</a></h6></li>
+						<li></li>
+						<li></li>
+					</ul>
+				</div>
+				<div class="col-xs-12 col-sm-4 col-md-4 text-md-right">
+					<ul class="list-unstyled quick-links">
+						<li><h6><a href="/terms" class="footer-menu" style="color: #000;">Terms & Conditions</a></h6></li>
+						<li><h6><a href="/privacy" class="footer-menu" style="color: #000;">Privacy</a></h6></li>
+						<li><h6><a href="/media" class="footer-menu" style="color: #000;">Media</a></h6></li>
+						<li></li>
+						<li></li>
+					</ul>
+				</div>
+			</div>
+			<div class="row" stype="padding-bottom:100px;"></div>
