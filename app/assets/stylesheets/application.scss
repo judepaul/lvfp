@@ -185,7 +185,7 @@ input[type="text"], textarea, select, button {
     color: #fff;
     border-color: #5e90af !important;
     padding: 4px 8px 4px 8px !important;
-    font-size:20px !important;
+    font-size:18px !important;
     letter-spacing:.03rem !important;
 }
 
@@ -260,13 +260,14 @@ input[type="text"], textarea, select, button {
 
 .footer-menu {
 	 text-decoration: none!important;
-	 font-size: 14px!important;
+	 font-size: 15px!important;
 }
 
 
 #page-container {
   position: relative;
   min-height: 100vh;
+  padding-top:30px;
 }
 
 #content-wrap {
