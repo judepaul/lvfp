@@ -1,16 +1,30 @@
-<h2>Resend confirmation instructions</h2>
+<main class="login-form">
+	<div class="cotainer">
+		<div class="row justify-content-center">
+			<div class="col-md-8">
+				<div class="card">
+					<div class="card-header text-white text-center">Resend confirmation instructions</div>
+					<div class="card-body">
+						<%= render "layouts/shared/flash_message" %>
+						<div class="row" style="padding:20px"></div>
 
-<%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Resend confirmation instructions" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+						<%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+						<%#= render "devise/shared/error_messages", resource: resource %>
+						<div class="form-group row">
+							<label for="email" class="col-md-3 col-form-label text-md-right font-weight-bold">Email</label>
+							<div class="col-md-7">
+								<%= f.email_field :email, value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email), autofocus: true, class: "form-control", autocomplete: "email", required:true %>
+							</div>
+						</div>
+						<div class="col-md-6 offset-md-6 pt-3 pb-2">
+							<%= f.submit "Submit", class: "btn btn-outline-primary" %>
+						</div>
+						<% end %>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+</main>
+						<%#= render "devise/shared/links" %>

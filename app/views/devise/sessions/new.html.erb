@@ -21,15 +21,13 @@
                                 </div>
                             </div>
 
-                            <!-- <div class="form-group row">
-                                <div class="col-md-6 offset-md-4">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="remember"> Remember Me
-                                        </label>
-                                    </div>
+                            <div class="form-group row">
+                                <div class="col-md-7 offset-md-4 text-md-right">
+			                        <div>
+			                          <a href="/auth/secret/new" style="text-decoration:none;"> Forgot Password? </a>
+			                        </div>
                                 </div>
-                            </div>-->
+                            </div>
                             <div class="form-group row">
                                 <label for="" class="col-md-4 col-form-label text-md-right label-text"></label>
                                 <div class="col-md-7 text-center">
@@ -41,9 +39,14 @@
                     <% end %>
                     </div>
                     </form>
-                    <div class="col-md-12 text-center pt-0 label-text" style="text-align:center !important;">
-                        <div class="" style="">
-                                    Don't have an account? , <a href="/auth/register/signup" style="padding:0 6px 0 3px;text-decoration:none;"> Register </a>
+                    <div class="col-md-11 text-center pt-0" style="text-align:right !important;">
+                        <div>
+                                    Don't have an account? <a href="/auth/register/signup" style="padding:0 12px 0 3px;text-decoration:none;"> Register </a>
+                                </div>
+                    </div>
+                    <div class="col-md-11 text-center pt-0" style="text-align:right !important;">
+                        <div>
+                                    Not received confirmation email? <a href="/auth/verification/new" style="padding:0 12px 0 3px;text-decoration:none;"> Re-Send </a>
                                 </div>
                     </div>
                 </div>
@@ -54,3 +57,4 @@
     </div>
 
 </main>
+<%#= render "devise/shared/links" %>

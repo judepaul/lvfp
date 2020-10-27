@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   get 'dashboard/index'
 
   #devise_for :users
-  devise_for :users, :controllers => {:confirmations => "confirmations", :sessions => 'sessions', :registrations => "registrations"}, path: 'auth', path_names: { sign_in: 'login', sign_out: 'logout', password: 'secret', confirmation: 'verification', unlock: 'unblock', registration: 'register', sign_up: 'signup' }
+  devise_for :users, :controllers => {:passwords => 'passwords', :confirmations => "confirmations", :sessions => 'sessions', :registrations => "registrations"}, path: 'auth', path_names: { sign_in: 'login', sign_out: 'logout', password: 'secret', confirmation: 'verification', unlock: 'unblock', registration: 'register', sign_up: 'signup' }
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   authenticated :user do
     root to: 'dashboard#index', as: :authenticated_root

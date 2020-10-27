@@ -4,7 +4,25 @@ class ConfirmationsController < Devise::ConfirmationsController
   end
 
   def create
-    super
+    email = params[:user][:email]
+    p User.exists?(email: email)
+    if User.exists?(email: email)
+      p "resource_class.send_confirmation_instructions(resource_params)"
+      p resource_class.send_confirmation_instructions(resource_params)
+      self.resource = resource_class.send_confirmation_instructions(resource_params)
+      yield resource if block_given?
+
+      if successfully_sent?(resource)
+        respond_with({}, location: after_resending_confirmation_instructions_path_for(resource_name))
+      else
+        respond_with(resource)
+      end
+    elsif User.where(email: email).where( "confirmation_token IS NULL " ).present?
+      redirect_to new_user_confirmation_path, notice: "No matching email address found." 
+    else
+      p "@@@@"
+      redirect_to new_user_confirmation_path, notice: "No matching email address found." 
+    end
   end
 
   def show

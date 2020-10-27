@@ -5,14 +5,14 @@
                 <div class="card">
                     <div class="card-header text-white text-center">Create your account</div>
                     <div class="card-body">
-                            <%= render "layouts/shared/flash_message" %>
+                            <%#= render "layouts/shared/flash_message" %>
                             <%#= render "devise/shared/error_messages", resource: resource %>
                           <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-
+						  	<%= render "layouts/shared/flash_message" %>
                             <div class="form-group row">
                                 <label for="username" class="col-md-4 col-form-label text-md-right">Username</label>
                                 <div class="col-md-6">
-                                    <%= f.text_field :username, autofocus: true, class: "form-control", autocomplete: "username" %>
+                                    <%= f.text_field :username, autofocus: true, class: "form-control", autocomplete: "username", required:true %>
                                 </div>
                             </div>
 							
@@ -26,7 +26,7 @@
                             <div class="form-group row">
                                 <label for="email_address" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
                                 <div class="col-md-6">
-                                    <%= f.email_field :email, class: "form-control" %>
+                                    <%= f.email_field :email, class: "form-control", required:true %>
                                 </div>
                             </div>
 							
