@@ -22,7 +22,7 @@
                 <% unless user_signed_in? %>
                 <% if controller.controller_name != "sessions" %>
                 <li class="nav-item sub-heading">
-                    <a class="nav-link text-white" href="/auth/login">Login</a>
+                    <a class="nav-link text-white" href="/auth/login">Sign In</a>
                 </li>
                 <% end %>
                 <!% if controller.controller_name != "leads" %>
@@ -87,7 +87,7 @@
                         <a class="nav-link text-white dropdown-toggle" href="#"> <i class="fas fa-user"></i> <%= current_user.username %></a>
                         <div class="dropdown-menu analytics-menu">
                             <a class="dropdown-item sub-heading pt-2" style="font-size:16px !important" href="/users/edit"> <i class="fas fa-cog" aria-hidden="true"></i> Settings</a>
-                            <a class="dropdown-item sub-heading pt-2" style="font-size:16px !important" href="/auth/logout"> <i class="fas fa-sign-out-alt"></i> Logout</a>
+                            <a class="dropdown-item sub-heading pt-2" style="font-size:16px !important" href="/auth/logout"> <i class="fas fa-sign-out-alt"></i> Sign Out</a>
                         </div>
                     </li>
 					

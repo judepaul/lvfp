@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   get 'dashboard/index'
 
   #devise_for :users
-  devise_for :users, :controllers => {:passwords => 'passwords', :confirmations => "confirmations", :sessions => 'sessions', :registrations => "registrations"}, path: 'auth', path_names: { sign_in: 'login', sign_out: 'logout', password: 'secret', confirmation: 'verification', unlock: 'unblock', registration: 'register', sign_up: 'signup' }
+  devise_for :users, :controllers => {:passwords => 'passwords', :sessions => 'sessions', :registrations => "registrations"}, path: 'auth', path_names: { sign_in: 'login', sign_out: 'logout', password: 'secret', confirmation: 'verification', unlock: 'unblock', registration: 'register', sign_up: 'signup' }
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   authenticated :user do
     root to: 'dashboard#index', as: :authenticated_root
@@ -47,9 +47,12 @@ Rails.application.routes.draw do
 
   post "/voice-reader-studio/articles/getArticlesByType" => "speeches#getArticlesByType", as: "getArticlesByType"
   
+  
   devise_scope :user do
     patch "/confirm" => "confirmations#confirm"
     patch '/users/update_password' => "users#update_password"
+    get "auth/signup/instructions", :controller => "registrations", :action => "instructions"
+    
   end
   
   resource :user, only: [:edit] do

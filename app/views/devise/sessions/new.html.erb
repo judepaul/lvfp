@@ -3,7 +3,7 @@
         <div class="row justify-content-center">
             <div class="col-md-5">
                 <div class="card">
-                    <div class="card-header text-white card-heading"><i class="fas fa-user"></i> Login</div>
+                    <div class="card-header text-white card-heading"><i class="fas fa-user"></i> Sign In</div>
                     <div class="card-body">
                         <%= render "layouts/shared/flash_message" %>
                         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
@@ -41,14 +41,14 @@
                     </form>
                     <div class="col-md-11 text-center pt-0" style="text-align:right !important;">
                         <div>
-                                    Don't have an account? <a href="/auth/register/signup" style="padding:0 12px 0 3px;text-decoration:none;"> Register </a>
+                                    New User? <a href="/auth/register/signup" style="padding:0 12px 0 3px;text-decoration:none;"> Sign Up </a>
                                 </div>
                     </div>
-                    <div class="col-md-11 text-center pt-0" style="text-align:right !important;">
+                    <!-- <div class="col-md-11 text-center pt-0" style="text-align:right !important;">
                         <div>
                                     Not received confirmation email? <a href="/auth/verification/new" style="padding:0 12px 0 3px;text-decoration:none;"> Re-Send </a>
                                 </div>
-                    </div>
+                    </div> -->
                 </div>
                 
             </div>

@@ -31,7 +31,7 @@ class ConfirmationsController < Devise::ConfirmationsController
       elsif params[resource_name].try(:[], :confirmation_token).present?
         @original_token = params[resource_name][:confirmation_token]
       end
-
+      self.role = 2
       self.resource = resource_class.find_by_confirmation_token @original_token
     end
 

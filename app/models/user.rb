@@ -12,41 +12,41 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :confirmable
+         :recoverable, :rememberable, :trackable, :confirmable, :validatable, password_length: 6..128
 
   enum role: [:user, :system_admin, :vc_admin, :super_vc_admin]
 
-  validates :email, 
-            :presence => {:message => "Title can't be blank." },
-            :uniqueness => {:message => "Email already taken."},
-            :length => { :maximum => 100, :message => "Must be less than 100 characters"},
-            on: :create
-validates :username, uniqueness: true
-#validate :email_uniqueness
-PASSWORD_FORMAT = /\A
-  (?=.{8,})          # Must contain 8 or more characters
-  (?=.*\d)           # Must contain a digit
-  (?=.*[a-z])        # Must contain a lower case character
-  (?=.*[A-Z])        # Must contain an upper case character
-  (?=.*[[:^alnum:]]) # Must contain a symbol
-/x
-
-validates :password, 
-  presence: true, 
-  length: { in: Devise.password_length }, 
-  format: { with: PASSWORD_FORMAT }, 
-  confirmation: true, 
-  on: :create 
-
-validates :password, 
-  allow_nil: true, 
-  length: { in: Devise.password_length }, 
-  format: { with: PASSWORD_FORMAT }, 
-  confirmation: true, 
-  on: :update
-
-# Only allow letter, number, underscore and punctuation.
-validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true
+#   validates :email,
+#             :presence => {:message => "Title can't be blank." },
+#             :uniqueness => {:message => "Email already taken."},
+#             :length => { :maximum => 100, :message => "Must be less than 100 characters"},
+#             on: :create
+# validates :username, uniqueness: true
+# #validate :email_uniqueness
+# PASSWORD_FORMAT = /\A
+#   (?=.{6,})          # Must contain 8 or more characters
+#   (?=.*\d)           # Must contain a digit
+#   (?=.*[a-z])        # Must contain a lower case character
+#   (?=.*[A-Z])        # Must contain an upper case character
+#   (?=.*[[:^alnum:]]) # Must contain a symbol
+# /x
+#
+# validates :password,
+#   presence: true,
+#   length: { in: Devise.password_length },
+#   format: { with: PASSWORD_FORMAT },
+#   confirmation: true,
+#   on: :create
+#
+# validates :password,
+#   allow_nil: true,
+#   length: { in: Devise.password_length },
+#   format: { with: PASSWORD_FORMAT },
+#   confirmation: true,
+#   on: :update
+#
+# # Only allow letter, number, underscore and punctuation.
+# validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true
 
   def set_default_role
     self.role ||= :vc_admin

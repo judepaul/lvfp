@@ -15,16 +15,12 @@ class RegistrationsController < Devise::RegistrationsController
         # end
         username = params[:user][:username]
         email = params[:user][:email]
-        p "$$$$$$$$"
-        p User.exists?(username: username)
-     if User.exists?(username: username)
-       p "!!!!!"
+     if User.exists?(username: username) &&  User.exists?(email: email)
+        redirect_to new_user_registration_path, notice: "Username and Email already exists. Try with different ones" 
+      elsif User.exists?(username: username)
         redirect_to new_user_registration_path, notice: "Username already exists. Try with another one" 
       elsif User.exists?(email: email)
         redirect_to new_user_registration_path, notice: "Email already taken. Try with another one" 
-      elsif User.exists?(email: email) && User.exists?(username: username)
-        p "QQQQQQQQ"
-        redirect_to new_user_registration_path, notice: "Username and Email already exists. Try with different ones" 
      else
         super
         #set_flash_message(:notice, :signed_up_first_time)
@@ -39,9 +35,17 @@ class RegistrationsController < Devise::RegistrationsController
       end
     end
     
+    def instructions
+      
+    end
+      
     protected 
     def configure_permitted_parameters
        devise_parameter_sanitizer.permit(:sign_up, keys: [:email, :firstname, :lastname])
        # devise_parameter_sanitizer.for(:account_update).push(:name, :surname, :email, :avatar)
     end
+    
+    def after_inactive_sign_up_path_for(resource)
+        auth_signup_instructions_path
+      end
 end
