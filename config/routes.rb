@@ -52,7 +52,7 @@ Rails.application.routes.draw do
     patch "/confirm" => "confirmations#confirm"
     patch '/users/update_password' => "users#update_password"
     get "auth/signup/instructions", :controller => "registrations", :action => "instructions"
-    
+    get "auth/secret/instructions", :controller => "passwords", :action => "instructions"
   end
   
   resource :user, only: [:edit] do
