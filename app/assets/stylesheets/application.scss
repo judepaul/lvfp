@@ -78,8 +78,9 @@ body {
     min-height: 100%;
     margin-bottom: 100px;
     clear: both;
+	position:relative;
     font-family: "Nunito-Regular";
-    font-size:16px;
+    font-size:17px;
     // letter-spacing:.03rem !important;
  }
 
@@ -261,12 +262,13 @@ input[type="text"], textarea, select, button {
 .footer-menu {
 	 text-decoration: none!important;
 	 font-size: 15px!important;
+	 padding-left:15px;
 }
 
 
 #page-container {
   position: relative;
-  min-height: 100vh;
+  //min-height: 100vh;
   padding-top:30px;
 }
 
@@ -279,4 +281,46 @@ input[type="text"], textarea, select, button {
   bottom: 0;
   width: 100%;
   height: 1.0rem;            /* Footer height */
+}
+
+
+
+.dropbtn {
+  //background-color: #3498DB;
+  color: white;
+  //padding: 16px;
+  font-size: 16px;
+  border: none;
+}
+
+.dropup {
+  position: relative;
+  display: inline-block;
+}
+
+.dropup-content {
+  display: none;
+  position: relative;
+  background-color: #F0F8FF;
+  min-width: 210px;
+  bottom: 50px;
+  z-index: -1;
+}
+
+.dropdown-menu a {
+  color: black;
+  padding: 6px 8px;
+  text-decoration: none;
+  display: block;
+  bottom: 50px;
+}
+
+.dropdown-menu a:hover {background-color: #87CEFA}
+
+.dropup:hover .dropdown-menu {
+  display: block;
+}
+
+.dropup:hover {
+  background-color: #2980B9;
 }

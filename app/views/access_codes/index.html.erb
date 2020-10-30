@@ -1,4 +1,4 @@
-<div class="row" style="height:40px"></div>
+<div class="row" style="height:20px"></div>
  <div class="container">
  <!-- <div class="row text-center">
   <div class="col-md-4">
@@ -31,7 +31,7 @@
   </div>
 </div> -->
 
- 
+<span class="heading"> <i class="fas fa-layer-group"></i> Manage Campaigns</span>
 <!-- <p class="col-md-12 offset-md-1 pb-3" id="notice"><%#= notice %></p> -->
         <div class="row">
             <div class="col-md-10 offset-md-1 pb-3 btn-outline-light"><h5 style="padding: 2px 5px 2px 0px;color:#5C5656;text-align:left;font-size:22px !important;"><%= notice %></h5></div>
@@ -41,14 +41,14 @@
 <!-- Remove the outline - 07/16/2020 - by Jude -->
 <!-- <div class="card" style="width:100%;"> -->
 <div class="card" style="width:100%; border:none !important;">
-  <div class="card-header text-white">
+  <!-- <div class="card-header text-white">
     <div class="row">
       <div class="col-md-6 card-heading"><i class="fas fa-layer-group"></i> Manage Campaigns</div>
         <div class="col-md-6 text-right">
             <span style="cursor: pointer;" class="campaing-show"><i class="fas fa-info-circle fa-lg"></i></span>
         </div>
     </div>
-  </div>
+  </div> -->
   <div class="card-body" style="height:auto;">
 
 <% if @access_codes.blank? %>
@@ -61,19 +61,22 @@
 <table width=100% class="table table-bordered table-sm">
   <thead class="table-heading">
     <tr class="thead-light text-center">
-      <th width="45%" colspan="2"class="align-top">Listener Group</th>
+      <!-- As per the discussion on 10/29/2020 Listener Group was removed by Jude on 10/30/2020 -->	
+      <!-- <th width="45%" colspan="2"class="align-top">Listener Group</th> -->
+	  <th width="40%" rowspan="1" class="align-middle">Campaign Code</th>
       <!-- As per the discussion on 07/14/2020 it was updated by Jude on 07/15/2020 -->
       <!-- <th width="40%" rowspan="2" class="align-top">Campaign Name (Article Count)</th> -->
-      <th width="40%" rowspan="2" class="align-middle">Campaign Name</th>
-      <th width="40%" rowspan="2" class="align-middle"># of Articles</th> 
+      <th width="40%" rowspan="1" class="align-middle">Campaign Name</th>
+      <th width="40%" rowspan="1" class="align-middle"># of Articles</th> 
       <% if current_user.super_vc_admin? %>
         <th width="15%" rowspan="2" class="align-top">Action</th>
       <% end %>
     </tr>
-    <tr class="thead-light text-center align-top">
+    <!-- As per the discussion on 10/29/2020 Listener Group was removed by Jude on 10/30/2020 -->	
+    <!-- <tr class="thead-light text-center align-top">
       <th width="30%" class="align-top">Name</th>
       <th width="15%" class="align-top">Code</th>
-    </tr>
+    </tr> -->
   </thead>
 
 <tbody>
@@ -85,7 +88,7 @@
       <td style="text-align:center;" onclick="location.href='<%#= edit_access_code_path(code) %>'"><%#= code.code %></td>
       <td style="text-align:center;" onclick="location.href='<%#= edit_access_code_path(code) %>'"><%#= code.title %> (<%#= article_count code.id %>)</td> -->
 
-      <td style="text-align:center;"><%= listener_group_name(code.listener_id) %></td>
+      <!-- <td style="text-align:center;"><%= listener_group_name(code.listener_id) %></td> -->
       <td style="text-align:center;"><%= code.code %></td>
       <!-- As per the discussion on 07/14/2020 it was updated by Jude on 07/15/2020 -->
       <td style="text-align:center;"><%= link_to edit_access_code_path(code), style:"color:#000;cursor: pointer;text-decoration:none;" do %> <%= code.title %> <i class="fa fa-link" style="font-size:14px; color: #61318f !important;" aria-hidden="true"></i> <% end %></td>
@@ -110,7 +113,7 @@
 <% end %>
 <br/>
 
-<div class="actions text-right" style="padding:5px 40px 30px 0; bottom: 0; right: 0;">
+<div class="actions text-right" style="padding:5px 5px 30px 0; bottom: 0; right: 0;">
 <% if current_user.super_vc_admin? %>
 <%= link_to 'Create Campaign', new_access_code_path, class: 'btn btn-outline-primary' %>
 <% else %>

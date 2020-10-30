@@ -1,7 +1,7 @@
 <main class="login-form">
     <div class="cotainer">
 		<div class="row">
-			<div class="col-md-7">
+			<div class="col-md-6">
 				<h1 style="font-size:42px!important;font-family: Laila-Bold;">
 					Your subscribers can use their voice to interact with your brand in a way that was never possible before as well as listen to the email content, anytime and anywhere.
 				</h1>
@@ -16,29 +16,29 @@
                         <%= render "layouts/shared/flash_message" %>
                         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
                             <div class="form-group row">
-                                <label for="email_address" class="col-md-4 col-form-label text-md-right label-text">Username</label>
-                                <div class="col-md-7">
-                                    <%= f.text_field :username, autofocus: true, class: "form-control", autocomplete: "username" %>
+                                <label for="email_address" class="col-md-4 col-form-label text-md-left label-text">Username</label>
+                                <div class="col-md-8">
+                                    <%= f.text_field :username, autofocus: true, class: "form-control", autocomplete: "username", required:true %>
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label for="password" class="col-md-4 col-form-label text-md-right label-text">Password</label>
-                                <div class="col-md-7">
-                                    <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
+                                <label for="password" class="col-md-4 col-form-label text-md-left label-text">Password</label>
+                                <div class="col-md-8">
+                                    <%= f.password_field :password, autocomplete: "current-password", class: "form-control", required:true %>
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <div class="col-md-7 offset-md-4 text-md-right">
+                                <div class="col-md-8 offset-md-4 text-md-right">
 			                        <div>
 			                          <a href="/auth/secret/new" style="text-decoration:none;"> Forgot Password? </a>
 			                        </div>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="" class="col-md-4 col-form-label text-md-right label-text"></label>
-                                <div class="col-md-7 text-center">
+                                <div class="col-md-6">New User? <a href="/auth/register/signup" style="padding:0 12px 0 3px;text-decoration:none;"> Sign Up </a></div>
+                                <div class="col-md-6 text-right">
                                     <%= f.submit "Submit", class: "btn btn-outline-primary sub-heading" do %>
 									<i class="fa fa-sign-in-alt"></i>
 									<% end %>
@@ -49,17 +49,17 @@
                     </form>
                     <div class="col-md-11 text-center pt-0" style="text-align:right !important;">
                         <div>
-                                    New User? <a href="/auth/register/signup" style="padding:0 12px 0 3px;text-decoration:none;"> Sign Up </a>
+                                    
                                 </div>
                     </div>
-					<div class="row">
+					<!-- <div class="row">
 						<div class="col-sm-6">
 						                            <p class="google"></span><small class="pl-3 pr-1">Sign up with google</small></p>
 						                        </div>
 						                        <div class="col-sm-6">
 						                            <p class="fb"><small class="pl-3 pr-1">Sign up with facebook</small></p>
 						                        </div>
-					</div>
+					</div> -->
                     <!-- <div class="col-md-11 text-center pt-0" style="text-align:right !important;">
                         <div>
                                     Not received confirmation email? <a href="/auth/verification/new" style="padding:0 12px 0 3px;text-decoration:none;"> Re-Send </a>
