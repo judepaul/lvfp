@@ -20,21 +20,28 @@
     font-weight: bold;
 }
 
-.text-white
+.tetext-white
 {
     color: #FFF;
+}
+
+.text-black
+{
+    color: #043757;
 }
 
 .navbar 
 {
     //background-color: #ab61f0;
-    background-color: #1DA1F2;
+    //background-color: #1DA1F2;
+	background-color: #adddfc;
 }
 .card-header
 {
     //background-color: #d3b2df;
     //background-color: ab61f0
-    background-color: #1DA1F2!important;
+    //background-color: #1DA1F2!important;
+	background-color: #adddfc!important;
     font-size:20px;
 }
 .navbar-laravel
@@ -117,3 +124,13 @@
 .or {
     width: 10%
 }
+
+
+
+//.bg_login {
+//
+//    background-size: cover;
+//    background-position: 50% 50%;
+//    background-image: url('bg-light-blue.jpg');
+//    background-repeat:repeat;
+//  }
