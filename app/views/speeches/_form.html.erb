@@ -24,7 +24,7 @@
             </div>
           </div> <!-- card-header ends here -->   
           <div class="card-body">
-            <%= form_with(model: speech, local: true) do |form| %>
+            <%= form_with(model: speech, local: true, id: 'edit-articles') do |form| %>
             <% unless @speech.new_record? %>    
               <% unless @speech.published? %>   
                 <div class="row">
@@ -311,5 +311,35 @@ $('#save_content').click(function(){
       $(".play").html("").html('<i class="fa fa-play-circle fa-lg" aria-hidden="true"></i>');
     } 
 }
+
+
+// var form = $('#edit-articles'),
+// original = form.serialize();
+// form.submit(function(){
+//     window.onbeforeunload = null
+// })
+//
+// window.onbeforeunload = function(){
+// 	alert((form.serialize() != original));
+//     if (form.serialize() != original)
+//         return 'Are you sure you want to leave?'
+// }
+
+var isSubmitting = false;
+
+$(document).ready(function () {
+    $('#edit-articles').submit(function(){
+        isSubmitting = true
+    })
+
+    $('#edit-articles').data('initial-state', $('form').serialize());
+
+    $(window).on('beforeunload', function() {
+        if (!isSubmitting && $('#edit-articles').serialize() != $('#edit-articles').data('initial-state')){
+            return 'You have unsaved changes which will not be saved.'
+        }
+    });
+})
+
 
 </script>

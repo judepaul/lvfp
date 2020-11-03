@@ -92,8 +92,11 @@
                     <!-- Commented by Jude on 04/10/2020 Hide the header based on the discussion -->
                     <th scope="col"><!-- Articles (<%#= speech_arr.length %>) -->
                     <div class="row">
-            <div class="col-md-6 pl-0 table-heading"><i class="fas fa-newspaper"></i> Active articles in the skill for <%= @access_code.title %> </div>
-            <div class="col-md-6 text-right table-heading">
+            <div class="col-md-8 pl-0 table-heading"><i class="fas fa-newspaper"></i> 
+				<!-- Active articles in the skill for <%#= @access_code.title %> --> 
+				Articles available for Listening - <%= @access_code.title %>
+			</div>
+            <div class="col-md-4 text-right table-heading">
               <span style="cursor: pointer;" class="campaing-show">Published</span>
             </div>
         </div>
