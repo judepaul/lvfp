@@ -5,22 +5,38 @@
 
 <div class="col-md-6">
 <div class="card">
-  <div class="card-header" style="color:#FFF; font-weight:bold;">Total Campaigns - <%= @campaigns_count %></div>
+  <div class="card-header text-black" style="font-weight:bold;">Total Campaigns - <%= @campaigns_count %></div>
   <div class="card-body" style="max-height:300px; overflow-y: scroll;">
+  	  <table width=100% class="table table-bordered table-sm">
+  	    <thead class="table-heading">
+  	      <tr class="thead-light text-center">
+  	  		<th width="10%" rowspan="1" class="align-middle">No.</th>
+  			<th width="65%" rowspan="1" class="align-middle">Campaign</th>
+  			<th width="25%" rowspan="1" class="align-middle">Created by</th>
+  		</tr>
+  	</thead>
+  	<tbody>
+	  
     <% unless @campaigns.blank?
         @campaigns.each_with_index do |campaign, indx|
     %>
-        <p><%= indx+1 %>) <%= campaign.title %>
+	<tr>
+	<td style="text-align:center;"><%= indx+1 %></td>
+    <td><%= campaign.title.nil? ? "N/A" : campaign.title %></td>
+	<td><%= User.find(campaign.user_id).username %></td>
+	</tr>
     <%
         end
         end
     %>
+	</tbody>
+	</table>
   </div>
 </div>
 </div>
 <div class="col-md-6">
 <div class="card">
-  <div class="card-header" style="color:#FFF; font-weight:bold;">Total Articles - <%= @articles_count %></div>
+  <div class="card-header text-black" style="font-weight:bold;">Total Articles - <%= @articles_count %></div>
   <div class="card-body" style="max-height:300px; overflow-y: scroll;">
 	  <table width=100% class="table table-bordered table-sm">
 	    <thead class="table-heading">
