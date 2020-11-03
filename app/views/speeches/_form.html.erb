@@ -18,7 +18,7 @@
                       <span class="text-black pt-0">Draft</span>
                     <% end %>
                   </span>
-                  <span class="col-md-2 pt-0" style="cursor: pointer;" class="article-show"><i class="fas fa-info-circle fa-lg"></i></span>
+                  <span class="col-md-2 pt-0" style="cursor: pointer;" class="article-show"><!-- <i class="fas fa-info-circle fa-lg"></i> --></span>
                 </div>
               </div>
             </div>
@@ -28,7 +28,7 @@
             <% unless @speech.new_record? %>    
               <% unless @speech.published? %>   
                 <div class="row">
-                  <div class="col-md-10 offset-md-1 btn-outline-light"><h4 style="padding: 2px 5px 2px 0px;color:#5C5656;font-weight:bold;text-align:center;">Click Publish to make this article available to your users.</h4></div> 
+                  <div class="col-md-10 offset-md-1 btn-outline-light"><h4 style="padding: 2px 5px 2px 0px;color:#5C5656;font-weight:bold;text-align:center;">Click publish to make this article available to your users.</h4></div> 
                 </div>
                 <% end %>
               <% end %>            
@@ -272,9 +272,15 @@ $('#save_content').click(function(){
       };
       //alert(document.getElementById("add_speech_content").value);
       speech_content = document.getElementById("add_speech_content").value
-      speechParams.Text = speech_content.replace(/[!@#$%ˆ&*()+]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/g, '');
+	  speech_intro = document.getElementById("article_intro").value
+	  speech_title = document.getElementById("article_title").value
+	  speech_outro = document.getElementById("article_outro").value
+	  // var delayInMilliseconds = '&nbsp';
+// 	  intro_music = '<audio src="soundbank://soundlibrary/ui/gameshow/amzn_ui_sfx_gameshow_intro_01"/> <break strength="x-strong" />'
+// 	  speech_text = '<p>' +  speech_intro+delayInMilliseconds+speech_title+delayInMilliseconds+speech_content+delayInMilliseconds+speech_outro + '</p>'
+	  speech_text = speech_content
+      speechParams.Text = speech_text.replace(/[!@#$%ˆ&*()+]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/g, '');
       //speechParams.Text = $("#contentModal").find('speech_content').val();
-      
       // Create the Polly service object and presigner object
       var polly = new AWS.Polly({apiVersion: '2016-06-10'});
       var signer = new AWS.Polly.Presigner(speechParams, polly)
