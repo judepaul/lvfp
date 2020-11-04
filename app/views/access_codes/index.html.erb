@@ -32,12 +32,14 @@
 </div> -->
 <div class="row">
 	<div class="col-md-4">
-		<span class="heading"> <i class="fas fa-layer-group"></i> Manage Campaigns</span>
+		<span class="heading"> <i class="fas fa-layer-group"></i> Campaigns</span>
 	</div>
 	<div class="col-md-4">
 	</div>
 	<div class="col-md-4 text-right table-heading">
-		<%= link_to "View Articles", speeches_path, style:"color:#000;cursor: pointer;text-decoration:none;"%>
+		<% if current_user.access_code.present? %>
+			<%= link_to "View Articles", speeches_path, style:"color:#000;cursor: pointer;text-decoration:none;"%>
+		<% end %>
 	</div>
 </div>
 <!-- <p class="col-md-12 offset-md-1 pb-3" id="notice"><%#= notice %></p> -->
@@ -72,10 +74,11 @@
       <!-- As per the discussion on 10/29/2020 Listener Group was removed by Jude on 10/30/2020 -->	
 	  <th width="10%" rowspan="1" class="align-middle">No.</th>
       <!-- <th width="45%" colspan="2"class="align-top">Listener Group</th> -->
-	  <th width="20%" rowspan="1" class="align-middle">Campaign Code</th>
+	  <th width="30%" rowspan="1" class="align-middle">Campaign Access Code</th>
       <!-- As per the discussion on 07/14/2020 it was updated by Jude on 07/15/2020 -->
       <!-- <th width="40%" rowspan="2" class="align-top">Campaign Name (Article Count)</th> -->
-      <th width="50%" rowspan="1" class="align-middle">Campaign Name</th>
+      <th width="40%" rowspan="1" class="align-middle">Campaign Name</th>
+	  <th width="20%" rowspan="1" class="align-middle">Campaign Status</th>
       <!-- <th width="40%" rowspan="1" class="align-middle"># of Articles</th>  -->
       <% if current_user.super_vc_admin? %>
         <th width="15%" rowspan="2" class="align-top">Action</th>
@@ -91,7 +94,7 @@
 <tbody>
   <% @access_codes.each_with_index do |code, indx| %>
       <tr>
-		  <td style="text-align:center;"><%= indx+1 %></td>
+		  <td style="text-align:center;"><%= link_to edit_access_code_path(code), style:"color:#000;cursor: pointer;text-decoration:none;" do %><%= indx+1 %><%end%></td>
       <!-- 
       <tr style="cursor: pointer;">
       <td style="text-align:center;" onclick="location.href='<%#= edit_access_code_path(code) %>'"><%#= listener_group_name(code.listener_id) %></td>
@@ -99,10 +102,12 @@
       <td style="text-align:center;" onclick="location.href='<%#= edit_access_code_path(code) %>'"><%#= code.title %> (<%#= article_count code.id %>)</td> -->
 
       <!-- <td style="text-align:center;"><%= listener_group_name(code.listener_id) %></td> -->
-      <td style="text-align:center;"><%= code.code %></td>
+      <td style="text-align:center;"><%= link_to edit_access_code_path(code), style:"color:#000;cursor: pointer;text-decoration:none;" do %><%= code.code %><%end%></td>
       <!-- As per the discussion on 07/14/2020 it was updated by Jude on 07/15/2020 -->
       <td style="text-align:center;"><%= link_to edit_access_code_path(code), style:"color:#000;cursor: pointer;text-decoration:none;" do %> <%= code.title %> <!-- <i class="fa fa-link" style="font-size:14px; color: #61318f !important;" aria-hidden="true"></i> --> <% end %></td>
       <!-- <td style="text-align:center;"><%#= link_to speeches_path, style:"color:#000;cursor: pointer;text-decoration:none;" do %> <%#= article_count(code.id) %> <i class="fa fa-link" style="font-size:14px; color: #61318f !important;" aria-hidden="true"></i> <!% end %></td> -->
+	  <td style="text-align:center;"><%= link_to edit_access_code_path(code), style:"color:#000;cursor: pointer;text-decoration:none;" do %> Active <% end %></td>
+	  
       <% if current_user.super_vc_admin? %>
         <td style="text-align:center;"><%#= link_to 'Show', code %>
         <%#= link_to 'Edit', edit_access_code_path(code) %>

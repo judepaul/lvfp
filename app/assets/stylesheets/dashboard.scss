@@ -96,3 +96,14 @@
     cursor: pointer;
     background-color: #e9ecef;
   }
+  
+  
+  /* Centered text */
+  .centered {
+    position: absolute;
+	color: black;
+	font-size: 24px;
+    top: 20%;
+    left: 50%;
+    transform: translate(-20%, -20%);
+  }

@@ -49,7 +49,7 @@
     <div class="card" style="width:100%;">
     <div class="card-header text-black">
         <div class="row">
-            <div class="col-md-6 pl-0 table-heading"><i class="fas fa-clone"></i> Skill details for <%= @access_code.title %></div>
+            <div class="col-md-6 pl-0 table-heading"><i class="fas fa-clone"></i> Skill details for <%= @access_code.title.downcase %> campaign</div>
             </div>
     </div>
     <div class="card-body">
@@ -68,16 +68,16 @@
             </div>
             <div class="row" style="height:15px;"></div>
             <div class="row">
-                <div class="col-md-3 offset-md-1">Listener Access Code: </div>
+                <div class="col-md-3 offset-md-1">Campaign Access Code: </div>
                 <div class="col-md-4"><%= @access_code.code %></div>
             </div>
             <div class="row" style="height:15px;"></div>
             <div class="row">
                 <div class="col-md-3 offset-md-1">Instructions: </div>
                 <div class="col-md-8">
-                    Share this access code to your audiance/subscribers to access the content from skill.
-                    After a user invokes the "Voice Reader" skill, they will be prompted for the access code - <%= @access_code.code %>,
-                    and then they will be able to listen to the articles.
+                    Share this access code with your audience/subscribers to access the content from skill.
+                    After a user invokes the "Voice Reader" skill, they will be prompted for the access code
+                    and then they can listen to the articles.
                 </div>
             </div> 
             <div style="height: 30px;"></div>
@@ -94,7 +94,7 @@
                     <div class="row">
             <div class="col-md-8 pl-0 table-heading"><i class="fas fa-newspaper"></i> 
 				<!-- Active articles in the skill for <%#= @access_code.title %> --> 
-				Articles available for Listening - <%= @access_code.title %>
+				Articles available for listening
 			</div>
             <div class="col-md-4 text-right table-heading">
               <span style="cursor: pointer;" class="campaing-show">Published</span>
@@ -108,7 +108,9 @@
                 <tbody class="">
                     <tr style="cursor:pointer;" onclick='location.href="<%= edit_speech_path(speech, pg: "skill_details" ) %>"'>
                         <td>
-                            <p class="content">Title: <%= !speech.title.blank? ? speech.title : 'N/A' %> 
+                            <p class="content"><!-- Title: --> 
+								<%#= !speech.title.blank? ? speech.title : 'N/A' %>
+								<%= !speech.name.blank? ? speech.name.titlecase : 'N/A' %> 
                             <!-- <span style="padding: 1px 5px 1px 5px; color:#FFF; background-color: <%#= speech.published? ? 'green' : !speech.published? ? 'orange' : "" %>;"><strong><%#= speech.published? ? 'Published' : !speech.published? ? 'Draft' : "" %></strong></span> -->
                             <span style="padding: 3px 5px 1px 2px;">
                                 <span style="float: right; padding-right:10px; font-size:14px; letter-spacing:0px; font-weight:bold;">    
@@ -120,11 +122,11 @@
                                   <!-- <%#= link_to("/voice-chimp-skill/details",style:"text-decoration:none;",class:"btn btn-outline-success px-1 py-0") do %>Published<!% end %> -->
                                 </span>
                                 <span style="float: right; padding-right:10px; font-size:14px; letter-spacing:0px; font-weight:bold;">
-                                  <%#= image_tag 'icon-calendar', alt: "calendar" %><b data-toggle="tooltip" data-placement="top" title="The Date article was published/updated"> <%= speech.updated_at.strftime("%m/%d/%Y") %> </b>
+                                  <%#= image_tag 'icon-calendar', alt: "calendar" %><b data-toggle="tooltip" data-placement="top" title="The Date article was created/updated"> <%= speech.updated_at.strftime("%m/%d/%Y") %> </b>
                                 </span>
                               </span>
                             </p>
-                            <p class="content"><%= !speech.email_from.blank? ? speech.email_from.rstrip.concat('.') : '' %> <%= speech.content %></p>
+                            <p class="content"><%#= !speech.email_from.blank? ? speech.email_from.rstrip.concat('.') : '' %> <%#= speech.content %></p>
                         </td>
                     </tr>
                 </tbody>

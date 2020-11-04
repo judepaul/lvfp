@@ -31,7 +31,7 @@
 </div> -->
 <%#= render 'form', speech: @speech %>
 <div class="row" style="height:20px;"></div>
-<span class="heading"> <i class="fas fa-layer-group"></i> Manage Articles</span>
+<span class="heading"> <i class="fas fa-layer-group"></i> Articles</span>
 
     <div class="container-fluid px-0">
         <div class="row no-gutters">
@@ -114,7 +114,10 @@
                 <table class="table-borderless table-sm">
                   <tr>
                     <td width="900px" style="padding:0.3rem !important;">
-                      <span class="content label-text"  style="cursor:pointer;" onclick="location.href='<%= edit_speech_path(speech) %>'">Title: <%= !speech.title.blank? ? speech.title : 'N/A' %> </span>
+                      <span class="content label-text"  style="cursor:pointer;" onclick="location.href='<%= edit_speech_path(speech) %>'">
+						  <!-- Title: <%= !speech.title.blank? ? speech.title : 'N/A' %> --> 
+					  	  <%= !speech.name.blank? ? speech.name : 'N/A' %>
+					  </span>
                     </td>
                 <!-- <span style="padding: 1px 5px 1px 5px; color:#FFF; background-color: <%#= speech.published? ? 'green' : !speech.published? ? 'orange' : "" %>;"><strong><%#= speech.published? ? 'Published' : !speech.published? ? 'Draft' : "" %></strong></span> -->
                 
@@ -135,7 +138,7 @@
                       <% end %>
                     </td>
                     <td>
-                      <%#= image_tag 'icon-calendar', alt: "calendar", style:"padding-left:6px;" %><b data-toggle="tooltip" data-placement="top" title="The date article was published/updated"> <%= speech.updated_at.strftime("%m/%d/%Y") %> </b>
+                      <%#= image_tag 'icon-calendar', alt: "calendar", style:"padding-left:6px;" %><b data-toggle="tooltip" data-placement="top" title="The date article was created/updated"> <%= speech.updated_at.strftime("%m/%d/%Y") %> </b>
                       <!-- <i class="fas fa-edit" style="padding-left:6px;color:#61318f;cursor:pointer;" onclick="location.href='<%#= edit_speech_path(speech) %>'"></i> -->
                     </td>
                     <td>
@@ -147,7 +150,7 @@
                     </span>
                 
                   </td></tr></table>
-                <p class="content content-text" style="cursor:pointer;" onclick="location.href='<%= edit_speech_path(speech) %>'"><%= !speech.email_from.blank? ? speech.email_from.rstrip.concat('.') : '' %> <%= speech.content %></p>
+                <!-- <p class="content content-text" style="cursor:pointer;" onclick="location.href='<%#= edit_speech_path(speech) %>'"><%#= !speech.email_from.blank? ? speech.email_from.rstrip.concat('.') : '' %> <%#= speech.content %></p> -->
                 <div class="actions" style="display:none; float:right;">
                   
                   </div>

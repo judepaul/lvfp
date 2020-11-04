@@ -183,7 +183,7 @@ input[type="text"], textarea, select, button {
 // Bootstrap overridden
 .btn-outline-primary, .btn-outline-primary:hover, .btn-outline-primary:active, .btn-outline-primary:visited {
     background-color: #1DA1F2 !important;
-    color: #fff;
+    color: #000;
     border-color: #1DA1F2 !important;
     padding: 4px 8px 4px 8px !important;
     font-size:18px !important;
@@ -191,9 +191,9 @@ input[type="text"], textarea, select, button {
 }
 
 .btn-outline-primary:disabled {
-    background-color: #1DA1F2 !important;
-    color: #fff !important;
-    border-color: #1DA1F2 !important;
+    background-color: #D3D3D3 !important;
+    color: #696969 !important;
+    border-color: #A9A9A9 !important;
     padding: 8px 6px 8px 6px !important;
 }
 

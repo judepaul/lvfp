@@ -35,6 +35,15 @@
             <div class="row" style="height:30px;"></div>
             <div class="form-group row">
               <div class="mt-2 col-md-3 offset-md-1">
+                <span class="label-text">Name</span> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Name of an article."><%= image_tag("/assets/icon-info.png") %></span>
+              </div>
+              <div class="col-md-7">
+                <%= form.text_field :name, id: :article_name, class: 'form-control', value: "#{!@speech.blank? ? @speech.name : ""}", required: true, placeholder: 'Required - Enter Name', readonly: @speech.published? ? true : false %>
+              </div>
+            </div>
+			
+            <div class="form-group row">
+              <div class="mt-2 col-md-3 offset-md-1">
                 <span class="label-text">Intro</span> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Welcoming text at the begining of an article. ex. Hi/Hello/Welcome"><%= image_tag("/assets/icon-info.png") %></span>
               </div>
               <div class="col-md-7">

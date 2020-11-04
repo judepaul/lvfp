@@ -1,6 +1,6 @@
 <div class="row" style="height:20px"></div>  
 <div class="container">
-	<span class="heading"> <i class="fas fa-layer-group"></i> Manage Campaigns</span>
+	<span class="heading"> <i class="fas fa-layer-group"></i> Create/Edit Campaign</span>
 	
 	<div class="row justify-content-center">
 		<div class="col-md-10">
@@ -43,6 +43,21 @@
 											<%= form.text_field :title, id: :access_code_title, class: "form-control required", placeholder: 'Required' %>
 										</div>
 									</div>
+									
+									<div class="form-group row">
+										<label for="password" class="col-md-4 col-form-label text-md-right text-bold">Campaign Status <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Campaign status"><%= image_tag("/assets/icon-info.png") %></span></label>
+										<div class="col-md-6 pt-2">
+											<input id="status" name="status" type="checkbox" value="Active" checked="checked" disabled /> Active <span style="font-style:italic;font-size:12px;padding-right:20px;">(Coming Soon...)</span>
+										</div>
+									</div>
+									
+									<div class="form-group row">
+										<label for="password" class="col-md-4 col-form-label text-md-right text-bold">Campaign Type <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Campaign type"><%= image_tag("/assets/icon-info.png") %></span></label>
+										<div class="col-md-6 pt-2">
+											<input id="type" name="type" type="checkbox" value="Paid" checked="checked" disabled /> Paid <span style="font-style:italic;font-size:12px;padding-right:20px;">(Coming Soon...)</span>
+										</div>
+									</div>
+									
 									<!-- <div class="form-group row">
 										<label for="password" class="col-md-4 col-form-label text-md-right text-bold">Listener Group Name <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="A unique name that has been given to the group when you create a new one. Ex: Access code 9999 is identified as VC-Podcast" ><%= image_tag("/assets/icon-info.png") %></span></label>
 										<div class="col-md-6">
@@ -56,9 +71,7 @@
 										</div> -->
 										<div class="row">
 											<div class="col-md-4 actions text-left" style="padding:30px 40px 30px 18px; bottom: 0; left: 0;">
-												<% unless access_code.new_record? %>
-												<%= link_to 'View Articles', speeches_path, class: "btn btn-outline-primary" %>
-												<% end %>
+												
 											</div>
                               
 						  	<div class="col-md-6 actions text-right" style="padding:60px 20px 30px 0; bottom: 0; right: 0;">

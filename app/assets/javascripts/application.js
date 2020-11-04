@@ -148,17 +148,28 @@ $(document).ready(function () {
 
         //Campaign Validation
         $("#save_content").click(function(){
+			article_name = $("#article_name").val();
             access_code_title = $("#article_title").val();
             acc_code_id = $("#acc_code_id").val();
             var msg = "";
+			var newLine = "\r\n"
+            if(article_name.length <= 0){
+                msg += "Please enter the article name";
+				msg += newLine;
+                $("#article_name").css("border-color","red");
+            }else{
+                $("#article_name").css("border","none");
+            }
             if(access_code_title.length <= 0){
-                msg += 'Please enter the article title \n' ;
+                msg += "Please enter the article title";
+				msg += newLine;
                 $("#article_title").css("border-color","red");
             }else{
                 $("#article_title").css("border","none");
             }
             if(acc_code_id.length <= 0){
-                msg += 'Please select the listener access code' ;
+                msg += "Please select the listener access code";
+				msg += newLine;
                 $("#acc_code_id").css("border-color","red");
             }else{
                 $("#acc_code_id").css("border","none");
@@ -166,7 +177,7 @@ $(document).ready(function () {
             if(msg == ""){
                 return true;
             }else{
-                bootbox.alert(msg);
+                alert(msg);
                 return false;
             }
         });
