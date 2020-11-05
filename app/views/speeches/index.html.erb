@@ -54,7 +54,8 @@
   %>
   <!-- Remove the outline - 07/16/2020 - by Jude -->
   <!-- <div class="card"> -->
-  <div class="card" style="border:none;">
+	  
+  <div class="card" style="border:none;padding-top:30px;">
     <div class="card-header" id="heading<%=indx+1%>" class="btn btn-link" data-toggle="collapse" data-target="#collapse<%=indx+1%>" aria-expanded="true" aria-controls="collapse<%=indx+1%>" style="color: #043757 !important; text-decoration: none !important; padding: 10px; !important;">
       <div class="row">
       <div class="col-md-11 pl-4 table-heading"> Campaign: <%= ac.title.titlecase %> <!-- | Listener Group Access Code: <%#= ac.code %> --></div>
@@ -67,15 +68,15 @@
     <%# <% else %>
     <% unless @group_code.blank? %>
         <% if @group_code.to_i == ac.id %>
-                  <div id="collapse<%=indx+1%>" class="collapse show" aria-labelledby="heading<%=indx+1%>" data-parent="#accordion">
+                  <div id="collapse<%=indx+1%>" class="collapse show" aria-labelledby="heading<%=indx+1%>" data-parent="#accordion" style="border:1px solid #dee2e6;">
         <% else %>
-                <div id="collapse<%=indx+1%>" class="collapse" aria-labelledby="heading<%=indx+1%>" data-parent="#accordion">
+                <div id="collapse<%=indx+1%>" class="collapse" aria-labelledby="heading<%=indx+1%>" data-parent="#accordion" style="border:1px solid #dee2e6;">
         <% end %>
     <% else %>
 
     <!-- Commented by Jude on 25/03/2020 to show all tabs as discussed with Gaurav on 24/03/2020(keep the pane all tabs expand) -->
             <!%if indx==0 %>
-        <div id="collapse<%=indx+1%>" class="collapse show" aria-labelledby="heading<%=indx+1%>" data-parent="#accordion"> 
+        <div id="collapse<%=indx+1%>" class="collapse show" aria-labelledby="heading<%=indx+1%>" data-parent="#accordion" style="border:1px solid #dee2e6;"> 
     <!% else %>
             <!-- <div id="collapse<%#=indx+1%>" class="collapse" aria-labelledby="heading<%#=indx+1%>" data-parent="#accordion"> -->
       
@@ -83,8 +84,8 @@
     <% end %>
     <div class="card-body table-responsive">
     <% if ac.access_code_speech_map.blank? %>
-      <div class="row" style="height:75px"></div>
-      <div class="col-md-8 offset-md-4 align-self-center">  <%= link_to 'Create your first Article', new_speech_path, class: 'btn btn-outline-primary' %></div>
+      <div class="row" style="height:45px"></div>
+      <div class="col-md-8 offset-md-4 align-self-center">  <%= link_to 'Create your first Article', new_speech_path("campaign": ac.id), class: 'btn btn-outline-primary' %></div>
     <% else %>
         <% speech_arr = [] %>
         <% ac.access_code_speech_map.each do |acsm|
@@ -162,25 +163,35 @@
         </table>
       </div>
     <% end %>
+    <div class="row">
+      <% unless ac.access_code_speech_map.blank? %>
+    		<div class="actions text-right col-md-12" style="padding:5px 20px 30px 30px; bottom: 0; right: 0;">
+    			<%= link_to 'Add Article', new_speech_path("campaign": ac.id), class: 'btn btn-outline-primary' %>
+  		  </div>
+        <% end %>
+  	</div>
     </div>
-
+  
+	<br/>
   </div>
-  <br/>
+  
+	
   <% end
     end
   %>
   <br/>
-  <div class="row">
-    <% unless @speeches.blank? %>
-  		<div class="actions text-right col-md-12" style="padding:5px 10px 0 30px; bottom: 0; right: 0;">
-  			<%= link_to 'Add Article', new_speech_path, class: 'btn btn-outline-primary' %>
-		  </div>
-      <% end %>
-	</div>
+  <!-- <div class="row">
+    <!% unless @speeches.blank? %>
+  		<!-- <div class="actions text-right col-md-12" style="padding:5px 10px 0 30px; bottom: 0; right: 0;">
+  			<%#= link_to 'Add Article', new_speech_path, class: 'btn btn-outline-primary' %>
+		  </div> -->
+      <!-- <!% end %>
+	</div> -->
 <br/>
 	
 </div>
 </div>
+<div class="row" style="height:20px"></div>  
 
 </div>
 </div>

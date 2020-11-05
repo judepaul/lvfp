@@ -151,6 +151,7 @@ $(document).ready(function () {
 			article_name = $("#article_name").val();
             access_code_title = $("#article_title").val();
             acc_code_id = $("#acc_code_id").val();
+			add_speech_content = $("#add_speech_content").val();
             var msg = "";
 			var newLine = "\r\n"
             if(article_name.length <= 0){
@@ -167,8 +168,8 @@ $(document).ready(function () {
             }else{
                 $("#article_title").css("border","none");
             }
-            if(acc_code_id.length <= 0){
-                msg += "Please select the listener access code";
+            if(add_speech_content.length <= 0){
+                msg += "Please enter the article content";
 				msg += newLine;
                 $("#acc_code_id").css("border-color","red");
             }else{

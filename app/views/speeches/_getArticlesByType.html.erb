@@ -31,7 +31,10 @@
                 <table class="table-borderless">
                   <tr>
                     <td width="900px">
-                      <span class="content label-text">Title: <%= !speech.title.blank? ? speech.title : 'N/A' %> </span>
+                      <span class="content label-text">
+						  <!-- Title: <%#= !speech.title.blank? ? speech.title : 'N/A' %>  -->
+						  <%= !speech.name.blank? ? speech.name : 'N/A' %>
+					  </span>
                     </td>
               <td width="300px" style="float: right; padding-right:10px; font-size:14px;">
                 <!-- <span style="padding: 1px 5px 1px 5px; color:#FFF; background-color: <%#= speech.published? ? 'green' : !speech.published? ? 'orange' : "" %>;"><strong><%#= speech.published? ? 'Published' : !speech.published? ? 'Draft' : "" %></strong></span> -->
@@ -63,7 +66,7 @@
                     </table>
                     </span>
                   </td></tr></table>
-                <p class="content"><%= !speech.email_from.blank? ? speech.email_from.rstrip.concat('.') : '' %> <%= speech.content %></p>
+                <p class="content"><%#= !speech.email_from.blank? ? speech.email_from.rstrip.concat('.') : '' %> <%#= speech.content %></p>
                 <div class="actions" style="display:none; float:right;">
                   
                   </div>
