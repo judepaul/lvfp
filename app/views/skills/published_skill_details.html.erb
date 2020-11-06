@@ -1,55 +1,20 @@
 <div class="row" style="height:40px;"></div>
-<% if @access_code.blank? %>
-
-<% else 
+<% 
     speech_arr = [] 
-    if @access_code.access_code_speech_map.blank?
-
-    else
-        @access_code.access_code_speech_map.each do |acsm|
-        if acsm.speech.published?
-          speech_arr << acsm.speech 
-        end
-        end    
-    end %>
+    unless @access_codes.blank?
+        @access_codes.each do |access_code|
+			access_code.access_code_speech_map.each do |acsm|
+        		if acsm.speech.published?
+          		  speech_arr << acsm.speech 
+        	  	end
+        	end  
+		%>
 
     <div class="container">
-<!--     <div class="row text-center">
-      <div class="col-md-4">
-    <div class="card">
-      <div class="card-header studio-card-header" style="<%= (controller.controller_name == "dashboard" || controller.controller_name == "dashboard") ? 'background-color:#D3D3D3 !important;' : '' %>"><h6 style="font-family: Laila-Bold !important; font-weight:bold !important; font-size:18px !important;color:#FFF;padding-top:3px;"><i class="fas fa-assistive-listening-systems"></i> Voice Chimp Studio </h6></div>
-      <div class="card-body studio-card-body text-left mt-0 p-0" style="border: 0.01rem solid #bbb !important; display:none;">
-        <ul class="list-group list-group-flush mt-0">
-          <li class="list-group-item mt-0" onclick="location.href='/voice-chimp-studio/campaigns'"><i class="fas fa-layer-group"></i> Campaigns</li>
-          <li class="list-group-item mt-0" onclick="location.href='/voice-chimp-studio/articles'"><i class="fas fa-newspaper"></i> Articles</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-4">
-    <div class="card">
-      <div class="card-header skill-card-header"><h6 style="font-family: Laila-Bold !important; font-weight:bold !important; font-size:18px !important;color:#FFF;padding-top:3px;"> <i class="fas fa-microphone"></i> Voice Chimp Skill </h6></div>
-      <div class="card-body skill-card-body text-left mt-0 p-0" style="border: 0.01rem solid #bbb !important; display:none;">
-        <ul class="list-group list-group-flush mt-0">
-          <li class="list-group-item mt-0 active" onclick="location.href='/voice-chimp-skill/details'"><i class="fas fa-clone"></i> Published Details</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-4">
-    <div class="card">
-      <div class="card-header anal-card-header" style="<%= (controller.controller_name == "dashboard" || controller.controller_name == "dashboard") ? 'background-color:#D3D3D3 !important;' : '' %>"><h6 style="font-family: Laila-Bold !important; font-weight:bold !important; font-size:18px !important;color:#FFF;padding-top:3px;"><i class="fas fa-chart-pie"></i> Voice Chimp Analytics </h6></div>
-      <div class="card-body anal-card-body text-left mt-0 p-0" style="border: 0.01rem solid #bbb !important; display:none;">
-      </div>
-    </div>
-  </div>
-    </div> 
-    <div class="row" style="height:40px;"></div> -->
-
     <div class="card" style="width:100%;">
     <div class="card-header text-black">
         <div class="row">
-            <div class="col-md-6 pl-0 table-heading"><i class="fas fa-clone"></i> Skill details for <%= @access_code.title.titlecase %> campaign</div>
+            <div class="col-md-6 pl-0 table-heading"><i class="fas fa-clone"></i> Skill details for <%= access_code.title.titlecase %> campaign</div>
             </div>
     </div>
     <div class="card-body">
@@ -64,12 +29,12 @@
             <div class="row" style="height:15px;"></div>
             <div class="row">
                 <div class="col-md-3 offset-md-1">Campaign Name: </div>
-                <div class="col-md-4"><%= @access_code.title %></div>
+                <div class="col-md-4"><%= access_code.title %></div>
             </div>
             <div class="row" style="height:15px;"></div>
             <div class="row">
                 <div class="col-md-3 offset-md-1">Campaign Access Code: </div>
-                <div class="col-md-4"><%= @access_code.code %></div>
+                <div class="col-md-4"><%= access_code.code %></div>
             </div>
             <div class="row" style="height:15px;"></div>
             <div class="row">
@@ -84,7 +49,6 @@
          </div>
          <!-- column 2 -->
         <!-- <div class="col-md-4"><div style="padding-top:50px;"><%#= image_tag('/assets/amazon-echo-dot.png', :size => "320x320") %> </div></div> -->
-
 
         <table class="table table-bordered">
             <thead class="thead-light h5 font-weight-bold">
@@ -133,10 +97,16 @@
                 <% end %>
             <% end %>
         </table>
+
     
 </div>
+
 <div style="height: 10px;"></div>
-<% end %>    </div>
+   </div>
 </div>
 
 </div>
+<br/>
+
+<% end
+end %>

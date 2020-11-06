@@ -191,7 +191,7 @@ class SkillsController < ApplicationController
 
 
   def published_skill_details
-    @access_code = AccessCode.where(user_id: current_user.id).order('id DESC')
+    @access_codes = AccessCode.where(user_id: current_user.id).order('id DESC')
   end
 
 
