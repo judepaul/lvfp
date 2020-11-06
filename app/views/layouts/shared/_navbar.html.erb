@@ -1,98 +1,75 @@
 <nav class="navbar navbar-expand-lg navbar-dark navbar-laravel pr-0 py-2" style="">
-        <% unless user_signed_in? %>
-            <a class="navbar-brand js-scroll-trigger pt-0" href="/auth/login"> 
+	<% unless user_signed_in? %>
+	<a class="navbar-brand js-scroll-trigger pt-0" href="/auth/login"> 
                 
-                <h1><span class='text-black heading-semibold'> <i class="fas fa-rocket fa-2x" style="font-size:28px;"> </i> Launch Voice Reader </span></h1>
-            </a>
-        <% else %>
-            <a class="navbar-brand js-scroll-trigger pt-0" href="/dashboard/index/">
-                <!% if controller.controller_name == "dashboard" %> 
-                <!-- <img class="logo-navbar" src="/assets/header-lvf.png" width="300" height="40"> font-family: Comic Sans MS !important;  --> <span class='text-black heading-semibold'> <i class="fas fa-rocket" style="font-size:28px;padding-top:12px!important; padding-bottom:12px!important;"> </i>  Launch Voice Reader </span>
-                <!% else %>
-                <!-- <img class="logo-navbar" src="/assets/header-vcs.png" width="300" height="40">  <span class='text-black' style="font-family: Laila-Bold !important; font-weight:bold !important; font-size:32px !important;"> <i class="fas fa-assistive-listening-systems"></i> Voice Chimp Studio </span> -->
-                <!% end %>
-            </a>
-        <% end %>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+		<h1><span class='text-black heading-semibold'> <i class="fas fa-rocket fa-2x" style="font-size:28px;"> </i> Launch Voice Reader </span></h1>
+	</a>
+	<% else %>
+	<a class="navbar-brand js-scroll-trigger pt-0" href="/dashboard/index/">
+		<span class='text-black heading-semibold'> <i class="fas fa-rocket" style="font-size:28px;padding-top:12px!important; padding-bottom:12px!important;"> </i>  Launch Voice Reader </span>
+	</a>
+	<% end %>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto">
-                <% unless user_signed_in? %>
-                <% if controller.controller_name != "sessions" %>
-                <li class="nav-item sub-heading">
-                    <a class="nav-link text-black" href="/auth/login">Sign In</a>
-                </li>
-                <% end %>
-                <!% if controller.controller_name != "leads" %>
-                <li class="nav-item sub-heading">
-                    <!-- <a class="nav-link text-black" href="/auth/register/signup">Register</a> -->
-                    <!-- <a class="nav-link text-black" href="http://eepurl.com/gO8n65">Register</a> -->
-                    <!-- <a class="nav-link text-black" href="https://launchvoicereader.com/" data-toggle="tooltip" title=" Click to learn more and signup for an invite">Signup <!-- (<span class="text-14-italic">for Early Access</span>) --><!-- </a> -->
-                    <!-- Updated Signup URL to lead page - 07/16/2020 by Jude -->
-                    <!-- <a class="nav-link text-black" href="/leads/new" data-toggle="tooltip" title=" Click to learn more and signup for an invite">Signup --> <!-- (<span class="text-14-italic">for Early Access</span>)</a> -->
-                </li>
-                <!% end %>
-                <% else %>
-                    <% if controller.controller_name != "dashboard" %>
-                        <li class="nav-item  dropdown dropdown-studio sub-heading pt-1">
-                            <a class="nav-link text-black" href="/dashboard/index/">
-                                <i class="fas fa-home"></i> Home
-                            </a>
-                        </li>
-                    <li class="nav-item  dropdown dropdown-studio sub-heading pt-1">
-                        <!-- <a class="nav-link text-black pt-3" href="/access_codes">Campaigns</a> -->
-                        <a class="nav-link text-black dropdown-toggle <%= (current_class? ["/voice-reader-studio/campaigns", "/voice-reader-studio/articles"]) == "access_codes" ? 'nav-active' : ''  %>" href="#" id="navbardrop" data-toggle="dropdown">
-                            <i class="fas fa-database"></i> Manage
-                        </a>
-                        <div class="dropdown-menu studio-menu">
-                            <!-- <span class="dropdown-item sub-heading border-bottom border-purple pb-1" style="font-size:16px !important"><strong>Voice Reader Studio</strong></span> -->
-                            <a class="dropdown-item sub-heading pt-3" href='/voice-reader-studio/campaigns'><i class="fas fa-layer-group"></i> Campaigns</a>
-                            <a class="dropdown-item sub-heading pt-2" href='/voice-reader-studio/articles'><i class="fas fa-newspaper"></i> Articles</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown dropdown-skill sub-heading  pt-1">
-                        <a class="nav-link text-black dropdown-toggle <%= (current_class? ["/voice-chimp-skill/details"]) == "skills" ? 'nav-active' : ''  %>" href="#" id="navbardrop" data-toggle="dropdown">
-                            <i class="fas fa-microphone"></i> Skill
-                        </a>
-                        <div class="dropdown-menu skill-menu">
-                            <!-- <a class="dropdown-item sub-heading border-bottom border-purple pb-1" style="font-size:16px !important"><strong>Voice Reader Skill</strong></a> -->
-                            <a class="dropdown-item sub-heading pt-3" href='/voice-chimp-skill/details'><i class="fas fa-clone"></i> Skill Details</a>
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<ul class="navbar-nav ml-auto">
+			<% unless user_signed_in? %>
+			<% if controller.controller_name != "sessions" %>
+			<li class="nav-item sub-heading">
+				<a class="nav-link text-black" href="/auth/login">Sign In</a>
+			</li>
+			<% end %>
+			<% else %>
+			<% if controller.controller_name != "dashboard" %>
+			<li class="nav-item  dropdown dropdown-studio sub-heading pt-1">
+				<a class="nav-link text-black" href="/dashboard/index/">
+					<i class="fas fa-home"></i> Home
+				</a>
+			</li>
+			<li class="nav-item  dropdown dropdown-studio sub-heading pt-1">
+				<a class="nav-link text-black dropdown-toggle <%= (current_class? ["/voice-reader-studio/campaigns", "/voice-reader-studio/articles"]) == "access_codes" ? 'nav-active' : ''  %>" href="#" id="navbardrop" data-toggle="dropdown">
+					<i class="fas fa-database"></i> Manage
+				</a>
+				<div class="dropdown-menu studio-menu">
+					<!-- <span class="dropdown-item sub-heading border-bottom border-purple pb-1" style="font-size:16px !important"><strong>Voice Reader Studio</strong></span> -->
+					<a class="dropdown-item sub-heading pt-3" href='/voice-reader-studio/campaigns'><i class="fas fa-layer-group"></i> Campaigns</a>
+					<a class="dropdown-item sub-heading pt-2" href='/voice-reader-studio/articles'><i class="fas fa-newspaper"></i> Articles</a>
+				</div>
+			</li>
+			<li class="nav-item dropdown dropdown-skill sub-heading  pt-1">
+				<a class="nav-link text-black dropdown-toggle <%= controller.controller_name=="skills"? 'nav-active' : ''  %>" href="#" id="navbardrop" data-toggle="dropdown">
+					<i class="fas fa-microphone"></i> Skill
+				</a>
+				<div class="dropdown-menu skill-menu">
+					<!-- <a class="dropdown-item sub-heading border-bottom border-purple pb-1" style="font-size:16px !important"><strong>Voice Reader Skill</strong></a> -->
+					<a class="dropdown-item sub-heading pt-3" href='/voice-chimp-skill/details'><i class="fas fa-clone"></i> Skill Details</a>
                             
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown dropdown-analytics sub-heading  pt-1">
-                        <a class="nav-link text-black dropdown-toggle" href="#"> <i class="fas fa-chart-pie"></i> Analytics </a>
-                        <div class="dropdown-menu analytics-menu">
-                            <!-- <a class="dropdown-item sub-heading border-bottom border-purple pb-1" style="font-size:16px !important"><strong>Voice Reader Analytics</strong></a> -->
-                            <a class="dropdown-item sub-heading pt-3" href='#'><i class="fas fa-clone"></i> Coming Soon...</a>
-                        </div>
-                    </li>
+				</div>
+			</li>
+			<li class="nav-item dropdown dropdown-analytics sub-heading  pt-1">
+				<a class="nav-link text-black dropdown-toggle" href="#"> <i class="fas fa-chart-pie"></i> Analytics </a>
+				<div class="dropdown-menu analytics-menu">
+					<!-- <a class="dropdown-item sub-heading border-bottom border-purple pb-1" style="font-size:16px !important"><strong>Voice Reader Analytics</strong></a> -->
+					<a class="dropdown-item sub-heading pt-3" href='#'><i class="fas fa-clone"></i> Coming Soon...</a>
+				</div>
+			</li>
 
-                    <% end %>
+			<% end %>
 					
-                    <!-- <li class="nav-item dropdown dropdown-logout sub-heading  pt-1">
-                        <a class="nav-link text-black" href="/auth/logout"> <!-- <i class="fas fa-user"></i> --> <%#= current_user.username %> <!-- <i class='fas fa-sign-out-alt'></i> -->
-</a>
-                        <!-- Commented dropdown for Signout based on the discussion on 07/15/2020 -->
-                        <!-- <div class="dropdown-menu logout-menu">
-                            <a class="dropdown-item sub-heading pt-2" style="font-size:16px !important" href="/auth/logout"> <i class="fas fa-sign-out-alt"></i> Logout</a>
-                        </div>
-                        -->
-                    <!-- ></li>  -->
 					
-					<!-- Updated Signout with Account update based on the discussion on 10/24/2020 -->
-                    <li class="nav-item dropdown dropdown-analytics sub-heading  pt-1">
-                        <a class="nav-link text-black dropdown-toggle" href="#"> <i class="fas fa-user"></i> <%= current_user.username %></a>
-                        <div class="dropdown-menu analytics-menu">
-                            <a class="dropdown-item sub-heading pt-2" style="font-size:16px !important" href="/users/edit"> <i class="fas fa-cog" aria-hidden="true"></i> Settings</a>
-                            <a class="dropdown-item sub-heading pt-2" style="font-size:16px !important" href="/auth/logout"> <i class="fas fa-sign-out-alt"></i> Sign Out</a>
-                        </div>
-                    </li>
+			<!-- Updated Signout with Account update based on the discussion on 10/24/2020 -->
+			<li class="nav-item dropdown dropdown-analytics sub-heading  pt-1">
+				<a class="nav-link text-black dropdown-toggle" href="#"> <i class="fas fa-user"></i> <%= current_user.username %></a>
+				<div class="dropdown-menu analytics-menu">
+					<a class="dropdown-item sub-heading pt-2" style="font-size:16px !important" href="/users/edit"> <i class="fas fa-cog" aria-hidden="true"></i> Settings</a>
+					<a class="dropdown-item sub-heading pt-2" style="font-size:16px !important" href="/auth/logout"> <i class="fas fa-sign-out-alt"></i> Sign Out</a>
+				</div>
+			</li>
 					
-                <% end %>
-            </ul>
+			<% end %>
+		</ul>
 
-        </div>
+	</div>
 </nav>

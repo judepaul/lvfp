@@ -1,19 +1,207 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+	<div class="row" style="height:20px;"></div>
+	<span class="heading"> <i class="fas fa-layer-group"></i> Article</span>
 
-<p>
-  <strong>Code:</strong>
-  <%= @speech.code %>
-</p>
+	<div class="container-fluid px-0">
+		<div class="row no-gutters">
+			<div class="col-sm-12 col-md mr-md-3">
+				<!-- Remove the outline - 07/16/2020 - by Jude -->
+				<!-- <div class="card"> -->
+					<div class="card" style="border:none;">
+                        
+						<div class="card-body"><!-- <p id="notice"><%= notice %></p> -->
+							<div id="accordion">
+								<% unless @access_code.blank? %>
+								<!-- Remove the outline - 07/16/2020 - by Jude -->
+								<!-- <div class="card"> -->
+									<div class="card" style="border:none;padding-top:30px;">
+										<div class="card-header" id="heading" class="btn btn-link" data-toggle="collapse" data-target="#collapse" aria-expanded="true" aria-controls="collapse" style="color: #043757 !important; text-decoration: none !important; padding: 10px; !important;">
+											<div class="row">
+												<div class="col-md-11 pl-4 table-heading"> Campaign: <%= @access_code.title.titlecase %> <!-- | Listener Group Access Code: <%#= ac.code %> --></div>
+												<div class="col-md-1" style="padding:3px 40px 0 0;"><i class="fas fa-plus float-right "></i></div>
+											</div>
+										</div>
+										<div id="collapse" class="collapse show" aria-labelledby="heading" data-parent="#accordion" style="border:1px solid #dee2e6;"> 
+											<div class="card-body table-responsive">
+												<% if @access_code.access_code_speech_map.blank? %>
+												<div class="row" style="height:45px"></div>
+												<div class="col-md-8 offset-md-4 align-self-center">  <%= link_to 'Create your first Article', new_speech_path("campaign": @access_code.id), class: 'btn btn-outline-primary' %></div>
+												<% else %>
+												<% speech_arr = [] %>
+												<% @access_code.access_code_speech_map.each do |acsm|
+												speech_arr << acsm.speech 
+											end    
+											%>
+											<!-- Commented table hover by Jude on 04/27/2020 based on the tasklist -->
+											<!-- <table class="table table-bordered table-sm table-hover table-<%#= ac.code %>"> -->
+												<table class="table table-bordered table-sm table-<%= @access_code.code %>">
+													<thead class="thead-light h5 font-weight-bold">
+														<tr>
+															<nav style="background-color:#e9ecef !important;">
+																<div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+																	<a class="nav-item nav-link table-heading pointer active" id="nav-all-tab" onclick="return nav_all_tab(<%= @access_code.code %>)" data-toggle="tab" href="#nav-all" role="tab" aria-controls="nav-home" aria-selected="true"><span style="color:#000 !important;"><i class="fas fa-square" style="font-size:14px; color:orange;"></i> <i class="fas fa-square" style="font-size:14px; color:green;"></i> All</span></a>
+																	<a class="nav-item nav-link table-heading pointer" id="nav-draft-tab" onclick="return nav_draft_tab(<%= @access_code.code %>)" data-toggle="tab" href="#nav-draft" role="tab" aria-controls="nav-profile" aria-selected="false"><span style="color:#000 !important;"><i class="fas fa-square" style="font-size:14px; color:orange;"></i> Draft</span></a>
+																	<a class="nav-item nav-link table-heading pointer" id="nav-published-tab" onclick="return nav_published_tab(<%= @access_code.code %>)" data-toggle="tab" href="#nav-published" role="tab" aria-controls="nav-contact" aria-selected="false"><span style="color:#000 !important;"><i class="fas fa-square" style="font-size:14px; color:green;"></i> Published</span></a>
+																</div>
+															</nav>
+														</tr>
+													</thead>
+													<% speech_arr.sort_by(&:updated_at).reverse.each_with_index do |speech,indx| %>
+													<tbody>
+														<tr>
+															<td>
+																<table class="table-borderless table-sm">
+																	<tr>
+																		<td width="900px" style="padding:0.3rem !important;">
+																			<span class="content label-text"  style="cursor:pointer;" onclick="location.href='<%= edit_speech_path(speech) %>'">
+																				<!-- Title: <%= !speech.title.blank? ? speech.title : 'N/A' %> --> 
+																				<%= !speech.name.blank? ? speech.name : 'N/A' %>
+																			</span>
+																		</td>
+																		<!-- <span style="padding: 1px 5px 1px 5px; color:#FFF; background-color: <%#= speech.published? ? 'green' : !speech.published? ? 'orange' : "" %>;"><strong><%#= speech.published? ? 'Published' : !speech.published? ? 'Draft' : "" %></strong></span> -->
+                
+																		<td width="300px" style="float: right; padding-right:10px; font-size:14px; padding:0.1rem;">
+																			<!-- <span class="btn btn-outline-warning px-1 py-0">Draft</span> -->
+																			<span style="float: right; padding-right:10px; font-size:14px;"> 
+																				<table class="table-borderless">
+																					<tr><td>
+																						<!-- Jude - 04/28/2020 - Commented the condition in order to redirect the icons click to articles edit screen regardless of status(publishes/draft) -->
+																						<% if speech.published? %>
+																						<!-- updated by Jude on 04/18/2020 to change the redirect url to skill details 
+																							<%#= link_to("/speeches/published_details/#{speech.id}",style:"text-decoration:none;",class:"btn btn-outline-success px-1 py-0") do %>Published<!% end %> -->
+																							<!-- <%#= link_to("/voice-chimp-skill/details",style:"text-decoration:none;",class:"btn btn-outline-success px-1 py-0") do %>Published<!% end %> -->
+																							<%= link_to(edit_speech_path(speech.id),style:"text-decoration:none;", class:"px-1 py-0") do %><i class="fas fa-square" style="font-size:14px; color:green;" data-toggle="tooltip" data-placement="top" title="Published"></i><% end %>
+																							<% else %> 
+																							<!-- <span class="btn btn-outline-warning px-1 py-0" style="text-decoration:none;">Draft</span> -->
+																							<%= link_to(edit_speech_path(speech.id),style:"text-decoration:none;", class:"px-1 py-0") do %><i class="fas fa-square px-1 py-0" style="font-size:14px; color:orange;" data-toggle="tooltip" data-placement="top" title="Draft"></i><% end %>
+																							<% end %>
+																						</td>
+																						<td>
+																							<%#= image_tag 'icon-calendar', alt: "calendar", style:"padding-left:6px;" %><b data-toggle="tooltip" data-placement="top" title="The date article was created/updated"> <%= speech.updated_at.strftime("%m/%d/%Y") %> </b>
+																							<!-- <i class="fas fa-edit" style="padding-left:6px;color:#61318f;cursor:pointer;" onclick="location.href='<%#= edit_speech_path(speech) %>'"></i> -->
+																						</td>
+																						<td>
+																							<a href="/voice-reader-studio/articles/<%=speech.id%>" data-method="delete" data-confirm="<%= speech.published? ? 'This article is already published. Are you sure you want to delete?' : 'Are you sure you want to delete this article?' %>" data-title='Confirm Deletion' data-commit='Yes do it!' data-cancel='Not really!'  class='delete-speech' style="color:#61318f;padding-left:6px;" id="delete-btn">
+																								<i class="fas fa-trash-alt" data-toggle="tooltip" data-placement="top" title="Delete"></i></a>  
+																							</td>
+																						</tr>
+																					</table>
+																				</span>
+                
+																			</td></tr></table>
+																			<!-- <p class="content content-text" style="cursor:pointer;" onclick="location.href='<%#= edit_speech_path(speech) %>'"><%#= !speech.email_from.blank? ? speech.email_from.rstrip.concat('.') : '' %> <%#= speech.content %></p> -->
+																			<div class="actions" style="display:none; float:right;">
+                  
+																			</div>
 
-<!-- <p>
-  <strong>Email address:</strong>
-  <%#= @speech.email_address %>
-</p> -->
+																		</td>
+																	</tr>
+																</tbody>
+																<% end %>
+															</table>
+														</div>
+														<% end %>
+														<div class="row">
+															<% unless @access_code.access_code_speech_map.blank? %>
+															<div class="actions text-right col-md-12" style="padding:5px 20px 30px 30px; bottom: 0; right: 0;">
+																<%= link_to 'Create Article', new_speech_path("campaign": @access_code.id), class: 'btn btn-outline-primary' %>
+															</div>
+															<% end %>
+														</div>
+													</div>
+  
+													<br/>
+												</div>
+  
+	
+												<% end %>
+	
+											</div>
+										</div>
+										<div class="row" style="height:20px"></div>  
 
-<p>
-  <strong>Content:</strong>
-  <%= @speech.content %>
-</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<br/>
 
-<%#= link_to 'Edit', edit_speech_path(@speech) %> |
-<%#= link_to 'Back', speeches_path %>
+
+
+					<!-- Modal -->
+					<div class="modal fade" id="contentModal" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="contentModalLabel" aria-hidden="true">
+						<div class="modal-dialog modal-lg" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<div class="col-md-6">
+										<h5 class="modal-title" id="exampleModalLabel">Content</h5>
+									</div>
+									<div class="col-md-3 text-right" >
+										<!-- <audio id="audioPlayback" controls> -->
+											<audio id="audioPlayback">
+												<source id="audioSource" type="audio/mp3" src="">
+											</audio>
+											<button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close" data-toggle="tooltip" data-placement="top" title="Close">
+												<i class="fa fa-times-circle fa-lg"></i> 
+											</button>
+											<button type="button" class="close audioPlayback play" onclick="aud_play_pause()" style="outline:none !important; padding-right:15px;"><span><i class="fa fa-play-circle fa-lg" aria-hidden="true"></i></span></button>
+										</div>
+									</div>
+									<input type="hidden" id="speech_content" />
+									<div id="contentDetails" class="modal-body">
+        
+									</div>
+									<div class="modal-footer">
+										<div class="col-md-6">
+											<button type="button" class="btn btn-outline-danger delete_speech" id="delete-btn">Delete</button>
+											<%#= link_to 'Delete', '', method: :delete, :class => 'btn btn-outline-danger delete-speech', id: "delete-btn" %>
+											<div class="panel panel-default" style="text-align:left;padding-top:15px;display:none;" id="delete-confirm-pane">
+												<div class="panel-heading"><h6>Confirmation</h6></div>
+												<div class = "panel-body"></div>
+												Are you sure you want to delete this Article?
+												<div style="padding:10px 60px 0 0;"align="right""><button type="button" class="btn btn-outline-primary" id="delete-confirm-cancel">Cancel</button>
+													<!-- <button type="button" class="btn btn-primary hide" id="btn2">Ok</button> -->
+													<%= link_to 'Ok', '', method: :delete, :class => 'btn btn-outline-danger delete-speech' %>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6 offset-md-5 text-right">
+											<button type="button" class="btn btn-outline-primary close-modal" data-dismiss="modal">Close</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- Modal -->
+						<div class="modal fade" id="FAQcontentModal-article" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="contentModalLabel" aria-hidden="true">
+							<div class="modal-dialog modal-lg" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<div class="col-md-6">
+											<h5 class="modal-title" id="exampleModalLabel">FAQ</h5>
+										</div>
+										<div class="col-md-3 text-right" >
+											<!-- <audio id="audioPlayback" controls> -->
+												<audio id="audioPlayback">
+													<source id="audioSource" type="audio/mp3" src="">
+												</audio>
+												<button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close" data-toggle="tooltip" data-placement="top" title="Close">
+													<i class="fa fa-times-circle fa-lg"></i> 
+												</button>
+											</div>
+										</div>
+										<input type="hidden" id="speech_content" />
+										<div id="contentDetails" class="modal-body">
+											<%= render "layouts/shared/faq" %>
+										</div>
+										<div class="modal-footer">
+											<div class="col-md-6"></div>
+											<div class="col-md-6 offset-md-5 text-right">
+												<button type="button" class="btn btn-outline-primary close-modal" data-dismiss="modal">Close</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>

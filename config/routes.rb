@@ -25,7 +25,9 @@ Rails.application.routes.draw do
     resources :speeches, :path => "articles"
   end
   
-  resources :skills
+  scope '/voice-chimp-skill' do
+    resources :skills
+  end
   get 'dashboard/index'
 
   #devise_for :users

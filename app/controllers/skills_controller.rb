@@ -1,6 +1,8 @@
 class SkillsController < ApplicationController
   skip_before_action :verify_authenticity_token
-
+  def index
+  end
+  
   def root
     p "in SkillsController root method"
     p params

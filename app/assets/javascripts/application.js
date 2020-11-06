@@ -172,6 +172,10 @@ $(document).ready(function () {
                 msg += "Please enter the article content";
 				msg += newLine;
                 $("#acc_code_id").css("border-color","red");
+			}else if (add_speech_content.length > 2999) {
+                msg += "Content character limit exists";
+				msg += newLine;
+                $("#acc_code_id").css("border-color","red");
             }else{
                 $("#acc_code_id").css("border","none");
             }

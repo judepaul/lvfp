@@ -6,7 +6,6 @@
 					<img class="card-img-top" src="/assets/dashboard-editor" width="100%" height="270" alt="Studio">
 				</div>
 				<div class="card-body flex-fill">
-					<!-- <span class="card-title heading-semibold">Voice Reader</span> <span class="card-title heading" style="font-weight:bold !important; font-size:22px !important;">Editor</span> -->
 					<span class="card-title heading-semibold">Manage Campaigns</span>
 					<p class="card-text">Create new campaigns that you want to share with your audience.</p>
 				</div>
@@ -21,7 +20,6 @@
 					<img class="card-img-top" src="/assets/dashboard-articles.jpg" width="100%" height="270" alt="Voice Devices">
 				</div>
 				<div class="card-body flex-fill">
-					<!-- <span class="card-title heading-semibold">Voice Reader</span> <span class="card-title heading" style="font-weight:bold !important; font-size:22px !important;">Skill</span> -->
 					<span class="card-title heading-semibold">Manage Articles</span>
 					<!-- <p class="card-text">Get details of the skill and assist your audience to listen to your campaigns</p> -->
 					<% if current_user.access_code.present? %>
@@ -41,10 +39,9 @@
 					<img class="card-img-top" src="/assets/dasboard-echo-dot.png" width="100%" height="270" alt="Graphs">
 				</div>
 				<div class="card-body flex-fill">
-					<span class="card-title heading-semibold">Voice Reader Skill</span>
-					<!-- <p class="card-text">Get track of your audience and identify how are they getting into your campaigns </p> -->
+					<span class="card-title heading-semibold">Manage Skill</span>
 					<% if current_user.access_code.present? %>
-						<p class="card-text">Get details of the skill and assist your audience to listen to your campaigns</p>
+						<p class="card-text">Get details of the skill and assist your audience to listen to your campaigns.</p>
 					<% else %>
 						<p class="card-text text-black">You need to create a campaign first</p>
 					<% end %>

@@ -1,176 +1,124 @@
 <div class="row" style="height:20px"></div>
- <div class="container">
- <!-- <div class="row text-center">
-  <div class="col-md-4">
-    <div class="card">
-      <div class="card-header studio-card-header"><h6 style="font-family: Laila-Bold !important; font-weight:bold !important; font-size:18px !important;color:#FFF;padding-top:3px;"><i class="fas fa-assistive-listening-systems"></i> Voice Chimp Studio </h6></div>
-      <div class="card-body studio-card-body text-left mt-0 p-0" style="border: 0.01rem solid #bbb !important; display:none;">
-        <ul class="list-group list-group-flush mt-0">
-          <li class="list-group-item mt-0 active" onclick="location.href='/voice-chimp-studio/campaigns'"><i class="fas fa-layer-group"></i> Campaigns</li>
-          <li class="list-group-item mt-0" onclick="location.href='/voice-chimp-studio/articles'"><i class="fas fa-newspaper"></i> Articles</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-4">
-    <div class="card">
-      <div class="card-header skill-card-header" style="<%= (controller.controller_name == "access_codes" || controller.controller_name == "speeches") ? 'background-color:#D3D3D3 !important;' : '' %>" ><h6 style="font-family: Laila-Bold !important; font-weight:bold !important; font-size:18px !important;color:#FFF;padding-top:3px;"> <i class="fas fa-microphone"></i> Voice Chimp Skill </h6></div>
-      <div class="card-body skill-card-body text-left mt-0 p-0" style="border: 0.01rem solid #bbb !important; display:none;">
-        <ul class="list-group list-group-flush mt-0">
-          <li class="list-group-item mt-0" onclick="location.href='/voice-chimp-skill/details'"><i class="fas fa-clone"></i> Published Details</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-4">
-    <div class="card">
-      <div class="card-header anal-card-header" style="<%= (controller.controller_name == "access_codes" || controller.controller_name == "speeches") ? 'background-color:#D3D3D3 !important;' : '' %>"><h6 style="font-family: Laila-Bold !important; font-weight:bold !important; font-size:18px !important;color:#FFF;padding-top:3px;"><i class="fas fa-chart-pie"></i> Voice Chimp Analytics </h6></div>
-      <div class="card-body anal-card-body text-left mt-0 p-0" style="border: 0.01rem solid #bbb !important; display:none;">
-      </div>
-    </div>
-  </div>
-</div> -->
-<div class="row">
-	<div class="col-md-4">
-		<span class="heading"> <i class="fas fa-layer-group"></i> Campaigns</span>
-	</div>
-	<div class="col-md-4">
-	</div>
-	<div class="col-md-4 text-right table-heading">
-		<% if current_user.access_code.present? %>
+<div class="container">
+	<div class="row">
+		<div class="col-md-4">
+			<span class="heading"> <i class="fas fa-layer-group"></i> Campaigns</span>
+		</div>
+		<div class="col-md-4">
+		</div>
+		<div class="col-md-4 text-right table-heading">
+			<% if current_user.access_code.present? %>
 			<%= link_to "View Articles", speeches_path, style:"color:#000;cursor: pointer;text-decoration:none;"%>
-		<% end %>
+			<% end %>
+		</div>
 	</div>
-</div>
-<!-- <p class="col-md-12 offset-md-1 pb-3" id="notice"><%#= notice %></p> -->
-        <div class="row">
-            <div class="col-md-10 offset-md-1 pb-3"><h5 style="padding: 2px 5px 2px 0px;color:#5C5656;text-align:left;font-size:22px !important;"><%= notice %></h5></div>
-        </div>
-<div class="row justify-content-center">
-<div class="col-md-12">
-<!-- Remove the outline - 07/16/2020 - by Jude -->
-<!-- <div class="card" style="width:100%;"> -->
-<div class="card" style="width:100%; border:none !important;">
-  <!-- <div class="card-header text-black">
-    <div class="row">
-      <div class="col-md-6 card-heading"><i class="fas fa-layer-group"></i> Manage Campaigns</div>
-        <div class="col-md-6 text-right">
-            <span style="cursor: pointer;" class="campaing-show"><i class="fas fa-info-circle fa-lg"></i></span>
-        </div>
-    </div>
-  </div> -->
-  <div class="card-body" style="height:auto;">
+	<div class="row">
+		<div class="col-md-10 offset-md-1 pb-3"><h5 style="padding: 2px 5px 2px 0px;color:#5C5656;text-align:left;font-size:22px !important;"><%#= notice %></h5></div>
+	</div>
+	<div class="row justify-content-center">
+		<div class="col-md-12">
+			<!-- Remove the outline - 07/16/2020 - by Jude -->
+			<!-- <div class="card" style="width:100%;"> -->
+			<div class="card" style="width:100%; border:none !important;">
+				<div class="card-body" style="height:auto;">
+					<% if @access_codes.blank? %>
+					<div class="row" style="height:60px"></div>
+					<div class="col-md-8 offset-md-4 align-self-center">  <%= link_to 'Create your first campaign', new_access_code_path, class: 'btn btn-outline-primary', style:"font-size:20px!important;" %></div>
+					<% else %>
+					<div class="row justify-content-end" style="text-align: right !important;">
+						<%= will_paginate @access_codes, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+					</div>
+					<table width=100% class="table table-bordered table-sm">
+						<thead class="table-heading">
+							<tr class="thead-light text-center">
+								<!-- As per the discussion on 10/29/2020 Listener Group was removed by Jude on 10/30/2020 -->	
+								<th width="10%" rowspan="1" class="align-middle">No.</th>
+								<!-- <th width="45%" colspan="2"class="align-top">Listener Group</th> -->
+								<th width="30%" rowspan="1" class="align-middle">Campaign Access Code</th>
+								<!-- As per the discussion on 07/14/2020 it was updated by Jude on 07/15/2020 -->
+								<!-- <th width="40%" rowspan="2" class="align-top">Campaign Name (Article Count)</th> -->
+								<th width="40%" rowspan="1" class="align-middle">Campaign Name</th>
+								<th width="20%" rowspan="1" class="align-middle">Campaign Status</th>
+								<!-- <th width="40%" rowspan="1" class="align-middle"># of Articles</th>  -->
+								<% if current_user.super_vc_admin? %>
+								<th width="15%" rowspan="2" class="align-top">Action</th>
+								<% end %>
+							</tr>
+							<!-- As per the discussion on 10/29/2020 Listener Group was removed by Jude on 10/30/2020 -->	
+							<!-- <tr class="thead-light text-center align-top">
+								<th width="30%" class="align-top">Name</th>
+								<th width="15%" class="align-top">Code</th>
+								</tr> -->
+							</thead>
+							<tbody>
+								<% @access_codes.each_with_index do |code, indx| %>
+								<tr>
+									<td style="text-align:center;"><%= indx+1 %></td>
+									<td style="text-align:center;"><%= link_to edit_access_code_path(code), style:"color:#000;cursor: pointer;text-decoration:none;" do %><%= code.code %><%end%></td>
+									<!-- As per the discussion on 07/14/2020 it was updated by Jude on 07/15/2020 -->
+									<td style="text-align:center;"><%= link_to speech_path(code), style:"color:#000;cursor: pointer;text-decoration:none;" do %> <%= code.title %> <!-- <i class="fa fa-link" style="font-size:14px; color: #61318f !important;" aria-hidden="true"></i> --> <% end %></td>
+									<td style="text-align:center;"><%= @status %></td>
+									<% if current_user.super_vc_admin? %>
+									<td style="text-align:center;"><%#= link_to 'Show', code %>
+										<%#= link_to 'Edit', edit_access_code_path(code) %>
+										<%#= link_to 'Delete', code, method: :delete, data: { confirm: 'Are you sure?' }, style:"text-decoration: none" %>
+										<%= link_to 'Delete', code, method: :delete, data: {confirm: 'Are you sure you want to delete this campaign?', title: 'Confirm Deletion', commit: 'Yes do it!', cancel: 'Not really!' }, style: "text-decoration:none; color:red;", id: "delete-btn" %>
+									</td>
+									<% end %>
+								</tr>
+								<% end %>
+							</tbody>
+						</table>
+						<% end %>
+						<br/>
+						<% unless @access_codes.blank? %>
+						<div class="row justify-content-end" style="text-align: right !important;">
+							<%= will_paginate @access_codes, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+						</div>
+						<% end %>
+						<br/>
+						<div class="actions text-right" style="padding:5px 5px 30px 0; bottom: 0; right: 0;">
+							<% if current_user.super_vc_admin? %>
+							<%= link_to 'Create Campaign', new_access_code_path, class: 'btn btn-outline-primary' %>
+							<% else %>
+							<% if @access_codes.blank? %>
+							<%#= link_to 'Create Campaign', new_access_code_path, class: 'btn btn-outline-primary' %>
+							<% else %>
+							<!-- As per the discussion on 07/14/2020 show the disable button on the list screen for normal users by Jude on 07/15/2020 -->
+							<button disabled class="btn btn-outline-primary"> Create Campaign </button>
+							<br/>
+							<span style="font-style:italic;font-size:12px;padding-right:20px;">Coming Soon...</span>
+							<% end %>
+							<% end %>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-<% if @access_codes.blank? %>
-  <div class="row" style="height:60px"></div>
-  <div class="col-md-8 offset-md-4 align-self-center">  <%= link_to 'Create your first campaign', new_access_code_path, class: 'btn btn-outline-primary', style:"font-size:20px!important;" %></div>
-<% else %>
-<div class="row justify-content-end" style="text-align: right !important;">
-<%= will_paginate @access_codes, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
-</div>
-<table width=100% class="table table-bordered table-sm">
-  <thead class="table-heading">
-    <tr class="thead-light text-center">
-      <!-- As per the discussion on 10/29/2020 Listener Group was removed by Jude on 10/30/2020 -->	
-	  <th width="10%" rowspan="1" class="align-middle">No.</th>
-      <!-- <th width="45%" colspan="2"class="align-top">Listener Group</th> -->
-	  <th width="30%" rowspan="1" class="align-middle">Campaign Access Code</th>
-      <!-- As per the discussion on 07/14/2020 it was updated by Jude on 07/15/2020 -->
-      <!-- <th width="40%" rowspan="2" class="align-top">Campaign Name (Article Count)</th> -->
-      <th width="40%" rowspan="1" class="align-middle">Campaign Name</th>
-	  <th width="20%" rowspan="1" class="align-middle">Campaign Status</th>
-      <!-- <th width="40%" rowspan="1" class="align-middle"># of Articles</th>  -->
-      <% if current_user.super_vc_admin? %>
-        <th width="15%" rowspan="2" class="align-top">Action</th>
-      <% end %>
-    </tr>
-    <!-- As per the discussion on 10/29/2020 Listener Group was removed by Jude on 10/30/2020 -->	
-    <!-- <tr class="thead-light text-center align-top">
-      <th width="30%" class="align-top">Name</th>
-      <th width="15%" class="align-top">Code</th>
-    </tr> -->
-  </thead>
-
-<tbody>
-  <% @access_codes.each_with_index do |code, indx| %>
-      <tr>
-		  <td style="text-align:center;"><%= link_to edit_access_code_path(code), style:"color:#000;cursor: pointer;text-decoration:none;" do %><%= indx+1 %><%end%></td>
-      <!-- 
-      <tr style="cursor: pointer;">
-      <td style="text-align:center;" onclick="location.href='<%#= edit_access_code_path(code) %>'"><%#= listener_group_name(code.listener_id) %></td>
-      <td style="text-align:center;" onclick="location.href='<%#= edit_access_code_path(code) %>'"><%#= code.code %></td>
-      <td style="text-align:center;" onclick="location.href='<%#= edit_access_code_path(code) %>'"><%#= code.title %> (<%#= article_count code.id %>)</td> -->
-
-      <!-- <td style="text-align:center;"><%= listener_group_name(code.listener_id) %></td> -->
-      <td style="text-align:center;"><%= link_to edit_access_code_path(code), style:"color:#000;cursor: pointer;text-decoration:none;" do %><%= code.code %><%end%></td>
-      <!-- As per the discussion on 07/14/2020 it was updated by Jude on 07/15/2020 -->
-      <td style="text-align:center;"><%= link_to edit_access_code_path(code), style:"color:#000;cursor: pointer;text-decoration:none;" do %> <%= code.title %> <!-- <i class="fa fa-link" style="font-size:14px; color: #61318f !important;" aria-hidden="true"></i> --> <% end %></td>
-      <!-- <td style="text-align:center;"><%#= link_to speeches_path, style:"color:#000;cursor: pointer;text-decoration:none;" do %> <%#= article_count(code.id) %> <i class="fa fa-link" style="font-size:14px; color: #61318f !important;" aria-hidden="true"></i> <!% end %></td> -->
-	  <td style="text-align:center;"><%= link_to edit_access_code_path(code), style:"color:#000;cursor: pointer;text-decoration:none;" do %> Active <% end %></td>
-	  
-      <% if current_user.super_vc_admin? %>
-        <td style="text-align:center;"><%#= link_to 'Show', code %>
-        <%#= link_to 'Edit', edit_access_code_path(code) %>
-        <%#= link_to 'Delete', code, method: :delete, data: { confirm: 'Are you sure?' }, style:"text-decoration: none" %>
-        <%= link_to 'Delete', code, method: :delete, data: {confirm: 'Are you sure you want to delete this campaign?', title: 'Confirm Deletion', commit: 'Yes do it!', cancel: 'Not really!' }, style: "text-decoration:none; color:red;", id: "delete-btn" %>
-        </td>
-      <% end %>
-    </tr>
-  <% end %>
-</tbody>
-</table>
-<% end %>
-<br/>
-<% unless @access_codes.blank? %>
-<div class="row justify-content-end" style="text-align: right !important;">
-<%= will_paginate @access_codes, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
-</div>
-<% end %>
-<br/>
-
-<div class="actions text-right" style="padding:5px 5px 30px 0; bottom: 0; right: 0;">
-<% if current_user.super_vc_admin? %>
-<%= link_to 'Create Campaign', new_access_code_path, class: 'btn btn-outline-primary' %>
-<% else %>
-<% if @access_codes.blank? %>
-  <%#= link_to 'Create Campaign', new_access_code_path, class: 'btn btn-outline-primary' %>
-<% else %>
-  <!-- As per the discussion on 07/14/2020 show the disable button on the list screen for normal users by Jude on 07/15/2020 -->
- <button disabled class="btn btn-outline-primary"> Create Campaign </button>
- <br/>
- <span style="font-style:italic;font-size:12px;padding-right:20px;">Coming Soon...</span>
-<% end %>
-<% end %>
-</div>
-<!-- <div class="row col-md-6" style="margin-left:5px; padding: 1px 5px 1px 5px; color:#FFF; background-color:orange"><strong>Note:</strong> You can have only one Campaign in this version.</div> -->
-</div>
-</div>
-</div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="FAQcontentModal-campiagn" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="contentModalLabel" aria-hidden="true">
-<div class="modal-dialog modal-lg" role="document">
-  <div class="modal-content">
-    <div class="modal-header">
-        <div class="col-md-6">
-          <h5 class="modal-title" id="exampleModalLabel">FAQ</h5>
-        </div>
-        <div class="col-md-3 text-right" >
-          <button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close" data-toggle="tooltip" data-placement="top" title="Close">
-            <i class="fa fa-times-circle fa-lg"></i> 
-          </button>
-        </div>
-    </div>
-    <div id="contentDetails" class="modal-body">
-      <%= render "layouts/shared/faq" %>
-    </div>
-    <div class="modal-footer">
-      <div class="col-md-6"></div>
-      <div class="col-md-6 offset-md-5 text-right">
-        <button type="button" class="btn btn-outline-primary close-modal" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
+		<!-- Modal -->
+		<div class="modal fade" id="FAQcontentModal-campiagn" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="contentModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<div class="col-md-6">
+							<h5 class="modal-title" id="exampleModalLabel">FAQ</h5>
+						</div>
+						<div class="col-md-3 text-right" >
+							<button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close" data-toggle="tooltip" data-placement="top" title="Close">
+								<i class="fa fa-times-circle fa-lg"></i> 
+							</button>
+						</div>
+					</div>
+					<div id="contentDetails" class="modal-body">
+						<%= render "layouts/shared/faq" %>
+					</div>
+					<div class="modal-footer">
+						<div class="col-md-6"></div>
+						<div class="col-md-6 offset-md-5 text-right">
+							<button type="button" class="btn btn-outline-primary close-modal" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>

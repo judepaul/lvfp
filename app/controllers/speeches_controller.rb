@@ -18,6 +18,9 @@ class SpeechesController < ApplicationController
   # GET /speeches/1
   # GET /speeches/1.json
   def show
+    acsm = AccessCodeSpeechMap.where(access_code_id: params[:id]).last unless params[:id].blank?
+    @speech = Speech.find(acsm.speech_id) unless acsm.blank?
+    @access_code = AccessCode.find(params[:id]) unless params[:id].blank?
   end
 
   # GET /speeches/new
@@ -55,7 +58,7 @@ class SpeechesController < ApplicationController
         @speech.update_attributes(email_code: @speech.email_code += @speech.id, user_id: current_user.id, draft: true)
         AccessCodeSpeechMap.create(access_code_id: acc_code_id, speech_id: @speech.id)
         # format.html { redirect_to speeches_url(group_code: acc_code_id), notice: 'Speech was successfully created.' }
-        format.html { redirect_to edit_speech_path(@speech), notice: "One more step needs to be done to make this available to your users. Click the Publish button to get published.".html_safe }
+        format.html { redirect_to edit_speech_path(@speech) }
         format.json { render :new, status: :created, location: @speech }
       else
         format.html { render :new }
@@ -75,7 +78,7 @@ class SpeechesController < ApplicationController
         end
       if @speech.update(speech_params)
         if params[:commit] == "Save"
-          format.html { redirect_to edit_speech_path(@speech), notice: "One more step needs to be done to make this available to your users. Click the Publish button to get published.".html_safe }
+          format.html { redirect_to edit_speech_path(@speech) }
           format.json { render :show, status: :ok, location: @speech }
         elsif(params[:commit] == "Publish")
           # updated by Jude on 04/18/2020 to change the redirect url to skill details

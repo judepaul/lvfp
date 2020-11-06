@@ -9,6 +9,7 @@ class AccessCodesController < ApplicationController
     else
       @access_codes = AccessCode.where(user_id: current_user.id).order('id DESC').paginate(page: params[:page])
     end
+    @status = "Active"
   end
 
   # GET /access_codes/1
