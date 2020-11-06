@@ -22,6 +22,12 @@ class SpeechesController < ApplicationController
     @speech = Speech.find(acsm.speech_id) unless acsm.blank?
     @access_code = AccessCode.find(params[:id]) unless params[:id].blank?
   end
+  
+  def view_article
+    acsm = AccessCodeSpeechMap.where(access_code_id: params[:id]).last unless params[:id].blank?
+    @speech = Speech.find(acsm.speech_id) unless acsm.blank?
+    @access_code = AccessCode.find(params[:id]) unless params[:id].blank?    
+  end
 
   # GET /speeches/new
   def new

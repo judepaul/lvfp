@@ -43,6 +43,8 @@ Rails.application.routes.draw do
 
   get "users/check_username", :controller => "registrations", :action => "check_username"
   
+  get "/voice-reader-studio/article/:id" => "speeches#view_article", as: "view_article" 
+  
   get "speeches/published_details/:speech_id" => "speeches#published_details", as: "published_details"
 
   get "/voice-chimp-skill/details" => "skills#published_skill_details", as: "published_skill_details"
