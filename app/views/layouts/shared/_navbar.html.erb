@@ -24,49 +24,48 @@
 			<% else %>
 			<% if controller.controller_name != "dashboard" %>
 			<li class="nav-item  dropdown dropdown-studio sub-heading pt-1">
-				<a class="nav-link text-black" href="/dashboard/index/">
+				<a class="nav-link text-black" href="/dashboard/index/" data-placement="bottom" data-toggle="tooltip" data-original-title="Dashboard">
 					<i class="fas fa-home"></i> Home
 				</a>
 			</li>
 			<li class="nav-item  dropdown dropdown-studio sub-heading pt-1">
-				<a class="nav-link text-black dropdown-toggle <%= (current_class? ["/voice-reader-studio/campaigns", "/voice-reader-studio/articles"]) == "access_codes" ? 'nav-active' : ''  %>" href="#" id="navbardrop" data-toggle="dropdown">
-					<i class="fas fa-database"></i> Manage
+				<a class="nav-link text-black <%= controller.controller_name=="access_codes"? 'nav-active' : '' %>" href="/voice-reader-studio/campaigns" data-placement="bottom" data-toggle="tooltip" data-original-title="View All Campaigns">
+					<i class="fas fa-database"></i> Campaigns
 				</a>
-				<div class="dropdown-menu studio-menu">
-					<!-- <span class="dropdown-item sub-heading border-bottom border-purple pb-1" style="font-size:16px !important"><strong>Voice Reader Studio</strong></span> -->
-					<a class="dropdown-item sub-heading pt-3" href='/voice-reader-studio/campaigns'><i class="fas fa-layer-group"></i> Campaigns</a>
-					<a class="dropdown-item sub-heading pt-2" href='/voice-reader-studio/articles'><i class="fas fa-newspaper"></i> Articles</a>
-				</div>
 			</li>
-			<li class="nav-item dropdown dropdown-skill sub-heading  pt-1">
-				<a class="nav-link text-black dropdown-toggle <%= controller.controller_name=="skills"? 'nav-active' : ''  %>" href="#" id="navbardrop" data-toggle="dropdown">
-					<i class="fas fa-microphone"></i> Skill
+			<li class="nav-item  dropdown dropdown-studio sub-heading pt-1">
+				<a class="nav-link text-black <%= controller.controller_name=="speeches"? 'nav-active' : '' %>" href="/voice-reader-studio/articles" data-placement="bottom" data-toggle="tooltip" data-original-title="View All Articles">
+					<i class="fas fa-clone"></i> Articles
 				</a>
-				<div class="dropdown-menu skill-menu">
-					<!-- <a class="dropdown-item sub-heading border-bottom border-purple pb-1" style="font-size:16px !important"><strong>Voice Reader Skill</strong></a> -->
-					<a class="dropdown-item sub-heading pt-3" href='/voice-chimp-skill/details'><i class="fas fa-clone"></i> Skill Details</a>
-                            
-				</div>
 			</li>
-			<li class="nav-item dropdown dropdown-analytics sub-heading  pt-1">
-				<a class="nav-link text-black dropdown-toggle" href="#"> <i class="fas fa-chart-pie"></i> Analytics </a>
-				<div class="dropdown-menu analytics-menu">
-					<!-- <a class="dropdown-item sub-heading border-bottom border-purple pb-1" style="font-size:16px !important"><strong>Voice Reader Analytics</strong></a> -->
-					<a class="dropdown-item sub-heading pt-3" href='#'><i class="fas fa-clone"></i> Coming Soon...</a>
-				</div>
+			<li class="nav-item  dropdown dropdown-studio sub-heading pt-1">
+				<a class="nav-link text-black <%= controller.controller_name=="skills"? 'nav-active' : '' %>" href="/voice-chimp-skill/details" data-placement="bottom" data-toggle="tooltip" data-original-title="Skill Details">
+					<i class="fas fa-clone"></i> Skill
+				</a>
 			</li>
-
 			<% end %>
 					
 					
 			<!-- Updated Signout with Account update based on the discussion on 10/24/2020 -->
-			<li class="nav-item dropdown dropdown-analytics sub-heading  pt-1">
+			<li class="nav-item  dropdown dropdown-studio sub-heading pt-1">
+				<a class="nav-link text-black <%= controller.controller_name=="users"? 'nav-active' : '' %>" href="/users/edit" data-placement="bottom" data-toggle="tooltip" data-original-title="Settings">
+					<i class="fas fa-user"></i> <%= current_user.username %>
+				</a>
+			</li>
+			
+			<li class="nav-item  dropdown dropdown-studio sub-heading pt-1">
+				<a class="nav-link text-black" href="/auth/logout" data-placement="bottom" data-toggle="tooltip" data-original-title="Sign Out">
+					<i class="fas fa-sign-out-alt"></i> <!-- Sign Out -->
+				</a>
+			</li>
+			
+			<!-- <li class="nav-item dropdown dropdown-analytics sub-heading  pt-1">
 				<a class="nav-link text-black dropdown-toggle" href="#"> <i class="fas fa-user"></i> <%= current_user.username %></a>
 				<div class="dropdown-menu analytics-menu">
 					<a class="dropdown-item sub-heading pt-2" style="font-size:16px !important" href="/users/edit"> <i class="fas fa-cog" aria-hidden="true"></i> Settings</a>
 					<a class="dropdown-item sub-heading pt-2" style="font-size:16px !important" href="/auth/logout"> <i class="fas fa-sign-out-alt"></i> Sign Out</a>
 				</div>
-			</li>
+			</li> -->
 					
 			<% end %>
 		</ul>

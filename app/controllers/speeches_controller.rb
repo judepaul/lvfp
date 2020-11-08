@@ -37,6 +37,10 @@ class SpeechesController < ApplicationController
     else
       @access_codes = AccessCode.where(user_id: current_user.id).order('id DESC')
     end
+    unless params[:campaign].blank?
+      acsm = AccessCodeSpeechMap.where(access_code_id: params[:campaign])
+      @speech_access_code = acsm.last.access_code unless acsm.blank?
+    end
   end
 
   # GET /speeches/1/edit

@@ -12,6 +12,7 @@
           <!-- card-header ends here -->   
           <div class="card-body">
             <%= form_with(model: speech, local: true, id: 'edit-articles') do |form| %>
+			<%= hidden_field_tag "UnsavedChanges", "0" %>
             <% unless @speech.new_record? %>    
               <% unless @speech.published? %>   
                 <div class="row">
@@ -97,11 +98,12 @@
               <% else %>
                 <% if params[:pg] == "skill_details" %>
                   <%= link_to 'Cancel', published_skill_details_path, class: "btn btn-outline-primary", style:"padding:8px !important;" %>
+					<% elsif params[:pg] == "article" %>
+                  		<%= link_to 'Cancel', speeches_path(group_code: @speech_access_code.id), class: "btn btn-outline-primary", style:"padding:8px !important;" %>
+					<% elsif params[:pg] == "campaign" %>
+						<%= link_to 'Cancel', view_article_path(@speech_access_code.id), class: "btn btn-outline-primary", style:"padding:8px !important;" %>
+					<% end %>
 				  <span style="padding-left:5px;"></span>
-                <% else %>
-                  <%= link_to 'Cancel', speeches_path(group_code: @speech_access_code.id), class: "btn btn-outline-primary", style:"padding:8px !important;" %>
-				  <span style="padding-left:5px;"></span>
-                <% end %>
               <% end %>
               <% if @speech.new_record? %>
                 <%= form.submit 'Save', id: 'save_content', class:"btn btn-outline-primary", style:"padding:8px!important;" %>
@@ -259,20 +261,33 @@ $('#add_speech_content').keyup(function() {
     } 
 }
 
-var isSubmitting = false;
-$(document).ready(function () {
-    $('#edit-articles').submit(function(){
-        isSubmitting = true
-    })
+// var isSubmitting = false;
+// $(document).ready(function () {
+//     $('#edit-articles').submit(function(){
+//         isSubmitting = true
+//     })
+//
+//     $('#edit-articles').data('initial-state', $('form').serialize());
+//
+//     $(window).on('beforeunload', function() {
+//         if (!isSubmitting && $('#edit-articles').serialize() != $('#edit-articles').data('initial-state')){
+//             return 'You have unsaved changes which will not be saved.'
+//         }
+//     });
+	
+$(document).ready(function() {
+	var ischanged = false;
 
-    $('#edit-articles').data('initial-state', $('form').serialize());
-
-    $(window).on('beforeunload', function() {
-        if (!isSubmitting && $('#edit-articles').serialize() != $('#edit-articles').data('initial-state')){
-            return 'You have unsaved changes which will not be saved.'
-        }
-    });
-})
+	$('.form-control').change(function () {
+		ischanged = true;
+	});
+	window.onbeforeunload = function (e) {
+		alert(ischanged);
+		if (ischanged) {
+			return "Make sure to save all changes.";
+		}
+	};
+});
 
 
 </script>

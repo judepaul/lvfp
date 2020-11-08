@@ -1,6 +1,6 @@
 <div class="container">
 	<div class="row" style="height:20px;"></div>
-	<span class="heading"> <i class="fas fa-layer-group"></i> Articles</span>
+	<span class="heading"> <i class="fas fa-layer-group"></i> Articles in <%= !@access_code.blank? ? @access_code.title.titlecase : "" %> campaign</span>
 
 	<div class="container-fluid px-0">
 		<div class="row no-gutters">
@@ -18,14 +18,16 @@
 										<div class="card-header" id="heading" class="btn btn-link" data-toggle="collapse" data-target="#collapse" aria-expanded="true" aria-controls="collapse" style="color: #043757 !important; text-decoration: none !important; padding: 10px; !important;">
 											<div class="row">
 												<div class="col-md-11 pl-4 table-heading"> Campaign: <%= @access_code.title.titlecase %> <!-- | Listener Group Access Code: <%#= ac.code %> --></div>
-												<div class="col-md-1" style="padding:3px 40px 0 0;"><i class="fas fa-plus float-right "></i></div>
+												<div class="col-md-1" style="padding:3px 40px 0 0;"><!-- <i class="fas fa-plus float-right "></i> --></div>
 											</div>
 										</div>
 										<div id="collapse" class="collapse show" aria-labelledby="heading" data-parent="#accordion" style="border:1px solid #dee2e6;"> 
 											<div class="card-body table-responsive">
 												<% if @access_code.access_code_speech_map.blank? %>
 												<div class="row" style="height:45px"></div>
-												<div class="col-md-8 offset-md-4 align-self-center">  <%= link_to 'Create your first Article', new_speech_path("campaign": @access_code.id), class: 'btn btn-outline-primary' %></div>
+												<div class="col-md-8 offset-md-4 align-self-center">  <%#= link_to 'Create your first Article', new_speech_path("campaign": @access_code.id), class: 'btn btn-outline-primary' %>
+												No Articles created yet.
+												</div>
 												<% else %>
 												<% speech_arr = [] %>
 												<% @access_code.access_code_speech_map.each do |acsm|
@@ -104,7 +106,7 @@
 														<div class="row">
 															<% unless @access_code.access_code_speech_map.blank? %>
 															<div class="actions text-right col-md-12" style="padding:5px 20px 30px 30px; bottom: 0; right: 0;">
-																<%= link_to 'Create Article', new_speech_path("campaign": @access_code.id), class: 'btn btn-outline-primary' %>
+																<%= link_to 'Create Article', new_speech_path("campaign": @access_code.id, pg: "campaign"), class: 'btn btn-outline-primary' %>
 															</div>
 															<% end %>
 														</div>
