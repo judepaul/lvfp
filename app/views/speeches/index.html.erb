@@ -88,10 +88,10 @@
 																									<!-- Jude - 04/28/2020 - Commented the condition in order to redirect the icons click to articles edit screen regardless of status(publishes/draft) -->
 																									<% if speech.published? %>
 																									<!-- updated by Jude on 04/18/2020 to change the redirect url to skill details -->
-																									<%= link_to(edit_speech_path(speech.id),style:"text-decoration:none;", class:"px-1 py-0") do %><i class="fas fa-square" style="font-size:14px; color:green;" data-toggle="tooltip" data-placement="top" title="Published"></i><% end %>
+																									<%#= link_to(edit_speech_path(speech.id),style:"text-decoration:none;", class:"px-1 py-0") do %><i class="fas fa-square" style="font-size:14px; color:green;" data-toggle="tooltip" data-placement="top" title="Published"></i><!% end %>
 																									<% else %> 
 																									<!-- <span class="btn btn-outline-warning px-1 py-0" style="text-decoration:none;">Draft</span> -->
-																									<%= link_to(edit_speech_path(speech.id),style:"text-decoration:none;", class:"px-1 py-0") do %><i class="fas fa-square px-1 py-0" style="font-size:14px; color:orange;" data-toggle="tooltip" data-placement="top" title="Draft"></i><% end %>
+																									<%#= link_to(edit_speech_path(speech.id),style:"text-decoration:none;", class:"px-1 py-0") do %><i class="fas fa-square" style="font-size:14px; color:orange;" data-toggle="tooltip" data-placement="top" title="Draft"></i><!% end %>
 																									<% end %>
 																								</td>
 																								<td>

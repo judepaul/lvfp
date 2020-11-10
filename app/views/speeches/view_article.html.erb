@@ -55,7 +55,7 @@
 																<table class="table-borderless table-sm">
 																	<tr>
 																		<td width="900px" style="padding:0.3rem !important;">
-																			<span class="content label-text"  style="cursor:pointer;" onclick="location.href='<%= edit_speech_path(speech) %>'">
+																			<span class="content label-text"  style="cursor:pointer;" onclick="location.href='<%= edit_speech_path(speech, pg: 'campaign') %>'">
 																				<!-- Title: <%= !speech.title.blank? ? speech.title : 'N/A' %> --> 
 																				<%= !speech.name.blank? ? speech.name : 'N/A' %>
 																			</span>
@@ -72,10 +72,10 @@
 																						<!-- updated by Jude on 04/18/2020 to change the redirect url to skill details 
 																							<%#= link_to("/speeches/published_details/#{speech.id}",style:"text-decoration:none;",class:"btn btn-outline-success px-1 py-0") do %>Published<!% end %> -->
 																							<!-- <%#= link_to("/voice-chimp-skill/details",style:"text-decoration:none;",class:"btn btn-outline-success px-1 py-0") do %>Published<!% end %> -->
-																							<%= link_to(edit_speech_path(speech.id),style:"text-decoration:none;", class:"px-1 py-0") do %><i class="fas fa-square" style="font-size:14px; color:green;" data-toggle="tooltip" data-placement="top" title="Published"></i><% end %>
+																							<%#= link_to(edit_speech_path(speech.id),style:"text-decoration:none;", class:"px-1 py-0") do %><i class="fas fa-square" style="font-size:14px; color:green;" data-toggle="tooltip" data-placement="top" title="Published"></i><!% end %>
 																							<% else %> 
 																							<!-- <span class="btn btn-outline-warning px-1 py-0" style="text-decoration:none;">Draft</span> -->
-																							<%= link_to(edit_speech_path(speech.id),style:"text-decoration:none;", class:"px-1 py-0") do %><i class="fas fa-square px-1 py-0" style="font-size:14px; color:orange;" data-toggle="tooltip" data-placement="top" title="Draft"></i><% end %>
+																							<%#= link_to(edit_speech_path(speech.id),style:"text-decoration:none;", class:"px-1 py-0") do %><i class="fas fa-square" style="font-size:14px; color:orange;" data-toggle="tooltip" data-placement="top" title="Draft"></i><!% end %>
 																							<% end %>
 																						</td>
 																						<td>
@@ -104,24 +104,18 @@
 														</div>
 														<% end %>
 														<div class="row">
-															<% unless @access_code.access_code_speech_map.blank? %>
-															<div class="actions text-right col-md-12" style="padding:5px 20px 30px 30px; bottom: 0; right: 0;">
+															<% unless @access_code.blank? %>
+															<div class="actions text-right col-md-12" style="padding:5px 20px 15px 30px; bottom: 0; right: 0;">
 																<%= link_to 'Create Article', new_speech_path("campaign": @access_code.id, pg: "campaign"), class: 'btn btn-outline-primary' %>
 															</div>
 															<% end %>
 														</div>
-													</div>
-  
-													<br/>
+													</div>  
 												</div>
-  
-	
 												<% end %>
-	
 											</div>
 										</div>
 										<div class="row" style="height:20px"></div>  
-
 									</div>
 								</div>
 							</div>

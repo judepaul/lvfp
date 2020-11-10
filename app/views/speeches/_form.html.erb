@@ -93,7 +93,9 @@
             <div class="actions text-right" style="padding:0 120px 0px 0; position: absolute; bottom: 0; right: 0;">
               <!-- Edit Form cancel button which has the @speech_access_code obj -->
               <% if @speech_access_code.blank? %>
-			  	<% if params[:pg] == "article" %>
+			  	<% if params[:pg] == "campaign" %>
+                	<%= link_to 'Cancel', view_article_path(current_user.access_code.last), class: "btn btn-outline-primary", style:"padding:8px !important;" %>
+			  	<% elsif params[:pg] == "article" %>
                 	<%= link_to 'Cancel', speeches_path, class: "btn btn-outline-primary", style:"padding:8px !important;" %>
 				<% elsif params[:pg] == "campaign_create" %>
 					<%= link_to 'Cancel', edit_access_code_path(current_user.access_code.last), class: "btn btn-outline-primary", style:"padding:8px !important;" %>
@@ -101,9 +103,7 @@
 					<%= link_to 'Cancel', edit_access_code_path(current_user.access_code.last), class: "btn btn-outline-primary", style:"padding:8px !important;" %>
 				<% end %>
 				<span style="padding-left:5px;"></span>
-				<% p "in if" %>
               <% else %>
-			  	<% p "in else" %>
                 <% if params[:pg] == "skill_details" %>
                   <%= link_to 'Cancel', published_skill_details_path, class: "btn btn-outline-primary", style:"padding:8px !important;" %>
 					<% elsif params[:pg] == "article" %>
@@ -111,7 +111,7 @@
 					<% elsif params[:pg] == "campaign" %>
 						<%= link_to 'Cancel', view_article_path(@speech_access_code.id), class: "btn btn-outline-primary", style:"padding:8px !important;" %>
 					<% else %>
-						<%= link_to 'Cancel', view_article_path(@speech_access_code.id), class: "btn btn-outline-primary", style:"padding:8px !important;" %>
+						<%= link_to 'Cancel', speeches_path(group_code: @speech_access_code.id), class: "btn btn-outline-primary", style:"padding:8px !important;" %>
 					<% end %>
 				  <span style="padding-left:5px;"></span>
               <% end %>
@@ -119,7 +119,7 @@
                 <%= form.submit 'Save', id: 'save_content', class:"btn btn-outline-primary", style:"padding:8px!important;" %>
 				<span style="padding-left:5px;"></span>
 				<span style="padding-left:5px;"></span>
-                <%= form.submit 'Publish', id: 'publish_content', class:"btn btn-outline-primary", disabled: true %>
+                <%= form.submit 'Publish', id: 'publish_content', class:"btn btn-outline-primary", disabled: true, style:"padding:8px !important;" %>
 				<span style="padding-left:5px;"></span>
               <% else %>
                 <!-- <audio id="audioPlayback" controls> -->
@@ -134,7 +134,7 @@
                 <% unless @speech.published? %>
 				  <%= form.submit 'Save', id: 'save_content', class:"btn btn-outline-primary", style:"padding: 8px !important;" %> 
 				  <span style="padding-left:5px;"></span>                                     
-                  <%= form.submit 'Publish', id: 'publish_content', class:"btn btn-outline-primary", style:"padding: 8px !important;", disabled: @speech.published? ? true : false, data: { confirm: "Warning: \n\n You are going to publish the article. It will be available to your end users for listening. After this step the article can not be edited or un-published.", dismiss: "modal" }, style: "border:none!important;" %>
+                  <%= form.submit 'Publish', id: 'publish_content', class:"btn btn-outline-primary", style:"padding: 8px !important;", disabled: @speech.published? ? true : false, data: { confirm: "Warning: \n\n You are going to publish the article. It will be available to your end users for listening. After this step the article can not be edited or un-published.", dismiss: "modal" }, style: "border:none!important;padding:8px!important;" %>
 				  <span style="padding-left:5px;"></span>
                 <% end %>
               <% end %>
