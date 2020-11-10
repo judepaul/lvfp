@@ -151,7 +151,7 @@ body {
 }
 
 // CSS to remove the blue glow in the form inputs and buttons
-input[type="text"], textarea, select, button {
+input[type="text"], textarea, select {
     outline: none;
     box-shadow:none !important;
     border:1px solid #ccc !important;
@@ -189,6 +189,7 @@ input[type="text"], textarea, select, button {
     font-size:18px !important;
 	font-weight:bold !important;
     letter-spacing:.03rem !important;
+	cursor: pointer;
 }
 
 .btn-outline-primary:disabled {

@@ -22,8 +22,8 @@ class RegistrationsController < Devise::RegistrationsController
       elsif User.exists?(email: email)
         redirect_to new_user_registration_path, notice: "Email already taken. Try with another one" 
      else
-        super
         flash.delete(:notice)
+        super
         #set_flash_message(:notice, :signed_up_first_time)
       end
 

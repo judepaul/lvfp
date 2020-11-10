@@ -82,7 +82,7 @@
 						<% end %>
 						<br/>
 						<div class="actions text-right" style="padding:5px 5px 30px 0; bottom: 0; right: 0;">
-							<% if current_user.super_vc_admin? %>
+							<% if current_user.super_vc_admin? && !@access_codes.blank? %>
 							<%= link_to 'Create Campaign', new_access_code_path, class: 'btn btn-outline-primary' %>
 							<% else %>
 							<% if @access_codes.blank? %>

@@ -51,7 +51,8 @@ class SpeechesController < ApplicationController
     else
       @access_codes = AccessCode.where(user_id: current_user.id).order('id DESC')
     end
-    @speech_access_code = AccessCodeSpeechMap.where(speech_id: params[:id]).last.access_code
+    acsm = AccessCodeSpeechMap.where(speech_id: params[:id])
+    @speech_access_code = acsm.last.access_code unless acsm.blank?
     
   end
 
@@ -129,13 +130,13 @@ class SpeechesController < ApplicationController
     speech_ids = access_code.access_code_speech_map.map{|acsm| acsm.speech}
     if current_user.role == "super_vc_admin"
       if @tab=="All"
-        @speeches = Speech.all.paginate(page: params[:page])
+        @speeches = Speech.where(id: speech_ids).paginate(page: params[:page])
       elsif @tab=="Draft"
-        @speeches = Speech.where(id: speech_ids).where(user_id: current_user.id, published: false).order('id DESC').paginate(page: params[:page])
+        @speeches = Speech.where(id: speech_ids).where(published: false).order('id DESC').paginate(page: params[:page])
       elsif @tab=="Published"
-        @speeches = Speech.where(published: true).paginate(page: params[:page])
+        @speeches = Speech.where(id: speech_ids).where(published: true).order('id DESC').paginate(page: params[:page])
       else
-        @speeches = Speech.all.paginate(page: params[:page])
+        @speeches = Speech.where(id: speech_ids).order('id DESC').paginate(page: params[:page])
       end  
       @access_code = AccessCode.where(code: @code).last
     else
@@ -147,7 +148,7 @@ class SpeechesController < ApplicationController
       elsif @tab=="Published"
         @speeches = Speech.where(id: speech_ids).where(user_id: current_user.id, published: true).order('id DESC').paginate(page: params[:page])
       else
-        @speeches = Speech.where(user_id: current_user.id).order('id DESC').paginate(page: params[:page])
+        @speeches = Speech.where(id: speech_ids).where(user_id: current_user.id).order('id DESC').paginate(page: params[:page])
       end
       @access_code = AccessCode.where(code: @code).last
     end
