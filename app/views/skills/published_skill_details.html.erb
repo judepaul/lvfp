@@ -1,3 +1,6 @@
+<div class="container">	
+<div class="row" style="height:20px;"></div>
+<span class="heading"> <i class="fas fa-clone"></i> Skill details</span>
 <div class="row" style="height:40px;"></div>
 <% 
     speech_arr = [] 
@@ -9,12 +12,13 @@
         	  	end
         	end  
 		%>
-
-    <div class="container">
+	    <div class="row">		
+		
     <div class="card" style="width:100%;">
     <div class="card-header text-black">
         <div class="row">
-            <div class="col-md-6 pl-0 table-heading"><i class="fas fa-clone"></i> Skill details for <%= access_code.title.titlecase %> campaign</div>
+            <div class="col-md-8 pl-0 table-heading"><i class="fas fa-clone"></i> <%= access_code.title.titlecase %> campaign</div>
+			<div class="col-md-4 text-right pl-0 table-heading"><i class="fas fa-clone"></i> <%= owner(access_code.user_id).titlecase %></div>
             </div>
     </div>
     <div class="card-body">

@@ -32,16 +32,17 @@
 						<thead class="table-heading">
 							<tr class="thead-light text-center">
 								<!-- As per the discussion on 10/29/2020 Listener Group was removed by Jude on 10/30/2020 -->	
-								<th width="10%" rowspan="1" class="align-middle">No.</th>
+								<th width="5%" rowspan="1" class="align-middle">No.</th>
 								<!-- <th width="45%" colspan="2"class="align-top">Listener Group</th> -->
-								<th width="30%" rowspan="1" class="align-middle">Campaign Access Code *</th>
+								<th width="15%" rowspan="1" class="align-middle">Campaign Access Code *</th>
 								<!-- As per the discussion on 07/14/2020 it was updated by Jude on 07/15/2020 -->
 								<!-- <th width="40%" rowspan="2" class="align-top">Campaign Name (Article Count)</th> -->
-								<th width="40%" rowspan="1" class="align-middle">Campaign Name **</th>
-								<th width="20%" rowspan="1" class="align-middle">Campaign Status</th>
+								<th width="35%" rowspan="1" class="align-middle">Campaign Name **</th>
+								<th width="15%" rowspan="1" class="align-middle">Campaign Status</th>
 								<!-- <th width="40%" rowspan="1" class="align-middle"># of Articles</th>  -->
 								<% if current_user.super_vc_admin? %>
-								<th width="15%" rowspan="2" class="align-top">Action</th>
+								<th width="20%" rowspan="1" class="align-middle">Owner</th>
+								<th width="20%" rowspan="1" class="align-middle">Action</th>
 								<% end %>
 							</tr>
 							<!-- As per the discussion on 10/29/2020 Listener Group was removed by Jude on 10/30/2020 -->	
@@ -59,6 +60,7 @@
 									<td style="text-align:center;"><%= link_to view_article_path(code), style:"color:#000;cursor: pointer;text-decoration:none;" do %> <%= code.title %> <!-- <i class="fa fa-link" style="font-size:14px; color: #61318f !important;" aria-hidden="true"></i> --> <% end %></td>
 									<td style="text-align:center;"><%= @status %></td>
 									<% if current_user.super_vc_admin? %>
+									<td style="text-align:center;"><%= owner(code.user_id) %></td>
 									<td style="text-align:center;"><%#= link_to 'Show', code %>
 										<%#= link_to 'Edit', edit_access_code_path(code) %>
 										<%#= link_to 'Delete', code, method: :delete, data: { confirm: 'Are you sure?' }, style:"text-decoration: none" %>
