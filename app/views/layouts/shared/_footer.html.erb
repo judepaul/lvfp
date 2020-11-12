@@ -15,6 +15,7 @@
 				<span data-toggle="dropdown"><i class="fas fa-bars"></i></span>
 				        <div class="dropdown-menu" style="background-color: #F0F8FF;min-width: 210px;">
 							<a href="http://launchvoicereader.com/" target="_new" class="footer-menu" style="color:#000;">Goto Main Site</a>
+							<div class="dropdown-divider"></div>
 							<a href="<%= !user_signed_in? ? '#':'/knowledge' %>" class="footer-menu" style="color:<%= !user_signed_in? ? '#808080':'#000' %>; " >Knowledge Base</a>
 							<div class="dropdown-divider"></div>
 							<a href="<%= !user_signed_in? ? '#':'/help' %>" class="footer-menu" style="color:<%= !user_signed_in? ? '#808080':'#000' %>; ">Help</a>
