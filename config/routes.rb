@@ -31,12 +31,12 @@ Rails.application.routes.draw do
   get 'dashboard/index'
 
   #devise_for :users
-  devise_for :users, :controllers => {:passwords => 'passwords', :sessions => 'sessions', :registrations => "registrations"}, path: 'auth', path_names: { sign_in: 'login', sign_out: 'logout', password: 'secret', confirmation: 'verification', unlock: 'unblock', registration: 'register', sign_up: 'signup' }
+  devise_for :users, :controllers => {:passwords => 'passwords', :sessions => 'sessions', :registrations => "registrations"}, path: '', path_names: { sign_in: 'signin', sign_out: 'signout', password: 'secret', confirmation: 'verification', unlock: 'unblock', registration: '', sign_up: 'signup' }
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   authenticated :user do
     root to: 'dashboard#index', as: :authenticated_root
   end
-  root to: redirect('/auth/login')
+  root to: redirect('/signin')
 
   # Amazon comes in with a post request
   post '/skill/handler' => 'skills#root', :as => :skill_handler
@@ -55,6 +55,7 @@ Rails.application.routes.draw do
   devise_scope :user do
     patch "/confirm" => "confirmations#confirm"
     patch '/users/update_password' => "users#update_password"
+    get '/vc-admin/list' => "users#index"
     get "auth/signup/instructions", :controller => "registrations", :action => "instructions"
     get "auth/secret/instructions", :controller => "passwords", :action => "instructions"
   end

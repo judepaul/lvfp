@@ -16,11 +16,11 @@ class RegistrationsController < Devise::RegistrationsController
         username = params[:user][:username]
         email = params[:user][:email]
      if User.exists?(username: username) &&  User.exists?(email: email)
-        redirect_to new_user_registration_path, notice: "Username and Email already exists. Try with different ones" 
+        redirect_to new_user_registration_path, notice: "Username and Email already exists. Try with different ones." 
       elsif User.exists?(username: username)
-        redirect_to new_user_registration_path, notice: "Username already exists. Try with another one" 
+        redirect_to new_user_registration_path, notice: "Username already exists. Try with another one." 
       elsif User.exists?(email: email)
-        redirect_to new_user_registration_path, notice: "Email already taken. Try with another one" 
+        redirect_to new_user_registration_path, notice: "Email already taken. Try with another one." 
      else
         flash.delete(:notice)
         super

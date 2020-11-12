@@ -1,68 +1,67 @@
-<div class="row" style="height:60px"></div>  
-
-<div class="container">
-	<div class="row">
-
-		<div class="col-md-6">
-			<div class="card">
-				<div class="card-header text-black" style="font-weight:bold;">Total Campaigns - <%= @campaigns_count %></div>
-				<div class="card-body" style="max-height:300px; overflow-y: scroll;">
-					<table width=100% class="table table-bordered table-sm">
-						<thead class="table-heading">
-							<tr class="thead-light text-center">
-								<th width="10%" rowspan="1" class="align-middle">No.</th>
-								<th width="65%" rowspan="1" class="align-middle">Campaign</th>
-								<th width="25%" rowspan="1" class="align-middle">Created by</th>
-							</tr>
-						</thead>
-						<tbody>
-	  
-							<% unless @campaigns.blank?
-							@campaigns.each_with_index do |campaign, indx|
-								%>
-								<tr>
-									<td style="text-align:center;"><%= indx+1 %></td>
-									<td><%= campaign.title.nil? ? "N/A" : campaign.title %></td>
-									<td><%= User.find(campaign.user_id).username %></td>
-								</tr>
-								<%
-							end
-						end
-						%>
-					</tbody>
-				</table>
-			</div>
-		</div>
+<div class="row" style="height:20px"></div>  
+<div class="row">
+	<div class="col-md-3 d-flex">
+		<a href="/voice-reader-studio/campaigns" class="float-right d-inline-flex share text-dark" style="text-decoration: none">
+			<div class="card dashboard-card">
+				<div class="inner">
+					<img class="card-img-top" src="/assets/dashboard-editor" width="100%" height="240" alt="Studio">
+				</div>
+				<div class="card-body flex-fill">
+					<span class="card-title heading-semibold">Manage Campaigns</span>
+					<p class="card-text">Create new campaigns that you want to share with your audience.</p>
+				</div>
+			</div> 
+		</a> 
 	</div>
-	<div class="col-md-6">
-		<div class="card">
-			<div class="card-header text-black" style="font-weight:bold;">Total Articles - <%= @articles_count %></div>
-			<div class="card-body" style="max-height:300px; overflow-y: scroll;">
-				<table width=100% class="table table-bordered table-sm">
-					<thead class="table-heading">
-						<tr class="thead-light text-center">
-							<th width="10%" rowspan="1" class="align-middle">No.</th>
-							<th width="65%" rowspan="1" class="align-middle">Article</th>
-							<th width="25%" rowspan="1" class="align-middle">Created by</th>
-						</tr>
-					</thead>
-					<tbody>
-		
-						<% unless @articles.blank?
-						@articles.each_with_index do |article, indx|
-							%>
-							<tr>
-								<td style="text-align:center;"><%= indx+1 %></td>
-								<td><i class="fas fa-volume-up"></i> <%= article.title.nil? ? "N/A" : article.title %></td>
-								<td><%= User.find(article.user_id).username %></td>
-							</tr>
-		
-							<%
-						end
-					end
-					%>
-				</tbody>
-			</table>
-		</div>
+				
+	<div class="col-md-3 d-flex" style='<%= !current_user.access_code.present? ? "opacity: 0.5;" : ""  %>'>
+		<a href="/voice-reader-studio/articles" class="float-right d-inline-flex share text-dark" style="text-decoration: none">
+			<div class="card dashboard-card">
+				<div class="inner">
+					<img class="card-img-top" src="/assets/dashboard-articles.jpg" width="100%" height="240" alt="Voice Devices">
+				</div>
+				<div class="card-body flex-fill">
+					<span class="card-title heading-semibold">Manage Articles</span>
+					<!-- <p class="card-text">Get details of the skill and assist your audience to listen to your campaigns</p> -->
+					<% if current_user.access_code.present? %>
+						<p class="card-text">Create new articles that you want to share with your audience.</p>
+					<% else %>
+						<p class="card-text text-black">You need to create a campaign first!</p>
+					<% end %>
+				</div>
+			</div>
+		</a>
+	</div>
+	<div class="col-md-3 d-flex" style='<%= !current_user.access_code.present? ? "opacity: 0.5;" : ""  %>'>
+			
+		<a href="/voice-chimp-skill/details" class="float-right d-inline-flex share text-dark" style="text-decoration: none">
+			<div class="card dashboard-card">
+				<div class="inner">
+					<img class="card-img-top" src="/assets/dasboard-echo-dot.png" width="100%" height="240" alt="Graphs">
+				</div>
+				<div class="card-body flex-fill">
+					<span class="card-title heading-semibold">Manage Skill</span>
+					<% if current_user.access_code.present? %>
+						<p class="card-text">Get details of the skill and assist your audience to listen to your campaigns.</p>
+					<% else %>
+						<p class="card-text text-black">You need to create a campaign first</p>
+					<% end %>
+					
+				</div>
+			</div>
+		</a>
+	</div>
+	<div class="col-md-3 d-flex">
+		<a href="/vc-admin/list" class="float-right d-inline-flex share text-dark" style="text-decoration: none">
+			<div class="card dashboard-card">
+				<div class="inner">
+					<img class="card-img-top" src="/assets/dashboard-editor" width="100%" height="240" alt="Studio">
+				</div>
+				<div class="card-body flex-fill">
+					<span class="card-title heading-semibold">Manage Users</span>
+					<p class="card-text">Get details of VC Admin for reference.</p>
+				</div>
+			</div> 
+		</a> 
 	</div>
 </div>

@@ -21,7 +21,7 @@
             	<div class="col-md-8 pl-0 table-heading"><i class="fas fa-clone"></i> <%= access_code.title.titlecase %> campaign</div>
 				<div class="col-md-4 text-right pl-0 table-heading"><i class="fas fa-clone"></i> <%= owner(access_code.user_id).titlecase %></div>
 			<% else %>
-            	<div class="col-md-8 pl-0 table-heading"><i class="fas fa-clone"></i> <%= access_code.title.titlecase %> campaign</div>
+            	<div class="col-md-8 pl-0 table-heading"> <%= access_code.title.titlecase %> campaign</div>
 			<% end %>
             </div>
     </div>

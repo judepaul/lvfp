@@ -1,0 +1,80 @@
+<div class="row" style="height:20px"></div>
+<div class="container">
+	<div class="row">
+		<div class="col-md-4">
+			<span class="heading"> <i class="fas fa-user"></i> All VC Admin</span>
+		</div>
+		<div class="col-md-4">
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-10 offset-md-1 pb-3"><h5 style="padding: 2px 5px 2px 0px;color:#5C5656;text-align:left;font-size:22px !important;"><%#= notice %></h5></div>
+	</div>
+	<div class="row justify-content-center">
+		<div class="col-md-12">
+			<!-- Remove the outline - 07/16/2020 - by Jude -->
+			<!-- <div class="card" style="width:100%;"> -->
+			<div class="card" style="width:100%; border:none !important;">
+				<div class="card-body" style="height:auto;">
+					
+					<div class="row justify-content-end" style="text-align: right !important;">
+						<%= will_paginate @users, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+					</div>
+					<table width=100% class="table table-bordered table-sm">
+						<thead class="table-heading">
+							<tr class="thead-light text-center">
+								<th width="5%" rowspan="1" class="align-middle">No.</th>
+								<th width="15%" rowspan="1" class="align-middle">Name</th>
+								<th width="35%" rowspan="1" class="align-middle">Email</th>
+								<th width="20%" rowspan="1" class="align-middle">Last Activity On</th>
+								<th width="20%" rowspan="1" class="align-middle">Last Signin IP</th>
+							</tr>
+							</thead>
+							<tbody>
+								<% @users.each_with_index do |user, indx| %>
+								<tr>
+									<td style="text-align:center;"><%= indx+1 %></td>
+									<td style="text-align:center;"><%= user.username.titlecase %></td>
+									<td style="text-align:center;"><%= user.email %></td>
+									<td style="text-align:center;"><%= user.current_sign_in_at.strftime('%m/%d/%Y') %></td>
+									<td style="text-align:center;"><%= user.last_sign_in_ip %></td>
+								</tr>
+								<% end %>
+							</tbody>
+						</table>
+						<div class="row justify-content-end" style="text-align: right !important;">
+							<%= will_paginate @users, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+						</div>
+						<br/>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal -->
+		<div class="modal fade" id="FAQcontentModal-campiagn" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="contentModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<div class="col-md-6">
+							<h5 class="modal-title" id="exampleModalLabel">FAQ</h5>
+						</div>
+						<div class="col-md-3 text-right" >
+							<button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close" data-toggle="tooltip" data-placement="top" title="Close">
+								<i class="fa fa-times-circle fa-lg"></i> 
+							</button>
+						</div>
+					</div>
+					<div id="contentDetails" class="modal-body">
+						<%= render "layouts/shared/faq" %>
+					</div>
+					<div class="modal-footer">
+						<div class="col-md-6"></div>
+						<div class="col-md-6 offset-md-5 text-right">
+							<button type="button" class="btn btn-outline-primary close-modal" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>

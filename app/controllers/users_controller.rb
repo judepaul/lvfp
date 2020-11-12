@@ -1,6 +1,12 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
   
+  def index
+    if current_user.role == "super_vc_admin"
+      @users = User.where('role!=3').paginate(page: params[:page])
+    end
+  end
+  
   def edit
     @user = current_user
   end

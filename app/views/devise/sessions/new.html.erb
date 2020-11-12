@@ -1,8 +1,8 @@
 <main class="login-form">
     <div class="cotainer">
 		<div class="row">
-			<div class="col-md-5">
-				<h1 style="font-size:38px!important;font-family: Laila-Bold;color:#043757;">
+			<div class="col-md-5 offset-md-1">
+				<h1 style="font-size:42px!important;font-family: Laila-Bold;color:#043757;">
 					Make your subscribers listen to your email content, anytime and anywhere.
 				</h1>
 			</div>
@@ -33,12 +33,12 @@
                             <div class="form-group row">
                                 <div class="col-md-8 offset-md-4 text-md-right">
 			                        <div>
-			                          <a href="/auth/secret/new" style="text-decoration:none;"> Forgot Password? </a>
+			                          <a href="/secret/new" style="text-decoration:none;color:#696969;" class="content-text"> Forgot Password? </a>
 			                        </div>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <div class="col-md-6">New User? <a href="/auth/register/signup" style="padding:0 12px 0 3px;text-decoration:none;"> Sign Up </a></div>
+                                <div class="col-md-6">New User? <a href="/signup" style="padding:0 12px 0 3px;text-decoration:none;" class="btn btn-outline-primary sub-heading"> Sign Up </a></div>
                                 <div class="col-md-6 text-right">
                                     <%= f.submit "Submit", class: "btn btn-outline-primary sub-heading" do %>
 									<i class="fa fa-sign-in-alt"></i>

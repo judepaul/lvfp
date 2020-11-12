@@ -31,7 +31,7 @@ class ContactsController < ApplicationController
         ContactMailer.with(contact: @contact).contact_notification_email_to_admin.deliver
         #format.html { redirect_to @contact, notice: 'Contact was successfully created.' }
         #format.json { render :show, status: :created, location: @contact }
-        format.html { redirect_to '/auth/login', notice: 'Thank you for reaching out! We will get back in touch with you soon!' }
+        format.html { redirect_to '/signin', notice: 'Thank you for reaching out! We will get back in touch with you soon!' }
       else
         format.html { render :new }
         format.json { render json: @contact.errors, status: :unprocessable_entity }
