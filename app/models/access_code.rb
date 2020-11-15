@@ -1,4 +1,6 @@
 class AccessCode < ApplicationRecord
+    include Hashid::Rails
+    
     belongs_to :user, optional: true
     belongs_to :listener, optional: true
     scope :check_code, -> (access_code) { where code: access_code}

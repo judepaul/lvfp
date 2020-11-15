@@ -64,7 +64,7 @@ class ListenersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_listener
-      @listener = Listener.find(params[:id])
+      @listener = Listener.find_by_hashid(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

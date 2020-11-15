@@ -107,7 +107,7 @@ end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_access_code
-      @access_code = AccessCode.find(params[:id])
+      @access_code = AccessCode.find_by_hashid(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

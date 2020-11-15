@@ -1,5 +1,6 @@
 class User < ApplicationRecord
-
+  include Hashid::Rails
+  
   has_many :audiances
   has_many :listeners
   has_many :access_code

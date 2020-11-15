@@ -106,7 +106,7 @@
 														<div class="row">
 															<% unless @access_code.blank? %>
 															<div class="actions text-right col-md-12" style="padding:5px 20px 15px 30px; bottom: 0; right: 0;">
-																<%= link_to 'Create Article', new_speech_path("campaign": @access_code.id, pg: "campaign"), class: 'btn btn-outline-primary' %>
+																<%= link_to 'Create Article', new_speech_path("campaign": @access_code.hashid, pg: "campaign"), class: 'btn btn-outline-primary' %>
 															</div>
 															<% end %>
 														</div>

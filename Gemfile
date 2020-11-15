@@ -66,3 +66,4 @@ gem 'bootbox-rails'
 gem 'data-confirm-modal'
 gem 'postmark-rails'
 gem "recaptcha", require: "recaptcha/rails"
+gem "hashid-rails", "~> 1.0"

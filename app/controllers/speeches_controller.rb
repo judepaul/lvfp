@@ -19,14 +19,14 @@ class SpeechesController < ApplicationController
   # GET /speeches/1.json
   def show
     acsm = AccessCodeSpeechMap.where(access_code_id: params[:id]).last unless params[:id].blank?
-    @speech = Speech.find(acsm.speech_id) unless acsm.blank?
-    @access_code = AccessCode.find(params[:id]) unless params[:id].blank?
+    @speech = Speech.find_by_hashid(acsm.speech_id) unless acsm.blank?
+    @access_code = AccessCode.find_by_hashid(params[:id]) unless params[:id].blank?
   end
   
   def view_article
     acsm = AccessCodeSpeechMap.where(access_code_id: params[:id]).last unless params[:id].blank?
-    @speech = Speech.find(acsm.speech_id) unless acsm.blank?
-    @access_code = AccessCode.find(params[:id]) unless params[:id].blank?    
+    @speech = Speech.find_by_hashid(acsm.speech_id) unless acsm.blank?
+    @access_code = AccessCode.find_by_hashid(params[:id]) unless params[:id].blank?    
   end
 
   # GET /speeches/new
@@ -45,7 +45,7 @@ class SpeechesController < ApplicationController
 
   # GET /speeches/1/edit
   def edit
-    @speeches = Speech.find(params[:id])
+    @speeches = Speech.find_by_hashid(params[:id])
     if current_user.role == "super_vc_admin"
       @access_codes = AccessCode.all.order('id DESC')
     else
@@ -120,7 +120,7 @@ class SpeechesController < ApplicationController
 
   def published_details
     speech_id = params[:speech_id]
-    @speech = Speech.find(speech_id)
+    @speech = Speech.find_by_hashid(speech_id)
   end
 
   def getArticlesByType
@@ -162,7 +162,7 @@ class SpeechesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_speech
-      @speech = Speech.find(params[:id])
+      @speech = Speech.find_by_hashid(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

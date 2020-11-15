@@ -1,4 +1,6 @@
 class Speech < ApplicationRecord
+  include Hashid::Rails
+  
   # commented by Jude on 02/19/2020. There will access_code_speech_map association instead
   # has_one :user_content_map
   has_many :access_code_speech_map, dependent: :destroy

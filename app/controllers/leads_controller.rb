@@ -68,7 +68,7 @@ class LeadsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_lead
-      @lead = Lead.find(params[:id])
+      @lead = Lead.find_by_hashid(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

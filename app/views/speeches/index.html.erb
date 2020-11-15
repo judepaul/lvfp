@@ -127,7 +127,7 @@
 																<div class="row">
 																	<!% unless ac.access_code_speech_map.blank? %>
 																	<div class="actions text-right col-md-12" style="padding:15px 20px 10px 30px; bottom: 0; right: 0;">
-																		<%= link_to 'Create Article', new_speech_path("campaign": ac.id, pg: "article"), class: 'btn btn-outline-primary' %>
+																		<%= link_to 'Create Article', new_speech_path("campaign": ac.hashid, pg: "article"), class: 'btn btn-outline-primary' %>
 																	</div>
 																	<!% end %>
 																</div>

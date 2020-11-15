@@ -1,4 +1,6 @@
 class Audiance < ApplicationRecord
+  include Hashid::Rails
+  
   belongs_to :user
   belongs_to :access_code
   # check device exists, to prompt for access code
