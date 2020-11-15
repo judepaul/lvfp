@@ -13,4 +13,8 @@ class AccessCode < ApplicationRecord
     def generate_access_code
         self.code = SecureRandom.random_number(10000)
     end
+    
+    def self.get_id_from_hashid camp_hash_id
+      camp_id = self.find_by_hashid(camp_hash_id).id
+    end
 end

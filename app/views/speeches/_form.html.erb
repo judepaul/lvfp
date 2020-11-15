@@ -3,7 +3,8 @@
   <!-- Remove the outline - 07/16/2020 - by Jude -->
   <!-- <div class="container-fluid px-0" style="border:1px solid #E9ECEF;"> -->
 <div class="row" style="height:20px;"></div>
-<span class="heading" style="padding-left:120px;"> <i class="fas fa-layer-group"></i> Create/Edit Article - <%= !params[:campaign].blank? ? campaign_name(params[:campaign]) : "" %> Campaign </span>
+<% p "@@@ #{@speech_access_code}" %>
+<span class="heading" style="padding-left:120px;"> <i class="fas fa-layer-group"></i> Create/Edit Article - <%= !params[:campaign].blank? ? campaign_name(params[:campaign]) : "#{@speech_access_code.title.titlecase}" %> Campaign </span>
 
   <div class="container-fluid px-0">
     <div class="row no-gutters">
@@ -93,6 +94,7 @@
             <div class="actions text-right" style="padding:0 120px 0px 0; position: absolute; bottom: 0; right: 0;">
               <!-- Edit Form cancel button which has the @speech_access_code obj -->
               <% if @speech_access_code.blank? %>
+			  	<% p "in if" %>
 			  	<% if params[:pg] == "campaign" %>
                 	<%= link_to 'Cancel', view_article_path(params[:campaign]), class: "btn btn-outline-primary", style:"padding:8px !important;" %>
 			  	<% elsif params[:pg] == "article" %>
@@ -106,12 +108,15 @@
 				<% end %>
 				<span style="padding-left:5px;"></span>
               <% else %>
+			  <% p "in else" %>
                 <% if params[:pg] == "skill_details" %>
                   <%= link_to 'Cancel', published_skill_details_path, class: "btn btn-outline-primary", style:"padding:8px !important;" %>
 					<% elsif params[:pg] == "article" %>
                   		<%= link_to 'Cancel', speeches_path(group_code: @speech_access_code.id), class: "btn btn-outline-primary", style:"padding:8px !important;" %>
 					<% elsif params[:pg] == "campaign" %>
 						<%= link_to 'Cancel', view_article_path(@speech_access_code.id), class: "btn btn-outline-primary", style:"padding:8px !important;" %>
+					<% elsif params[:pg] == "article_create" %>
+						<%= link_to 'Cancel', view_article_path(@speech.hashid, pg: "article_create"), class: "btn btn-outline-primary", style:"padding:8px !important;" %>
 					<% else %>
 						<%= link_to 'Cancel', speeches_path(group_code: @speech_access_code.id), class: "btn btn-outline-primary", style:"padding:8px !important;" %>
 					<% end %>

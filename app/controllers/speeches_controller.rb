@@ -62,7 +62,9 @@ class SpeechesController < ApplicationController
     else
       @access_codes = AccessCode.where(user_id: current_user.id).order('id DESC')
     end
-    acsm = AccessCodeSpeechMap.where(speech_id: params[:id])
+    acsm = AccessCodeSpeechMap.where(speech_id: @speeches.id)
+    p "!!!!"
+    p acsm
     @speech_access_code = acsm.last.access_code unless acsm.blank?
     
   end
@@ -72,7 +74,9 @@ class SpeechesController < ApplicationController
   def create
     @speech = Speech.new(speech_params)
     p speech_params
-    acc_code_id = params[:acc_code_id] unless params[:acc_code_id].blank?
+    ac_id = params[:acc_code_id] unless params[:acc_code_id].blank?
+    acc_code_id = AccessCode.get_id_from_hashid ac_id
+    p "acc_code_id ==> #{acc_code_id}"
     respond_to do |format|
       if @speech.save
         # commented by Jude on 02/19/2020. There will access_code_speech_map association instead
