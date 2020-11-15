@@ -99,6 +99,8 @@
                 	<%= link_to 'Cancel', speeches_path, class: "btn btn-outline-primary", style:"padding:8px !important;" %>
 				<% elsif params[:pg] == "campaign_create" %>
 					<%= link_to 'Cancel', edit_access_code_path(current_user.access_code.last), class: "btn btn-outline-primary", style:"padding:8px !important;" %>
+				<% elsif params[:pg] == "article_create" %>
+					<%= link_to 'Cancel', view_article_path(@speech.hashid, pg: "article_create"), class: "btn btn-outline-primary", style:"padding:8px !important;" %>
 				<% else %>
 					<%= link_to 'Cancel', edit_access_code_path(current_user.access_code.last), class: "btn btn-outline-primary", style:"padding:8px !important;" %>
 				<% end %>

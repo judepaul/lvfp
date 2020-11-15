@@ -24,9 +24,20 @@ class SpeechesController < ApplicationController
   end
   
   def view_article
-    acsm = AccessCodeSpeechMap.where(access_code_id: params[:id]).last unless params[:id].blank?
-    @speech = Speech.find_by_hashid(acsm.speech_id) unless acsm.blank?
-    @access_code = AccessCode.find_by_hashid(params[:id]) unless params[:id].blank?    
+    if params[:pg] == "article_create"
+      p "in if"
+      @speech = Speech.find_by_hashid(params[:id]) unless params[:id].blank?
+      p @speech
+      acsm = AccessCodeSpeechMap.where(speech_id: @speech.id).last unless @speech.blank?
+      p acsm
+      @access_code = AccessCode.where(id: acsm.access_code_id).last unless acsm.blank? 
+      p @access_code
+    else
+      p "in else"
+      acsm = AccessCodeSpeechMap.where(access_code_id: params[:id]).last unless params[:id].blank?
+      @speech = Speech.find_by_hashid(acsm.speech_id) unless acsm.blank?
+      @access_code = AccessCode.find_by_hashid(params[:id]) unless params[:id].blank? 
+    end   
   end
 
   # GET /speeches/new
