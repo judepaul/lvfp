@@ -63,8 +63,6 @@ class SpeechesController < ApplicationController
       @access_codes = AccessCode.where(user_id: current_user.id).order('id DESC')
     end
     acsm = AccessCodeSpeechMap.where(speech_id: @speeches.id)
-    p "!!!!"
-    p acsm
     @speech_access_code = acsm.last.access_code unless acsm.blank?
     
   end
