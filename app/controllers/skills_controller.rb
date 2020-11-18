@@ -102,8 +102,10 @@ class SkillsController < ApplicationController
         message = 'Okay see you later'
       when 'AMAZON.StopIntent'
         message = 'Okay see you later'
+      when 'AMAZON.HelpIntent'
+        message = 'Hello, you can ask me to play articles for an access code in which I can help you to hear your articles or say cancel to exit the skill'
       when 'helloIntent'
-        message = 'Hello, Awesome you are in custom intent handler. Say stop or cancel to exist'
+        message = 'Hello, you can ask me to play articles for an access code in which I can help you to hear your articles'
         session_end = false
       when 'AMAZON.YesIntent'
         published_articles = params[:session][:attributes][:articles] unless params[:session][:attributes][:articles].blank?
