@@ -253,9 +253,9 @@ class SkillsController < ApplicationController
 
   def published_skill_details
     if current_user.role == "super_vc_admin"
-      @access_codes = AccessCode.all.order('updated_at DESC')
+      @access_codes = AccessCode.all.order('id DESC')
     else
-      @access_codes = AccessCode.where(user_id: current_user.id).order('updated_at DESC')
+      @access_codes = AccessCode.where(user_id: current_user.id).order('id DESC')
     end
   end
 

@@ -6,11 +6,10 @@
     speech_arr = [] 
     unless @access_codes.blank?
         @access_codes.each do |access_code|
-			access_code.access_code_speech_map.each do |acsm|
-        		if acsm.speech.published?
-          		  speech_arr << acsm.speech 
-        	  	end
-        	end  
+			acsm = AccessCodeSpeechMap.where(access_code_id: access_code.id)
+			speech_ids = acsm.map{|acsm| acsm.speech_id}
+			published_articles = Speech.where(id: speech_ids, published: true).order('updated_at DESC')
+		  
 		%>
 	    <div class="row">		
 		
@@ -75,7 +74,8 @@
                     </th>
                 </tr>
             </thead>
-            <% speech_arr.sort_by(&:updated_at).reverse.each_with_index do |speech,indx| %>
+            <% published_articles.each_with_index do |speech, indx| %>
+				<% p speech.title %>
                 <% if indx < 2 %>
                 <tbody class="">
                     <tr style="cursor:pointer;" onclick='location.href="<%= edit_speech_path(speech, pg: "skill_details" ) %>"'>
@@ -105,8 +105,6 @@
                 <% end %>
             <% end %>
         </table>
-
-    
 </div>
 
 <div style="height: 10px;"></div>
