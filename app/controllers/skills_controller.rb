@@ -103,7 +103,7 @@ class SkillsController < ApplicationController
       when 'AMAZON.StopIntent'
         message = 'Okay see you later'
       when 'AMAZON.HelpIntent'
-        message = 'Hello, you can ask me to play articles for an access code in which I can help you to hear your articles or say stop or cancel to exit the skill'
+        message = 'Hello, you can ask me to play articles for an access code <break strength="strong" /> in which I can help you to hear your articles or <break strength="strong" /> say cancel to exit the skill'
         session_end = false
       when 'helloIntent'
         message = 'Hello, you can ask me to play articles for an access code in which I can help you to hear your articles'
