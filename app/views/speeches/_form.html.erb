@@ -112,13 +112,14 @@
                 <% if params[:pg] == "skill_details" %>
                   <%= link_to 'Cancel', published_skill_details_path, class: "btn btn-outline-primary", style:"padding:8px !important;" %>
 					<% elsif params[:pg] == "article" %>
-                  		<%= link_to 'Cancel', speeches_path(group_code: @speech_access_code.id), class: "btn btn-outline-primary", style:"padding:8px !important;" %>
+                  		<%= link_to 'Cancel', speeches_path(group_code: @speech_access_code.hashid), class: "btn btn-outline-primary", style:"padding:8px !important;" %>
 					<% elsif params[:pg] == "campaign" %>
 						<%= link_to 'Cancel', view_article_path(@speech_access_code.id), class: "btn btn-outline-primary", style:"padding:8px !important;" %>
-					<% elsif params[:pg] == "article_create" %>
+					<% elsif params[:pg] == "camp_article" %>
 						<%= link_to 'Cancel', view_article_path(@speech.hashid, pg: "article_create"), class: "btn btn-outline-primary", style:"padding:8px !important;" %>
+						<%#= link_to 'Cancel', speeches_path(group_code: @speech_access_code.hashid), class: "btn btn-outline-primary", style:"padding:8px !important;" %>
 					<% else %>
-						<%= link_to 'Cancel', speeches_path(group_code: @speech_access_code.id), class: "btn btn-outline-primary", style:"padding:8px !important;" %>
+						<%= link_to 'Cancel', speeches_path(group_code: @speech_access_code.hashid), class: "btn btn-outline-primary", style:"padding:8px !important;" %>
 					<% end %>
 				  <span style="padding-left:5px;"></span>
               <% end %>

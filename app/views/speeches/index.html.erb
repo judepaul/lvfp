@@ -30,7 +30,7 @@
 												</div>
 											</div>
 											<% unless @group_code.blank? %>
-											<% if @group_code.to_i == ac.id %>
+											<% if @group_code == ac.hashid %>
 											<div id="collapse<%=indx+1%>" class="collapse show" aria-labelledby="heading<%=indx+1%>" data-parent="#accordion" style="border:1px solid #dee2e6;">
 												<% else %>
 												<div id="collapse<%=indx+1%>" class="collapse" aria-labelledby="heading<%=indx+1%>" data-parent="#accordion" style="border:1px solid #dee2e6;">
@@ -78,7 +78,7 @@
 																			<table class="table-borderless table-sm">
 																				<tr>
 																					<td width="900px" style="padding:0.3rem !important;">
-																						<span class="content label-text"  style="cursor:pointer;" onclick="location.href='<%= edit_speech_path(speech, pg: 'article_create') %>'">
+																						<span class="content label-text"  style="cursor:pointer;" onclick="location.href='<%= edit_speech_path(speech, pg: 'article') %>'">
 																							<!-- Title: <%= !speech.title.blank? ? speech.title : 'N/A' %> --> 
 																							<%= !speech.name.blank? ? speech.name : 'N/A' %>
 																						</span>
@@ -104,8 +104,13 @@
 																									<!-- <i class="fas fa-edit" style="padding-left:6px;color:#61318f;cursor:pointer;" onclick="location.href='<%#= edit_speech_path(speech) %>'"></i> -->
 																								</td>
 																								<td>
-																									<a href="/voice-reader-studio/articles/<%=speech.id%>" data-method="delete" data-confirm="<%= speech.published? ? 'This article is already published. Are you sure you want to delete?' : 'Are you sure you want to delete this article?' %>" data-title='Confirm Deletion' data-commit='Yes do it!' data-cancel='Not really!'  class='delete-speech' style="color:#61318f;padding-left:6px;" id="delete-btn">
-																										<i class="fas fa-trash-alt" data-toggle="tooltip" data-placement="top" title="Delete"></i></a>  
+																									<% unless params[:group_code].blank? %>
+																										<a href="/voice-reader-studio/articles/<%=speech.hashid%>?pg=list-articles&group_code=<%= params[:group_code] %>" data-method="delete" data-confirm="<%= speech.published? ? 'This article is already published. Are you sure you want to delete?' : 'Are you sure you want to delete this article?' %>" data-title='Confirm Deletion' data-commit='Yes do it!' data-cancel='Not really!'  class='delete-speech' style="color:#61318f;padding-left:6px;" id="delete-btn">
+																										<i class="fas fa-trash-alt" data-toggle="tooltip" data-placement="top" title="Delete"></i></a> 
+																										<% else %> 
+																											<a href="/voice-reader-studio/articles/<%=speech.hashid%>?pg=list-articles" data-method="delete" data-confirm="<%= speech.published? ? 'This article is already published. Are you sure you want to delete?' : 'Are you sure you want to delete this article?' %>" data-title='Confirm Deletion' data-commit='Yes do it!' data-cancel='Not really!'  class='delete-speech' style="color:#61318f;padding-left:6px;" id="delete-btn">
+																												<i class="fas fa-trash-alt" data-toggle="tooltip" data-placement="top" title="Delete"></i></a>
+																										<% end %>
 																									</td>
 																								</tr>
 																							</table>

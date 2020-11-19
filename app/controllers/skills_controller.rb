@@ -16,7 +16,8 @@ class SkillsController < ApplicationController
     
     # Constants
     intro_music = '<audio src="soundbank://soundlibrary/ui/gameshow/amzn_ui_sfx_gameshow_intro_01"/> <break strength="x-strong" />'
-    first_time_welcome_message = 'Hello! welcome to voice reader <break strength="x-strong" /><break strength="x-strong" /> Please say your access code to get started <break strength="x-strong" />'
+    #first_time_welcome_message = 'Hello! welcome to voice reader <break strength="x-strong" /><break strength="x-strong" /> Please say your access code to get started <break strength="x-strong" />'
+    first_time_welcome_message = 'Welcome! <break strength="strong" /> you need a four digit code to listen to audio articles <break strength="strong" /> Do you have an access code'
     welcome_message = 'Hello! welcome back to voice reader <break strength="x-strong" />'
     launch_intent_reprompt_message = 'Please say your access code to get started <break strength="x-strong" />'
     prompt_next_message = 'Do you want to listen to the next one? <break strength="x-strong" />'
@@ -25,43 +26,46 @@ class SkillsController < ApplicationController
     outro_music = "<audio src='soundbank://soundlibrary/musical/amzn_sfx_drum_comedy_03'/>"
     case input.type
     when "LAUNCH_REQUEST"
-      if Audiance.check_device_exists(device_id).blank?
-        message = "#{intro_music} <break strength='strong' /> #{first_time_welcome_message}"
+      #if Audiance.check_device_exists(device_id).blank?
+      if Audiance.check_user_id_exists(voice_user_id).blank?
+        #message = "#{intro_music} <break strength='strong' /> #{first_time_welcome_message}"
+        message = ""
         reprompt_message = launch_intent_reprompt_message
         session_end = false
       else
-        intro_speech = "#{intro_music} <break strength='strong' /> #{welcome_message}"
+        #intro_speech = "#{intro_music} <break strength='strong' /> #{welcome_message}"
+        message = "#{intro_music} <break strength='strong' /> #{first_time_welcome_message}"
         reprompt_message = ''
         session_end = false
         access_code_id = Audiance.check_device_exists(device_id).last.access_code_id
         acsm = AccessCodeSpeechMap.where(access_code_id: access_code_id)
         speech_ids = acsm.map{|acsm| acsm.speech_id}
         published_articles = Speech.where(id: speech_ids, published: true).order('updated_at DESC').first(2)
-        if published_articles.blank?
-          message = 'Sorry! I couldn\'t find any article avaiable for the code that you are asking'
-        else
-          published_articles.each do |published_article|
-            content = published_article.content
-            article_title = !published_article.title.blank? ? published_article.title : ''
-            article_intro = !published_article.intro.blank? ? published_article.intro : ''
-            article_outro = !published_article.outro.blank? ? published_article.outro : ''
-            article_text = published_articles.size == 1 ? "article" : "articles" 
-            if published_articles.size == 2
-              # Add prompt message (Do you want to read the next article) for the first article
-              if published_article == published_articles.first
-                message = intro_speech << "You have #{published_articles.size} new #{article_text} <break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{article_intro} <break strength='x-strong' /><break strength='x-strong' /> #{article_title} <break strength='x-strong' /><break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='x-strong' /><break strength='x-strong' /> #{article_outro} <break strength='x-strong' /><break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{prompt_next_message}";
-                session_end = false
-              else
-                # Add 2nd article into session to keep reading based on user's confirmation
-                session_articles << published_article
-              end
-            else
-              # If published_articles.size == 1 then no need to add the prompt message
-              message = intro_speech << "You have #{published_articles.size} new #{article_text} <break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{article_intro} <break strength='x-strong' /><break strength='x-strong' /> #{article_title} <break strength='x-strong' /><break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='x-strong' /><break strength='x-strong' /> #{article_outro} <break strength='x-strong' /><break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /><break strength='x-strong' />  #{closing_message}  <break strength='x-strong' /><break strength='x-strong' /> #{outro_music}";
-              session_end = false
-            end
-          end
-        end
+        # if published_articles.blank?
+#           message = 'Sorry! I couldn\'t find any article avaiable for the code that you are asking'
+#         else
+#           published_articles.each do |published_article|
+#             content = published_article.content
+#             article_title = !published_article.title.blank? ? published_article.title : ''
+#             article_intro = !published_article.intro.blank? ? published_article.intro : ''
+#             article_outro = !published_article.outro.blank? ? published_article.outro : ''
+#             article_text = published_articles.size == 1 ? "article" : "articles"
+#             if published_articles.size == 2
+#               # Add prompt message (Do you want to read the next article) for the first article
+#               if published_article == published_articles.first
+#                 message = intro_speech << "You have #{published_articles.size} new #{article_text} <break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{article_intro} <break strength='x-strong' /><break strength='x-strong' /> #{article_title} <break strength='x-strong' /><break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='x-strong' /><break strength='x-strong' /> #{article_outro} <break strength='x-strong' /><break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{prompt_next_message}";
+#                 session_end = false
+#               else
+#                 # Add 2nd article into session to keep reading based on user's confirmation
+#                 session_articles << published_article
+#               end
+#             else
+#               # If published_articles.size == 1 then no need to add the prompt message
+#               message = intro_speech << "You have #{published_articles.size} new #{article_text} <break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{article_intro} <break strength='x-strong' /><break strength='x-strong' /> #{article_title} <break strength='x-strong' /><break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='x-strong' /><break strength='x-strong' /> #{article_outro} <break strength='x-strong' /><break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /><break strength='x-strong' />  #{closing_message}  <break strength='x-strong' /><break strength='x-strong' /> #{outro_music}";
+#               session_end = false
+#             end
+#           end
+#         end
       end
     when "INTENT_REQUEST"
       case input.name
@@ -112,14 +116,18 @@ class SkillsController < ApplicationController
         message = 'Hello, you can ask me to play articles for an access code in which I can help you to hear your articles'
         session_end = false
       when 'AMAZON.YesIntent'
-        published_articles = params[:session][:attributes][:articles] unless params[:session][:attributes][:articles].blank?
-        published_articles.each do |published_article|
-          content = published_article["content"]
-          article_title = !published_article["title"].blank? ? published_article["title"] : ''
-          article_intro = !published_article["intro"].blank? ? published_article["intro"] : ''
-          article_outro = !published_article["outro"].blank? ? published_article["outro"] : ''
-          article_text = published_articles.size == 1 ? "article" : "articles"
-          message = "<break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{article_intro} <break strength='x-strong' /><break strength='x-strong' /> #{article_title} <break strength='x-strong' /><break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='x-strong' /><break strength='x-strong' /> #{article_outro} <break strength='x-strong' /><break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /><break strength='x-strong' /> #{closing_message} <break strength='x-strong' /><break strength='x-strong' /> #{outro_music}";
+        if params[:session][:attributes][:articles].blank?
+          message = "<break strength='x-strong' /> what's the access code"
+        else
+          published_articles = params[:session][:attributes][:articles] 
+          published_articles.each do |published_article|
+            content = published_article["content"]
+            article_title = !published_article["title"].blank? ? published_article["title"] : ''
+            article_intro = !published_article["intro"].blank? ? published_article["intro"] : ''
+            article_outro = !published_article["outro"].blank? ? published_article["outro"] : ''
+            article_text = published_articles.size == 1 ? "article" : "articles"
+            message = "<break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{article_intro} <break strength='x-strong' /><break strength='x-strong' /> #{article_title} <break strength='x-strong' /><break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='x-strong' /><break strength='x-strong' /> #{article_outro} <break strength='x-strong' /><break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /><break strength='x-strong' /> #{closing_message} <break strength='x-strong' /><break strength='x-strong' /> #{outro_music}";
+          end
         end
       when 'AMAZON.NoIntent'
         message = 'Okay see you later' 
@@ -127,7 +135,19 @@ class SkillsController < ApplicationController
         # it's over
         message = 'Bye'
         
-      #New intents for Play and list articles
+      #New intents for Add, Play and list articles
+      when 'AddCampaignIntent'
+        code = input.slots["access_code"]["value"]
+        access_code_id = AccessCode.where(code: code).last.id
+	      reprompt_message = ''
+	      session_end = false
+	      if access_code_id.blank?
+		      message = 'Sorry i can\'t recognize the access code. Ensure the access code available in voice reader studio and try with that';
+		      reprompt_message = 'Try with another access code exists in voice reader studio'
+		      session_end = false
+	      else
+		      intro_speech = '<audio src="soundbank://soundlibrary/ui/gameshow/amzn_ui_sfx_gameshow_intro_01"/> Campaign added successfully. <break strength="strong" />'
+        end
       when 'PlayIntent'
         code = input.slots["access_code"]["value"]
 	      unless code.blank?

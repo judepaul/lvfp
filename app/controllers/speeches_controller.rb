@@ -25,15 +25,10 @@ class SpeechesController < ApplicationController
   
   def view_article
     if params[:pg] == "article_create"
-      p "in if"
       @speech = Speech.find_by_hashid(params[:id]) unless params[:id].blank?
-      p @speech
       acsm = AccessCodeSpeechMap.where(speech_id: @speech.id).last unless @speech.blank?
-      p acsm
       @access_code = AccessCode.where(id: acsm.access_code_id).last unless acsm.blank? 
-      p @access_code
     else
-      p "in else"
       acsm = AccessCodeSpeechMap.where(access_code_id: params[:id]).last unless params[:id].blank?
       @speech = Speech.find_by_hashid(acsm.speech_id) unless acsm.blank?
       @access_code = AccessCode.find_by_hashid(params[:id]) unless params[:id].blank? 
@@ -74,7 +69,6 @@ class SpeechesController < ApplicationController
     p speech_params
     ac_id = params[:acc_code_id] unless params[:acc_code_id].blank?
     acc_code_id = AccessCode.get_id_from_hashid ac_id
-    p "acc_code_id ==> #{acc_code_id}"
     respond_to do |format|
       if @speech.save
         # commented by Jude on 02/19/2020. There will access_code_speech_map association instead
@@ -121,13 +115,32 @@ class SpeechesController < ApplicationController
   # DELETE /speeches/1.json
   def destroy
     # Get Group Id to show the accordion after delete
-    access_code_id = AccessCodeSpeechMap.where(speech_id: params[:id]).last.access_code_id unless params[:id].blank?
+    pg = params[:pg] unless params[:pg].blank?
+    @speech = Speech.find_by_hashid(params[:id]) unless params[:id].blank?
+    access_code_id = AccessCodeSpeechMap.where(speech_id: @speech.id).last.access_code_id
+    access_code_hash = AccessCode.find(access_code_id).hashid
     @speech.destroy
     # speech_id = params[:id]
     # @speech.update_attribute("is_deleted", true)
-    respond_to do |format|
-      format.html { redirect_to speeches_url(group_code: access_code_id), notice: 'Speech was successfully destroyed.' }
-      format.json { head :no_content }
+    unless pg.blank?
+      if pg=="view-articles"
+        respond_to do |format|
+          format.html { redirect_to view_article_path(access_code_hash), notice: 'Speech was successfully destroyed.' }
+          format.json { head :no_content }
+        end
+      elsif pg=="list-articles"
+        if params[:group_code].blank?
+          respond_to do |format|
+            format.html { redirect_to speeches_path, notice: 'Speech was successfully destroyed.' }
+            format.json { head :no_content }
+          end
+        else
+          respond_to do |format|
+            format.html { redirect_to speeches_path(group_code: access_code_hash), notice: 'Speech was successfully destroyed.' }
+            format.json { head :no_content }
+          end
+        end
+      end
     end
   end
 
