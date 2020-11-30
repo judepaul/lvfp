@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201104110110) do
+ActiveRecord::Schema.define(version: 20201130124421) do
 
   create_table "access_code_speech_maps", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "access_code_id"
@@ -38,8 +38,8 @@ ActiveRecord::Schema.define(version: 20201104110110) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "access_code_id"
-    t.index ["access_code_id"], name: "index_audiances_on_access_code_id"
+    t.string "email"
+    t.string "phone"
     t.index ["user_id"], name: "index_audiances_on_user_id"
   end
 
@@ -99,6 +99,15 @@ ActiveRecord::Schema.define(version: 20201104110110) do
     t.index ["user_id"], name: "index_speeches_on_user_id"
   end
 
+  create_table "subscriptions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "audiance_id"
+    t.bigint "access_code_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["access_code_id"], name: "index_subscriptions_on_access_code_id"
+    t.index ["audiance_id"], name: "index_subscriptions_on_audiance_id"
+  end
+
   create_table "user_content_maps", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "user_id"
     t.bigint "speech_id"
@@ -141,10 +150,11 @@ ActiveRecord::Schema.define(version: 20201104110110) do
   add_foreign_key "access_code_speech_maps", "speeches"
   add_foreign_key "access_codes", "listeners"
   add_foreign_key "access_codes", "users"
-  add_foreign_key "audiances", "access_codes"
   add_foreign_key "audiances", "users"
   add_foreign_key "listeners", "users"
   add_foreign_key "speeches", "users"
+  add_foreign_key "subscriptions", "access_codes"
+  add_foreign_key "subscriptions", "audiances"
   add_foreign_key "user_content_maps", "speeches"
   add_foreign_key "user_content_maps", "users"
   add_foreign_key "users", "leads"
