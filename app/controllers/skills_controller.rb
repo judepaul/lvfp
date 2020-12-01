@@ -62,13 +62,10 @@ class SkillsController < ApplicationController
     case input.type
     when "LAUNCH_REQUEST"
       audiance = Audiance.find_by_voice_user_id(voice_user_id)
-      count = Subscription.where(audiance_id: audiance_id).count unless audiance.blank?
-      p count
+      count = Subscription.where(audiance_id: audiance.id).count unless audiance.blank?
       # FIRST TIME USER
       #if Audiance.check_device_exists(device_id).blank?
-      p "@@@@@@@@@@@"
       if Audiance.check_user_id_exists(voice_user_id).blank?
-        p "!!!!!!!!!!"
         message = "#{intro_music} <break strength='strong' /> #{first_time_welcome_message}"
         reprompt_message = launch_intent_reprompt_message
         session_end = false
@@ -84,7 +81,6 @@ class SkillsController < ApplicationController
     when "INTENT_REQUEST"
       case input.name
       when 'AccessCode'   
-        p "!!!!!!!!!!!!!@@@@@@@@@@@@@"
         access_code = input.slots["access_code"]["value"]
         if AccessCode.pluck(:code).include?access_code.to_i
           access_code_id = AccessCode.where(code: access_code).last.id
@@ -159,11 +155,11 @@ class SkillsController < ApplicationController
       when 'AddCampaignIntent'
         access_code = input.slots["campaign_code"]["value"]
         access_code_id = AccessCode.where(code: access_code).last.id
-        if AccessCode.pluck(:code).include?access_code.to_i
-          access_code_id = AccessCode.where(code: access_code).last.id
-          vc_admin_id = AccessCode.where(code: access_code).last.user_id
-          record = Audiance.create(voice_user_id: voice_user_id, device_id: device_id, user_id:vc_admin_id)
-          unless record.blank?
+        if AccessCode.pluck(:code).include? access_code.to_i
+          audiance = Audiance.create(voice_user_id: voice_user_id)
+          device = Device.create(audiance_id:  audiance.id, device_id: device_id)
+          subscription = Subscription.create(audiance_id: audiance.id, access_code_id: access_code_id)
+          unless subscription.blank?
             message = "Congratulations, your campaign was added successfully. <break strength='strong' /> Say read or play articles for #{access_code}"
           else
             message = 'Sorry i can\'t add your access code. Try with another access code exists in voice reader'

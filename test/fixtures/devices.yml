@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  audiance: one
+  device_id: MyString
+  type: 
+  location: MyString
+
+two:
+  audiance: two
+  device_id: MyString
+  type: 
+  location: MyString

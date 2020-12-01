@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201130124421) do
+ActiveRecord::Schema.define(version: 20201201190435) do
 
   create_table "access_code_speech_maps", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "access_code_id"
@@ -35,12 +35,10 @@ ActiveRecord::Schema.define(version: 20201130124421) do
   create_table "audiances", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "voice_user_id"
     t.string "device_id"
-    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "email"
     t.string "phone"
-    t.index ["user_id"], name: "index_audiances_on_user_id"
   end
 
   create_table "contacts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -51,6 +49,16 @@ ActiveRecord::Schema.define(version: 20201130124421) do
     t.text "message"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "devices", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "audiance_id"
+    t.string "device_id"
+    t.string "type"
+    t.string "location"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["audiance_id"], name: "index_devices_on_audiance_id"
   end
 
   create_table "leads", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -104,6 +112,7 @@ ActiveRecord::Schema.define(version: 20201130124421) do
     t.bigint "access_code_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "is_subscribed"
     t.index ["access_code_id"], name: "index_subscriptions_on_access_code_id"
     t.index ["audiance_id"], name: "index_subscriptions_on_audiance_id"
   end
@@ -150,7 +159,7 @@ ActiveRecord::Schema.define(version: 20201130124421) do
   add_foreign_key "access_code_speech_maps", "speeches"
   add_foreign_key "access_codes", "listeners"
   add_foreign_key "access_codes", "users"
-  add_foreign_key "audiances", "users"
+  add_foreign_key "devices", "audiances"
   add_foreign_key "listeners", "users"
   add_foreign_key "speeches", "users"
   add_foreign_key "subscriptions", "access_codes"
