@@ -1,12 +1,12 @@
 <main class="login-form">
     <div class="cotainer">
 		<div class="row">
-			<div class="col-md-5 offset-md-1">
-				<h1 style="font-size:40px!important;font-family: Laila-Bold;color:#043757;">
-					Make your subscribers listen to your emails or newsletters, anytime and anywhere.
+			<div class="col-md-7 px-4">
+				<h1 style="font-size:40px!important;font-family: Laila-Bold;color:#043757;" class="align-middle">
+					<%= random_text.html_safe %>
 				</h1>
 			</div>
-		<div class="col-md-5 left">
+		<div class="col-md-5 pr-5">
         <!-- <div class="justify-content-center"> -->
             <!-- <div class="col-md-5"> -->
 				<div>
@@ -30,14 +30,24 @@
                             </div>
 
                             <div class="form-group row">
-                                <div class="col-md-8 offset-md-4 text-md-right">
+                                <div class="col-md-8 offset-md-4 text-md-right" style="font-size:16px !important;">
 			                        <div>
-			                          <a href="/secret/new" style="text-decoration:none;color:#696969;" class="content-text"> Forgot Password? </a>
+			                          <a href="/secret/new" style="text-decoration:none;color:#000;"> Forgot Password? </a>
 			                        </div>
                                 </div>
                             </div>
+		                    
                             <div class="form-group row">
-                                <div class="col-md-6">New User? <a href="/signup" style="padding:0 12px 0 3px;text-decoration:none;color:#000;"> Sign Up! </a></div>
+                                <div class="col-md-12">
+			                        <div style="font-size:14px !important;">
+		  							<%= check_box_tag 'terms_and_conditions', '1', true %>
+		  							  I have read and agree to the Terms of Service
+			                        </div>
+                                </div>
+                            </div>
+							
+                            <div class="form-group row">
+                                <div class="col-md-6"><span  style="font-size:16px !important;">New User?</span> <a href="/signup" style="padding:0 12px 0 3px;text-decoration:none;color:#000;" class="content-text"> Sign Up! </a></div>
                                 <div class="col-md-6 text-right">
                                     <%= f.submit "Submit", class: "btn btn-outline-primary sub-heading" do %>
 									<i class="fa fa-sign-in-alt"></i>
@@ -45,26 +55,10 @@
                                 </div>
                             </div>
                     <% end %>
-                    </div>
+                    
                     </form>
-                    <div class="col-md-11 text-center pt-0" style="text-align:right !important;">
-                        <div>
-                                    
-                                </div>
-                    </div>
-					<!-- <div class="row">
-						<div class="col-sm-6">
-						                            <p class="google"></span><small class="pl-3 pr-1">Sign up with google</small></p>
-						                        </div>
-						                        <div class="col-sm-6">
-						                            <p class="fb"><small class="pl-3 pr-1">Sign up with facebook</small></p>
-						                        </div>
-					</div> -->
-                    <!-- <div class="col-md-11 text-center pt-0" style="text-align:right !important;">
-                        <div>
-                                    Not received confirmation email? <a href="/auth/verification/new" style="padding:0 12px 0 3px;text-decoration:none;"> Re-Send </a>
-                                </div>
-                    </div> -->
+                 
+					
                 </div>
                 
             </div>
