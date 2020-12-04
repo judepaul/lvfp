@@ -50,17 +50,20 @@
               <div class="mt-2 col-md-3 offset-md-1">
                 <span class="label-text">Intro Audio</span> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Welcoming Jingle at the begining of an article. ex. Hi/Hello/Welcome"><%#= image_tag("/assets/icon-info.png") %></span>
               </div>
-              <div class="col-md-7">
-				<div class="input-group">
-				        <input type="text" class="form-control file-upload-text" placeholder="Coming Soon..." disabled />
-				        <span class="input-group-btn">
-				            <button type="button" class="btn btn-default file-upload-btn" style="pointer-events: none;">
-				                Browse...
-				                <input type="file" class="file-upload" name="myFile" disabled/>
-				            </button>
-				        </span>
-				    </div>
-              </div>
+              <div class="row col-md-7">
+				  <div class="col-md-1"><input type="checkbox" id="chk-intro" runat="server" onClick="checkbox();"	/></div>
+				<div class="col-md-11" id="chk-select" style="display:none;">
+  				<div class="input-group">
+						
+  						<select class="form-control" disabled>
+  						      <option>Choose an intro Jingle</option>
+  						      <option>Jingle-2</option>
+  						      <option>Jingle-3</option>
+  						    </select>
+  				    </div>
+  					<span style="font-size:14px;">Coming soon...</span>
+                </div>
+			</div>
             </div>
 			
             <div class="form-group row">
@@ -106,20 +109,23 @@
 			
             <div class="form-group row">
               <div class="mt-2 col-md-3 offset-md-1">
-                <span class="label-text">Outro Audio</span> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Welcoming Jingle at the begining of an article. ex. Hi/Hello/Welcome"><%#= image_tag("/assets/icon-info.png") %></span>
+                <span class="label-text">Outro Audio</span> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Closing Jingle at the begining of an article."><%#= image_tag("/assets/icon-info.png") %></span>
               </div>
-              <div class="col-md-7">
-				<div class="input-group">
-				        <input type="text" class="form-control file-upload-text" placeholder="Coming Soon..." disabled />
-				        <span class="input-group-btn">
-				            <button type="button" class="btn btn-default file-upload-btn" style="pointer-events: none;">
-				                Browse...
-				                <input type="file" class="file-upload" name="myFile" disabled/>
-				            </button>
-				        </span>
-				    </div>
-              </div>
-            </div>                          
+              <div class="row col-md-7">
+				  <div class="col-md-1"><input type="checkbox" id="chk-outro" runat="server" onClick="checkbox();"	/></div>
+				<div class="col-md-11" id="chk-select1" style="display:none;">
+  				<div class="input-group">
+						
+  						<select class="form-control" disabled>
+  						      <option>Choose an outro Jingle</option>
+  						      <option>Jingle-2</option>
+  						      <option>Jingle-3</option>
+  						    </select>
+  				    </div>
+  					<span style="font-size:14px;">Coming soon...</span>
+                </div>
+			</div>
+            </div>                         
 
 			<%= hidden_field_tag "acc_code_id", "#{params[:campaign]}" %>
             <div class="form-group row">
@@ -352,7 +358,25 @@ $(document).ready(function() {
 	  if (form.serialize() != original)
 	    return 'Are you sure you want to leave?'
 	}
+	
+	$('#chk-intro').change(function() {
+	 $('#chk-select').toggle(this.checked);
+	});
+	$('#chk-outro').change(function() {
+	 $('#chk-select1').toggle(this.checked);
+	});
 });
 
+// function checkbox() {
+//     var check = document.getElementById("chk-intro").checked;
+//     var box = document.getElementById("chk-select");
+//
+//     if (check) {
+//         box.checked = true;
+//     }
+//     else{
+//         box.checked = false;
+//     }
+// }
 
 </script>
