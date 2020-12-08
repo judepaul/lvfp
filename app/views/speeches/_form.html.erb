@@ -41,7 +41,7 @@
               <div class="mt-2 col-md-3 offset-md-1">
                 <span class="label-text">Name</span> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Name of an article."><%#= image_tag("/assets/icon-info.png") %></span>
               </div>
-              <div class="col-md-7">
+              <div class="col-md-7" style="padding-right:0px!important;">
                 <%= form.text_field :name, id: :article_name, class: 'form-control', value: "#{!@speech.blank? ? @speech.name : ""}", required: true, placeholder: 'Required - Enter Name', readonly: @speech.published? ? true : false %>
               </div>
             </div>
@@ -70,10 +70,10 @@
               <div class="mt-2 col-md-3 offset-md-1">
                 
               </div>
-  				<div class="row col-md-7">
-  					<div class="col-md-2"><label><input type="radio" name="intro" id="chk-intro-text" value="Text" checked= "<%= !@speech.intro.blank? ? true : false %>" /> <b>Text</b></label></div>
+  				<div class="row col-md-7" style="padding-right:0px!important;">
+  					<div class="col-md-2"><label><input type="radio" name="intro" id="chk-intro-text" value="Text" checked= "<%= !@speech.intro.blank? ? true : false %>" /> <b>Text </b></label></div>
   					<div class="col-md-10">
-  						<div class="input-group">
+  						<div class="input-group" style="padding-right:0px!important;">
   							<%= form.text_field :intro, id: :article_intro, class: 'form-control', value: "#{!@speech.blank? ? @speech.intro : ""}", placeholder: 'Optional - Enter Intro', readonly: @speech.published? ? true : false, style: "display:none;" %>
   						</div>
   						<!-- <span style="font-size:14px;">Coming soon...</span> -->
@@ -85,7 +85,7 @@
 
             <div class="form-group row">
               <div class="mt-2 col-md-3 offset-md-1">
-                <span class="label-text">Subject</span> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Title of the article which the skill user will hear before the main content"><%#= image_tag("/assets/icon-info.png") %></span>
+                <span class="label-text ml-3">Subject</span> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Title of the article which the skill user will hear before the main content"><%#= image_tag("/assets/icon-info.png") %></span>
               </div>
               <div class="col-md-7">
                 <%= form.text_field :title, id: :article_title, class: 'form-control', value: "#{!@speech.blank? ? @speech.title : ""}", required: true, placeholder: 'Required - Enter title', readonly: @speech.published? ? true : false %>
@@ -94,7 +94,7 @@
 
             <div class="form-group row">
               <div class="mt-2 col-md-3 offset-md-1">
-                <span class="label-text">Content</span> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Main content that the skill users will hear"><%#= image_tag("/assets/icon-info.png") %></span>
+                <span class="label-text ml-3">Content</span> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Main content that the skill users will hear"><%#= image_tag("/assets/icon-info.png") %></span>
               </div>
               <div class="col-md-7">
                 <%= form.text_area :content, id: :add_speech_content, size: "30x9", class: 'form-control show', placeholder: 'Required - Enter text', readonly: @speech.published? ? true : false %>
@@ -108,7 +108,7 @@
 
 			<div class="form-group row">
 				<div class="mt-2 col-md-3 offset-md-1">
-					<span class="label-text">Outro</span> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Welcoming Text/Jingle at the begining of an article. ex. Hi/Hello/Welcome"><%#= image_tag("/assets/icon-info.png") %></span>
+					<span class="label-text ml-3">Outro</span> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Welcoming Text/Jingle at the begining of an article. ex. Hi/Hello/Welcome"><%#= image_tag("/assets/icon-info.png") %></span>
 				</div>
 				<div class="row col-md-7">
 					<div class="col-md-2"><label><input type="radio" name="outro" id="chk-outro-jingle" value="Jingle" /> <b>Jingle</b></label></div>
