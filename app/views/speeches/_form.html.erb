@@ -71,7 +71,7 @@
                 
               </div>
   				<div class="row col-md-7">
-  					<div class="col-md-2"><label><input type="radio" name="intro" id="chk-intro-text" value="Text" /> <b>Text</b></label></div>
+  					<div class="col-md-2"><label><input type="radio" name="intro" id="chk-intro-text" value="Text" checked= "<%= !@speech.intro.blank? ? true : false %>" /> <b>Text</b></label></div>
   					<div class="col-md-10">
   						<div class="input-group">
   							<%= form.text_field :intro, id: :article_intro, class: 'form-control', value: "#{!@speech.blank? ? @speech.intro : ""}", placeholder: 'Optional - Enter Intro', readonly: @speech.published? ? true : false, style: "display:none;" %>
@@ -131,7 +131,7 @@
                 
               </div>
   				<div class="row col-md-7">
-  					<div class="col-md-2"><label><input type="radio" name="outro" id="chk-outro-text" value="Text" /> <b>Text</b></label></div>
+  					<div class="col-md-2"><label><input type="radio" name="outro" id="chk-outro-text" value="Text" checked= "<%= !@speech.outro.blank? ? true : false %>" /> <b>Text</b></label></div>
   					<div class="col-md-10">
   						<div class="input-group">
 						
@@ -396,6 +396,15 @@ $(document).ready(function() {
 					$('#show-outro-jingle').hide();
 		        }
 		    });
+			
+			var $intro = $('input:radio[name="intro"]');
+			if($intro.is(':checked') === true) {
+				$('#article_intro').show();
+			}
+			var $outro = $('input:radio[name="outro"]');
+			if($outro.is(':checked') === true) {
+				$('#article_outro').show();
+			}
 });
 
 // function checkbox() {
