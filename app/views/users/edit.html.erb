@@ -3,7 +3,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header text-black text-left">Edit Details</div>
+                    <div class="card-header text-black text-left">Edit User Details</div>
                     <div class="card-body">
                             <%= render "layouts/shared/flash_message" %>
 <%= form_for(@user, :url => { :action => "update_password" } ) do |f| %>
@@ -27,7 +27,7 @@
 							                                <div class="col-md-6">
 							                                    <%= f.password_field :password, autocomplete: "new-password", class: "form-control", required:true %>
 							                                    <!% if @minimum_password_length %>
-							                                      <em>(<%= @minimum_password_length %> characters minimum)</em>
+							                                      <em>(<%= 8 %> characters minimum)</em>
 							                                    <!% end %><br />
 							                                </div>
 							                            </div>
@@ -37,19 +37,24 @@
 							                                <div class="col-md-6">
 							                                    <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control",  required:true %>
 							                                    <!% if @minimum_password_length %>
-							                                      <em>(<%= @minimum_password_length %> characters minimum)</em>
+							                                      <em>(<%= 8 %> characters minimum)</em>
 							                                    <!% end %><br />
 							                                </div>
 							                            </div>
 							
 							                            <div class="col-md-6 offset-md-6">
-							                                    <%= f.submit "Submit", class: "btn btn-outline-primary" %>
+							                                    <%= f.submit "Reset", class: "btn btn-outline-primary" %>
 							                                <%# <a href="#" class="btn btn-link">
 							                                    Forgot Your Password?
 							                                </a> %>
 							                            </div>
 <% end %>
                 </div>
+				<br/><br/>
+                <div class="form-group row">
+                    <label for="password" class="col-md-12 col-form-label text-md-left" style="font-size:16px;"><b>Note:</b> To update the email address, reach out at info@lauchvoicereader.com.</label>
+					
+				</div>
             </div>
         </div>
     </div>
