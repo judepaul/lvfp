@@ -27,7 +27,7 @@
 							                                <div class="col-md-6">
 							                                    <%= f.password_field :password, autocomplete: "new-password", class: "form-control", required:true %>
 							                                    <!% if @minimum_password_length %>
-							                                      <em>(<%= 8 %> characters minimum)</em>
+							                                      <em>(<%= 6 %> characters minimum)</em>
 							                                    <!% end %><br />
 							                                </div>
 							                            </div>
@@ -37,7 +37,7 @@
 							                                <div class="col-md-6">
 							                                    <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control",  required:true %>
 							                                    <!% if @minimum_password_length %>
-							                                      <em>(<%= 8 %> characters minimum)</em>
+							                                      <em>(<%= 6 %> characters minimum)</em>
 							                                    <!% end %><br />
 							                                </div>
 							                            </div>
