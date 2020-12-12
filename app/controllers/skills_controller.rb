@@ -1,5 +1,53 @@
 class SkillsController < ApplicationController  
   skip_before_action :verify_authenticity_token
+  
+  # Constants
+  INTRO_MUSIC = '<audio src="soundbank://soundlibrary/ui/gameshow/amzn_ui_sfx_gameshow_intro_01"/> <break strength="x-strong" />'
+  MESSAGE_END_MUSIC = "<audio src='soundbank://soundlibrary/ui/gameshow/amzn_ui_sfx_gameshow_outro_01'/>"
+  OUTRO_MUSIC = "<audio src='soundbank://soundlibrary/musical/amzn_sfx_drum_comedy_03'/>"
+  CLOSING_MESSAGE = "<break strength='x-strong' /> Thats it for now"
+  FIRST_TIME_WELCOME_MESSAGE =  "Welcome to voice reader, <break strength='strong' /> a new tool to help you slow down, 
+                                relax and, listen to emails, newsletters, notifications, alerts,  
+                                and a lot more <break strength='strong' /> You don't need to stay glued to your phone screen 
+                                <break strength='medium' /> or <break strength='medium' /> tap endlessly to read content
+                                <break strength='strong' /> Say YES if you have a subscription code 
+                                <break strength='medium' /> or <break strength='medium' /> say NO"
+  LAUNCH_INTENT_REPROMPT_MESSAGE = 'say your access code to get started <break strength="strong" /> 
+                                    or <break strength="strong" /> want to see how it works <break strength="strong" /> 
+                                    say give me a demo'                    
+  DEMO_MESSAGE = "Hello, I\'m glad to help you to understand the skill better. <break strength='strong' /> 
+                  Lets say, you are subscribed for the campaign <break strength='x-strong' />  
+                  which has an access code 1234. <break strength='x-strong' /> Then you can listen to the articles as follows
+                  <break strength='strong' /> #{INTRO_MUSIC} Welcome! you have new articles <break strength='strong' /> 
+                  #{MESSAGE_END_MUSIC} Sports Announcement from sunlake academy <break strength='strong' /> 
+                  All 2nd graders must join the early sports competition <break strength='strong' /> 
+                  which is scheduled to take place on Nov 15th 2020 <break strength='strong' /> 
+                  If any questions or concerns please contact Ms. Marci Leonard at marci at sunlakeacademy dot org. 
+                  #{CLOSING_MESSAGE} <break strength='x-strong' /> #{OUTRO_MUSIC} if you have an access code 
+                  <break strength='strong' /> tell me your code to get started or say stop or cancel to exit"
+  DEMO_REPROMPT_MESSAGE = 'Tell me your access code to get started <break strength="strong" /> or <break strength="strong" /> 
+                          say bye to exit'
+  WELCOME_MESSAGE_ONE_CAMPAIGN = "Hello!, Welcome back to voice reader. Few recently published articles are available for 
+                                  listening <break strength='strong' /> Say CONTINUE to listen to the articles 
+                                  <break strength='medium' /> or <break strength='medium' /> say HELP 
+                                  <break strength='medium' /> if you want something else"
+  WELCOME_MESSAGE_MORE_CAMPAIGN = "Hello!, Welcome back to voice reader. You have several articles in the queue for listening. 
+                                  <break strength='strong' /> If you have a new subscription code 
+                                  <break strength='medium' /> or <break strength='medium' /> if you want something else 
+                                  please say help <break strength='strong' /> If you want to listen to the articles 
+                                  <break strength='medium' /> say CONTINUE"                          
+  CONTINUE_MESSAGE = "Great <break strength='strong' /> Just remember while listening to the articles,
+                     you can say NEXT anytime to skip to the next item in the queue
+                     <break strength='medium' /> or <break strength='medium' /> say repeat, 
+                     if you want alexa to repeat the item. Let's start"
+  PROMPT_NEXT_MESSAGE = 'Do you want to listen to the next one? <break strength="x-strong" />'
+  ACCESS_CODE_NOT_FOUND_MESSAGE = 'Sorry i can\'t recognize the access code. Ensure the access code available in voice reader studio and try with that';
+  ACCESS_CODE_NOT_FOUND_REPROMPT_MESSAGE = 'Try with another access code exists in voice reader studio'
+  CANCEL_MESSAGE = 'Okay see you later'
+  STOP_MESSAGE = 'Okay see you later'
+  HELP_MESSAGE = 'Sure!. Here are the things I can help you with, you can say <break strength="strong" /> Add new subscription to do <break strength="strong" /> or <break strength="strong" /> cancel to exit'
+  FALLBACK_MESSAGE = 'I am sorry, I cant help you with that. <break strength="strong" /> I can help you to play articles for an access code or list access codes. <break strength="strong" /> What can I help you with?'
+  
   def index
   end
   
@@ -12,69 +60,23 @@ class SkillsController < ApplicationController
     device_id =  params["context"]["System"]["device"]["deviceId"]
     voice_user_id = params["context"]["System"]["user"]["userId"]
     session_articles = Array.new
-    
-    # Constants
-    intro_music = '<audio src="soundbank://soundlibrary/ui/gameshow/amzn_ui_sfx_gameshow_intro_01"/> <break strength="x-strong" />'
-    message_end_music = "<audio src='soundbank://soundlibrary/ui/gameshow/amzn_ui_sfx_gameshow_outro_01'/>"
-    outro_music = "<audio src='soundbank://soundlibrary/musical/amzn_sfx_drum_comedy_03'/>"
-    
-    closing_message = "<break strength='x-strong' /> Thats it for now"
-
-    first_time_welcome_message = 'Welcome to voice reader! <break strength="x-strong" /> 
-                                  if you have an access code, tell me your code to get started <break strength="strong" /> 
-                                  or <break strength="strong" />
-                                  want to see how it works <break strength="strong" /> say give me a demo';
-    
-    launch_intent_reprompt_message = 'say your access code to get started <break strength="strong" /> 
-                                      or <break strength="strong" /> want to see how it works <break strength="strong" /> 
-                                      say give me a demo'
-                                      
-    demo_message = "Hello, I\'m glad to help you to understand the skill better. <break strength='strong' /> 
-                    Lets say, you are subscribed for the campaign <break strength='x-strong' />  
-                    which has an access code 1234. <break strength='x-strong' /> Then you can listen to the articles as follows
-                    <break strength='strong' /> #{intro_music} Welcome! you have new articles <break strength='strong' /> 
-                    #{message_end_music} Sports Announcement from sunlake academy <break strength='strong' /> 
-                    All 2nd graders must join the early sports competition <break strength='strong' /> 
-                    which is scheduled to take place on Nov 15th 2020 <break strength='strong' /> 
-                    If any questions or concerns please contact Ms. Marci Leonard at marci at sunlakeacademy dot org. 
-                    #{closing_message} <break strength='x-strong' /> #{outro_music} if you have an access code 
-                    <break strength='strong' /> tell me your code to get started or say stop or cancel to exit"
-    
-    demo_reprompt_message = 'Tell me your access code to get started <break strength="strong" /> or <break strength="strong" /> 
-                            say bye to exit'
-    
-    welcome_message_one_campaign = 'Hello! welcome back to voice reader <break strength="x-strong" /> 
-                                    There are new articles available <break strength="x-strong" /> 
-                                    If you want to listen them, say play articles for access code <break strength="x-strong" /> 
-                                    or <break strength="x-strong" /> If you have new code, 
-                                    tell me your access code to get started'
-    
-    welcome_message_more_campaign = 'Hello! welcome back to voice reader <break strength="x-strong" />
-                                    There are serveral new articles from the campaigns. <break strength="x-strong" />  
-                                    If you want to play/listen say "Play" or "next" to goto next articles. <break strength="x-strong" /> 
-                                    If you forgot them, don\'t hesitate to ask HELP to retrieve them. <break strength="x-strong" /> 
-                                    Tell me your access code to get started.'
-    
-    prompt_next_message = 'Do you want to listen to the next one? <break strength="x-strong" />'
-    
-    
+    audiance = Audiance.find_by_voice_user_id(voice_user_id)
+    count = Subscription.where(audiance_id: audiance.id).count unless audiance.blank?
     
     case input.type
     when "LAUNCH_REQUEST"
-      audiance = Audiance.find_by_voice_user_id(voice_user_id)
-      count = Subscription.where(audiance_id: audiance.id).count unless audiance.blank?
       # FIRST TIME USER
       #if Audiance.check_device_exists(device_id).blank?
       if Audiance.check_user_id_exists(voice_user_id).blank?
-        message = "#{intro_music} <break strength='strong' /> #{first_time_welcome_message}"
-        reprompt_message = launch_intent_reprompt_message
+        message = "#{INTRO_MUSIC} <break strength='strong' /> #{FIRST_TIME_WELCOME_MESSAGE}"
+        reprompt_message = LAUNCH_INTENT_REPROMPT_MESSAGE
         session_end = false
       else
         if count<=1
-          message = "#{intro_music} <break strength='strong' /> #{welcome_message_one_campaign}" 
+          message = "#{INTRO_MUSIC} <break strength='strong' /> #{WELCOME_MESSAGE_ONE_CAMPAIGN}" 
           session_end = false         
         elsif count>1
-          message = "#{intro_music} <break strength='strong' /> #{welcome_message_more_campaign}" 
+          message = "#{INTRO_MUSIC} <break strength='strong' /> #{WELCOME_MESSAGE_MORE_CAMPAIGN}" 
           session_end = false                   
         end
       end
@@ -101,8 +103,8 @@ class SkillsController < ApplicationController
               article_outro = !published_article.outro.blank? ? published_article.outro : ''
               article_text = published_articles.size == 1 ? "article" : "articles"
               if published_article == published_articles.first
-                message = "You have #{published_articles.size} new #{article_text} <break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{article_intro} <break strength='x-strong' /><break strength='x-strong' /> #{article_title} <break strength='x-strong' /><break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='x-strong' /><break strength='x-strong' /> #{article_outro} <break strength='x-strong' /><break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{prompt_next_message}";
-                reprompt_message = prompt_next_message
+                message = "You have #{published_articles.size} new #{article_text} <break strength='x-strong' /> #{MESSAGE_END_MUSIC} <break strength='x-strong' /> #{article_intro} <break strength='x-strong' /><break strength='x-strong' /> #{article_title} <break strength='x-strong' /><break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='x-strong' /><break strength='x-strong' /> #{article_outro} <break strength='x-strong' /><break strength='x-strong' /> #{MESSAGE_END_MUSIC} <break strength='x-strong' /> #{PROMPT_NEXT_MESSAGE}";
+                reprompt_message = PROMPT_NEXT_MESSAGE
                 session_end = false
               else
                 session_articles << published_article
@@ -110,30 +112,31 @@ class SkillsController < ApplicationController
             end
           end
         else
-          message = 'Sorry i can\'t recognize the access code. Ensure the access code available in voice reader studio and try with that';
-          reprompt_message = 'Try with another access code exists in voice reader studio'
+          message = ACCESS_CODE_NOT_FOUND_MESSAGE
+          reprompt_message = ACCESS_CODE_NOT_FOUND_REPROMPT_MESSAGE
           session_end = false
         end
       when 'AMAZON.CancelIntent'
-        message = 'Okay see you later'
+        message = CANCEL_MESSAGE
       when 'AMAZON.StopIntent'
-        message = 'Okay see you later'
+        message = STOP_MESSAGE
       when 'AMAZON.HelpIntent'
-        message = 'Hello, you can ask me to play articles for an access code <break strength="strong" /> in which I can help you to hear your articles <break strength="strong" /> or <break strength="strong" /> say cancel to exit the skill'
+        message = HELP_MESSAGE
         session_end = false
       when 'AMAZON.FallbackIntent'
-        message = 'I am sorry, I cant help you with that. <break strength="strong" /> I can help you to play articles for an access code or list access codes. <break strength="strong" /> What can I help you with?'
+        message = FALLBACK_MESSAGE
         session_end = false
       when 'helloIntent'
-        message = 'Hello, you can ask me to play articles for an access code in which I can help you to hear your articles'
+        message = 'Hello'
         session_end = false
       when 'DemoIntent'
-        message = demo_message
+        message = DEMO_MESSAGE
         reprompt_message = 
         session_end = false
       when 'AMAZON.YesIntent'
         if params[:session][:attributes][:articles].blank?
-          message = "<break strength='x-strong' /> what's the access code"
+          message = "<break strength='x-strong' /> What's the subscription code"
+          session_end = false
         else
           published_articles = params[:session][:attributes][:articles] 
           published_articles.each do |published_article|
@@ -142,18 +145,22 @@ class SkillsController < ApplicationController
             article_intro = !published_article["intro"].blank? ? published_article["intro"] : ''
             article_outro = !published_article["outro"].blank? ? published_article["outro"] : ''
             article_text = published_articles.size == 1 ? "article" : "articles"
-            message = "<break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{article_intro} <break strength='x-strong' /><break strength='x-strong' /> #{article_title} <break strength='x-strong' /><break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='x-strong' /><break strength='x-strong' /> #{article_outro} <break strength='x-strong' /><break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /><break strength='x-strong' /> #{closing_message} <break strength='x-strong' /><break strength='x-strong' /> #{outro_music}";
+            message = "<break strength='x-strong' /> This article is titled as <break strength='x-strong' /> #{article_title} <break strength='x-strong' /> #{article_intro} <break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='x-strong' /><break strength='x-strong' /> #{article_outro} <break strength='x-strong' /><break strength='x-strong' /> #{MESSAGE_END_MUSIC} <break strength='x-strong' /><break strength='x-strong' /> #{CLOSING_MESSAGE} <break strength='x-strong' /><break strength='x-strong' /> #{OUTRO_MUSIC}";
           end
         end
       when 'AMAZON.NoIntent'
-        message = 'Okay see you later' 
+        message = "No problem <break strength='strong' /> This is a great opportunity to learn more about Voice Reader. 
+                  <break strength='x-strong' /> If you want to learn more, how you or your company can create content 
+                  for your users, which they can access using devices like Alexa, then go to launch voice reader dot com 
+                  <break strength='strong' /> once again <break strength='strong' /> launchvoicereaderdotcom <break strength='strong' /> 
+                  Thanks for visiting us <break strength='strong' /> Bye for now" 
       when "SESSION_ENDED_REQUEST"
         # it's over
         message = 'Bye'
         
         #New intents for Add, Play and list articles
       when 'AddCampaignIntent'
-        access_code = input.slots["campaign_code"]["value"]
+        access_code = input.slots["subscription_code"]["value"]
         access_code_id = AccessCode.where(code: access_code).last.id
         if AccessCode.pluck(:code).include? access_code.to_i
           audiance = Audiance.create(voice_user_id: voice_user_id)
@@ -205,8 +212,8 @@ class SkillsController < ApplicationController
                 if indx < published_articles.size
                   # Add prompt message (Do you want to read the next article) for the first article
                   unless published_article == published_articles.last
-                    message = intro_speech << "You have #{published_articles.size} new #{article_text} <break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{article_intro} <break strength='x-strong' /><break strength='x-strong' /> #{article_title} <break strength='x-strong' /><break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='x-strong' /><break strength='x-strong' /> #{article_outro} <break strength='x-strong' /><break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{prompt_next_message}";
-                    reprompt_message = prompt_next_message
+                    message = intro_speech << "You have #{published_articles.size} new #{article_text} <break strength='x-strong' /> #{MESSAGE_END_MUSIC} <break strength='x-strong' /> #{article_intro} <break strength='x-strong' /><break strength='x-strong' /> #{article_title} <break strength='x-strong' /><break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='x-strong' /><break strength='x-strong' /> #{article_outro} <break strength='x-strong' /><break strength='x-strong' /> #{MESSAGE_END_MUSIC} <break strength='x-strong' /> #{PROMPT_NEXT_MESSAGE}";
+                    reprompt_message = PROMPT_NEXT_MESSAGE
                     session_end = false
                   else
                     # Add 2nd article into session to keep reading based on user's confirmation
@@ -214,7 +221,7 @@ class SkillsController < ApplicationController
                   end
                 else
                   # If published_articles.size == 1 then no need to add the prompt message
-                  message = intro_speech << "You have #{published_articles.size} new #{article_text} <break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{article_intro} <break strength='x-strong' /><break strength='x-strong' /> #{article_title} <break strength='x-strong' /><break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='x-strong' /><break strength='x-strong' /> #{article_outro} <break strength='x-strong' /><break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /><break strength='x-strong' />  #{closing_message}  <break strength='x-strong' /> #{outro_music}";
+                  message = intro_speech << "You have #{published_articles.size} new #{article_text} <break strength='x-strong' /> #{MESSAGE_END_MUSIC} <break strength='x-strong' /> #{article_intro} <break strength='x-strong' /><break strength='x-strong' /> #{article_title} <break strength='x-strong' /><break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='x-strong' /><break strength='x-strong' /> #{article_outro} <break strength='x-strong' /><break strength='x-strong' /> #{MESSAGE_END_MUSIC} <break strength='x-strong' /><break strength='x-strong' />  #{CLOSING_MESSAGE}  <break strength='x-strong' /> #{OUTRO_MUSIC}";
                   session_end = false
                 end
                 indx = indx+1
@@ -251,13 +258,53 @@ class SkillsController < ApplicationController
             
             intro_speech << speech.content
           end
-          intro_speech << message_end_music
+          intro_speech << MESSAGE_END_MUSIC
         end
         reprompt_message = ''
         session_end = true
-        message = "#{intro_speech} <break strength='x-strong' /> #{outro_music}";
+        message = "#{intro_speech} <break strength='x-strong' /> #{OUTRO_MUSIC}";
         session_end = false
-        
+      when 'ContinueIntent'
+          message = CONTINUE_MESSAGE
+          subscription = Subscription.where(audiance_id: audiance.id) unless audiance.blank?
+          if count<=1
+            access_code_id = subscription.last.access_code_id unless subscription.blank?
+            campaign_title = AccessCode.find(access_code_id).title unless access_code_id.blank?
+            message = "You are listening to the campaign #{campaign_title}"
+            acsm = AccessCodeSpeechMap.where(access_code_id: access_code_id)
+            speech_ids = acsm.map{|acsm| acsm.speech_id}
+            published_articles = Speech.where(id: speech_ids, published: true).order('updated_at DESC').first(2)
+            if published_articles.blank?
+              message = 'Sorry! I couldn\'t find any article avaiable for the code that you are asking'
+            else
+              published_articles.each_with_index do |published_article, indx|
+                content = published_article.content
+                article_title = !published_article.title.blank? ? published_article.title : ''
+                article_intro = !published_article.intro.blank? ? published_article.intro : ''
+                article_outro = !published_article.outro.blank? ? published_article.outro : ''
+                article_text = published_articles.size == 1 ? "article" : "articles"
+                if indx < published_articles.size
+                  # Add prompt message (Do you want to read the next article) for the first article
+                  unless published_article == published_articles.last
+                    message = "This article is titled as <break strength='x-strong' /> #{article_title} <break strength='x-strong' /> #{article_intro} <break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='x-strong' /><break strength='x-strong' /> #{article_outro} <break strength='x-strong' /><break strength='x-strong' /> #{MESSAGE_END_MUSIC} <break strength='x-strong' /> #{PROMPT_NEXT_MESSAGE}";
+                    reprompt_message = PROMPT_NEXT_MESSAGE
+                    session_end = false
+                  else
+                    # Add 2nd article into session to keep reading based on user's confirmation
+                    session_articles << published_article
+                  end
+                else
+                  # If published_articles.size == 1 then no need to add the prompt message
+                  message = "This article is titled as <break strength='x-strong' /> #{article_title} <break strength='x-strong' /> #{article_intro} <break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='x-strong' /><break strength='x-strong' /> #{article_outro} <break strength='x-strong' /><break strength='x-strong' /> #{MESSAGE_END_MUSIC} <break strength='x-strong' /><break strength='x-strong' />  #{CLOSING_MESSAGE}  <break strength='x-strong' /> #{OUTRO_MUSIC}";
+                  session_end = false
+                end
+                indx = indx+1
+              end
+            end
+          elsif count>1
+            
+          end
+          session_end = false
       when 'setup_campaign'
         code = input.slots["access_code"]["value"]
         unless code.blank?
@@ -285,8 +332,8 @@ class SkillsController < ApplicationController
                 if published_articles.size == 2
                   # Add prompt message (Do you want to read the next article) for the first article
                   if published_article == published_articles.first
-                    message = intro_speech << "You have #{published_articles.size} new #{article_text} <break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{article_intro} <break strength='x-strong' /><break strength='x-strong' /> #{article_title} <break strength='x-strong' /><break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='x-strong' /><break strength='x-strong' /> #{article_outro} <break strength='x-strong' /><break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{prompt_next_message}";
-                    reprompt_message = prompt_next_message
+                    message = intro_speech << "You have #{published_articles.size} new #{article_text} <break strength='x-strong' /> #{MESSAGE_END_MUSIC} <break strength='x-strong' /> #{article_intro} <break strength='x-strong' /><break strength='x-strong' /> #{article_title} <break strength='x-strong' /><break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='x-strong' /><break strength='x-strong' /> #{article_outro} <break strength='x-strong' /><break strength='x-strong' /> #{MESSAGE_END_MUSIC} <break strength='x-strong' /> #{PROMPT_NEXT_MESSAGE}";
+                    reprompt_message = PROMPT_NEXT_MESSAGE
                     session_end = false
                   else
                     # Add 2nd article into session to keep reading based on user's confirmation
@@ -294,7 +341,7 @@ class SkillsController < ApplicationController
                   end
                 else
                   # If published_articles.size == 1 then no need to add the prompt message
-                  message = intro_speech << "You have #{published_articles.size} new #{article_text} <break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /> #{article_intro} <break strength='x-strong' /><break strength='x-strong' /> #{article_title} <break strength='x-strong' /><break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='x-strong' /><break strength='x-strong' /> #{article_outro} <break strength='x-strong' /><break strength='x-strong' /> #{message_end_music} <break strength='x-strong' /><break strength='x-strong' />  #{closing_message}  <break strength='x-strong' /> #{outro_music}";
+                  message = intro_speech << "You have #{published_articles.size} new #{article_text} <break strength='x-strong' /> #{MESSAGE_END_MUSIC} <break strength='x-strong' /> #{article_intro} <break strength='x-strong' /><break strength='x-strong' /> #{article_title} <break strength='x-strong' /><break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='x-strong' /><break strength='x-strong' /> #{article_outro} <break strength='x-strong' /><break strength='x-strong' /> #{MESSAGE_END_MUSIC} <break strength='x-strong' /><break strength='x-strong' />  #{CLOSING_MESSAGE}  <break strength='x-strong' /> #{OUTRO_MUSIC}";
                   session_end = false
                 end
               end
