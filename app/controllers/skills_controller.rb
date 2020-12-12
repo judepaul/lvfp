@@ -167,7 +167,45 @@ class SkillsController < ApplicationController
           device = Device.create(audiance_id:  audiance.id, device_id: device_id)
           subscription = Subscription.create(audiance_id: audiance.id, access_code_id: access_code_id)
           unless subscription.blank?
-            message = "Congratulations, your campaign was added successfully. <break strength='strong' /> Say read or play articles for #{access_code}"
+            subscription = Subscription.where(audiance_id: audiance.id) unless audiance.blank?
+            count = subscription.count unless subscription.blank?
+            if count<=1
+              access_code_id = subscription.last.access_code_id unless subscription.blank?
+              campaign_title = AccessCode.find(access_code_id).title unless access_code_id.blank?
+              message = "You are listening to the campaign #{campaign_title}"
+              acsm = AccessCodeSpeechMap.where(access_code_id: access_code_id)
+              speech_ids = acsm.map{|acsm| acsm.speech_id}
+              published_articles = Speech.where(id: speech_ids, published: true).order('updated_at DESC').first(2)
+              if published_articles.blank?
+                message = 'Sorry! I couldn\'t find any article avaiable for the code that you are asking'
+              else
+                published_articles.each_with_index do |published_article, indx|
+                  content = published_article.content
+                  article_title = !published_article.title.blank? ? published_article.title : ''
+                  article_intro = !published_article.intro.blank? ? published_article.intro : ''
+                  article_outro = !published_article.outro.blank? ? published_article.outro : ''
+                  article_text = published_articles.size == 1 ? "article" : "articles"
+                  if indx < published_articles.size
+                    # Add prompt message (Do you want to read the next article) for the first article
+                    unless published_article == published_articles.last
+                      message = "This article is titled as <break strength='x-strong' /> #{article_title} <break strength='x-strong' /> #{article_intro} <break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='x-strong' /><break strength='x-strong' /> #{article_outro} <break strength='x-strong' /><break strength='x-strong' /> #{MESSAGE_END_MUSIC} <break strength='x-strong' /> #{PROMPT_NEXT_MESSAGE}";
+                      reprompt_message = PROMPT_NEXT_MESSAGE
+                      session_end = false
+                    else
+                      # Add 2nd article into session to keep reading based on user's confirmation
+                      session_articles << published_article
+                    end
+                  else
+                    # If published_articles.size == 1 then no need to add the prompt message
+                    message = "This article is titled as <break strength='x-strong' /> #{article_title} <break strength='x-strong' /> #{article_intro} <break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='x-strong' /><break strength='x-strong' /> #{article_outro} <break strength='x-strong' /><break strength='x-strong' /> #{MESSAGE_END_MUSIC} <break strength='x-strong' /><break strength='x-strong' />  #{CLOSING_MESSAGE}  <break strength='x-strong' /> #{OUTRO_MUSIC}";
+                    session_end = false
+                  end
+                  indx = indx+1
+                end
+              end
+            elsif count>1
+            
+            end
           else
             message = 'Sorry i can\'t add your access code. Try with another access code exists in voice reader'
           end
