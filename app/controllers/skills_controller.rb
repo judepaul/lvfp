@@ -43,7 +43,7 @@ class SkillsController < ApplicationController
   PROMPT_NEXT_MESSAGE = 'Do you want to listen to the next one? <break strength="x-strong" />'
   ACCESS_CODE_NOT_FOUND_MESSAGE = 'Sorry i can\'t recognize the access code. Ensure the access code available in voice reader studio and try with that';
   ACCESS_CODE_NOT_FOUND_REPROMPT_MESSAGE = 'Try with another access code exists in voice reader studio'
-  CANCEL_MESSAGE = 'Okay see you later'
+  CANCEL_MESSAGE = 'Thanks for listening, come back soon'
   STOP_MESSAGE = 'Okay see you later'
   HELP_MESSAGE = 'Sure!. Here are the things I can help you with, you can say <break strength="strong" /> Add new subscription to do <break strength="strong" /> or <break strength="strong" /> cancel to exit'
   FALLBACK_MESSAGE = 'I am sorry, I cant help you with that. <break strength="strong" /> I can help you to play articles for an access code or list access codes. <break strength="strong" /> What can I help you with?'
@@ -60,6 +60,7 @@ class SkillsController < ApplicationController
     device_id =  params["context"]["System"]["device"]["deviceId"]
     voice_user_id = params["context"]["System"]["user"]["userId"]
     session_articles = Array.new
+    repeat_message = ""
     audiance = Audiance.find_by_voice_user_id(voice_user_id)
     count = Subscription.where(audiance_id: audiance.id).count unless audiance.blank?
     
@@ -80,6 +81,7 @@ class SkillsController < ApplicationController
           session_end = false                   
         end
       end
+      repeat_message = message
     when "INTENT_REQUEST"
       case input.name
       when 'AccessCode'   
@@ -114,6 +116,7 @@ class SkillsController < ApplicationController
         else
           message = ACCESS_CODE_NOT_FOUND_MESSAGE
           reprompt_message = ACCESS_CODE_NOT_FOUND_REPROMPT_MESSAGE
+          repeat_message = message
           session_end = false
         end
       when 'AMAZON.CancelIntent'
@@ -148,12 +151,16 @@ class SkillsController < ApplicationController
             message = "<break strength='x-strong' /> This article is titled as <break strength='x-strong' /> #{article_title} <break strength='x-strong' /> #{article_intro} <break strength='x-strong' /> #{content.gsub!(/[!@#$%ˆ&*()<>]|(http|ftp|https)?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|$!:,.;]*/, ' ') || content} <break strength='x-strong' /><break strength='x-strong' /> #{article_outro} <break strength='x-strong' /><break strength='x-strong' /> #{MESSAGE_END_MUSIC} <break strength='x-strong' /><break strength='x-strong' /> #{CLOSING_MESSAGE} <break strength='x-strong' /><break strength='x-strong' /> #{OUTRO_MUSIC}";
           end
         end
+        repeat_message = message
       when 'AMAZON.NoIntent'
         message = "No problem <break strength='strong' /> This is a great opportunity to learn more about Voice Reader. 
                   <break strength='x-strong' /> If you want to learn more, how you or your company can create content 
                   for your users, which they can access using devices like Alexa, then go to launch voice reader dot com 
                   <break strength='strong' /> once again <break strength='strong' /> launchvoicereaderdotcom <break strength='strong' /> 
                   Thanks for visiting us <break strength='strong' /> Bye for now" 
+      when 'AMAZON.RepeatIntent'
+        message = params[:session][:attributes][:last_message]
+        session_end = false
       when "SESSION_ENDED_REQUEST"
         # it's over
         message = 'Bye'
@@ -215,6 +222,7 @@ class SkillsController < ApplicationController
           session_end = false
         end  
         reprompt_message = ''
+        repeat_message = message
         session_end = false
         # if access_code_id.blank?
         #   message = 'Sorry i can\'t recognize the access code. Ensure the access code available in voice reader studio and try with that';
@@ -268,9 +276,9 @@ class SkillsController < ApplicationController
           end
         else
           reprompt_message = 'Try with access code to setup'
+          repeat_message = message
           session_end = false
         end
-      
       when 'ListAccessCode'
         p "in ListAccessCode"
         voice_user_id = params["context"]["System"]["user"]["userId"]
@@ -301,6 +309,7 @@ class SkillsController < ApplicationController
         reprompt_message = ''
         session_end = true
         message = "#{intro_speech} <break strength='x-strong' /> #{OUTRO_MUSIC}";
+        repeat_message = message
         session_end = false
       when 'ContinueIntent'
           message = CONTINUE_MESSAGE
@@ -342,6 +351,7 @@ class SkillsController < ApplicationController
           elsif count>1
             
           end
+          repeat_message = message
           session_end = false
       when 'setup_campaign'
         code = input.slots["access_code"]["value"]
@@ -387,6 +397,7 @@ class SkillsController < ApplicationController
           end
         else
           reprompt_message = 'Try with access code to setup'
+          repeat_message = message
           session_end = false
         end
       end # inner when ends here
@@ -408,6 +419,7 @@ class SkillsController < ApplicationController
     #output.add_card(type = 'Simple', title = "voice reader", subtitle = "listen to your email campaigns & newsletters", content = "Listen to the email campaigns & newsletters, anytime and anywhere. This is not about podcasting")
     output.add_hash_card(card)
     output.add_session_attribute("articles", session_articles)
+    output.add_session_attribute("last_message", repeat_message)
     render json: output.build_response(session_end)
   end #root ends here
 
