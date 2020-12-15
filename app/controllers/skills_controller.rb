@@ -156,7 +156,7 @@ class SkillsController < ApplicationController
         message = "No problem <break strength='strong' /> This is a great opportunity to learn more about Voice Reader. 
                   <break strength='x-strong' /> If you want to learn more, how you or your company can create content 
                   for your users, which they can access using devices like Alexa, then go to launch voice reader dot com 
-                  <break strength='strong' /> once again <break strength='strong' /> launchvoicereaderdotcom <break strength='strong' /> 
+                  <break strength='strong' /> once again <break strength='strong' /> launch voice reader dot com <break strength='strong' /> 
                   Thanks for visiting us <break strength='strong' /> Bye for now" 
       when 'AMAZON.RepeatIntent'
         message = params[:session][:attributes][:last_message]
