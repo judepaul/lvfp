@@ -76,10 +76,6 @@
   						<div class="input-group" style="padding-right:0px!important;">
   							<%= form.text_field :intro, id: :article_intro, class: 'form-control', value: "#{!@speech.blank? ? @speech.intro : ""}", placeholder: 'Optional - Enter Intro', readonly: @speech.published? ? true : false, style: "display:none;" %>
   						</div>
-  						<div class="input-group">
-						
-  							<%= form.text_field :outro, id: :article_outro, class: 'form-control', value: "#{!@speech.blank? ? @speech.outro : ""}", placeholder: 'Optional - Enter Outro', readonly: @speech.published? ? true : false, style: "display:none;" %>
-  						</div>
   						<!-- <span style="font-size:14px;">Coming soon...</span> -->
   					</div>
   				</div>
