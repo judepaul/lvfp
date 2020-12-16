@@ -1,13 +1,14 @@
 <nav class="navbar navbar-expand-lg navbar-dark navbar-laravel pr-0 py-2" style="">
 	<% unless user_signed_in? %>
 	<a class="navbar-brand js-scroll-trigger pt-0" href="/signin"> 
-            <img src="/assets/logo-lvr.png" height="60">
-		<!-- <h1><span class='text-black heading-semibold'> <i class="fas fa-rocket fa-2x" style="font-size:28px;"> </i> Voice Reader </span></h1> -->
+            <!-- <img src="/assets/logo-lvr.png" height="60"> -->
+		<h1><span class=''> <i class="fas fa-rocket fa-2x" style="font-size:28px;"> </i> </span> <span  style="font-size:28px;"> Voice Reader </span></h1>
 	</a>
 	<% else %>
 	<a class="navbar-brand js-scroll-trigger pt-0" href="/dashboard/index/">
 		<!-- <span class='text-black heading-semibold'> <i class="fas fa-rocket" style="font-size:28px;padding-top:12px!important; padding-bottom:12px!important;"> </i> Voice Reader </span> -->
-		<img src="/assets/logo-lvr.png" height="60">
+		<h1><span class=''> <i class="fas fa-rocket fa-2x" style="font-size:28px;"> </i> </span> <span  style="font-size:28px;"> Voice Reader </span></h1>
+		<!-- <img src="/assets/logo-lvr.png" height="60"> -->
 	</a>
 	<% end %>
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -19,28 +20,28 @@
 			<% unless user_signed_in? %>
 			<% if controller.controller_name != "sessions" %>
 			<li class="nav-item sub-heading">
-				<a class="nav-link text-black" href="/signin">Sign In</a>
+				<a class="nav-link" href="/signin">Sign In</a>
 			</li>
 			<% end %>
 			<% else %>
 			<% if controller.controller_name != "dashboard" %>
 			<li class="nav-item  dropdown dropdown-studio sub-heading pt-1">
-				<a class="nav-link text-black" href="/dashboard/index/" data-placement="bottom" data-toggle="tooltip" data-original-title="Dashboard">
+				<a class="nav-link" href="/dashboard/index/" data-placement="bottom" data-toggle="tooltip" data-original-title="Dashboard">
 					<i class="fas fa-home"></i> Home
 				</a>
 			</li>
 			<li class="nav-item  dropdown dropdown-studio sub-heading pt-1">
-				<a class="nav-link text-black <%= controller.controller_name=="access_codes"? 'nav-active' : '' %>" href="/voice-reader-studio/campaigns" data-placement="bottom" data-toggle="tooltip" data-original-title="View All Campaigns">
+				<a class="nav-link <%= controller.controller_name=="access_codes"? 'nav-active' : '' %>" href="/voice-reader-studio/campaigns" data-placement="bottom" data-toggle="tooltip" data-original-title="View All Campaigns">
 					<i class="fas fa-database"></i> Campaigns
 				</a>
 			</li>
 			<li class="nav-item  dropdown dropdown-studio sub-heading pt-1">
-				<a class="nav-link text-black <%= controller.controller_name=="speeches"? 'nav-active' : '' %>" href="/voice-reader-studio/articles" data-placement="bottom" data-toggle="tooltip" data-original-title="View All Articles">
+				<a class="nav-link <%= controller.controller_name=="speeches"? 'nav-active' : '' %>" href="/voice-reader-studio/articles" data-placement="bottom" data-toggle="tooltip" data-original-title="View All Articles">
 					<i class="fas fa-clone"></i> Articles
 				</a>
 			</li>
 			<li class="nav-item  dropdown dropdown-studio sub-heading pt-1">
-				<a class="nav-link text-black <%= controller.controller_name=="skills"? 'nav-active' : '' %>" href="/voice-chimp-skill/details" data-placement="bottom" data-toggle="tooltip" data-original-title="Skill Details">
+				<a class="nav-link <%= controller.controller_name=="skills"? 'nav-active' : '' %>" href="/voice-chimp-skill/details" data-placement="bottom" data-toggle="tooltip" data-original-title="Skill Details">
 					<i class="fas fa-clone"></i> Skill
 				</a>
 			</li>
@@ -49,13 +50,13 @@
 					
 			<!-- Updated Signout with Account update based on the discussion on 10/24/2020 -->
 			<li class="nav-item  dropdown dropdown-studio sub-heading pt-1">
-				<a class="nav-link text-black <%#= controller.controller_name=="users"? 'nav-active' : '' %>" href="/users/edit" data-placement="bottom" data-toggle="tooltip" data-original-title="Settings">
+				<a class="nav-link text-white <%#= controller.controller_name=="users"? 'nav-active' : '' %>" href="/users/edit" data-placement="bottom" data-toggle="tooltip" data-original-title="Settings">
 					<i class="fas fa-user"></i> <%= current_user.username %>
 				</a>
 			</li>
 			
 			<li class="nav-item  dropdown dropdown-studio sub-heading pt-1">
-				<a class="nav-link text-black" href="/signout" data-placement="bottom" data-toggle="tooltip" data-original-title="Sign Out">
+				<a class="nav-link" href="/signout" data-placement="bottom" data-toggle="tooltip" data-original-title="Sign Out">
 					<i class="fas fa-sign-out-alt"></i> <!-- Sign Out -->
 				</a>
 			</li>

@@ -1,80 +1,57 @@
 <main class="login-form">
-    <div class="cotainer">
+	<div class="cotainer">
 		<div class="row">
-			<div class="col-md-7 px-4">
-				<h1 style="font-size:40px!important;font-family: Laila-Bold;color:#043757;" class="align-middle">
-					<%= random_text.html_safe %>
-				</h1>
+			<div class="col-md-4 offset-md-1">
+				<%= render "layouts/shared/flash_message" %>
+				<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+				<div class="form-group">
+					<label for="email_address" class="col-md-4 col-form-label text-md-left label-text pl-0">Username</label>
+					<%= f.text_field :username, autofocus: true, class: "form-control", autocomplete: "username", required:true %>
+				</div>
+
+				<div class="form-group">
+					<label for="password" class="col-md-4 col-form-label text-md-left label-text pl-0">Password</label>
+					<%= f.password_field :password, autocomplete: "current-password", class: "form-control", required:true %>
+				</div>
+
+				<div class="form-group">
+					<div class="offset-md-7 text-md-right" style="font-size:16px !important;">
+						<div>
+							<a href="/secret/new" style="text-decoration:none;color:#000;"> Forgot Password? </a>
+						</div>
+					</div>
+				</div>
+	                    
+				<div class="form-group">
+					<div style="font-size:14px !important;">
+						<%= check_box_tag 'terms_and_conditions', '1', true %>
+						I have read and agree to the Terms of Service
+					</div>
+				</div>
+				<div class="form-group">
+					<!-- <div class=""><span  style="font-size:16px !important;">New User?</span> <a href="/signup" style="padding:0 12px 0 3px;text-decoration:none;color:#000;" class="content-text"> Sign Up! </a></div> -->
+					<div class="text-right">
+						<%= f.submit "Submit", id:"signin-submit", class: " btn btn-primary sub-heading", disabled: false do %>
+						<i class="fa fa-sign-in-alt"></i>
+						<% end %>
+					</div>
+				</div>
 			</div>
-		<div class="col-md-5 pr-5">
-        <!-- <div class="justify-content-center"> -->
-            <!-- <div class="col-md-5"> -->
-				<div>
-                <div class="card">
-                    <div class="card-header text-black card-heading"><i class="fas fa-user"></i> Sign In</div>
-                    <div class="card-body">
-                        <%= render "layouts/shared/flash_message" %>
-                        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-                            <div class="form-group row">
-                                <label for="email_address" class="col-md-4 col-form-label text-md-left label-text">Username</label>
-                                <div class="col-md-8">
-                                    <%= f.text_field :username, autofocus: true, class: "form-control", autocomplete: "username", required:true %>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="password" class="col-md-4 col-form-label text-md-left label-text">Password</label>
-                                <div class="col-md-8">
-                                    <%= f.password_field :password, autocomplete: "current-password", class: "form-control", required:true %>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <div class="col-md-8 offset-md-4 text-md-right" style="font-size:16px !important;">
-			                        <div>
-			                          <a href="/secret/new" style="text-decoration:none;color:#000;"> Forgot Password? </a>
-			                        </div>
-                                </div>
-                            </div>
-		                    
-                            <div class="form-group row">
-                                <div class="col-md-12">
-			                        <div style="font-size:14px !important;">
-		  							<%= check_box_tag 'terms_and_conditions', '1', true %>
-		  							  I have read and agree to the Terms of Service
-			                        </div>
-                                </div>
-                            </div>
-							
-                            <div class="form-group row">
-                                <div class="col-md-6"><span  style="font-size:16px !important;">New User?</span> <a href="/signup" style="padding:0 12px 0 3px;text-decoration:none;color:#000;" class="content-text"> Sign Up! </a></div>
-                                <div class="col-md-6 text-right">
-                                    <%= f.submit "Submit", id:"signin-submit", class: "btn btn-outline-primary sub-heading", disabled: false do %>
-									<i class="fa fa-sign-in-alt"></i>
-									<% end %>
-                                </div>
-                            </div>
-                    <% end %>
-                    
-                    </form>
-                 
-					
-                </div>
-                
-            </div>
-        </div>
+			<% end %>
+		</div>
+		<div class="col-md-1"></div>
+		<div class="col-md-5 pr-1">
+			<h1 style="font-size:42px!important;"><%= random_text.html_safe %></h1>
+		</div>
 	</div>
-    </div>
-	 <h5 style="padding:20px;font-size:16px;">* Voice Enabled devices sunch as Amazon Alexa and Google Home</h5>
-    </div>
-
+</div>
 </main>
-<%#= render "devise/shared/links" %>
+	
 <script type="text/javascript">
-	$('document').ready(function(){
-		$('#terms_and_conditions').change(function() {
-		   $('input[type=submit]').attr('disabled', !$(this).is(':checked'));
-		});
+$('document').ready(function(){
+	$('#terms_and_conditions').change(function() {
+		$('input[type=submit]').attr('disabled', !$(this).is(':checked'));
+	});
 		
 });
 	
