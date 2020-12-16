@@ -85,10 +85,10 @@
 
             <div class="form-group row">
               <div class="mt-2 col-md-3 offset-md-1">
-                <span class="label-text ml-3">Subject</span> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Title of the article which the skill user will hear before the main content"><%#= image_tag("/assets/icon-info.png") %></span>
+                <span class="label-text ml-3">Sub-title</span> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Title of the article which the skill user will hear before the main content"><%#= image_tag("/assets/icon-info.png") %></span>
               </div>
               <div class="col-md-7">
-                <%= form.text_field :title, id: :article_title, class: 'form-control', value: "#{!@speech.blank? ? @speech.title : ""}", required: true, placeholder: 'Required - Enter title', readonly: @speech.published? ? true : false %>
+                <%= form.text_field :title, id: :article_title, class: 'form-control', value: "#{!@speech.blank? ? @speech.title : ""}", placeholder: 'Required - Enter title', readonly: @speech.published? ? true : false %>
               </div>
             </div>
 			
