@@ -46,7 +46,7 @@
 														<div class="card-body table-responsive">
 															<% if ac.access_code_speech_map.blank? %>
 															<div class="row" style="height:45px"></div>
-															<div class="col-md-8 offset-md-4 align-self-center">  <%#= link_to 'Create your first Article', new_speech_path("campaign": ac.id), class: ':btn btn-primary' %>
+															<div class="col-md-8 offset-md-4 align-self-center">  <%#= link_to 'Create your first Article', new_speech_path("campaign": ac.id), class: 'btn btn-primary' %>
 															<span class="label-text">No Articles created yet.</span>
 															</div>
 															<% else %>
@@ -131,8 +131,8 @@
 																<% end %>
 																<div class="row">
 																	<!% unless ac.access_code_speech_map.blank? %>
-																	<div class="actions text-right col-md-12" style="padding:15px 20px 10px 30px; bottom: 0; right: 0;">
-																		<%= link_to 'Create Article', new_speech_path("campaign": ac.hashid, pg: "article"), class: ':btn btn-primary' %>
+																	<div class="actions text-right col-md-12" style="padding:15px">
+																		<%= link_to 'Create Article', new_speech_path("campaign": ac.hashid, pg: "article"), class: 'btn btn-primary' %>
 																	</div>
 																	<!% end %>
 																</div>
@@ -188,14 +188,14 @@
 													<div class="panel-heading"><h6>Confirmation</h6></div>
 													<div class = "panel-body"></div>
 													Are you sure you want to delete this Article?
-													<div style="padding:10px 60px 0 0;"align="right""><button type="button" class=":btn btn-primary" id="delete-confirm-cancel">Cancel</button>
+													<div style="padding:10px 60px 0 0;"><button type="button" class="btn btn-primary" id="delete-confirm-cancel">Cancel</button>
 														<!-- <button type="button" class="btn btn-primary hide" id="btn2">Ok</button> -->
 														<%= link_to 'Ok', '', method: :delete, :class => 'btn btn-outline-danger delete-speech' %>
 													</div>
 												</div>
 											</div>
 											<div class="col-md-6 offset-md-5 text-right">
-												<button type="button" class=":btn btn-primary close-modal" data-dismiss="modal">Close</button>
+												<button type="button" class="btn btn-primary close-modal" data-dismiss="modal">Close</button>
 											</div>
 										</div>
 									</div>
@@ -227,7 +227,7 @@
 											<div class="modal-footer">
 												<div class="col-md-6"></div>
 												<div class="col-md-6 offset-md-5 text-right">
-													<button type="button" class=":btn btn-primary close-modal" data-dismiss="modal">Close</button>
+													<button type="button" class="btn btn-primary close-modal" data-dismiss="modal">Close</button>
 												</div>
 											</div>
 										</div>

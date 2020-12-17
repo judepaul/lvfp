@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get "/terms", to: "application#terms"
   get "/privacy", to: "application#privacy"
   get "/media", to: "application#media"
+  get "/quick_start", to: "application#quick_start"
 
   
   resources :contacts

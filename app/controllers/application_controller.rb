@@ -3,33 +3,36 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   def knowledge
-      render "/knowledge"
-    end
-    def help
-        render "/help"
-      end
-      def faq
-          render "/faq"
-        end
-        def support
-            render "/support"
-          end
-          def pricing
-              render "/pricing"
-            end
-            def terms
-                render "/terms"
-              end
-              def privacy
-                  render "/privacy"
-                end
-              def media
-                  render "/media"
-                end
+    render "/knowledge"
+  end
+  def help
+    render "/help"
+  end
+  def faq
+    render "/faq"
+  end
+  def support
+    render "/support"
+  end
+  def pricing
+    render "/pricing"
+  end
+  def terms
+    render "/terms"
+  end
+  def privacy
+    render "/privacy"
+  end
+  def media
+    render "/media"
+  end              
+  def quick_start
+    render "/quick_start"
+  end
                 
-                def after_sign_up_path_for(resource)
-                    show_cities_path(resource)
-                  end 
+  def after_sign_up_path_for(resource)
+    show_cities_path(resource)
+  end 
     
   protected
 

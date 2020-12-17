@@ -193,6 +193,6 @@ class SpeechesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def speech_params
-      params.require(:speech).permit(:code, :email_address, :content, :title, :email_from, :email_sent_date, :intro, :outro, :name)
+      params.require(:speech).permit(:code, :email_address, :content, :title, :email_from, :email_sent_date, :intro, :outro, :name, :sub_title_text)
     end
 end

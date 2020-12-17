@@ -76,30 +76,28 @@
   						<div class="input-group" style="padding-right:0px!important;">
   							<%= form.text_field :intro, id: :article_intro, class: 'form-control', value: "#{!@speech.blank? ? @speech.intro : ""}", placeholder: 'Optional - Enter Intro', readonly: @speech.published? ? true : false, style: "display:none;" %>
   						</div>
+  						
   						<!-- <span style="font-size:14px;">Coming soon...</span> -->
   					</div>
   				</div>
   			</div>
-            </div>
 			
-
             <div class="form-group row">
               <div class="mt-2 col-md-3 offset-md-1">
-                <span class="label-text ml-3">Sub-title</span> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Title of the article which the skill user will hear before the main content"><%#= image_tag("/assets/icon-info.png") %></span>
+                <span class="label-text ml-3">Sub title</span> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Title of the article which the skill user will hear before the main content"><%#= image_tag("/assets/icon-info.png") %></span>
               </div>
               <div class="col-md-7">
-                <%= form.text_field :title, id: :article_title, class: 'form-control', value: "#{!@speech.blank? ? @speech.title : ""}", placeholder: 'Required - Enter title', readonly: @speech.published? ? true : false %>
+                <%= form.text_field :title, id: :article_title, class: 'form-control', value: "#{!@speech.blank? ? @speech.title : ""}", required: true, placeholder: 'Required - Enter title', readonly: @speech.published? ? true : false %>
               </div>
             </div>
-			
 			
 			<div class="form-group row">
 				<div class="mt-2 col-md-3 offset-md-1">
 					<span class="label-text"></span> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Welcoming Text/Jingle at the begining of an article. ex. Hi/Hello/Welcome"><%#= image_tag("/assets/icon-info.png") %></span>
 				</div>
 				<div class="row col-md-7">
-					<div class="col-md-2"><label><input type="radio" name="subject" id="chk-intro-jingle" value="Jingle" /> <b>Jingle</b></label></div>
-					<div class="col-md-10" id="show-subject-jingle" style="display:none;">
+					<div class="col-md-2"><label><input type="radio" name="subject" id="chk-sub-title-jingle" value="Jingle" /> <b>Jingle</b></label></div>
+					<div class="col-md-10" id="show-sub-title-jingle" style="display:none;">
 						<div class="input-group">
 						
 							<select class="form-control" disabled>
@@ -111,25 +109,24 @@
 						<span style="font-size:14px;">Coming soon...</span>
 					</div>
 				</div>
-			</div>
+			</div>			
 			
             <div class="form-group row">
               <div class="mt-2 col-md-3 offset-md-1">
                 
               </div>
   				<div class="row col-md-7" style="padding-right:0px!important;">
-  					<div class="col-md-2"><label><input type="radio" name="subject" id="chk-subject-text" value="Text" checked= "<%= !@speech.intro.blank? ? true : false %>" /> <b>Text </b></label></div>
+  					<div class="col-md-2"><label><input type="radio" name="subject" id="chk-sub-title-text" value="Text" checked= "<%= !@speech.sub_title_text.blank? ? true : false %>" /> <b>Text </b></label></div>
   					<div class="col-md-10">
   						<div class="input-group" style="padding-right:0px!important;">
-  							<%= form.text_field :intro, id: :article_intro1, class: 'form-control', value: "#{!@speech.blank? ? @speech.intro : ""}", placeholder: 'Optional - Enter Intro', readonly: @speech.published? ? true : false, style: "display:none;" %>
+  							<%= form.text_field :sub_title_text, id: :sub_title_text, class: 'form-control', value: "#{!@speech.blank? ? @speech.sub_title_text : ""}", placeholder: 'Optional - Enter Sub title text', readonly: @speech.published? ? true : false, style: "display:none;" %>
   						</div>
+  						
   						<!-- <span style="font-size:14px;">Coming soon...</span> -->
   					</div>
   				</div>
   			</div>
-            </div>
 			
-
             <div class="form-group row">
               <div class="mt-2 col-md-3 offset-md-1">
                 <span class="label-text ml-3">Content</span> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Main content that the skill users will hear"><%#= image_tag("/assets/icon-info.png") %></span>
@@ -146,7 +143,7 @@
 
 			<div class="form-group row">
 				<div class="mt-2 col-md-3 offset-md-1">
-					<span class="label-text ml-3"></span> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Welcoming Text/Jingle at the begining of an article. ex. Hi/Hello/Welcome"><%#= image_tag("/assets/icon-info.png") %></span>
+					<span class="label-text ml-3">Outro</span> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Welcoming Text/Jingle at the begining of an article. ex. Hi/Hello/Welcome"><%#= image_tag("/assets/icon-info.png") %></span>
 				</div>
 				<div class="row col-md-7">
 					<div class="col-md-2"><label><input type="radio" name="outro" id="chk-outro-jingle" value="Jingle" /> <b>Jingle</b></label></div>
@@ -192,53 +189,53 @@
               <% if @speech_access_code.blank? %>
 			  	<% p "in if" %>
 			  	<% if params[:pg] == "campaign" %>
-                	<%= link_to 'Cancel', view_article_path(params[:campaign]), class: ":btn btn-primary", style:"padding:8px !important;" %>
+                	<%= link_to 'Cancel', view_article_path(params[:campaign]), class: "btn btn-primary", style:"padding:8px !important;" %>
 			  	<% elsif params[:pg] == "article" %>
-                	<%= link_to 'Cancel', speeches_path, class: ":btn btn-primary", style:"padding:8px !important;" %>
+                	<%= link_to 'Cancel', speeches_path, class: "btn btn-primary", style:"padding:8px !important;" %>
 				<% elsif params[:pg] == "campaign_create" %>
-					<%= link_to 'Cancel', edit_access_code_path(current_user.access_code.last), class: ":btn btn-primary", style:"padding:8px !important;" %>
+					<%= link_to 'Cancel', edit_access_code_path(current_user.access_code.last), class: "btn btn-primary", style:"padding:8px !important;" %>
 				<% elsif params[:pg] == "article_create" %>
-					<%= link_to 'Cancel', view_article_path(@speech.hashid, pg: "article_create"), class: ":btn btn-primary", style:"padding:8px !important;" %>
+					<%= link_to 'Cancel', view_article_path(@speech.hashid, pg: "article_create"), class: "btn btn-primary", style:"padding:8px !important;" %>
 				<% else %>
-					<%= link_to 'Cancel', edit_access_code_path(current_user.access_code.last), class: ":btn btn-primary", style:"padding:8px !important;" %>
+					<%= link_to 'Cancel', edit_access_code_path(current_user.access_code.last), class: "btn btn-primary", style:"padding:8px !important;" %>
 				<% end %>
 				<span style="padding-left:5px;"></span>
               <% else %>
 			  <% p "in else" %>
                 <% if params[:pg] == "skill_details" %>
-                  <%= link_to 'Cancel', published_skill_details_path, class: ":btn btn-primary", style:"padding:8px !important;" %>
+                  <%= link_to 'Cancel', published_skill_details_path, class: "btn btn-primary", style:"padding:8px !important;" %>
 					<% elsif params[:pg] == "article" %>
-                  		<%= link_to 'Cancel', speeches_path(group_code: @speech_access_code.hashid), class: ":btn btn-primary", style:"padding:8px !important;" %>
+                  		<%= link_to 'Cancel', speeches_path(group_code: @speech_access_code.hashid), class: "btn btn-primary", style:"padding:8px !important;" %>
 					<% elsif params[:pg] == "campaign" %>
-						<%= link_to 'Cancel', view_article_path(@speech_access_code.id), class: ":btn btn-primary", style:"padding:8px !important;" %>
+						<%= link_to 'Cancel', view_article_path(@speech_access_code.id), class: "btn btn-primary", style:"padding:8px !important;" %>
 					<% elsif params[:pg] == "camp_article" %>
-						<%= link_to 'Cancel', view_article_path(@speech.hashid, pg: "article_create"), class: ":btn btn-primary", style:"padding:8px !important;" %>
-						<%#= link_to 'Cancel', speeches_path(group_code: @speech_access_code.hashid), class: ":btn btn-primary", style:"padding:8px !important;" %>
+						<%= link_to 'Cancel', view_article_path(@speech.hashid, pg: "article_create"), class: "btn btn-primary", style:"padding:8px !important;" %>
+						<%#= link_to 'Cancel', speeches_path(group_code: @speech_access_code.hashid), class: "btn btn-primary", style:"padding:8px !important;" %>
 					<% else %>
-						<%= link_to 'Cancel', speeches_path(group_code: @speech_access_code.hashid), class: ":btn btn-primary", style:"padding:8px !important;" %>
+						<%= link_to 'Cancel', speeches_path(group_code: @speech_access_code.hashid), class: "btn btn-primary", style:"padding:8px !important;" %>
 					<% end %>
 				  <span style="padding-left:5px;"></span>
               <% end %>
               <% if @speech.new_record? %>
-                <%= form.submit 'Save', id: 'save_content', class:":btn btn-primary", style:"padding:8px!important;" %>
+                <%= form.submit 'Save', id: 'save_content', class:"btn btn-primary", style:"padding:8px!important;" %>
 				<span style="padding-left:5px;"></span>
 				<span style="padding-left:5px;"></span>
-                <%= form.submit 'Publish', id: 'publish_content', class:":btn btn-primary", disabled: true, style:"padding:8px !important;" %>
+                <%= form.submit 'Publish', id: 'publish_content', class:"btn btn-primary", disabled: true, style:"padding:8px !important;" %>
 				<span style="padding-left:5px;"></span>
               <% else %>
                 <!-- <audio id="audioPlayback" controls> -->
                 <audio id="audioPlayback">
                   <source id="audioSource" type="audio/mp3" src="">
                 </audio>
-                <button type="button" class=":btn btn-primary audioPlayback" style="padding:8px!important; border: 0px solid #61318f !important;" onclick="aud_play_pause()">
+                <button type="button" class="btn btn-primary audioPlayback" style="padding:8px!important; border: 0px solid #61318f !important;" onclick="aud_play_pause()">
                   <span class="play"><i class="fa fa-play-circle fa-lg play" aria-hidden="true"></i></span> Play/Pause
                 </button>
 				<span style="padding-left:5px;"></span>
                 <!-- Commented by Jude on 04/04/2020 to move this button on the list article page based on the discussion on 03/04/2020 -->
                 <% unless @speech.published? %>
-				  <%= form.submit 'Save', id: 'save_content', class:":btn btn-primary", style:"padding: 8px !important;" %> 
+				  <%= form.submit 'Save', id: 'save_content', class:"btn btn-primary", style:"padding: 8px !important;" %> 
 				  <span style="padding-left:5px;"></span>                                     
-                  <%= form.submit 'Publish', id: 'publish_content', class:":btn btn-primary", style:"padding: 8px !important;", disabled: @speech.published? ? true : false, data: { confirm: "Warning: \n\n You are going to publish the article. It will be available to your end users for listening. After this step the article can not be edited or un-published.", dismiss: "modal" }, style: "border:none!important;padding:8px!important;" %>
+                  <%= form.submit 'Publish', id: 'publish_content', class:"btn btn-primary", style:"padding: 8px !important;", disabled: @speech.published? ? true : false, data: { confirm: "Warning: \n\n You are going to publish the article. It will be available to your end users for listening. After this step the article can not be edited or un-published.", dismiss: "modal" }, style: "border:none!important;padding:8px!important;" %>
 				  <span style="padding-left:5px;"></span>
                 <% end %>
               <% end %>
@@ -284,7 +281,7 @@
       <div class="modal-footer">
         <div class="col-md-6"></div>
         <div class="col-md-6 offset-md-5 text-right">
-          <button type="button" class=":btn btn-primary close-modal" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary close-modal" data-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
@@ -436,12 +433,12 @@ $(document).ready(function() {
 		    });
 			$('input[name="subject"]').on('click', function() {
 			        if ($(this).val() == 'Jingle') {
-			            $('#show-subject-jingle').show();
-						$('#article_intro1').hide();
+			            $('#show-sub-title-jingle').show();
+						$('#sub_title_text').hide();
 			        }
 			        else {
-			            $('#article_intro1').show();
-						$('#show-subject-jingle').hide();
+			            $('#sub_title_text').show();
+						$('#show-sub-title-jingle').hide();
 			        }
 			    });			
 			var $intro = $('input:radio[name="intro"]');
@@ -454,9 +451,10 @@ $(document).ready(function() {
 			}
 			var $subject = $('input:radio[name="subject"]');
 			if($outro.is(':checked') === true) {
-				$('#article_intro1').show();
+				$('#sub_title_text').show();
 			}
 });
+
 
 // function checkbox() {
 //     var check = document.getElementById("chk-intro").checked;
