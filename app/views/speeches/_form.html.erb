@@ -24,7 +24,7 @@
             <div class="row" style="height:30px;"></div>
             
             <div class="form-group row">
-              <div class="mt-2 col-md-3 offset-md-1">
+              <div class="mt-1 col-md-3 offset-md-1">
                 <span class="label-text">Status</span>
               </div>
               <div class="col-md-7">
@@ -32,27 +32,21 @@
 	              <% if @speech.published? %>
 	                <%#= link_to("/speeches/published_details/#{@speech.id}",style:"text-decoration:none;",class:"text-black") do %>Published<!% end %>
 	              <% else %>
-	                <span class="text-black pt-0">Draft</span>
+	                <span class="text-black pt-2">Draft</span>
 	              <% end %>
 	            </span>
               </div>
             </div>
-            <div class="form-group row">
-              <div class="mt-2 col-md-3 offset-md-1">
-                <span class="label-text">Title</span> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Name of an article."><%#= image_tag("/assets/icon-info.png") %></span>
-              </div>
-              <div class="col-md-7" style="padding-right:0px!important;">
-                <%= form.text_field :name, id: :article_name, class: 'form-control', value: "#{!@speech.blank? ? @speech.name : ""}", required: true, placeholder: 'Required - Enter Name', readonly: @speech.published? ? true : false %>
-              </div>
-            </div>
 			
+			<!-- Intro jingle start here -->
 			<div class="form-group row">
-				<div class="mt-2 col-md-3 offset-md-1">
-					<span class="label-text"></span> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Welcoming Text/Jingle at the begining of an article. ex. Hi/Hello/Welcome"><%#= image_tag("/assets/icon-info.png") %></span>
+				<div class="mt-1 col-md-3 offset-md-1">
+					<span class="label-text"></span>
 				</div>
 				<div class="row col-md-7">
-					<div class="col-md-2"><label><input type="radio" name="intro" id="chk-intro-jingle" value="Jingle" /> <b>Jingle</b></label></div>
-					<div class="col-md-10" id="show-intro-jingle" style="display:none;">
+					<div class="col-md-2"><label><input type="checkbox" name="intro_jingle" id="chk-intro-jingle" value="true" /> <b>Jingle</b></label><br/><span style="font-size:14px;">(Optional)</span></div>
+					
+					<div class="col-md-6" id="show-intro-jingle" style="display:none;">
 						<div class="input-group">
 						
 							<select class="form-control" disabled>
@@ -61,43 +55,29 @@
 								<option>Jingle-3</option>
 							</select>
 						</div>
-						<span style="font-size:14px;">Coming soon...</span>
+						
 					</div>
 				</div>
 			</div>
-			
+			<!-- Intro jingle ends here -->
             <div class="form-group row">
-              <div class="mt-2 col-md-3 offset-md-1">
-                
-              </div>
-  				<div class="row col-md-7" style="padding-right:0px!important;">
-  					<div class="col-md-2"><label><input type="radio" name="intro" id="chk-intro-text" value="Text" checked= "<%= !@speech.intro.blank? ? true : false %>" /> <b>Text </b></label></div>
-  					<div class="col-md-10">
-  						<div class="input-group" style="padding-right:0px!important;">
-  							<%= form.text_field :intro, id: :article_intro, class: 'form-control', value: "#{!@speech.blank? ? @speech.intro : ""}", placeholder: 'Optional - Enter Intro', readonly: @speech.published? ? true : false, style: "display:none;" %>
-  						</div>
-  						
-  						<!-- <span style="font-size:14px;">Coming soon...</span> -->
-  					</div>
-  				</div>
-  			</div>
-			
-            <div class="form-group row">
-              <div class="mt-2 col-md-3 offset-md-1">
-                <span class="label-text ml-3">Sub title</span> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Title of the article which the skill user will hear before the main content"><%#= image_tag("/assets/icon-info.png") %></span>
+              <div class="mt-1 col-md-3 offset-md-1">
+                <span class="label-text">Title</span> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Name of an article."><%#= image_tag("/assets/icon-info.png") %></span>
               </div>
               <div class="col-md-7">
-                <%= form.text_field :title, id: :article_title, class: 'form-control', value: "#{!@speech.blank? ? @speech.title : ""}", required: true, placeholder: 'Required - Enter title', readonly: @speech.published? ? true : false %>
+                <%= form.text_field :name, id: :article_name, class: 'form-control', value: "#{!@speech.blank? ? @speech.name : ""}", required: true, placeholder: 'Title - [Required]', readonly: @speech.published? ? true : false %>
               </div>
             </div>
 			
+			<!-- Title jingle start here -->
 			<div class="form-group row">
-				<div class="mt-2 col-md-3 offset-md-1">
-					<span class="label-text"></span> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Welcoming Text/Jingle at the begining of an article. ex. Hi/Hello/Welcome"><%#= image_tag("/assets/icon-info.png") %></span>
+				<div class="mt-1 col-md-3 offset-md-1">
+					<span class="label-text"></span>
 				</div>
 				<div class="row col-md-7">
-					<div class="col-md-2"><label><input type="radio" name="subject" id="chk-sub-title-jingle" value="Jingle" /> <b>Jingle</b></label></div>
-					<div class="col-md-10" id="show-sub-title-jingle" style="display:none;">
+					<div class="col-md-2"><label><input type="checkbox" name="title_jingle" id="chk-title-jingle" value="true" /> <b>Jingle</b></label><br/><span style="font-size:14px;">(Optional)</span></div>
+					
+					<div class="col-md-6" id="show-title-jingle" style="display:none;">
 						<div class="input-group">
 						
 							<select class="form-control" disabled>
@@ -106,33 +86,50 @@
 								<option>Jingle-3</option>
 							</select>
 						</div>
-						<span style="font-size:14px;">Coming soon...</span>
+						
 					</div>
 				</div>
-			</div>			
+			</div>
+			<!-- Title jingle ends here -->
 			
             <div class="form-group row">
-              <div class="mt-2 col-md-3 offset-md-1">
-                
-              </div>
-  				<div class="row col-md-7" style="padding-right:0px!important;">
-  					<div class="col-md-2"><label><input type="radio" name="subject" id="chk-sub-title-text" value="Text" checked= "<%= !@speech.sub_title_text.blank? ? true : false %>" /> <b>Text </b></label></div>
-  					<div class="col-md-10">
-  						<div class="input-group" style="padding-right:0px!important;">
-  							<%= form.text_field :sub_title_text, id: :sub_title_text, class: 'form-control', value: "#{!@speech.blank? ? @speech.sub_title_text : ""}", placeholder: 'Optional - Enter Sub title text', readonly: @speech.published? ? true : false, style: "display:none;" %>
-  						</div>
-  						
-  						<!-- <span style="font-size:14px;">Coming soon...</span> -->
-  					</div>
-  				</div>
-  			</div>
-			
-            <div class="form-group row">
-              <div class="mt-2 col-md-3 offset-md-1">
-                <span class="label-text ml-3">Content</span> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Main content that the skill users will hear"><%#= image_tag("/assets/icon-info.png") %></span>
+              <div class="mt-1 col-md-3 offset-md-1">
+                <span class="label-text">Sub title</span> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Title of the article which the skill user will hear before the main content"><%#= image_tag("/assets/icon-info.png") %></span>
               </div>
               <div class="col-md-7">
-                <%= form.text_area :content, id: :add_speech_content, size: "30x9", class: 'form-control show', placeholder: 'Required - Enter text', readonly: @speech.published? ? true : false %>
+                <%= form.text_field :title, id: :article_title, class: 'form-control', value: "#{!@speech.blank? ? @speech.title : ""}", required: false, placeholder: 'Sub-title - [Optional]', readonly: @speech.published? ? true : false %>
+              </div>
+            </div>
+			
+			<!-- Sub-title jingle start here -->
+			<div class="form-group row">
+				<div class="mt-1 col-md-3 offset-md-1">
+					<span class="label-text"></span>
+				</div>
+				<div class="row col-md-7">
+					<div class="col-md-2"><label><input type="checkbox" name="sub_title_jingle" id="chk-sub-title-jingle" value="true" /> <b>Jingle</b></label><br/><span style="font-size:14px;">(Optional)</span></div>
+					
+					<div class="col-md-6" id="show-sub-title-jingle" style="display:none;">
+						<div class="input-group">
+						
+							<select class="form-control" disabled>
+								<option>Choose Audio (Coming Soon...)</option>
+								<option>Jingle-2</option>
+								<option>Jingle-3</option>
+							</select>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+			<!-- Sub-title jingle ends here -->
+			
+            <div class="form-group row">
+              <div class="mt-1 col-md-3 offset-md-1">
+                <span class="label-text">Content</span> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Main content that the skill users will hear"><%#= image_tag("/assets/icon-info.png") %></span>
+              </div>
+              <div class="col-md-7">
+                <%= form.text_area :content, id: :add_speech_content, size: "30x9", class: 'form-control show', placeholder: 'Content - [Required]', readonly: @speech.published? ? true : false %>
                 <% unless @speech.published? %>
                   <div class="col-md-8 pl-0" id="textarea_feedback" style="margin-top:10px !important; font-size:14px; font-weight:bold; letter-spacing:0px;"></div>
                   <div class="col-md-12 pl-0" style="margin-top:1px !important; font-size:14px; font-weight:bold; letter-spacing:0px;">All the links/special characters will be ignored in the skill</div>
@@ -141,41 +138,29 @@
             </div>
 
 
+			<!-- Intro jingle start here -->
 			<div class="form-group row">
-				<div class="mt-2 col-md-3 offset-md-1">
-					<span class="label-text ml-3">Outro</span> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Welcoming Text/Jingle at the begining of an article. ex. Hi/Hello/Welcome"><%#= image_tag("/assets/icon-info.png") %></span>
+				<div class="mt-1 col-md-3 offset-md-1">
+					<span class="label-text"></span>
 				</div>
 				<div class="row col-md-7">
-					<div class="col-md-2"><label><input type="radio" name="outro" id="chk-outro-jingle" value="Jingle" /> <b>Jingle</b></label></div>
-					<div class="col-md-10" id="show-outro-jingle" style="display:none;">
+					<div class="col-md-2"><label><input type="checkbox" name="outro_jingle" id="chk-outro-jingle" value="true" /> <b>Jingle</b></label><br/><span style="font-size:14px;">(Optional)</span></div>
+					
+					<div class="col-md-6" id="show-outro-jingle" style="display:none;">
 						<div class="input-group">
 						
 							<select class="form-control" disabled>
-								<option>Choose a Jingle</option>
+								<option>Choose Audio (Coming Soon...)</option>
 								<option>Jingle-2</option>
 								<option>Jingle-3</option>
 							</select>
 						</div>
-						<span style="font-size:14px;">Coming soon...</span>
+						
 					</div>
 				</div>
 			</div>
+			<!-- Intro jingle ends here -->
 			
-            <div class="form-group row">
-              <div class="mt-2 col-md-3 offset-md-1">
-                
-              </div>
-  				<div class="row col-md-7">
-  					<div class="col-md-2"><label><input type="radio" name="outro" id="chk-outro-text" value="Text" checked= "<%= !@speech.outro.blank? ? true : false %>" /> <b>Text</b></label></div>
-  					<div class="col-md-10">
-  						<div class="input-group">
-						
-  							<%= form.text_field :outro, id: :article_outro, class: 'form-control', value: "#{!@speech.blank? ? @speech.outro : ""}", placeholder: 'Optional - Enter Outro', readonly: @speech.published? ? true : false, style: "display:none;" %>
-  						</div>
-  						<!-- <span style="font-size:14px;">Coming soon...</span> -->
-  					</div>
-  				</div>
-  			</div>
             </div>
 
 
@@ -411,16 +396,40 @@ $(document).ready(function() {
 	    return 'Are you sure you want to leave?'
 	}
 	
-	$('input[name="intro"]').on('click', function() {
-	        if ($(this).val() == 'Jingle') {
-	            $('#show-intro-jingle').show();
-				$('#article_intro').hide();
-	        }
-	        else {
-	            $('#article_intro').show();
-				$('#show-intro-jingle').hide();
-	        }
-	    });
+	$('#chk-intro-jingle').on('click', function() {
+		if ($(this).prop("checked")) {
+			$('#show-intro-jingle').show();
+		}
+		else {
+			$('#show-intro-jingle').hide();
+		}
+	});
+	$('#chk-title-jingle').on('click', function() {
+		if ($(this).prop("checked")) {
+			$('#show-title-jingle').show();
+		}
+		else {
+			$('#show-title-jingle').hide();
+		}
+	});
+	$('#chk-sub-title-jingle').on('click', function() {
+		if ($(this).prop("checked")) {
+			$('#show-sub-title-jingle').show();
+		}
+		else {
+			$('#show-sub-title-jingle').hide();
+		}
+	});	
+	$('#chk-outro-jingle').on('click', function() {
+		if ($(this).prop("checked")) {
+			$('#show-outro-jingle').show();
+		}
+		else {
+			$('#show-outro-jingle').hide();
+		}
+	});
+
+/*		
 		$('input[name="outro"]').on('click', function() {
 		        if ($(this).val() == 'Jingle') {
 		            $('#show-outro-jingle').show();
@@ -442,17 +451,17 @@ $(document).ready(function() {
 			        }
 			    });			
 			var $intro = $('input:radio[name="intro"]');
-			if($intro.is(':checked') === true) {
-				$('#article_intro').show();
-			}
-			var $outro = $('input:radio[name="outro"]');
-			if($outro.is(':checked') === true) {
-				$('#article_outro').show();
-			}
-			var $subject = $('input:radio[name="subject"]');
-			if($outro.is(':checked') === true) {
-				$('#sub_title_text').show();
-			}
+			// if($intro.is(':checked') === true) {
+			// 	$('#article_intro').show();
+			// }
+			// var $outro = $('input:radio[name="outro"]');
+			// if($outro.is(':checked') === true) {
+			// 	$('#article_outro').show();
+			// }
+			// var $subject = $('input:radio[name="subject"]');
+			// if($outro.is(':checked') === true) {
+			// 	$('#sub_title_text').show();
+			// } */
 });
 
 

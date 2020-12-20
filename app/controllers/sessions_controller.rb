@@ -1,4 +1,5 @@
 class SessionsController < Devise::SessionsController
+     protect_from_forgery prepend: true
     def create
         resource = warden.authenticate!(:scope => resource_name)
         if is_navigational_format?

@@ -36,7 +36,8 @@
     //background-color: #1DA1F2;
 	//background-color: #adddfc;
 	//background-color: #f96015; //orange
-	background-color: #F9832B!important;
+	//background-color: #f7882f!important;
+	background-color: #FFFFF0!important;
 	
 }
 .card-header
@@ -46,23 +47,34 @@
     //background-color: #1DA1F2!important;
 	//background-color: #adddfc!important;
 //	background-color: #f96015!important;
-	background-color: #F9832B!important;
-	
+	//background-color: #f7882f!important;
+	//background-color: #FFF!important;
+	/* Updated on 12/20/2020 to change the header/navbar color to white and button to orange */
+	background-color: #f7882f!important;
+	color:#FFF;
     font-size:20px;
 }
+
+/* Updated on 12/20/2020 to change the header/navbar color to white and button to orange */
 .navbar-laravel
 {
-    box-shadow: 0 2px 4px rgba(0,0,0,.04);
+    //box-shadow: 0 2px 4px rgba(0,0,0,.04);
 }
-
-.navbar-brand , .nav-link, .my-form, .login-form
+.navbar-brand , .nav-link
 {
-    //font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #f7882f!important;
 }
 
 .navbar .nav-link {
     padding-left: 18px !important;
     padding-right: 18px !important;
+	color: #f7882f!important;
+	
+}
+
+.navbar-brand , .nav-link, .my-form, .login-form
+{
+    //font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .my-form
@@ -131,7 +143,12 @@
     width: 10%
 }
 
-
+.bg {
+	background-image: url('voice-devices-wo-bg.png');
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	opacity: 0.2;
+}
 
 //.bg_login {
 //

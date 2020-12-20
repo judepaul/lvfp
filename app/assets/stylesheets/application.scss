@@ -109,12 +109,20 @@ body {
     letter-spacing:.03rem !important;    
  }
 
- .table-heading{
-    font-family: Nunito-SemiBold !important; 
-    font-size:18px !important;
-    letter-spacing:.03rem !important;
-	color: #FFF!important;
- }
+// .table-heading{
+//    font-family: Nunito-SemiBold !important;
+//    font-size:18px !important;
+//    letter-spacing:.03rem !important;
+//	color: #FFF!important;
+// }
+
+/* Updated on 12/20/2020 to change the header/navbar color to white and button to orange */
+.table-heading{
+   font-family: Nunito-SemiBold !important; 
+   font-size:18px !important;
+   letter-spacing:.03rem !important;
+   //background-color: #FFFFF0!important;
+}
 
  .sub-heading{
     font-family: Nunito-SemiBold !important; 
@@ -139,7 +147,9 @@ body {
     font-size:18px !important;
  }
 
- input, textarea, select { font-size: 16px !important; }
+ //input, textarea, select { font-size: 16px !important;  }
+ /* Updated on 12/20/2020 to change the header/navbar color to white and button to orange */
+ input, textarea, select { font-size: 16px !important; background-color:#FFFFF0!important;  }
 
  .form-control[readonly] {
     background-color: #FFF;
@@ -182,6 +192,12 @@ input[type="text"], textarea, select {
 
 
 // Bootstrap overridden
+.btn-primary {
+	background-color: #f7882f!important;
+	border-color: #f7882f !important;
+}
+
+
 .btn-outline-primary, .btn-outline-primary:hover, .btn-outline-primary:active, .btn-outline-primary:visited {
     background-color: #9dd5f9 !important;
     color: #043757;
@@ -262,7 +278,7 @@ input[type="text"], textarea, select {
 }
 
 .navbar-dark .navbar-nav .nav-link {
-    color: #FFF!important;
+    #color: #f7882f!important;
 }
 
 .footer-menu {
