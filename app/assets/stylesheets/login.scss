@@ -50,8 +50,9 @@
 	//background-color: #f7882f!important;
 	//background-color: #FFF!important;
 	/* Updated on 12/20/2020 to change the header/navbar color to white and button to orange */
-	background-color: #f7882f!important;
-	color:#FFF;
+	background-color: #DCDCDC !important;
+	border-color: #D3D3D3;
+	color:#484848;
     font-size:20px;
 }
 
@@ -63,6 +64,10 @@
 .navbar-brand , .nav-link
 {
     color: #f7882f!important;
+}
+
+.nav-active {
+	color: #f7882f!important;
 }
 
 .navbar .nav-link {

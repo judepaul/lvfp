@@ -7,12 +7,12 @@
 	<ul class="navbar-nav ml-auto">
 		<li> </li>
 	<li class="nav-item sub-heading pt-1">
-		<a class="nav-link" href="/quick_start"><i class="fas fa-address-card" aria-hidden="true"></i> Quick Start</a>
+		<a class="nav-link" href="/quick_start">Quick Start</a>
 	</li>
 	<% if controller.controller_name != "registrations" %>
 	<li class="nav-item dropdown-studio sub-heading pt-1">
 		<a class="nav-link" href="/signup" data-placement="bottom" data-toggle="tooltip" data-original-title="Signup">
-			<i class="fas fa-user"></i> Sign Up!
+			Sign Up
 		</a>
 	</li>
 	<% end %>
@@ -40,22 +40,22 @@
 			<% if controller.controller_name != "dashboard" %>
 			<li class="nav-item  dropdown dropdown-studio sub-heading pt-1">
 				<a class="nav-link" href="/dashboard/index/" data-placement="bottom" data-toggle="tooltip" data-original-title="Dashboard">
-					<i class="fas fa-home"></i> Home
+					Home
 				</a>
 			</li>
 			<li class="nav-item  dropdown dropdown-studio sub-heading pt-1">
 				<a class="nav-link <%= controller.controller_name=="access_codes"? 'nav-active' : '' %>" href="/voice-reader-studio/campaigns" data-placement="bottom" data-toggle="tooltip" data-original-title="View All Campaigns">
-					<i class="fas fa-database"></i> Campaigns
+					Campaigns
 				</a>
 			</li>
 			<li class="nav-item  dropdown dropdown-studio sub-heading pt-1">
 				<a class="nav-link <%= controller.controller_name=="speeches"? 'nav-active' : '' %>" href="/voice-reader-studio/articles" data-placement="bottom" data-toggle="tooltip" data-original-title="View All Articles">
-					<i class="fas fa-clone"></i> Articles
+					Articles
 				</a>
 			</li>
 			<li class="nav-item  dropdown dropdown-studio sub-heading pt-1">
 				<a class="nav-link <%= controller.controller_name=="skills"? 'nav-active' : '' %>" href="/voice-chimp-skill/details" data-placement="bottom" data-toggle="tooltip" data-original-title="Skill Details">
-					<i class="fas fa-clone"></i> Skill
+					Skill
 				</a>
 			</li>
 			<% end %>
@@ -64,7 +64,7 @@
 			<!-- Updated Signout with Account update based on the discussion on 10/24/2020 -->
 			<li class="nav-item  dropdown dropdown-studio sub-heading pt-1">
 				<a class="nav-link text-white <%#= controller.controller_name=="users"? 'nav-active' : '' %>" href="/users/edit" data-placement="bottom" data-toggle="tooltip" data-original-title="Settings">
-					<i class="fas fa-user"></i> <%= current_user.username %>
+					<%= current_user.username %>
 				</a>
 			</li>
 			

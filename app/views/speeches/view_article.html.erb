@@ -1,6 +1,6 @@
 <div class="container">
 	<div class="row" style="height:20px;"></div>
-	<span class="heading"> <i class="fas fa-layer-group"></i> Articles in <%= !@access_code.blank? ? @access_code.title.titlecase : "" %> campaign</span>
+	<span class="heading">Articles in <%= !@access_code.blank? ? @access_code.title.titlecase : "" %> campaign</span>
 
 	<div class="container-fluid px-0">
 		<div class="row no-gutters">
@@ -80,10 +80,10 @@
 																						</td>
 																						<td>
 																							<%#= image_tag 'icon-calendar', alt: "calendar", style:"padding-left:6px;" %><b data-toggle="tooltip" data-placement="top" title="The date article was created/updated"> <%= speech.updated_at.strftime("%m/%d/%Y") %> </b>
-																							<!-- <i class="fas fa-edit" style="padding-left:6px;color:#61318f;cursor:pointer;" onclick="location.href='<%#= edit_speech_path(speech) %>'"></i> -->
+																							<!-- <i class="fas fa-edit" style="padding-left:6px;color:#484848;cursor:pointer;" onclick="location.href='<%#= edit_speech_path(speech) %>'"></i> -->
 																						</td>
 																						<td>
-																							<a href="/voice-reader-studio/articles/<%=speech.hashid%>?pg=view-articles" data-method="delete" data-confirm="<%= speech.published? ? 'This article is already published. Are you sure you want to delete?' : 'Are you sure you want to delete this article?' %>" data-title='Confirm Deletion' data-commit='Yes do it!' data-cancel='Not really!'  class='delete-speech' style="color:#61318f;padding-left:6px;" id="delete-btn">
+																							<a href="/voice-reader-studio/articles/<%=speech.hashid%>?pg=view-articles" data-method="delete" data-confirm="<%= speech.published? ? 'This article is already published. Are you sure you want to delete?' : 'Are you sure you want to delete this article?' %>" data-title='Confirm Deletion' data-commit='Yes do it!' data-cancel='Not really!'  class='delete-speech' style="color:#484848;padding-left:6px;" id="delete-btn">
 																								<i class="fas fa-trash-alt" data-toggle="tooltip" data-placement="top" title="Delete"></i></a>  
 																							</td>
 																						</tr>

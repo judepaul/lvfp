@@ -4,7 +4,7 @@
   <!-- <div class="container-fluid px-0" style="border:1px solid #E9ECEF;"> -->
 <div class="row" style="height:20px;"></div>
 <% p "@@@ #{@speech_access_code}" %>
-<span class="heading" style="padding-left:120px;"> <i class="fas fa-layer-group"></i> Create/Edit Article - <%= !params[:campaign].blank? ? campaign_name(params[:campaign]) : "#{@speech_access_code.title.titlecase}" %> Campaign </span>
+<span class="heading" style="padding-left:120px;">Create/Edit Article - <%= !params[:campaign].blank? ? campaign_name(params[:campaign]) : "#{@speech_access_code.title.titlecase}" %> Campaign </span>
 
   <div class="container-fluid px-0">
     <div class="row no-gutters">
@@ -212,7 +212,7 @@
                 <audio id="audioPlayback">
                   <source id="audioSource" type="audio/mp3" src="">
                 </audio>
-                <button type="button" class="btn btn-primary audioPlayback" style="padding:8px!important; border: 0px solid #61318f !important;" onclick="aud_play_pause()">
+                <button type="button" class="btn btn-primary audioPlayback" style="padding:8px!important; border: 0px solid #484848 !important;" onclick="aud_play_pause()">
                   <span class="play"><i class="fa fa-play-circle fa-lg play" aria-hidden="true"></i></span> Play/Pause
                 </button>
 				<span style="padding-left:5px;"></span>

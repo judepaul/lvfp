@@ -82,6 +82,7 @@ body {
     font-family: "Nunito-Regular";
     font-size:17px;
     // letter-spacing:.03rem !important;
+	color:#484848!important;
  }
 
  .heading-extra{
@@ -95,6 +96,7 @@ body {
     font-family: Nunito-Bold !important; 
     font-size:22px !important;
     letter-spacing:.03rem !important;
+	color:#808080!important;
  }
 
  .heading-semibold{
@@ -124,6 +126,12 @@ body {
    //background-color: #FFFFF0!important;
 }
 
+.table .thead-light th {
+  color: #484848;
+  background-color: #DCDCDC;
+  border-color: #D3D3D3;
+}
+
  .sub-heading{
     font-family: Nunito-SemiBold !important; 
     font-size:18px !important;
@@ -134,6 +142,7 @@ body {
     font-family: Nunito-SemiBold !important; 
     font-size: 18px !important;
     letter-spacing:.02rem !important;
+	color:#484848!important;
  }
 
  .content-text{
@@ -179,7 +188,7 @@ input[type="text"], textarea, select {
 }
 
 .nav-active {
-    border-bottom: 3px solid #FFF !important;
+    border-bottom: 3px solid #484848 !important;
 }
 
 .studio-menu, .skill-menu, .analytics-menu, .logout-menu{
@@ -218,8 +227,8 @@ input[type="text"], textarea, select {
 
 .btn-purple {
     color: #fff;
-    background-color: #61318f;
-    border-color: #61318f;
+    background-color: #484848;
+    border-color: #484848;
 }
 
 .tooltip{
@@ -227,7 +236,7 @@ input[type="text"], textarea, select {
  }
 
  .border-purple {
-    border-bottom: 2px solid #61318f !important;
+    border-bottom: 2px solid #484848 !important;
 }
 
 .dropdown-item {

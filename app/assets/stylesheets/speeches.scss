@@ -64,6 +64,9 @@
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
 	border-bottom: 4px solid #1a212b;
 	border-radius: 0;
+	background-color: #DCDCDC !important;
+	border-color: #D3D3D3;
+	color:#484848;
   } 
   
 
@@ -105,7 +108,7 @@
   .shadow { 
     color: white; 
     //font: bold 24px Buffalo;
-    text-shadow: 1px 1px 2px #000;
+    text-shadow: 1px 1px 2px #484848;
 
     // text-shadow: 1px 1px #fe4902, 
     //              2px 2px #fe4902, 
@@ -155,7 +158,7 @@
 .card-header {
   padding: 0.5rem 1rem 0.5rem 1rem;
   margin-bottom: 0;
-  background-color: #61318f;
+  background-color: #484848;
   //border-bottom: 1px solid rgba(0, 0, 0, 0.125);
 }
 

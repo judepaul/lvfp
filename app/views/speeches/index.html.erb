@@ -1,7 +1,7 @@
 <div class="container">
 	<%#= render 'form', speech: @speech %>
 	<div class="row" style="height:20px;"></div>
-	<span class="heading"> <i class="fas fa-layer-group"></i> Articles in all campaigns</span>
+	<span class="heading">Articles in all campaigns</span>
 
 	<div class="container-fluid px-0">
 		<div class="row no-gutters">
@@ -60,10 +60,10 @@
 															<table class="table table-bordered table-sm table-<%= ac.code %>">
 																<thead class="thead-light h5 font-weight-bold">
 																	<tr>
-																		<nav style="background-color:#e9ecef !important;">
+																		<nav style="background-color:#DCDCDC !important;">
 																			<div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-																				<a class="nav-item nav-link table-heading pointer active <%#= params[:tab]==nil || params[:tab]=='All' ? 'active' : '' %>" id="nav-all-tab" onclick="return nav_all_tab(<%= ac.code %>)" data-toggle="tab" href="#nav-all" role="tab" aria-controls="nav-home" aria-selected="true"><span style="color:#000 !important;"><i class="fas fa-square" style="font-size:14px; color:orange;"></i> <i class="fas fa-square" style="font-size:14px; color:green;"></i> All</span></a>
-																				<a class="nav-item nav-link table-heading pointer <%#= params[:tab]=='Draft' ? 'active' : '' %>" id="nav-draft-tab" onclick="return nav_draft_tab(<%= ac.code %>)" data-toggle="tab" href="#nav-draft" role="tab" aria-controls="nav-profile" aria-selected="false"><span style="color:#000 !important;"><i class="fas fa-square" style="font-size:14px; color:orange;"></i> Draft</span></a>
+																				<a class="nav-item nav-link table-heading pointer active <%#= params[:tab]==nil || params[:tab]=='All' ? 'active' : '' %>" id="nav-all-tab" onclick="return nav_all_tab(<%= ac.code %>)" data-toggle="tab" href="#nav-all" role="tab" aria-controls="nav-home" aria-selected="true"><span style="color:#000 !important;"><i class="fas fa-square" style="font-size:14px; color:#484848;"></i> <i class="fas fa-square" style="font-size:14px; color:green;"></i> All</span></a>
+																				<a class="nav-item nav-link table-heading pointer <%#= params[:tab]=='Draft' ? 'active' : '' %>" id="nav-draft-tab" onclick="return nav_draft_tab(<%= ac.code %>)" data-toggle="tab" href="#nav-draft" role="tab" aria-controls="nav-profile" aria-selected="false"><span style="color:#000 !important;"><i class="fas fa-square" style="font-size:14px; color:#484848;"></i> Draft</span></a>
 																				<a class="nav-item nav-link table-heading pointer <%#= params[:tab]=='Published' ? 'active' : '' %>" id="nav-published-tab" onclick="return nav_published_tab(<%= ac.code %>)" data-toggle="tab" href="#nav-published" role="tab" aria-controls="nav-contact" aria-selected="false"><span style="color:#000 !important;"><i class="fas fa-square" style="font-size:14px; color:green;"></i> Published</span></a>
 																			</div>
 																		</nav>
@@ -96,19 +96,19 @@
 																									<%#= link_to(edit_speech_path(speech.id),style:"text-decoration:none;", class:"px-1 py-0") do %><i class="fas fa-square" style="font-size:14px; color:green;" data-toggle="tooltip" data-placement="top" title="Published"></i><!% end %>
 																									<% else %> 
 																									<!-- <span class="btn btn-outline-warning px-1 py-0" style="text-decoration:none;">Draft</span> -->
-																									<%#= link_to(edit_speech_path(speech.id),style:"text-decoration:none;", class:"px-1 py-0") do %><i class="fas fa-square" style="font-size:14px; color:orange;" data-toggle="tooltip" data-placement="top" title="Draft"></i><!% end %>
+																									<%#= link_to(edit_speech_path(speech.id),style:"text-decoration:none;", class:"px-1 py-0") do %><i class="fas fa-square" style="font-size:14px; color:#484848;" data-toggle="tooltip" data-placement="top" title="Draft"></i><!% end %>
 																									<% end %>
 																								</td>
 																								<td>
 																									<%#= image_tag 'icon-calendar', alt: "calendar", style:"padding-left:6px;" %><b data-toggle="tooltip" data-placement="top" title="The date article was created/updated"> <%= speech.updated_at.strftime("%m/%d/%Y") %> </b>
-																									<!-- <i class="fas fa-edit" style="padding-left:6px;color:#61318f;cursor:pointer;" onclick="location.href='<%#= edit_speech_path(speech) %>'"></i> -->
+																									<!-- <i class="fas fa-edit" style="padding-left:6px;color:#484848;cursor:pointer;" onclick="location.href='<%#= edit_speech_path(speech) %>'"></i> -->
 																								</td>
 																								<td>
 																									<% unless params[:group_code].blank? %>
-																										<a href="/voice-reader-studio/articles/<%=speech.hashid%>?pg=list-articles&group_code=<%= params[:group_code] %>" data-method="delete" data-confirm="<%= speech.published? ? 'This article is already published. Are you sure you want to delete?' : 'Are you sure you want to delete this article?' %>" data-title='Confirm Deletion' data-commit='Yes do it!' data-cancel='Not really!'  class='delete-speech' style="color:#61318f;padding-left:6px;" id="delete-btn">
+																										<a href="/voice-reader-studio/articles/<%=speech.hashid%>?pg=list-articles&group_code=<%= params[:group_code] %>" data-method="delete" data-confirm="<%= speech.published? ? 'This article is already published. Are you sure you want to delete?' : 'Are you sure you want to delete this article?' %>" data-title='Confirm Deletion' data-commit='Yes do it!' data-cancel='Not really!'  class='delete-speech' style="color:#484848;padding-left:6px;" id="delete-btn">
 																										<i class="fas fa-trash-alt" data-toggle="tooltip" data-placement="top" title="Delete"></i></a> 
 																										<% else %> 
-																											<a href="/voice-reader-studio/articles/<%=speech.hashid%>?pg=list-articles" data-method="delete" data-confirm="<%= speech.published? ? 'This article is already published. Are you sure you want to delete?' : 'Are you sure you want to delete this article?' %>" data-title='Confirm Deletion' data-commit='Yes do it!' data-cancel='Not really!'  class='delete-speech' style="color:#61318f;padding-left:6px;" id="delete-btn">
+																											<a href="/voice-reader-studio/articles/<%=speech.hashid%>?pg=list-articles" data-method="delete" data-confirm="<%= speech.published? ? 'This article is already published. Are you sure you want to delete?' : 'Are you sure you want to delete this article?' %>" data-title='Confirm Deletion' data-commit='Yes do it!' data-cancel='Not really!'  class='delete-speech' style="color:#484848;padding-left:6px;" id="delete-btn">
 																												<i class="fas fa-trash-alt" data-toggle="tooltip" data-placement="top" title="Delete"></i></a>
 																										<% end %>
 																									</td>
