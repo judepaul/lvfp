@@ -199,6 +199,30 @@ input[type="text"], textarea, select {
     cursor: pointer;
 }
 
+/* Tooltip CSS starts here */
+
+.tooltip-inner {
+  background-color:#f7882f!important;
+  /*!important is not necessary if you place custom.css at the end of your css calls. For the purpose of this demo, it seems to be required in SO snippet*/
+  color: #000;
+}
+.tooltip.top .tooltip-arrow {
+  border-top-color: #f7882f!important;
+}
+
+.tooltip.right .tooltip-arrow {
+  border-right-color: #f7882f!important;
+}
+
+.tooltip.bottom .tooltip-arrow {
+  border-bottom-color: #f7882f!important;
+}
+
+.tooltip.left .tooltip-arrow {
+  border-left-color: #f7882f!important;
+}
+
+/* Tooltip CSS ends here */
 
 // Bootstrap overridden
 .btn-primary {
