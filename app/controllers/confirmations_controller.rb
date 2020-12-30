@@ -5,7 +5,6 @@ class ConfirmationsController < Devise::ConfirmationsController
 
   def create
     email = params[:user][:email]
-    p User.exists?(email: email)
     if User.exists?(email: email)
       p "resource_class.send_confirmation_instructions(resource_params)"
       p resource_class.send_confirmation_instructions(resource_params)
@@ -13,14 +12,13 @@ class ConfirmationsController < Devise::ConfirmationsController
       yield resource if block_given?
 
       if successfully_sent?(resource)
-        respond_with({}, location: after_resending_confirmation_instructions_path_for(resource_name))
+        respond_with({}, location: after_resending_confirmation_instructions_path_for(resource))
       else
         respond_with(resource)
       end
     elsif User.where(email: email).where( "confirmation_token IS NULL " ).present?
       redirect_to new_user_confirmation_path, notice: "No matching email address found." 
     else
-      p "@@@@"
       redirect_to new_user_confirmation_path, notice: "No matching email address found." 
     end
   end
@@ -43,7 +41,9 @@ class ConfirmationsController < Devise::ConfirmationsController
 
       if resource.valid? && resource.password_match?
         self.resource.confirm
-        set_flash_message :notice, :confirmed
+        #set_flash_message :notice, "You are all set. You already confirmed your account sometime in the past. Go ahead and sign in."
+        set_flash_message(:notice, "You are all set. You already confirmed your account sometime in the past. Go ahead and sign in.")
+        
         sign_in_and_redirect resource_name, resource
       else
         render :action => 'show'

@@ -37,7 +37,7 @@ class RegistrationsController < Devise::RegistrationsController
     end
     
     def instructions
-      
+      p "resource => #{params}"
     end
       
     protected 

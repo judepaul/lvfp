@@ -1,12 +1,16 @@
 <p><h1>Thanks for signing up!</h1></p>
 <p>Hello!</p>
-
-    <p> Thanks for your interest in Voice Reader. We are a small team of voice experience designers and developers. We firmly believe in the power and vision of VoiceFirst technology and have develop Voice Reader with that in mind only. </p>
+<p></p>
+    <p> We are a team of VUI (voice user interface) designers and developers who firmly believe in the power and vision of VoiceFirst technology. Voice Reader provides intuitive browser based tools and services that can make your email newsletters, campaigns, articles and message accessible to your end users via VoiceFirst devices (like Alexa and Google home). </p>
     <p></p>
-    <p>You can confirm your account email through the link below:</p>
+	<p>You are signing up with the username - <%= @resource.username %> and email - <%= @resource.email %> </p>
+	<p></p>
+    <p>	Thanks for your interest in Voice Reader service. Please click the link below to confirm your account:</p>
     <p></p>
 	<p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
 	<p></p>
-    <p> We can't wait to hear your ideas and thoughts about how you envision using Voice Reader in your business, processes and company. Please reply to this email with questions, comments, ideas - we read and discuss each email. </p>
+	<p>Your username is <%= @resource.username %>. </p>
+	<p></p>
+    <p> We welcome your feedback and ideas for how you think Voice Reader can be used in your business, processes and daily tasks. Please reply to this email with questions and comments - we read and discuss each email. </p>
     <p>--</p>
     <p>Voice Reader Support Team</p>
