@@ -37,7 +37,7 @@ class RegistrationsController < Devise::RegistrationsController
     end
     
     def instructions
-      p "resource => #{params}"
+      @user = User.find_by_hashid(params[:user])
     end
       
     protected 
@@ -47,6 +47,6 @@ class RegistrationsController < Devise::RegistrationsController
     end
     
     def after_inactive_sign_up_path_for(resource)
-        auth_signup_instructions_path
+        auth_signup_instructions_path({user: resource})
       end
 end

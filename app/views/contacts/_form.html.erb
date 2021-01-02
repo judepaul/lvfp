@@ -59,3 +59,13 @@
               </div>
 </main>
 <div class="row" style="padding-bottom:60px;"></div>
+<script text="text/javascript">
+	$('form').on('submit', function(e) {
+	  if(grecaptcha.getResponse() == "") {
+	    e.preventDefault();
+	    alert("Please confirm captcha to proceed!");
+	  } else {
+	    //alert("Thank you");
+	  }
+	});
+</script>

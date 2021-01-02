@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
   end
                 
   def after_sign_up_path_for(resource)
-    show_cities_path(resource)
+    
   end 
     
   protected

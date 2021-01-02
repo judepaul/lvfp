@@ -10,16 +10,15 @@
 							<!-- <img src="/assets/thank-you-text.png" width="180" height="40" alt="Success"> -->
 							<i class="fas fa-praying-hands fa-4x"></i>
 							<br/>
-							<h1><b>Thank You!</b></h1>
+							<h1><b><%= !@user.blank? ? "#{@user.username} thanks for your interest!" : "" %></h1>
 	
 						</div>
 						<div class="container text-left" style="padding:30px!important;">
-							<h5>You will receive an email from <b>hello@launchvoicereader.com</b> in few minutes. </h5>
-							<h5>In the email click the CONFIRM button to validate your signup request.
-							Make sure to check your spam box in case it got filtered.</h5>
-							<br/>
+							<p><%#= !@user.blank? ? "Hello #{@user.username}!" : "" %></p>
+							<p>You are signing up with the username - <%= !@user.blank? ? "#{@user.username}" : "" %> and email - <%= !@user.blank? ? "#{@user.email}" : "" %></p>
+							<p>You will receive an email from <a href="mailto:hello@launchvoicereader.com">hello@launchvoicereader.com</a>  in few minutes. In the email click the CONFIRM button to validate your signup request. Make sure to check your spam box in case it got filtered. </p>
 							<div class="row" style="padding-top:10px!important;">
-								Did not received confirmation email? <a href="/verification/new" style="padding:0 12px 0 3px;text-decoration:none;"> Resend </a>
+								Did not receive confirmation email? <a href="/verification/new" style="padding:0 12px 0 3px;text-decoration:none;"> Resend </a>
 							</div>
 
 						</div>
