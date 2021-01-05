@@ -10,7 +10,7 @@
 							<!-- <img src="/assets/thank-you-text.png" width="180" height="40" alt="Success"> -->
 							<i class="fas fa-praying-hands fa-4x"></i>
 							<br/>
-							<h1><b><%= !@user.blank? ? "#{@user.username} thanks for your interest!" : "" %></h1>
+							<h1><b><%= !@user.blank? ? "#{@user.username.titlecase} thanks for your interest!" : "" %></h1>
 	
 						</div>
 						<div class="container text-left" style="padding:30px!important;">
