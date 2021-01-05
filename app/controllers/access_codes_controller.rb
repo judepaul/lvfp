@@ -45,7 +45,7 @@ class AccessCodesController < ApplicationController
       if @access_code.save
         @access_code.update_attributes(user_id: current_user.id, listener_id: @listener.id)
         # format.html { redirect_to new_speech_path, notice: 'Group was successfully created. Now you can add new articles into it' }
-        format.html { redirect_to new_speech_path("campaign": @access_code.id, pg: "campaign_create") }
+        format.html { redirect_to new_speech_path("campaign": @access_code.hashid, pg: "campaign_create") }
         format.json { render :show, status: :created, location: @access_code }
       else
         format.html { render :new }

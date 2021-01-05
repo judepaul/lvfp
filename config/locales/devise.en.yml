@@ -8,3 +8,6 @@
         registrations:
           user:
             signed_up_first_time: "Welcome to Launch Voice Reader Portal. Creating new campaign will generate an access code for your subscribers. Ask them to use this code while invoke the skill from Voice enabled devices."
+        mailer:
+          confirmation_instructions:
+            subject: 'Email Verification Instructions'
