@@ -3,8 +3,7 @@
   <!-- Remove the outline - 07/16/2020 - by Jude -->
   <!-- <div class="container-fluid px-0" style="border:1px solid #E9ECEF;"> -->
 <div class="row" style="height:20px;"></div>
-<% p "@@@ #{@speech_access_code}" %>
-<span class="heading" style="padding-left:120px;">Create/Edit Article - <%= !params[:campaign].blank? ? campaign_name(params[:campaign]) : "#{@speech_access_code.title.titlecase}" %> Campaign </span>
+<span class="heading" style="padding-left:120px;">Create/Edit Article</span>
 
   <div class="container-fluid px-0">
     <div class="row no-gutters">
@@ -22,7 +21,18 @@
                 <% end %>
               <% end %>            
             <div class="row" style="height:30px;"></div>
-            
+
+            <div class="form-group row">
+              <div class="mt-1 col-md-3 offset-md-1">
+                <span class="label-text">Campaign</span>
+              </div>
+              <div class="col-md-7">
+	            <span class="col-md-4 text-black table-heading pl-0">
+	              <%= !params[:campaign].blank? ? campaign_name(params[:campaign]) : "#{@speech_access_code.title.titlecase}" %>
+	            </span>
+              </div>
+            </div>
+            <div class="row" style="height:30px;"></div>
             <div class="form-group row">
               <div class="mt-1 col-md-3 offset-md-1">
                 <span class="label-text">Status</span>
@@ -94,7 +104,7 @@
 			
             <div class="form-group row">
               <div class="mt-1 col-md-3 offset-md-1">
-                <span class="label-text">Sub title</span> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Title of the article which the skill user will hear before the main content"><%#= image_tag("/assets/icon-info.png") %></span>
+                <span class="label-text">Sub-Title</span> <span style="cursor: pointer;" class="show" data-toggle="tooltip" title="Title of the article which the skill user will hear before the main content"><%#= image_tag("/assets/icon-info.png") %></span>
               </div>
               <div class="col-md-7">
                 <%= form.text_field :title, id: :article_title, class: 'form-control', value: "#{!@speech.blank? ? @speech.title : ""}", required: false, placeholder: 'Sub-title - [Optional]', readonly: @speech.published? ? true : false %>
@@ -202,7 +212,7 @@
 				  <span style="padding-left:5px;"></span>
               <% end %>
               <% if @speech.new_record? %>
-                <%= form.submit 'Submit', id: 'save_content', class:"btn btn-primary", style:"padding:8px!important;" %>
+                <%= form.submit 'Save', id: 'save_content', class:"btn btn-primary", style:"padding:8px!important;" %>
 				<span style="padding-left:5px;"></span>
 				<span style="padding-left:5px;"></span>
                 <%= form.submit 'Publish', id: 'publish_content', class:"btn btn-primary", disabled: true, style:"padding:8px !important;" %>
@@ -233,7 +243,7 @@
 		  <div class="form-group row px-5 py-1">
 			  <% unless @speech.new_record? %>
 			  <p style="padding:0 60px 0 60px; font-size:14px;"><strong>Note:</strong><br/>
-				  The play-pause function is to give you an idea for how the content will sound in the skill on a smart speaker. Here play-pause button can only play the text that is in the content field, however on the device all of the following - Title, Intro, Content and Outro will play.</p>
+				  The play-pause function is to give you an idea for how the content will sound in the skill on a smart speaker. Here play-pause button can only play the text that is in the content field, however on the device all of the following - title, sub-title, content, jingles will play.</p>
 			  <% end %>
 			  </div>          
         </div> <!-- card ends here -->
