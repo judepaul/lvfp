@@ -149,7 +149,7 @@ $(document).ready(function () {
         //Campaign Validation
         $("#save_content").click(function(){
 			article_name = $("#article_name").val();
-            access_code_title = $("#article_title").val();
+            //access_code_title = $("#article_title").val();
             acc_code_id = $("#acc_code_id").val();
 			add_speech_content = $("#add_speech_content").val();
             var msg = "";
@@ -161,13 +161,13 @@ $(document).ready(function () {
             }else{
                 $("#article_name").css("border","none");
             }
-            if(access_code_title.length <= 0){
-                msg += "Please enter the article title";
-				msg += newLine;
-                $("#article_title").css("border-color","red");
-            }else{
-                $("#article_title").css("border","none");
-            }
+				//             if(access_code_title.length <= 0){
+				//                 msg += "Please enter the article title";
+				// msg += newLine;
+				//                 $("#article_title").css("border-color","red");
+				//             }else{
+				//                 $("#article_title").css("border","none");
+				//             }
             if(add_speech_content.length <= 0){
                 msg += "Please enter the article content";
 				msg += newLine;

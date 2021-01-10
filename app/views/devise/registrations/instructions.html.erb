@@ -18,7 +18,8 @@
 							<p>You have signed up with: <br/> username - <%= !@user.blank? ? "#{@user.username}" : "" %> and email - <%= !@user.blank? ? "#{@user.email}" : "" %></p>
 							<p>You will receive an email from <a href="mailto:hello@launchvoicereader.com">hello@launchvoicereader.com</a>  in few minutes. In the email click the CONFIRM button to validate your signup request. Make sure to check your spam box in case it got filtered. </p>
 							<div class="row" style="padding-top:10px!important;">
-								Did not receive confirmation email? <a href="/verification/new" style="padding:0 12px 0 3px;text-decoration:none;"> Resend </a>
+								Did not receive confirmation email? <!-- <a href="/verification/new" style="padding:0 12px 0 3px;text-decoration:none;"> Resend </a> -->
+								<%= link_to('resend', user_confirmation_path(email: !@user.blank? ? @user.email : ""), :method => :post)                     %>
 							</div>
 
 						</div>

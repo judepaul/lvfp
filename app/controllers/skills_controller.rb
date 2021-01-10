@@ -45,8 +45,9 @@ class SkillsController < ApplicationController
   ACCESS_CODE_NOT_FOUND_REPROMPT_MESSAGE = 'Try with another access code exists in voice reader studio'
   CANCEL_MESSAGE = 'Thanks for listening, come back soon'
   STOP_MESSAGE = 'Okay see you later'
-  HELP_MESSAGE = 'Sure!. Here are the things I can help you with, you can say <break strength="strong" /> Add new subscription to do <break strength="strong" /> or <break strength="strong" /> cancel to exit'
-  FALLBACK_MESSAGE = 'I am sorry, I cant help you with that. <break strength="strong" /> I can help you to play articles for an access code or list access codes. <break strength="strong" /> What can I help you with?'
+  HELP_MESSAGE = 'Sure!. Here are the things I can help you with, you can <break strength="strong" /> add new subscription by saying, ask voice reader for, with your campaign code <break strength="strong" /> or <break strength="strong" /> cancel to exit'
+  #FALLBACK_MESSAGE = 'I am sorry, I cant help you with that. <break strength="strong" /> I can help you to play articles for an access code or list access codes. <break strength="strong" /> What can I help you with?'
+  FALLBACK_MESSAGE = 'I am sorry, I cant help you with that. <break strength="strong" /> I can help you with, you can <break strength="strong" /> add new subscription by saying, ask voice reader for, with your campaign code <break strength="strong" /> or <break strength="strong" /> cancel to exit'
   
   def index
   end
@@ -168,7 +169,8 @@ class SkillsController < ApplicationController
         #New intents for Add, Play and list articles
       when 'AddCampaignIntent'
         access_code = input.slots["subscription_code"]["value"]
-        access_code_id = AccessCode.where(code: access_code).last.id
+        accesscode = AccessCode.where(code: access_code).last
+        access_code_id = accesscode.id unless accesscode.blank?
         if AccessCode.pluck(:code).include? access_code.to_i
           audiance = Audiance.create(voice_user_id: voice_user_id)
           device = Device.create(audiance_id:  audiance.id, device_id: device_id)
@@ -234,7 +236,8 @@ class SkillsController < ApplicationController
       when 'PlayIntent'
         code = input.slots["access_code"]["value"]
         unless code.blank?
-          access_code_id = AccessCode.where(code: code).last.id
+          accesscode = AccessCode.where(code: code).last
+          access_code_id = AccessCode.where(code: code).last.id unless accesscode.blank?
           reprompt_message = ''
           session_end = false
           if access_code_id.blank?

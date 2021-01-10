@@ -39,7 +39,8 @@ class ConfirmationsController < Devise::ConfirmationsController
       self.resource = resource_class.find_by_confirmation_token! @original_token
       resource.assign_attributes(permitted_params) unless params[resource_name].nil?
 
-      if resource.valid? && resource.password_match?
+      #if resource.valid? && resource.password_match?
+      if resource.valid?
         self.resource.confirm
         #set_flash_message :notice, "You are all set. You already confirmed your account sometime in the past. Go ahead and sign in."
         set_flash_message(:notice, "You are all set. You already confirmed your account sometime in the past. Go ahead and sign in.")
